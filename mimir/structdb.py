@@ -47,8 +47,13 @@ def build_spec(flow_dir: Path, info: dict[str, Any], scrub: Scrubber, name: str)
     of one setup share one config."""
     top = str(info["top"])
 
+    files = sorted((scrub.text(str(f)) for f in info["design_files"]), key=len, reverse=True)
+
     def norm(text: str) -> str:
-        t = scrub.text(text).replace(top, "<design>")
+        t = scrub.text(text)
+        for f in files:
+            t = t.replace(f, "<design_file>")
+        t = t.replace(top, "<design>")
         return t.replace(scrub.text(str(flow_dir)), "<out>")
 
     odin_line = _first_line(next(flow_dir.glob("odin3/odin3.log")))

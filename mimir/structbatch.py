@@ -6,6 +6,7 @@ is skipped. Each design is one heavy-run call. Spec: docs/specs/2026-10-27-mimir
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import shutil
@@ -51,15 +52,23 @@ def _call(argv: list[str]) -> int:
     return subprocess.run(argv, check=False).returncode
 
 
+def finished(out: Path) -> bool:
+    """True when `out` holds a finished run (`mimir-run.json` with ok) to import again."""
+    try:
+        return bool(json.loads((out / "mimir-run.json").read_text(encoding="utf-8"))["ok"])
+    except (OSError, ValueError, KeyError):
+        return False
+
+
 def one(py: str, heavy: str, tree: Path, db: Path, work: Path, slug: str, suite: str,
-        path: Path, extra: list[str]) -> str:
+        path: Path, extra: list[str], reuse: bool = False) -> str:
     name = path.stem
     out = work / name
     top = find_top(path)
     flow = ["flock", "-x", NORNS_LOCK, heavy, py, "-m", "mimir.structrun", "--tree", str(tree),
             "--odin3", str(tree / "build/release/odin3"), "--top", top, "--out", str(out),
             str(path)]
-    if _call(flow) != 0:
+    if not (reuse and finished(out)) and _call(flow) != 0:
         return f"{slug}: flow failed"
     base = [py, "-m", "mimir.structcli"]
     imp = [*base, "import-flow", str(db), "--flow-dir", str(out), "--slug", slug, "--name", name,
@@ -83,6 +92,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     ap.add_argument("--slug-prefix", required=True)
     ap.add_argument("--heavy-run", required=True)
     ap.add_argument("--blobs")
+    ap.add_argument("--reuse", action="store_true", help="import a finished flow dir, do not rerun")
     ap.add_argument("designs", nargs="+", type=Path)
     ns = ap.parse_args(argv)
     extra = ["--blobs", ns.blobs] if ns.blobs else []
@@ -95,7 +105,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if free_gb() < MIN_FREE_GB:
             print(f"stop: /mnt/c has {free_gb():.1f} GB free")
             return 3
-        print(one(py, ns.heavy_run, ns.tree, ns.db, ns.work, slug, ns.suite, path, extra),
+        print(one(py, ns.heavy_run, ns.tree, ns.db, ns.work, slug, ns.suite, path, extra, ns.reuse),
               flush=True)
     return 0
 
