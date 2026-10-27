@@ -8,7 +8,14 @@ import sqlite3
 from collections.abc import Iterable, Iterator
 from pathlib import Path
 
-from mimir.schema import COLUMNS, KEY_COLUMNS, SCHEMA_VERSION, Record, check_record
+from mimir.schema import (
+    COLUMNS,
+    KEY_COLUMNS,
+    SCHEMA_VERSION,
+    V2_DDL,
+    Record,
+    check_record,
+)
 
 _SQL_TYPES = {"seed": "INTEGER", "value": "REAL"}
 _LINE_SUFFIX = re.compile(r":\d+$")
@@ -37,16 +44,37 @@ class Store:
         self.db.execute(
             "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)"
         )
-        self.db.execute(
-            "INSERT OR IGNORE INTO meta VALUES ('schema_version', ?)", (str(SCHEMA_VERSION),)
-        )
         self.db.commit()
-        self._check_version()
+        self._open_version()
 
-    def _check_version(self) -> None:
+    def _open_version(self) -> None:
+        """Set the version of a new store, migrate a v1 store, refuse any other version."""
         row = self.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
-        if row is None or int(row[0]) != SCHEMA_VERSION:
-            raise ValueError(f"{self.path}: schema version {row} is not {SCHEMA_VERSION}")
+        if row is None:
+            self._upgrade(new=True)
+        elif row[0] == "1":
+            self._upgrade(new=False)
+        elif row[0] != str(SCHEMA_VERSION):
+            raise ValueError(f"{self.path}: schema version {row[0]} is not {SCHEMA_VERSION}")
+        else:
+            self._upgrade(new=None)
+
+    def _upgrade(self, new: bool | None) -> None:
+        """Create the v2 tables and set the version in one transaction. `records` is not touched.
+        With new=None the store is already v2: only the IF NOT EXISTS statements run."""
+        try:
+            self.db.execute("BEGIN")
+            for stmt in V2_DDL:
+                self.db.execute(stmt)
+            if new is not None:
+                self.db.execute(
+                    "INSERT OR REPLACE INTO meta VALUES ('schema_version', ?)",
+                    (str(SCHEMA_VERSION),),
+                )
+            self.db.commit()
+        except BaseException:
+            self.db.rollback()
+            raise
 
     def close(self) -> None:
         self.db.close()
