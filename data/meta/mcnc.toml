@@ -33,9 +33,18 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15; slif .date 1991-01-03"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/alu4.edif, blif/alu4.blif, tv/alu4.tv, pla/alu4.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:25:01 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "14 in / 8 out (BLIF .inputs/.outputs); PLA twin header .p 1028 product terms"
+stated_counts_src = "lgsynth91-7z LGSynth91/blif/alu4.blif lines 2-3; pla/alu4.pla lines 1-3"
+stated_counts_conf = "primary"
+original_header = ".model alu4_cl\n.inputs a b c d e f g h i j k l m n\n.outputs o p q r s t u v"
+original_header_src = "lgsynth91-7z LGSynth91/blif/alu4.blif lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -70,10 +79,19 @@ institution_conf = "missing"
 year = "1988"
 year_src = "lgsynth89-txt dated 1988-12-16"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/apex2.edif, blif/apex2.blif, tv/apex2.tv, pla/apex2.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:25:12 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "39 in / 3 out / 1035 product terms (.i .o .p)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/apex2.pla lines 1-3"
+stated_counts_conf = "primary"
+original_header = ".i 39\n.o 3\n.p 1035"
+original_header_src = "lgsynth91-7z LGSynth91/pla/apex2.pla lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -108,10 +126,19 @@ institution_conf = "missing"
 year = "1988"
 year_src = "lgsynth89-txt dated 1988-12-16"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/apex4.edif, blif/apex4.blif, tv/apex4.tv, pla/apex4.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:25:18 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "9 in / 19 out / 438 product terms (.i .o .p)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/apex4.pla lines 1-3"
+stated_counts_conf = "primary"
+original_header = ".i 9\n.o 19\n.p 438"
+original_header_src = "lgsynth91-7z LGSynth91/pla/apex4.pla lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -146,9 +173,18 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/bigkey.edif, blif/bigkey.blif, tv/bigkey.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:25:40 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "262 in / 197 out / 224 latches (header comments); guide s3.2 table p.8 says 221 latches"
+stated_counts_src = "lgsynth91-7z LGSynth91/blif/bigkey.blif lines 1-3; yang91 s3.2"
+stated_counts_conf = "primary"
+original_header = "## inputs 262\n## outputs 197\n## latches 224"
+original_header_src = "lgsynth91-7z LGSynth91/blif/bigkey.blif lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -183,9 +219,19 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/clma.edif, blif/clma.blif, tv/clma.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:33:43 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "382 in / 82 out / 33 latches (header comments)"
+stated_counts_src = "lgsynth91-7z LGSynth91/blif/clma.blif lines 1-3"
+stated_counts_conf = "primary"
+original_header = "## inputs 382\n## outputs 82\n## latches 33\n#BLIF description from BULL FSM/BLIF-Translator(c)"
+original_header_src = "lgsynth91-7z LGSynth91/blif/clma.blif lines 1-3 and 6"
+original_header_conf = "primary"
+institution_note = "clma.blif header says \"BLIF description from BULL FSM/BLIF-Translator(c)\": a translator credit, not a statement of who designed the circuit (lgsynth91-7z LGSynth91/blif/clma.blif line 6)"
 lineage = [
   { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -220,9 +266,15 @@ institution_conf = "missing"
 year = "1988"
 year_src = "lgsynth89-txt dated 1988-12-16"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/des.edif, blif/des.blif, tv/des.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:34:27 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model DES"
+original_header_src = "lgsynth91-7z LGSynth91/blif/des.blif line 1"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -242,25 +294,32 @@ original_file_conf = "primary"
 original_format = "SLIF (Stanford Structure/Logic Intermediate Format) logic-level netlist, .date 1991-01-04, with hand-made simulation pattern file"
 original_format_src = "lgsynth91-7z slif/hlexamples/diffeq.slif header; slif/README"
 original_format_conf = "primary"
-intent = "Differential equation solver (pattern file loads x, y, dx, a, u; iterates). Hutton lists a circuit \"dieq\" as \"differential eqn solver\"; identity of dieq with diffeq not confirmed"
-intent_src = "lgsynth91-7z slif/hlexamples/sim/diffeq.pat; hutton97 Table 4.2 p.55"
-intent_conf = "inferred"
+intent = "Differential Equation Solver (HLSynth91 Stanford benchmark list: \"diffeq Differential Equation Solver\"); the SLIF pattern file loads x, y, dx, a, u and iterates. Hutton lists a circuit \"dieq\" as \"differential eqn solver\""
+intent_src = "hls91-benchdoc (Stanford set list); hls91-stanford (suite as of July 20, 1990); earlier: lgsynth91-7z slif/hlexamples/sim/diffeq.pat; hutton97 Table 4.2 p.55 (conf was inferred)"
+intent_conf = "primary"
 function_class = "dsp"
-function_class_src = "numeric datapath solver; class assigned by lane from inferred intent"
-function_class_conf = "inferred"
+function_class_src = "mapped from the stated intent \"Differential Equation Solver\" (hls91-benchdoc); class mapping is the lane's"
+function_class_conf = "primary"
 author = ""
 author_src = ""
 author_conf = "missing"
-institution = ""
-institution_src = ""
-institution_conf = "missing"
-year = "1991 (SLIF file date); HL workshop suite year not verified"
-year_src = "lgsynth91-7z slif .date 910104"
+institution = "Stanford University (Olympus Synthesis System, July 1990; the Stanford HLS benchmark set was provided by Giovanni De Micheli)"
+institution_src = "hls91-benchdoc (\"The second set comes from Giovanni De Micheli at Stanford\"); hls91-stanford (\"Olympus Synthesis System, Stanford University, July 1990\"); yang91 s1 acknowledgements (De Micheli, Stanford); lgsynth91-7z slif/README"
+institution_conf = "primary"
+year = "1990 (Stanford HLS suite list as of 1990-07-20); SLIF files dated 1991-01-04"
+year_src = "hls91-stanford (\"High-Level Synthesis benchmarks suite as of July 20, 1990\"); hls91-benchdoc (as of July 30, 1990); earlier: lgsynth91-7z slif .date 910104"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/diffeq.edif, blif/diffeq.blif, tv/diffeq.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:34:46 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model diffeq ;\n.date 910104115923 ;\t# January 4 1991, 11:59.23"
+original_header_src = "lgsynth91-7z LGSynth91/slif/hlexamples/diffeq.slif lines 2 and 4"
+original_header_conf = "primary"
+author_note = "Set provided by Giovanni De Micheli at Stanford (hls91-benchdoc); no source names the designer of this circuit"
 lineage = [
-  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
-  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 1, tool = "original", script = "HL-workshop behavioral design (HardwareC .hc at Stanford Olympus: Hercules to SIF, Hebe to SLIF) realised as SLIF logic netlist (Jan 1991)", src = "lgsynth91-7z slif/README; hls91-stanford (HardwareC, Hercules, SIF, Hebe, SLIF flow; suite of 10 as of July 20, 1990); hls91-benchdoc", conf = "primary" },
+  { step = 2, tool = "unknown: SLIF to BLIF/SIS input (behavior to SLIF is documented in step 1; the SLIF distribution says Mercury has a built-in link to misII, use for these files not stated)", script = "", src = "lgsynth91-7z slif/README", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -295,9 +354,18 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/dsip.edif, blif/dsip.blif, tv/dsip.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:34:59 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "228 in / 197 out / 224 latches (header comments)"
+stated_counts_src = "lgsynth91-7z LGSynth91/blif/dsip.blif lines 1-3"
+stated_counts_conf = "primary"
+original_header = "## inputs 228\n## outputs 197\n## latches 224"
+original_header_src = "lgsynth91-7z LGSynth91/blif/dsip.blif lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -317,8 +385,8 @@ original_file_conf = "primary"
 original_format = "SLIF logic-level netlist, .date 1991-01-04 and a 1991-01-09 revision; hand-made pattern file"
 original_format_src = "lgsynth91-7z slif header"
 original_format_conf = "primary"
-intent = "Elliptic filter (pattern file header \"elliptic filter input patterns\", loads 8 state registers inp, sv2, sv13, sv18, sv26, sv33, sv38, sv39). Hutton labels it \"elliptic eqn solver\" (differs)"
-intent_src = "lgsynth91-7z slif/hlexamples/sim/elliptic.pat; hutton97 Table 4.2"
+intent = "Fifth Order Elliptic Filter (HLSynth91 Stanford benchmark list); pattern file header \"elliptic filter input patterns\", loads 8 state registers inp, sv2, sv13, sv18, sv26, sv33, sv38, sv39. Hutton labels it \"elliptic eqn solver\" (differs)"
+intent_src = "hls91-benchdoc; hls91-stanford; lgsynth91-7z slif/hlexamples/sim/elliptic.pat; hutton97 Table 4.2"
 intent_conf = "primary"
 function_class = "dsp"
 function_class_src = "mapped from \"elliptic filter\""
@@ -326,16 +394,23 @@ function_class_conf = "primary"
 author = ""
 author_src = ""
 author_conf = "missing"
-institution = ""
-institution_src = ""
-institution_conf = "missing"
-year = "1991 (SLIF file date); HL workshop suite year not verified"
-year_src = "lgsynth91-7z slif .date 910104/910109"
+institution = "Stanford University (Olympus Synthesis System, July 1990; the Stanford HLS benchmark set was provided by Giovanni De Micheli)"
+institution_src = "hls91-benchdoc (\"The second set comes from Giovanni De Micheli at Stanford\"); hls91-stanford (\"Olympus Synthesis System, Stanford University, July 1990\"); yang91 s1 acknowledgements (De Micheli, Stanford); lgsynth91-7z slif/README"
+institution_conf = "primary"
+year = "1990 (Stanford HLS suite list as of 1990-07-20); SLIF files dated 1991-01-04"
+year_src = "hls91-stanford (\"High-Level Synthesis benchmarks suite as of July 20, 1990\"); hls91-benchdoc (as of July 30, 1990); earlier: lgsynth91-7z slif .date 910104/910109"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/elliptic.edif, blif/elliptic.blif, tv/elliptic.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:36:31 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model elliptic ;\n.date 910104120048 ;\t# January 4 1991, 12:00.48"
+original_header_src = "lgsynth91-7z LGSynth91/slif/hlexamples/elliptic.slif lines 2 and 4"
+original_header_conf = "primary"
+author_note = "Set provided by Giovanni De Micheli at Stanford (hls91-benchdoc); no source names the designer of this circuit"
 lineage = [
-  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
-  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 1, tool = "original", script = "HL-workshop behavioral design (HardwareC .hc at Stanford Olympus: Hercules to SIF, Hebe to SLIF) realised as SLIF logic netlist (Jan 1991)", src = "lgsynth91-7z slif/README; hls91-stanford (HardwareC, Hercules, SIF, Hebe, SLIF flow; suite of 10 as of July 20, 1990); hls91-benchdoc", conf = "primary" },
+  { step = 2, tool = "unknown: SLIF to BLIF/SIS input (behavior to SLIF is documented in step 1; the SLIF distribution says Mercury has a built-in link to misII, use for these files not stated)", script = "", src = "lgsynth91-7z slif/README", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -370,10 +445,19 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15 (first listing found)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/ex1010.edif, blif/ex1010.blif, tv/ex1010.tv, pla/ex1010.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:37:00 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "10 in / 10 out (.i .o; no .p line)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/ex1010.pla lines 1-2"
+stated_counts_conf = "primary"
+original_header = ".i 10\n.o 10"
+original_header_src = "lgsynth91-7z LGSynth91/pla/ex1010.pla lines 1-2"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -388,8 +472,8 @@ suite = "LGSynth91"
 suite_src = "yang91 s3.4 table, first-listed in v3.0 guide; absent from lgsynth89-txt"
 suite_conf = "primary"
 original_file = "pla/ex5.pla (guide row shows name \"ex5\"; VTR name ex5p matched by 8 in / 63 out / 256 terms)"
-original_file_src = "lgsynth91-7z listing; yang91 s3.4"
-original_file_conf = "inferred"
+original_file_src = "lgsynth91-7z listing; yang91 s3.4; iwls93-7z pla/ex5p.pla and blif/ex5p.blif exist under the name ex5p and the product-term lines of pla/ex5p.pla are identical to LGSynth91 pla/ex5.pla (256 lines, compared); earlier: VTR name matched by 8 in / 63 out / 256 terms"
+original_file_conf = "primary"
 original_format = "PLA (espresso/Berkeley PLA format), two-level; 8 in / 63 out / 256 product terms"
 original_format_src = "yang91 s3.4; lgsynth91-7z listing"
 original_format_conf = "primary"
@@ -408,10 +492,19 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15 (first listing found)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/ex5p.edif, blif/ex5p.blif, tv/ex5p.tv, pla/ex5p.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:37:09 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "8 in / 63 out (.i .o; no .p line)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/ex5.pla lines 1-2"
+stated_counts_conf = "primary"
+original_header = ".i 8\n.o 63"
+original_header_src = "lgsynth91-7z LGSynth91/pla/ex5.pla lines 1-2 (same product-term lines as iwls93-7z pla/ex5p.pla)"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -431,8 +524,8 @@ original_file_conf = "primary"
 original_format = "SLIF logic-level netlist, .date 1991-01-04; hand-made pattern file"
 original_format_src = "lgsynth91-7z slif header"
 original_format_conf = "primary"
-intent = "Small processor: pattern file runs an assembly program (pc, stack, interrupt service, external memory supplied by hand). Name expansion not stated"
-intent_src = "lgsynth91-7z slif/hlexamples/sim/frisc.pat comments"
+intent = "RISC Microprocessor (HLSynth91 Stanford benchmark list: \"frisc RISC Microprocessor\"); the pattern file runs an assembly program (pc, stack, interrupt service, external memory supplied by hand)"
+intent_src = "hls91-benchdoc; hls91-stanford; lgsynth91-7z slif/hlexamples/sim/frisc.pat comments"
 intent_conf = "primary"
 function_class = "cpu"
 function_class_src = "mapped from pattern-file description"
@@ -440,16 +533,23 @@ function_class_conf = "primary"
 author = ""
 author_src = ""
 author_conf = "missing"
-institution = ""
-institution_src = ""
-institution_conf = "missing"
-year = "1991 (SLIF file date)"
-year_src = "lgsynth91-7z slif .date 910104"
+institution = "Stanford University (Olympus Synthesis System, July 1990; the Stanford HLS benchmark set was provided by Giovanni De Micheli)"
+institution_src = "hls91-benchdoc (\"The second set comes from Giovanni De Micheli at Stanford\"); hls91-stanford (\"Olympus Synthesis System, Stanford University, July 1990\"); yang91 s1 acknowledgements (De Micheli, Stanford); lgsynth91-7z slif/README"
+institution_conf = "primary"
+year = "1990 (Stanford HLS suite list as of 1990-07-20); SLIF files dated 1991-01-04"
+year_src = "hls91-stanford (\"High-Level Synthesis benchmarks suite as of July 20, 1990\"); hls91-benchdoc (as of July 30, 1990); earlier: lgsynth91-7z slif .date 910104"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/frisc.edif, blif/frisc.blif, tv/frisc.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:37:52 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model frisc ;\n.date 910104114043 ;\t# January 4 1991, 11:40.43"
+original_header_src = "lgsynth91-7z LGSynth91/slif/hlexamples/frisc.slif lines 2 and 4"
+original_header_conf = "primary"
+author_note = "Set provided by Giovanni De Micheli at Stanford (hls91-benchdoc); no source names the designer of this circuit"
 lineage = [
-  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
-  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 1, tool = "original", script = "HL-workshop behavioral design (HardwareC .hc at Stanford Olympus: Hercules to SIF, Hebe to SLIF) realised as SLIF logic netlist (Jan 1991)", src = "lgsynth91-7z slif/README; hls91-stanford (HardwareC, Hercules, SIF, Hebe, SLIF flow; suite of 10 as of July 20, 1990); hls91-benchdoc", conf = "primary" },
+  { step = 2, tool = "unknown: SLIF to BLIF/SIS input (behavior to SLIF is documented in step 1; the SLIF distribution says Mercury has a built-in link to misII, use for these files not stated)", script = "", src = "lgsynth91-7z slif/README", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -484,10 +584,19 @@ institution_conf = "missing"
 year = "1988"
 year_src = "lgsynth89-txt dated 1988-12-16"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/misex3.edif, blif/misex3.blif, tv/misex3.tv, pla/misex3.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:38:26 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "14 in / 14 out / 1848 product terms (.i .o .p)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/misex3.pla lines 2-6"
+stated_counts_conf = "primary"
+original_header = ".i 14\n.o 14\n.ilb a b c d e f g h i j k l m n\n.ob r2 s2 t2 u2 n2 o2 p2 q2 h2 i2 j2 k2 m2 l2\n.p 1848"
+original_header_src = "lgsynth91-7z LGSynth91/pla/misex3.pla lines 2-6"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -522,10 +631,19 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15 (first listing found)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/pdc.edif, blif/pdc.blif, tv/pdc.tv, pla/pdc.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:39:48 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "16 in / 40 out (.i .o; no .p line)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/pdc.pla lines 1-2"
+stated_counts_conf = "primary"
+original_header = ".i 16\n.o 40"
+original_header_src = "lgsynth91-7z LGSynth91/pla/pdc.pla lines 1-2"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -545,8 +663,8 @@ original_file_conf = "inferred"
 original_format = "KISS2 FSM state table (3 in, 6 out, 218 states); ISCAS89 gate-level twin also distributed"
 original_format_src = "yang91 s3.1; lgsynth91-7z listing"
 original_format_conf = "inferred"
-intent = "Finite state machine \"from a PLD\" (Hutton Table 4.2); guide labels ISCAS89 s298 \"PLD\""
-intent_src = "hutton97 Table 4.2 p.55; yang91 s3.2 p.8"
+intent = "Finite state machine \"from a PLD\" (Hutton Table 4.2); guide labels ISCAS89 s298 \"PLD\". ISCAS89 paper p.1930 says of the ISCAS89 s298: \"traffic light controller\" and \"based on PLD devices\"; whether the KISS2 FSM version (this file) is the same circuit is not stated"
+intent_src = "hutton97 Table 4.2 p.55; yang91 s3.2 p.8; iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930)"
 intent_conf = "secondary"
 function_class = "fsm"
 function_class_src = "hutton97 and guide FSM table"
@@ -560,10 +678,19 @@ institution_conf = "inferred"
 year = "1989 (ISCAS89 tape); FSM version 1991 guide"
 year_src = "iscas89-notes; yang91"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/s298.edif, blif/s298.blif, tv/s298.tv, kiss2/s298.kiss2"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:40:07 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "3 in / 6 out / 1096 products / 218 states / reset state 00000000000000 (KISS2 header)"
+stated_counts_src = "lgsynth91-7z LGSynth91/kiss2/s298.kiss2 lines 1-5"
+stated_counts_conf = "primary"
+original_header = ".i 3\n.o 6\n.p 1096\n.s 218\n.r 00000000000000"
+original_header_src = "lgsynth91-7z LGSynth91/kiss2/s298.kiss2 lines 1-5"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "KISS2 FSM (inferred source)", src = "see original_file", conf = "inferred" },
   { step = 2, tool = "unknown FSM state assignment / logic synthesis to gate-level (VTR netlist has 8 latches for 218 states)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -575,34 +702,40 @@ lineage_gaps = 1
 vtr_file = "vtr_flow/benchmarks/blif/s38417.blif"
 vtr_rev = "3c9a4d23b2"
 suite = "ISCAS89 (via LGSynth91 s3.2 sequential multi-level table, function \"Logic\")"
-suite_src = "yang91 s3.2 p.9; yang91 s1 ack ISCAS85/ISCAS89 included; name match to ISCAS89 inferred"
-suite_conf = "inferred"
+suite_src = "yang91 s3.2 p.9; yang91 s1 ack ISCAS85/ISCAS89 included; ; iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) Table 1 lists s38417"
+suite_conf = "primary"
 original_file = "blif/s38417.blif, internal .model \"s38417.bench\" (also Verilog/smlexamples/s38417_orig.v)"
 original_file_src = "lgsynth91-7z listing and member header"
 original_file_conf = "primary"
 original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 28 in 106 out 1636 latches 22179 gates"
 original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
 original_format_conf = "primary"
-intent = ""
+intent = "Real-chip based circuit (paper: \"s9234, s13207, s15850, s38417, s38584 are real-chip based and rely on partial scan\"); function not stated (\"the functional descriptions are not available for most of the circuits\")"
 intent_note = "Not stated (guide function column says only \"Logic\")"
-intent_src = "yang91 s3.2 p.9"
-intent_conf = "missing"
+intent_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930); yang91 s3.2 p.8 (function column \"Logic\"); Table 1 row s38417: 28 in / 106 out / 1636 flip-flops / 22179 gates, equal to the file counts"
+intent_conf = "primary"
 function_class = ""
-function_class_note = "unknown"
+function_class_note = "unknown (real-chip based per the ISCAS89 paper; function not stated)"
 function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
 function_class_conf = "missing"
 author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
-author_src = "iscas89-notes; membership inferred by name and .bench model name"
-author_conf = "inferred"
+author_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) (benchmarks \"assembled from various netlist formats received from industrial and university sources\"); compilers, not designers"
+author_conf = "primary"
 institution = "MCNC (set distributor)"
-institution_src = "iscas89-notes"
-institution_conf = "inferred"
+institution_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) (MCNC)"
+institution_conf = "primary"
 year = "1989"
 year_src = "iscas89-notes (tape distributed May 1989)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/s38417.edif, blif/s38417.blif, tv/s38417.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:47:12 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model ../DATA/s38417.bench"
+original_header_src = "lgsynth91-7z LGSynth91/blif/s38417.blif line 1"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "ISCAS89 .bench netlist converted to BLIF (converter not named); LGSynth91 distribution", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -613,35 +746,41 @@ lineage_gaps = 0
 [circuit."s38584.1"]
 vtr_file = "vtr_flow/benchmarks/blif/s38584.1.blif"
 vtr_rev = "3c9a4d23b2"
-suite = "ISCAS89 (via LGSynth91 s3.2). Name suffix \".1\": guide footnote to rows s208.1, s420.1, s838.1, s9234.1, s13207.1, s15850.1, s38584.1 says these examples are corrected versions of the originals; see /bench.update (text partly dropped in extraction). ISCAS89 membership inferred from name"
-suite_src = "yang91 s3.2 p.9 footnote"
-suite_conf = "inferred"
+suite = "ISCAS89 (via LGSynth91 s3.2). Name suffix \".1\": guide footnote to rows s208.1, s420.1, s838.1, s9234.1, s13207.1, s15850.1, s38584.1 says these examples are corrected versions of the originals; see /bench.update (text partly dropped in extraction). ISCAS89 membership: Table 1 of the ISCAS89 paper lists s38584"
+suite_src = "yang91 s3.2 p.9 footnote; iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) Table 1 lists s38584"
+suite_conf = "primary"
 original_file = "blif/s38584.1.blif, internal .model \"s38584.1.bench\" (also Verilog/smlexamples/s38584.1_orig.v)"
 original_file_src = "lgsynth91-7z listing and member header"
 original_file_conf = "primary"
 original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 38 in 304 out 1426 latches 19253 gates; \".1\" marked with * in the guide"
 original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
 original_format_conf = "primary"
-intent = ""
+intent = "Real-chip based circuit (paper: \"s9234, s13207, s15850, s38417, s38584 are real-chip based and rely on partial scan\"); function not stated (\"the functional descriptions are not available for most of the circuits\")"
 intent_note = "Not stated (guide function column says only \"Logic\")"
-intent_src = "yang91 s3.2 p.9"
-intent_conf = "missing"
+intent_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930); yang91 s3.2 p.8 (function column \"Logic\"); the paper describes s38584 (12 in / 278 out / 1452 FF), this file is the corrected s38584.1 (guide footnote)"
+intent_conf = "primary"
 function_class = ""
-function_class_note = "unknown"
+function_class_note = "unknown (real-chip based per the ISCAS89 paper; function not stated)"
 function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
 function_class_conf = "missing"
 author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
-author_src = "iscas89-notes; membership inferred by name and .bench model name"
-author_conf = "inferred"
+author_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) (benchmarks \"assembled from various netlist formats received from industrial and university sources\"); compilers, not designers"
+author_conf = "primary"
 institution = "MCNC (set distributor)"
-institution_src = "iscas89-notes"
-institution_conf = "inferred"
+institution_src = "iscas89-paper (Brglez, Bryan, Kozminski, ISCAS'89, p.1930) (MCNC)"
+institution_conf = "primary"
 year = "1989"
 year_src = "iscas89-notes (tape distributed May 1989)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/s38584.1.edif, blif/s38584.1.blif, tv/s38584.1.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:52:20 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model s38584.1.bench"
+original_header_src = "lgsynth91-7z LGSynth91/blif/s38584.1.blif line 1"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "ISCAS89 .bench netlist converted to BLIF (converter not named); LGSynth91 distribution", src = "see original_file", conf = "primary" },
-  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -676,10 +815,19 @@ institution_conf = "missing"
 year = "1988"
 year_src = "lgsynth89-txt dated 1988-12-16"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/seq.edif, blif/seq.blif, tv/seq.tv, pla/seq.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:53:04 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "41 in / 35 out / 1459 product terms (.i .o .p)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/seq.pla lines 1-3"
+stated_counts_conf = "primary"
+original_header = ".i 41\n.o 35\n.p 1459"
+original_header_src = "lgsynth91-7z LGSynth91/pla/seq.pla lines 1-3"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -714,10 +862,19 @@ institution_conf = "missing"
 year = "1991"
 year_src = "yang91 dated 1991-01-15 (first listing found)"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/spla.edif, blif/spla.blif, tv/spla.tv, pla/spla.pla"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:54:02 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+stated_counts = "16 in / 46 out (.i .o; no .p line)"
+stated_counts_src = "lgsynth91-7z LGSynth91/pla/spla.pla lines 1-2"
+stated_counts_conf = "primary"
+original_header = ".i 16\n.o 46"
+original_header_src = "lgsynth91-7z LGSynth91/pla/spla.pla lines 1-2"
+original_header_conf = "primary"
 lineage = [
   { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
   { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
@@ -738,24 +895,31 @@ original_format = "SLIF logic-level netlist, .date 1991-01-04 and 1991-01-09 rev
 original_format_src = "lgsynth91-7z slif header"
 original_format_conf = "primary"
 intent = "Bus controller (Hutton Table 4.2: \"bus-controller\"). SLIF has 15 bidirectional 8-bit ports v1..v15, inputs reset and ready, output DN (done). Origin of the name \"tseng\" not found"
-intent_src = "hutton97 Table 4.2 p.55; lgsynth91-7z slif header"
+intent_src = "hutton97 Table 4.2 p.55; lgsynth91-7z slif header; hls91-benchdoc lists tseng only as \"Example from Tseng\" (no function stated)"
 intent_conf = "secondary"
 function_class = "control"
 function_class_src = "mapped from hutton97 \"bus-controller\""
 function_class_conf = "secondary"
-author = ""
-author_src = ""
-author_conf = "missing"
-institution = ""
-institution_src = ""
-institution_conf = "missing"
-year = "1991 (SLIF file date)"
-year_src = "lgsynth91-7z slif .date 910104"
+author = "Tseng (first name not given; listed as \"Example from Tseng\")"
+author_src = "hls91-benchdoc, hls91-stanford (\"tseng ... Example from Tseng\")"
+author_conf = "primary"
+institution = "Stanford University (Olympus Synthesis System, July 1990; the Stanford HLS benchmark set was provided by Giovanni De Micheli)"
+institution_src = "hls91-benchdoc (\"The second set comes from Giovanni De Micheli at Stanford\"); hls91-stanford (\"Olympus Synthesis System, Stanford University, July 1990\"); yang91 s1 acknowledgements (De Micheli, Stanford); lgsynth91-7z slif/README"
+institution_conf = "primary"
+year = "1990 (Stanford HLS suite list as of 1990-07-20); SLIF files dated 1991-01-04"
+year_src = "hls91-stanford (\"High-Level Synthesis benchmarks suite as of July 20, 1990\"); hls91-benchdoc (as of July 30, 1990); earlier: lgsynth91-7z slif .date 910104"
 year_conf = "primary"
+lgsynth93 = "LGSynth93 (IWLS'93 v4.0) release files edif/tseng.edif, blif/tseng.blif, tv/tseng.tv"
+lgsynth93_src = "iwls93-7z members; edif header (author \"David Rickel\") (program \"autologic\") (timeStamp 1993 2 0 16 45 4); blif header \"Written by e2fmt Thu Jul  1 17:54:44 1993\"; iwls93-doc s7 (EDIF conversion and test patterns by David Rickel); cbl-pages (CBL names the set LGSynth93)"
+lgsynth93_conf = "primary"
+original_header = ".model tseng ;\n.date 910104120511 ;\t# January 4 1991, 12:05.11"
+original_header_src = "lgsynth91-7z LGSynth91/slif/hlexamples/tseng.slif lines 2 and 4"
+original_header_conf = "primary"
+author_note = "Set provided by Giovanni De Micheli at Stanford (hls91-benchdoc); no source names the designer of this circuit"
 lineage = [
-  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
-  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
-  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 1, tool = "original", script = "HL-workshop behavioral design (HardwareC .hc at Stanford Olympus: Hercules to SIF, Hebe to SLIF) realised as SLIF logic netlist (Jan 1991)", src = "lgsynth91-7z slif/README; hls91-stanford (HardwareC, Hercules, SIF, Hebe, SLIF flow; suite of 10 as of July 20, 1990); hls91-benchdoc", conf = "primary" },
+  { step = 2, tool = "unknown: SLIF to BLIF/SIS input (behavior to SLIF is documented in step 1; the SLIF distribution says Mercury has a built-in link to misII, use for these files not stated)", script = "", src = "lgsynth91-7z slif/README", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept (script texts: SIS 1.2.1 sis/sis_lib/script.rugged sha256 53011e456a6c, script.algebraic sha256 c5d1debb2e1b; SIS version used for the VTR files not stated)", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"; sis-scripts (sis-1.2.1.tar.gz members, texts private)", conf = "primary" },
   { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
