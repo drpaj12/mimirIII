@@ -214,6 +214,17 @@ def _cmd_report(args: argparse.Namespace) -> int:
         p = f"{c / d:.3f}" if d else "-"
         r = f"{f / h:.3f}" if h else "-"
         print(f"{k}\t{d}\t{c}\t{p}\t{h}\t{f}\t{r}")
+    if args.l15:
+        from mimir.structl15 import compare as l15_compare
+
+        print("## L15 cross-check (units, stmt level): design, mimir units, mimir separable, "
+              "loki units, loki separable")
+        rows = l15_compare(store, Path(args.l15))
+        for row in rows:
+            print("\t".join(str(x) for x in row))
+        tot = (sum(w[1] for w in rows), sum(w[2] for w in rows), sum(w[3] for w in rows),
+               sum(w[4] for w in rows))
+        print("total\t" + "\t".join(str(x) for x in tot))
     return 0
 
 
@@ -273,6 +284,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("report", help="coverage tables and detector precision and recall")
     s.add_argument("db")
     s.add_argument("--prefix", default="")
+    s.add_argument("--l15", help="directory with the Loki round-6 `<design>.stmt.json` files")
     s.set_defaults(fn=_cmd_report)
     s = sub.add_parser("export", help="CSV of the new tables")
     s.add_argument("db")
