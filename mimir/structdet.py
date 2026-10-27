@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import threading
 import time
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
@@ -27,6 +28,7 @@ KIND_MAP = {
     "mux_tree": "mux", "hard_mul": "multiplier", "hard_mem": "memory",
 }
 MIN_P = 0.5
+WALL_LIMIT_S = 900.0  # the Loki time budget is checked between rounds only; this is the hard stop
 
 
 @dataclass(frozen=True)
@@ -58,9 +60,14 @@ def run_loki(argv: Sequence[str], out: Path, odin3_tree: Path, loki_src: Path,
     start = time.monotonic()
     proc = subprocess.Popen(list(argv), env=env, stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL)
-    _, status, usage = os.wait4(proc.pid, 0)
-    proc.returncode = os.waitstatus_to_exitcode(status)
-    return DetectRun(tuple(argv), proc.returncode, round(time.monotonic() - start, 3),
+    timer = threading.Timer(WALL_LIMIT_S, proc.kill)
+    timer.start()
+    try:
+        _, status, usage = os.wait4(proc.pid, 0)
+    finally:
+        timer.cancel()
+    code = os.waitstatus_to_exitcode(status)
+    return DetectRun(tuple(argv), code, round(time.monotonic() - start, 3),
                      round(usage.ru_maxrss / 1024.0, 1), out)
 
 

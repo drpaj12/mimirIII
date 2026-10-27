@@ -23,7 +23,7 @@ from mimir.flowspec import Spec
 from mimir.scrub import Scrubber
 from mimir.store import Store
 from mimir.structdb import SOURCE, DesignInfo, import_flow_dir, put_structures
-from mimir.structdet import compare, loki_argv, read_structs, run_loki
+from mimir.structdet import WALL_LIMIT_S, compare, loki_argv, read_structs, run_loki
 from mimir.structmap import Deps, atoms_from_blif, load_deps, set_rows
 
 DETECT_SOURCE = "mimir-detect"
@@ -86,6 +86,7 @@ def detect_spec(argv: Sequence[str], loki_src: Path, tree: Path) -> Spec:
     for key in ("--floor", "--detectors", "--seed", "--timeout", "--time-budget", "--max-rounds",
                 "--calib"):
         spec.add("detect", key.lstrip("-"), pairs[key], "given", "command line of the run")
+    spec.add("detect", "wall_limit_s", str(WALL_LIMIT_S), "given", "mimir.structdet.WALL_LIMIT_S")
     spec.add("detect", "loki_commit", _git(loki_src, "rev-parse", "HEAD"), "given",
              "git rev-parse HEAD of the Loki checkout")
     spec.add("detect", "odin3_commit", _git(tree, "rev-parse", "HEAD"), "given",
@@ -112,7 +113,7 @@ def detect_one(store: Store, deps: Deps, blob_root: Path, args: argparse.Namespa
     argv = loki_argv(Path(args.loki_python), stage / "netlist.blif", out / "re", tree)
     run = run_loki(argv, out / "re", tree, loki_src, tree / "build" / "release")
     if run.returncode not in (0, 1):
-        raise ValueError(f"loki re exit {run.returncode} on {args.name}")
+        raise ValueError(f"loki re exit {run.returncode} on {args.name} after {run.time_s} s")
     sha = hashlib.sha256(blif.read_bytes()).hexdigest()
     spec = detect_spec(argv, loki_src, tree)
     cfg = put_config(store, spec)
@@ -166,6 +167,10 @@ def _cmd_detect_mcnc(args: argparse.Namespace) -> int:
     blob_root = Path(args.blobs) if args.blobs else blobs.default_dir()
     for job in mcnc_jobs(_env(None, "VTR_ROOT")):
         slug = f"mcnc20/{job.design}"
+        if store.db.execute("SELECT 1 FROM run WHERE slug=? AND source=?",
+                            (slug, DETECT_SOURCE)).fetchone():
+            print(f"{slug}: already detected", flush=True)
+            continue
         sha = hashlib.sha256(job.path.read_bytes()).hexdigest()
         store.db.execute("INSERT OR REPLACE INTO design VALUES (?,?,?,?,?,?)",
                          (slug, sha, "blif", "mcnc20", job.design, job.origin))
