@@ -21,7 +21,7 @@ The base install is stdlib only. `partition` (pymetis, for the Rent measurer), `
     .venv/bin/mypy --strict mimir tests
 
 Data sources are read only and come from arguments or env vars (`MIMIR_NORNS`, `MIMIR_LOKI`,
-`VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`; for lane 3 `MIMIR_ODIN3_TREE` (an Odin III checkout with `tools/flow`), `MIMIR_LOKI_SRC`, `MIMIR_LOKI_PYTHON`); the structure tests skip without the first two; never write an absolute home path into a committed file.
+`VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`; for lane 3 `MIMIR_ODIN3_TREE` (an Odin III checkout with `tools/flow`), `MIMIR_LOKI_SRC`, `MIMIR_LOKI_PYTHON`); the structure tests use vendored copies of the Odin III map parser and Loki's audit (`tests/fixtures/deps`) when `MIMIR_ODIN3_TREE` and `MIMIR_LOKI_SRC` are not set, so they run in CI; lane 3 runs need `VTR_ROOT` and `ODIN3_HEAVY_OK=1`; never write an absolute home path into a committed file.
 
 ## Rules
 
