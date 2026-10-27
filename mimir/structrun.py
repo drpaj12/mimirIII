@@ -41,6 +41,17 @@ def build_commands(tree: Path, odin3: Path, designs: Sequence[Path], top: str, a
     return [flow, [str(tree / "tools/flow/odin3-prov-post"), str(out), "--top", top]]
 
 
+def run_dir_of(out: Path) -> str:
+    """The VPR run directory (relative to `out`) whose .net and .place prov-post reads: `vpr/run`,
+    or `vpr/retry-<W>/run` when the flow retried the route at a fixed width."""
+    try:
+        summary = json.loads((out / "summary.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return "vpr/run"
+    retry = summary.get("route_retry")
+    return f"vpr/retry-{retry['used_width']}/run" if retry else "vpr/run"
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="mimir.structrun")
     ap.add_argument("--tree", required=True, type=Path, help="odin3 checkout (tools/flow)")
@@ -52,7 +63,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     ns = ap.parse_args(argv)
     cmds = build_commands(ns.tree, ns.odin3, ns.designs, ns.top, ns.arch or None, ns.out)
     codes, times = [], []
-    for cmd in cmds:
+    run_dir = "vpr/run"
+    for i, cmd in enumerate(cmds):
+        if i == 1:
+            run_dir = run_dir_of(ns.out)
+            cmd += ["--run-dir", str(ns.out / run_dir)]
         code, secs = _run(cmd)
         codes.append(code)
         times.append(round(secs, 3))
@@ -66,7 +81,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "odin3_commit": git_head(ns.tree), "vtr_commit": git_head(Path(os.environ.get(
             "VTR_ROOT", "."))), "design_files": [str(d) for d in ns.designs], "top": ns.top,
-        "arch": ns.arch, "ok": all(c == 0 for c in codes) and len(codes) == len(cmds),
+        "arch": ns.arch, "run_dir": run_dir,
+        "ok": all(c == 0 for c in codes) and len(codes) == len(cmds),
     }
     ns.out.mkdir(parents=True, exist_ok=True)
     (ns.out / "mimir-run.json").write_text(json.dumps(info, indent=1, sort_keys=True) + "\n",

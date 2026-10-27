@@ -59,7 +59,11 @@ def build_spec(flow_dir: Path, info: dict[str, Any], scrub: Scrubber, name: str)
     vpr_log = (flow_dir / "vpr" / "vpr.log").read_text(encoding="utf-8").split("\n")
     vcmd = next(norm(ln) for ln in vpr_log if ln.startswith("$ "))
     flow_cmd = norm(" ".join(info["commands"][0]))
-    post = norm(" ".join(info["commands"][1]))
+    post_argv = list(info["commands"][1])
+    if "--run-dir" in post_argv:  # where the retry left its files is not a configuration choice
+        i = post_argv.index("--run-dir")
+        del post_argv[i:i + 2]
+    post = norm(" ".join(post_argv))
     spec = Spec(name=name, text=f"{flow_cmd}\nodin3 {script}\n{vcmd}\n{post}",
                 origin="mimir-run.json commands; odin3/odin3.log:1; vpr/vpr.log vpr command",
                 text_kind="recorded-normalised")
@@ -78,7 +82,7 @@ def build_spec(flow_dir: Path, info: dict[str, Any], scrub: Scrubber, name: str)
     spec.add("pack", "vtr_commit", str(info["vtr_commit"]), "given", "mimir-run.json vtr_commit")
     for step in ("pack", "place", "route"):
         spec.add(step, "vpr_driver_command", vcmd, "given", "vpr/vpr.log:1")
-    spec.add("route", "post_step", norm(" ".join(info["commands"][1][1:])), "given",
+    spec.add("route", "post_step", norm(" ".join(post_argv[1:])), "given",
              "mimir-run.json commands[1]")
     return spec
 
@@ -94,9 +98,9 @@ def _log_blob(flow_dir: Path, scrub: Scrubber) -> bytes:
 
 
 def store_artifacts(store: Store, blobs: Path, run_id: str, flow_dir: Path,
-                    scrub: Scrubber) -> dict[str, str]:
+                    scrub: Scrubber, run_dir: str = "vpr/run") -> dict[str, str]:
     """Scrub and compress the run's artifacts into the blob store; fill `run_artifact`."""
-    run = flow_dir / "vpr" / "run"
+    run = flow_dir / run_dir
     files = {"blif": next(flow_dir.glob("odin3/*.blif")),
              "map": next(flow_dir.glob("odin3/*.blif.names"))}
     for kind, pat in (("net", "*.net"), ("place", "*.place"), ("route", "*.route")):
@@ -194,7 +198,7 @@ def import_flow_dir(store: Store, blobs: Path, flow_dir: Path, d: DesignInfo, de
         cfg = put_config(store, spec)
         sha = put_design(store, d, scrub)
         rid = put_run(store, d, info, cfg, sha, scrub, flow_dir)
-        store_artifacts(store, blobs, rid, flow_dir, scrub)
+        store_artifacts(store, blobs, rid, flow_dir, scrub, info.get("run_dir", "vpr/run"))
         map_path = next(flow_dir.glob("odin3/*.blif.names"))
         nm = deps.nmv2.read_name_map(map_path)
         models = parse_models(next(flow_dir.glob("odin3/*.blif")).read_text(encoding="utf-8"))
