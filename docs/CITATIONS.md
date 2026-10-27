@@ -1,0 +1,32 @@
+# Citations
+
+Every entry was checked against the record named in its `Checked` note.
+Source of truth: `citations.toml`; regenerate with `mimir citations`.
+
+| Id | Kind | Role | Reference | Link | Licence |
+|---|---|---|---|---|---|
+| christie2000rent | paper | Interpretation of Rent's rule; context for the measurement method | P. Christie, D. Stroobandt (2000). The interpretation and application of Rent's rule. IEEE Trans. VLSI Systems 8(6), pp. 639-648. | https://doi.org/10.1109/92.902258 |  |
+| elgammal2025vtr9 | paper | The VTR version of the imported VPR data and the MCNC files | M. A. Elgammal et al. (2025). VTR 9: Open-Source CAD for Fabric and Beyond FPGA Architecture Exploration. ACM Trans. Reconfigurable Technology and Systems 18(3), pp. 1-53. | https://doi.org/10.1145/3734798 |  |
+| hutton1996dac | paper | Source of the circuit characteristics Mimir's structural measurer follows in spirit | M. Hutton, J. P. Grossman, J. Rose, D. Corneil (1996). Characterization and parameterized random generation of digital circuits. Proc. 33rd Design Automation Conference (DAC), pp. 94-99. | https://doi.org/10.1145/240518.240537 |  |
+| hutton1997fpga | paper | Sequential extension of the characterisation; context for the latch metrics | M. Hutton, J. Rose, D. Corneil (1997). Generation of synthetic sequential benchmark circuits. Proc. ACM/SIGDA 5th Int. Symp. on Field-Programmable Gate Arrays (FPGA '97), pp. 149-155. | https://doi.org/10.1145/258305.258333 |  |
+| karypis1998metis | paper | The graph partitioner behind pymetis, used for recursive bisection | G. Karypis, V. Kumar (1998). A Fast and High Quality Multilevel Scheme for Partitioning Irregular Graphs. SIAM J. Scientific Computing 20(1), pp. 359-392. | https://doi.org/10.1137/S1064827595287997 |  |
+| kundarewich2004tcad | paper | Generator line for Mi Q3 (synthetic circuits that match a profile) | P. D. Kundarewich, J. Rose (2004). Synthetic circuit generation using clustering and iteration. IEEE Trans. CAD of Integrated Circuits and Systems 23(6), pp. 869-887. | https://doi.org/10.1109/TCAD.2004.828132 |  |
+| landman1971rent | paper | Rent's rule: the pins-versus-blocks relationship Mimir fits | B. S. Landman, R. L. Russo (1971). On a Pin Versus Block Relationship For Partitions of Logic Graphs. IEEE Trans. Computers C-20(12), pp. 1469-1479. | https://doi.org/10.1109/T-C.1971.223159 |  |
+| pymetis | software | Optional extra `partition`: graph partitioner for the Rent measurer | A. Kloeckner (2025). pymetis 2025.2.2. PyPI package wrapping METIS. | https://pypi.org/project/pymetis/ | MIT AND Apache-2.0 |
+| rose2012vtr | paper | Cited for the MCNC BLIFs and the imported VPR data | J. Rose, J. Luu, C. W. Yu, O. Densmore, J. Goeders, A. Somerville, K. B. Kent, P. Jamieson, J. Anderson (2012). The VTR project: architecture and CAD for FPGAs from Verilog to routing. Proc. ACM/SIGDA Int. Symp. on FPGAs (FPGA '12), pp. 77-86. | https://doi.org/10.1145/2145694.2145708 |  |
+| stroobandt2000synth | paper | Generator line for Mi Q3 (Rent-based synthetic circuits) | D. Stroobandt, P. Verplaetse, J. van Campenhout (2000). Generating synthetic benchmark circuits for evaluating CAD tools. IEEE Trans. CAD of Integrated Circuits and Systems 19(9), pp. 1011-1022. | https://doi.org/10.1109/43.863641 |  |
+| vtr-mcnc | project | The MCNC LGSynth93 circuits, optimised with SIS script.rugged and script.algebraic and mapped to 4-input LUTs and flip flops by Flowmap, per the benchmark README | vtr_flow/benchmarks/blif in the VTR checkout. VTR commit 3c9a4d23b2. | https://github.com/verilog-to-routing/vtr-verilog-to-routing | VTR LICENSE.md (MIT-style) |
+
+## Checked
+
+- `christie2000rent`: 2026-10-27, Crossref record of the DOI (title, authors P. Christie and D. Stroobandt, IEEE TVLSI vol 8 issue 6, Dec 2000, pp. 639-648). Full text not read; no claim about its content is made beyond its title.
+- `elgammal2025vtr9`: 2026-10-27, Crossref record of the DOI (13 authors, first Elgammal, last Betz; TRETS vol 18 issue 3, pp. 1-53, 2025). The VTR checkout used is commit 3c9a4d23b2 (9.0.0-dev).
+- `hutton1996dac`: 2026-10-27, Crossref record of the DOI (title, four authors, DAC '96, pp. 94-99). The publisher page blocks automated access and no open copy was found: full text NOT read, so Mimir does not claim to implement this paper's definitions.
+- `hutton1997fpga`: 2026-10-27, Crossref record of the DOI (title, three authors, FPGA '97, pp. 149-155). Semantic Scholar lists the open-access PDF as closed. Full text NOT read.
+- `karypis1998metis`: 2026-10-27, Crossref record of the DOI (title, authors George Karypis and Vipin Kumar, SIAM J. Sci. Comput. vol 20 issue 1, Jan 1998, pp. 359-392). Full text not read.
+- `kundarewich2004tcad`: 2026-10-27, Crossref record of the DOI (title, authors P. D. Kundarewich and J. Rose, IEEE TCAD vol 23 issue 6, June 2004, pp. 869-887). The year is 2004; the old Norns key 'Kundarewich03synth' is the FPGA '03 abstract (doi 10.1145/611851.611875, one page), a different record. Full text not read.
+- `landman1971rent`: 2026-10-27, Crossref record of the DOI (title, authors B. S. Landman and R. L. Russo, IEEE Trans. Computers C-20 issue 12, Dec 1971, pp. 1469-1479). Full text not read.
+- `pymetis`: 2026-10-27, the installed package metadata (version 2025.2.2, author Andreas Kloeckner, License-Expression MIT AND Apache-2.0).
+- `rose2012vtr`: 2026-10-27, Crossref record of the DOI (authors Rose, Luu, Yu, Densmore, Goeders, Somerville, Kent, Jamieson, Anderson; FPGA 2012; pp. 77-86); given names from the Norns joined.bib entry, which matches.
+- `stroobandt2000synth`: 2026-10-27, Crossref record of the DOI (title, authors D. Stroobandt, P. Verplaetse and J. van Campenhout, IEEE TCAD vol 19 issue 9, 2000, pp. 1011-1022). Full text not read.
+- `vtr-mcnc`: 2026-10-27, the README and circuits.txt in vtr_flow/benchmarks/blif of the local checkout at commit 3c9a4d23b2. No primary reference for the original MCNC set was checked, so none is cited.

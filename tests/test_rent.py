@@ -63,7 +63,7 @@ class Repeatability(unittest.TestCase):
     def test_small_netlist_skips_fit(self) -> None:
         from mimir import rent
 
-        rows, skipped = rent.measure(chain(40), (1,))
+        rows, skipped = rent.measure(chain(300), (1,))
         self.assertEqual(skipped, 1)
         self.assertFalse([r for r in rows if r[0] == "rent.p"])
 

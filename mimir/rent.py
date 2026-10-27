@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 
 from mimir.netlist import COMB, CONST, HARD, LATCH, PI, Netlist
 
+MIN_NODES = 512  # fewer nodes than this cannot give 3 depths in the fit range; Rent is not run
 MIN_FIT_BLOCK = 4  # smallest mean block size in the fit
 REGION2_DIV = 32  # largest mean block size in the fit is N / REGION2_DIV (excludes region II)
 CLIQUE_MAX = 8  # nets with more in-block pins use a star from the first pin
@@ -190,7 +191,7 @@ def measure(nl: Netlist, seeds: Sequence[int] = (1, 2, 3)) -> tuple[list[Row], i
     nodes, nets = build_nets(nl)
     rows: list[Row] = [("rent.nodes", "", -1, float(len(nodes)))]
     skipped = 0
-    if len(nodes) < 4:
+    if len(nodes) < MIN_NODES:
         return rows, len(seeds)
     for seed in seeds:
         c = curve(nodes, nets, seed)

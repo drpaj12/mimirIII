@@ -1,0 +1,984 @@
+# Metric registry (schema version 1). Every metric a record carries must be listed here.
+# kind: measured = computed by Mimir; imported = copied from a source, not re-derived.
+# definition_source: mimir = defined in the Mimir spec; vpr, norns, loki = as defined by that tool.
+# citations are ids in citations.toml. For struct.* they name the works followed in spirit; the
+# definitions are Mimir's own because those works were not readable (see docs/specs).
+
+[[metric]]
+key = "struct.n_comb"
+description = "Combinational nodes (gates or LUTs, .names with inputs)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_latch"
+description = "Latches"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_hard"
+description = "Hard-block instances (.subckt of a blackbox model)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_pi"
+description = "Primary inputs"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_const"
+description = "Constant nodes (.names without inputs, and undriven signals)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_po"
+description = "Primary outputs"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.n_edges"
+description = "Fanin pins of combinational, latch and hard nodes"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.depth"
+description = "Maximum combinational level; sources are level 0"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.level_width"
+description = "Combinational nodes at one level (bin = level, levels above 64 not written)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.edge_len_hist"
+description = "Fanin pins of combinational nodes by level difference (bin = length, 33+ folded)"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.edge_len_mean"
+description = "Mean level difference over fanin pins of combinational nodes"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.edge_len_max"
+description = "Maximum level difference over fanin pins of combinational nodes"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.fanout_hist"
+description = "Driving nodes by number of sink pins, POs included (bin = fanout, 33+ folded)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.fanout_mean"
+description = "Mean sink pins per driving node"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.fanout_max"
+description = "Maximum sink pins of a node"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.reconv_stems"
+description = "Stems: nodes with at least two distinct combinational sinks"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.reconv_truncated"
+description = "Stems whose reconvergence search hit the 5000-node bound before finding one"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.reconv_stem_fraction"
+description = "Reconvergent stems divided by stems (window 8 levels past the deepest sink)"
+unit = "ratio"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "struct.reconv_span_mean"
+description = "Mean level distance from a reconvergent stem to its nearest reconvergence node"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = ["hutton1996dac", "hutton1997fpga"]
+validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+
+[[metric]]
+key = "rent.nodes"
+description = "Nodes in the partitioned set (comb, latch, hard); PIs and POs are the outside world"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.curve_b"
+description = "Mean block size at one recursion depth (bin = depth), one curve per seed"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.curve_t"
+description = "Mean terminals (nets crossing the block boundary) at one recursion depth (bin = depth)"
+unit = "nets"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.p"
+description = "Rent exponent: slope of log T on log B over 4 <= B <= N/32, one value per seed"
+unit = "ratio"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.k"
+description = "Rent coefficient: terminals at B = 1 from the same fit"
+unit = "nets"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.r2"
+description = "R squared of the Rent fit"
+unit = "ratio"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "rent.points"
+description = "Recursion depths inside the fit range"
+unit = "points"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "rent"
+definition_source = "mimir"
+citations = ["landman1971rent", "christie2000rent", "karypis1998metis", "pymetis"]
+validation = "Known-answer tests in tests/test_rent.py: chain p=0, 2-D mesh p=0.5, 3-D mesh p=2/3 (asymptotic values, tolerance 0.1), random graph p>0.8, seed test-retest. No published value compared."
+
+[[metric]]
+key = "vpr.wirelength"
+description = "Routed wirelength as VPR reports it"
+unit = "VPR wirelength units"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.chan_width"
+description = "Minimum routable channel width found by VPR"
+unit = "tracks"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.cpd"
+description = "Critical-path delay from VPR timing analysis"
+unit = "ns"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.worst_slack"
+description = "Worst slack from VPR timing analysis"
+unit = "ns"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.route_time"
+description = "Seconds in the route step"
+unit = "s"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.flow_time"
+description = "Seconds for the whole VPR flow of the run"
+unit = "s"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.max_rss"
+description = "Peak resident memory of the run"
+unit = "MiB"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.paths_in_report"
+description = "Paths in the VPR timing report"
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.rc"
+description = "Exit code of the run (0 = ok)"
+unit = "exit code"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.pack_time"
+description = "Seconds in the pack step"
+unit = "s"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.logic_clbs"
+description = "Logic CLBs after packing"
+unit = "blocks"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.blocks"
+description = "Total blocks (the Norns field `clbs`, which counts all blocks)"
+unit = "blocks"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.place_time"
+description = "Seconds in the place step"
+unit = "s"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.bb_cost_final"
+description = "Bounding-box cost at the end of placement (VPR)"
+unit = "VPR bb cost"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.bb_cost_initial"
+description = "Bounding-box cost at the start of placement (VPR)"
+unit = "VPR bb cost"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.n_temperatures"
+description = "Annealing temperatures VPR used"
+unit = "count"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.init_t"
+description = "Initial annealing temperature VPR chose"
+unit = "VPR temperature"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.device_utilization"
+description = "Device utilisation reported by VPR"
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.grid_w"
+description = "Device grid width"
+unit = "tiles"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "vpr.grid_h"
+description = "Device grid height"
+unit = "tiles"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "vpr"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.attr_cpd"
+description = "Critical-path delay attributed to atoms (Norns round 4 field attr_cpd_ns). Definition: the Norns round plans, not restated here."
+unit = "ns"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.paths_skipped"
+description = "Timing paths the Norns attribution skipped. Definition: the Norns round plans, not restated here."
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.critical_matched_delay_share"
+description = "Share of critical-path delay on matched atoms (Norns field). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.purity"
+description = "Norns clustering purity against the known blocks (field purity, scalar form only). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.null_purity"
+description = "Purity of the Norns null model (field null_purity). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.null_purity_max"
+description = "Maximum purity of the Norns null model (field null_purity_max). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.reproduction"
+description = "Norns fidelity of the reproduced clustering (field reproduction). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.cut"
+description = "Norns measured cut (field cut). Definition: the Norns round plans, not restated here."
+unit = "count"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.exact_blocks"
+description = "Norns blocks rebuilt exactly (field exact_blocks). Definition: the Norns round plans, not restated here."
+unit = "blocks"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.labelled_in_logic"
+description = "Norns atoms with a label inside logic CLBs (field labelled_in_logic). Definition: the Norns round plans, not restated here."
+unit = "atoms"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.matched_share"
+description = "Norns share of matched delay (field matched_share). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.matched_share_excl_port"
+description = "Norns matched share excluding ports (field matched_share_excl_port). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.retention"
+description = "Norns seed retention after the anneal (field retention). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.displacement"
+description = "Norns displacement of the placement from the seed (field displacement). Definition: the Norns round plans, not restated here."
+unit = "VPR tiles"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.scale"
+description = "Norns seeding scale parameter (field scale). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.beta"
+description = "Norns affinity weight beta (field beta). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.objective"
+description = "Norns round 7 objective (field objective). Definition: the Norns round plans, not restated here."
+unit = "ratio"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.atoms"
+description = "Atoms in the round 7 corpus entry (Norns round 7 corpus summary)"
+unit = "atoms"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.carry_pairs"
+description = "Atom pairs on a carry chain (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.coverage_pcrit_mean"
+description = "Mean criticality coverage of the corpus (Norns round 7 corpus summary)"
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.pairs"
+description = "Atom pairs in the corpus entry (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.pairs_connected_random"
+description = "Randomly drawn pairs that are connected (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.pairs_connected_sample"
+description = "Sampled pairs that are connected (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.pairs_cooccur"
+description = "Pairs that co-occur in a CLB (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.pairs_uniform"
+description = "Uniformly drawn pairs (Norns round 7 corpus summary)"
+unit = "pairs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.runs"
+description = "Runs behind the corpus entry (Norns round 7 corpus summary)"
+unit = "runs"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.class_share_pairs"
+description = "Share of pairs by class (bin = class code) (Norns round 7 corpus summary)"
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "norns.corpus.relation_share"
+description = "Share of pairs by relation (bin = relation) (Norns round 7 corpus summary)"
+unit = "ratio"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "atlas.n_clbs"
+description = "CLBs listed in a Wyrd atlas export"
+unit = "blocks"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-atlas"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "atlas.n_atoms"
+description = "Atoms listed in a Wyrd atlas export"
+unit = "atoms"
+levels = ["placed"]
+kind = "imported"
+measurer = "import-atlas"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "loki.nodes"
+description = "Loki netlist nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.edges"
+description = "Loki netlist edges"
+unit = "edges"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.luts"
+description = "Loki LUT nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.gates"
+description = "Loki gate nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.ffs"
+description = "Loki flip-flop nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.hard"
+description = "Loki hard-block nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.consts"
+description = "Loki constant nodes"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.pis"
+description = "Loki primary inputs"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.pos"
+description = "Loki primary outputs"
+unit = "nodes"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.loops_cut"
+description = "Combinational loops Loki cut"
+unit = "count"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.unmatched"
+description = "Cells Loki could not match to a source label"
+unit = "count"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "loki.in_train"
+description = "1 if the manifest puts the design in the train split, else 0"
+unit = "flag"
+levels = ["lut", "gate"]
+kind = "imported"
+measurer = "import-loki"
+definition_source = "loki"
+citations = []
+validation = "Imported from Loki meta.json counts; not re-derived (Mimir's own counts are the struct.* metrics)."
+
+[[metric]]
+key = "norns.n_blocks"
+description = "Designed blocks of a synthetic Norns design (field n_blocks). Definition: the Norns round plans, not restated here."
+unit = "blocks"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-norns"
+definition_source = "norns"
+citations = ["rose2012vtr", "elgammal2025vtr9"]
+validation = "Imported as stored in the source file; not re-derived."
