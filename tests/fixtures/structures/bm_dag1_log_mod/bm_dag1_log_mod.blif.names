@@ -1,0 +1,196 @@
+# odin3-names 2 hash=sha256 width=10 prov=1 ast=refs
+O	bm_dag1_log_mod	net	h7zkhdupbx7	d/$n26@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:118	d	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	118	r5	lut
+O	bm_dag1_log_mod	net	hbh25iafntr	d/$n18@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:116	d	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	116	r10	lut
+O	bm_dag1_log_mod	net	hhy2ge7w2je	b/$n25@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:78	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	78	r15	lut
+O	bm_dag1_log_mod	net	hirgsuans75	b/$n14@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:76	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	76	r20	lut
+O	bm_dag1_log_mod	net	hlv2zsvmdem	b/$n15@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:76	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	76	r21	lut
+O	bm_dag1_log_mod	net	hq4bv3ehyfa	b/$n17@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:76	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	76	r23	lut
+O	bm_dag1_log_mod	net	hqe6ok2bhxo	a/$n12@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:55	a	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	55	r29	lut
+O	bm_dag1_log_mod	net	hrpvcnbai5y	a/$n21@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:57	a	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	57	r33	lut
+O	bm_dag1_log_mod	net	hrt647qkxud	a/$n20@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:57	a	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	57	r34	lut
+O	bm_dag1_log_mod	net	hs3rxs4p3l7	b/$n24@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:78	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	78	r35	lut
+O	bm_dag1_log_mod	net	hv4splp3dyf	b/$n22@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:79	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	79	r39	lut
+O	bm_dag1_log_mod	net	hvjkmg4cgxv	a/$n13@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:55	a	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	55	r40	lut
+O	bm_dag1_log_mod	net	hwcad5xcd76	b/$n23@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:79	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	79	r41	lut
+O	bm_dag1_log_mod	net	hwkzjcncldu	b/$n16@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:76	b	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	76	r42	lut
+O	bm_dag1_log_mod	net	hwzvad36uu7	d/$n27@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:119	d	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	119	r46	lut
+O	bm_dag1_log_mod	net	hxm3ub7j7j6	d/$n19@$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v:116	d	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v	116	r48	lut
+N	bm_dag1_log_mod	net	a_in[0]	r49	stmt
+N	bm_dag1_log_mod	net	a_in[1]	r49	stmt
+N	bm_dag1_log_mod	net	b_in[0]	r50	stmt
+N	bm_dag1_log_mod	net	b_in[1]	r50	stmt
+N	bm_dag1_log_mod	net	c_in	r51	stmt
+N	bm_dag1_log_mod	net	clock	r52	stmt
+N	bm_dag1_log_mod	net	d_in	r53	stmt
+N	bm_dag1_log_mod	net	out0[0]	r55	gate
+N	bm_dag1_log_mod	net	out0[1]	r55	gate
+N	bm_dag1_log_mod	net	out1	r57	gate
+N	bm_dag1_log_mod	net	reset_n	r58	stmt
+R	r1	S	expr	origin	t1.1		f1:118.10-118.21	c6	hier=d
+R	r2	S	instance	origin	t1.1		f1:36.3-36.35	c9	hier=bm_dag1_log_mod
+R	r3	D	word	context:word	t2.3	r1,r2			hier=bm_dag1_log_mod/top_d,ctx=1
+R	r4	D	gate	refine:word	t3.9	r3			
+R	r5	D	lut	coarsen:gate	t4.7	r4			
+R	r6	S	block	origin	t1.1		f1:116.1-120.4	c2	hier=d
+R	r7	D	word	refine:stmt	t5.3	r6			
+R	r8	D	word	context:word	t2.3	r7,r2			hier=bm_dag1_log_mod/top_d,ctx=1
+R	r9	D	gate	refine:word	t3.11	r8			
+R	r10	D	lut	coarsen:gate	t4.15	r9			
+R	r11	S	expr	origin	t1.1		f1:78.10-78.21	c15	hier=b
+R	r12	S	instance	origin	t1.1		f1:34.3-34.35	c17	hier=bm_dag1_log_mod
+R	r13	D	word	context:word	t2.2	r11,r12			hier=bm_dag1_log_mod/top_b,ctx=1
+R	r14	D	gate	refine:word	t3.5	r13			
+R	r15	D	lut	coarsen:gate	t4.6	r14			
+R	r16	S	block	origin	t1.1		f1:76.1-80.4	c11	hier=b
+R	r17	D	word	refine:stmt	t5.2	r16			
+R	r18	D	word	context:word	t2.2	r17,r12			hier=bm_dag1_log_mod/top_b,ctx=1
+R	r19	D	gate	refine:word	t3.7	r18			
+R	r20	D	lut	coarsen:gate	t4.11	r19			
+R	r21	D	lut	coarsen:gate	t4.12	r19			
+R	r22	D	gate	refine:word	t3.8	r18			
+R	r23	D	lut	coarsen:gate	t4.14	r22			
+R	r24	S	block	origin	t1.1		f1:55.1-58.4	c19	hier=a
+R	r25	D	word	refine:stmt	t5.1	r24			
+R	r26	S	instance	origin	t1.1		f1:33.3-33.35	c21	hier=bm_dag1_log_mod
+R	r27	D	word	context:word	t2.1	r25,r26			hier=bm_dag1_log_mod/top_a,ctx=1
+R	r28	D	gate	refine:word	t3.4	r27			
+R	r29	D	lut	coarsen:gate	t4.9	r28			
+R	r30	S	expr	origin	t1.1		f1:57.9-57.20	c25	hier=a
+R	r31	D	word	context:word	t2.1	r30,r26			hier=bm_dag1_log_mod/top_a,ctx=1
+R	r32	D	gate	refine:word	t3.3	r31			
+R	r33	D	lut	coarsen:gate	t4.2	r32			
+R	r34	D	lut	coarsen:gate	t4.1	r32			
+R	r35	D	lut	coarsen:gate	t4.5	r14			
+R	r36	S	expr	origin	t1.1		f1:79.9-79.20	c27	hier=b
+R	r37	D	word	context:word	t2.2	r36,r12			hier=bm_dag1_log_mod/top_b,ctx=1
+R	r38	D	gate	refine:word	t3.6	r37			
+R	r39	D	lut	coarsen:gate	t4.3	r38			
+R	r40	D	lut	coarsen:gate	t4.10	r28			
+R	r41	D	lut	coarsen:gate	t4.4	r38			
+R	r42	D	lut	coarsen:gate	t4.13	r22			
+R	r43	S	expr	origin	t1.1		f1:119.10-119.21	c29	hier=d
+R	r44	D	word	context:word	t2.3	r43,r2			hier=bm_dag1_log_mod/top_d,ctx=1
+R	r45	D	gate	refine:word	t3.10	r44			
+R	r46	D	lut	coarsen:gate	t4.8	r45			
+R	r47	D	gate	refine:word	t3.12	r8			
+R	r48	D	lut	coarsen:gate	t4.16	r47			
+R	r49	S	stmt	origin	t1.1		f1:17.1-17.24	c30	hier=bm_dag1_log_mod
+R	r50	S	stmt	origin	t1.1		f1:18.1-18.24	c31	hier=bm_dag1_log_mod
+R	r51	S	stmt	origin	t1.1		f1:19.1-19.12	c32	hier=bm_dag1_log_mod
+R	r52	S	stmt	origin	t1.1		f1:14.1-14.13	c33	hier=bm_dag1_log_mod
+R	r53	S	stmt	origin	t1.1		f1:20.1-20.12	c34	hier=bm_dag1_log_mod
+R	r54	S	expr	origin	t1.1		f1:38.15-38.30	c37	hier=bm_dag1_log_mod
+R	r55	D	gate	refine:word	t3.1	r54			
+R	r56	S	expr	origin	t1.1		f1:39.15-39.30	c40	hier=bm_dag1_log_mod
+R	r57	D	gate	refine:word	t3.2	r56			
+R	r58	S	stmt	origin	t1.1		f1:15.1-15.16	c41	hier=bm_dag1_log_mod
+R	r59	D	ble	coarsen:lut	t6.1	r35,r42,r34,r29		c24,c14	join
+R	r60	D	ble	coarsen:lut	t6.1	r55,r39,r20		c36,c26	join
+R	r61	D	clb	coarsen:ble	t6.2	r59,r60		c36,c24,c14,c26	join
+R	r62	D	site	rewrite:clb	t7.1	r61			x=1,y=1,sub=0,layer=0
+R	r63	D	ble	coarsen:lut	t6.1	r15,r23,r33,r40		c24,c14	join
+R	r64	D	ble	coarsen:lut	t6.1	r55,r41,r21		c36,c26	join
+R	r65	D	clb	coarsen:ble	t6.2	r63,r64		c36,c24,c14,c26	join
+R	r66	D	site	rewrite:clb	t7.1	r65			x=1,y=3,sub=0,layer=0
+R	r67	D	ble	coarsen:lut	t6.1	r46,r48			
+R	r68	D	ble	coarsen:lut	t6.1	r57,r5,r10		c39,c5	join
+R	r69	D	clb	coarsen:ble	t6.2	r67,r68		c39,c5,c28	join
+R	r70	D	site	rewrite:clb	t7.1	r69			x=1,y=2,sub=0,layer=0
+R	r71	D	clb	coarsen:ble	t6.2	r55			
+R	r72	D	site	rewrite:clb	t7.1	r71			x=0,y=2,sub=0,layer=0
+R	r73	D	clb	coarsen:ble	t6.2	r55			
+R	r74	D	site	rewrite:clb	t7.1	r73			x=0,y=2,sub=1,layer=0
+R	r75	D	clb	coarsen:ble	t6.2	r57			
+R	r76	D	site	rewrite:clb	t7.1	r75			x=0,y=2,sub=2,layer=0
+R	r77	D	clb	coarsen:ble	t6.2	r52			
+R	r78	D	site	rewrite:clb	t7.1	r77			x=3,y=4,sub=4,layer=0
+R	r79	D	clb	coarsen:ble	t6.2	r49			
+R	r80	D	site	rewrite:clb	t7.1	r79			x=1,y=0,sub=1,layer=0
+R	r81	D	clb	coarsen:ble	t6.2	r49			
+R	r82	D	site	rewrite:clb	t7.1	r81			x=0,y=2,sub=3,layer=0
+R	r83	D	clb	coarsen:ble	t6.2	r50			
+R	r84	D	site	rewrite:clb	t7.1	r83			x=0,y=2,sub=4,layer=0
+R	r85	D	clb	coarsen:ble	t6.2	r50			
+R	r86	D	site	rewrite:clb	t7.1	r85			x=0,y=3,sub=4,layer=0
+R	r87	D	clb	coarsen:ble	t6.2	r51			
+R	r88	D	site	rewrite:clb	t7.1	r87			x=0,y=2,sub=6,layer=0
+R	r89	D	clb	coarsen:ble	t6.2	r53			
+R	r90	D	site	rewrite:clb	t7.1	r89			x=0,y=2,sub=7,layer=0
+C	c1	MODULE	module		f1	103.1-122.10	d
+C	c2	ALWAYS	block	c1	f1	116.1-120.4	
+C	c3	TIMING_STMT	stmt	c2	f1	116.8-120.4	
+C	c4	SEQ_BLOCK	stmt	c3	f1	117.1-120.4	
+C	c5	NONBLOCKING_ASSIGN	stmt	c4	f1	118.2-118.22	
+C	c6	BINARY	expr	c5	f1	118.10-118.21	
+C	c7	MODULE	module		f1	4.1-41.10	bm_dag1_log_mod
+C	c8	INSTANTIATION	instance	c7	f1	36.1-36.36	d
+C	c9	INSTANCE	instance	c8	f1	36.3-36.35	top_d
+C	c10	MODULE	module		f1	63.1-82.10	b
+C	c11	ALWAYS	block	c10	f1	76.1-80.4	
+C	c12	TIMING_STMT	stmt	c11	f1	76.8-80.4	
+C	c13	SEQ_BLOCK	stmt	c12	f1	77.1-80.4	
+C	c14	NONBLOCKING_ASSIGN	stmt	c13	f1	78.2-78.22	
+C	c15	BINARY	expr	c14	f1	78.10-78.21	
+C	c16	INSTANTIATION	instance	c7	f1	34.1-34.36	b
+C	c17	INSTANCE	instance	c16	f1	34.3-34.35	top_b
+C	c18	MODULE	module		f1	44.1-60.10	a
+C	c19	ALWAYS	block	c18	f1	55.1-58.4	
+C	c20	INSTANTIATION	instance	c7	f1	33.1-33.36	a
+C	c21	INSTANCE	instance	c20	f1	33.3-33.35	top_a
+C	c22	TIMING_STMT	stmt	c19	f1	55.8-58.4	
+C	c23	SEQ_BLOCK	stmt	c22	f1	56.1-58.4	
+C	c24	NONBLOCKING_ASSIGN	stmt	c23	f1	57.2-57.21	
+C	c25	BINARY	expr	c24	f1	57.9-57.20	
+C	c26	NONBLOCKING_ASSIGN	stmt	c13	f1	79.2-79.21	
+C	c27	BINARY	expr	c26	f1	79.9-79.20	
+C	c28	NONBLOCKING_ASSIGN	stmt	c4	f1	119.2-119.22	
+C	c29	BINARY	expr	c28	f1	119.10-119.21	
+C	c30	PORT_DECL	stmt	c7	f1	17.1-17.24	
+C	c31	PORT_DECL	stmt	c7	f1	18.1-18.24	
+C	c32	PORT_DECL	stmt	c7	f1	19.1-19.12	
+C	c33	PORT_DECL	stmt	c7	f1	14.1-14.13	
+C	c34	PORT_DECL	stmt	c7	f1	20.1-20.12	
+C	c35	CONT_ASSIGN	block	c7	f1	38.1-38.31	
+C	c36	NET_ASSIGN	block	c35	f1	38.8-38.30	
+C	c37	BINARY	expr	c36	f1	38.15-38.30	
+C	c38	CONT_ASSIGN	block	c7	f1	39.1-39.31	
+C	c39	NET_ASSIGN	block	c38	f1	39.8-39.30	
+C	c40	BINARY	expr	c39	f1	39.15-39.30	
+C	c41	PORT_DECL	stmt	c7	f1	15.1-15.16	
+F	f1	$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v
+T	t1	read_verilog	--nolatches --vtr-compat --prov-ast refs "$ODIN3/tests/micro/verilog/micro/bm_dag1_log_mod.v"	
+T	t2	flatten		roots=1 instances=4 kept=0 nodes=12 renamed=0
+T	t3	lower		modules=5 cells=26 nodes=39
+T	t4	abc	--lut 6	script=builtin:lib/abc/vtr.abc sha256=0d0d27670d8c71d6ae62366f0588ef445008fa9e824dab79cb751d8f6edcab62 abc=a3001b72edc5de22442e942165487fddf150e3d0 K=6 exchange=blif depth=1
+T	t5	proc		
+T	t6	pack		clbs=13 bles=6 atoms=29 net=bm_dag1_log_mod.net
+T	t7	place		sites=13 place=bm_dag1_log_mod.place
+A	hs3rxs4p3l7	r59,r61,r62	-
+A	hwkzjcncldu	r59,r61,r62	-
+A	hrt647qkxud	r59,r61,r62	-
+A	hqe6ok2bhxo	r59,r61,r62	-
+A	out0[0]	r60,r61,r62	-
+A	hv4splp3dyf	r60,r61,r62	-
+A	hirgsuans75	r60,r61,r62	-
+A	hhy2ge7w2je	r63,r65,r66	-
+A	hq4bv3ehyfa	r63,r65,r66	-
+A	hrpvcnbai5y	r63,r65,r66	-
+A	hvjkmg4cgxv	r63,r65,r66	-
+A	out0[1]	r64,r65,r66	-
+A	hwcad5xcd76	r64,r65,r66	-
+A	hlv2zsvmdem	r64,r65,r66	-
+A	hwzvad36uu7	r67,r69,r70	-
+A	hxm3ub7j7j6	r67,r69,r70	-
+A	out1	r68,r69,r70	-
+A	h7zkhdupbx7	r68,r69,r70	-
+A	hbh25iafntr	r68,r69,r70	-
+A	out:out0[0]	r71,r72	-
+A	out:out0[1]	r73,r74	-
+A	out:out1	r75,r76	-
+A	clock	r77,r78	-
+A	a_in[0]	r79,r80	-
+A	a_in[1]	r81,r82	-
+A	b_in[0]	r83,r84	-
+A	b_in[1]	r85,r86	-
+A	c_in	r87,r88	-
+A	d_in	r89,r90	-
