@@ -3,6 +3,7 @@ tables (spec docs/specs/2026-10-27-mimir-schema-v2.md, sections 3.1 to 3.3, 6)."
 
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import tomllib
 from dataclasses import dataclass
@@ -18,7 +19,10 @@ MCNC_BLIF = "vtr_flow/benchmarks/blif"
 LABEL_FIELDS = ("function_class", "intent", "author", "institution", "year", "original_format")
 # toml field -> (design_meta field); each has <field>_src and <field>_conf in mcnc.toml
 TOML_FIELDS = ("suite", "original_file", "original_format", "intent", "function_class", "author",
-               "institution", "year")
+               "institution", "year", "original_header", "stated_counts", "lgsynth93")
+# a design's own header comment is kept verbatim, at most this many lines (never a whole file)
+HEADER_MAX_LINES = 5
+LICENCE_FIELDS = ("licence", "licence_source", "licence_notice")
 
 
 @dataclass(frozen=True)
@@ -194,6 +198,8 @@ def _toml_meta(store: Store, slug: str, item: dict[str, object]) -> None:
         src = str(item.get(f"{field}_src", ""))
         note = str(item.get(f"{field}_note", ""))
         value = "" if conf == "missing" else str(item[field])
+        if field == "original_header" and len(value.splitlines()) > HEADER_MAX_LINES:
+            raise ValueError(f"{slug}: original_header has more than {HEADER_MAX_LINES} lines")
         if conf == "missing" and note:
             src = f"{src}; note: {note}" if src else f"note: {note}"
         _put_meta(store, slug, field, value, src, conf)
@@ -223,3 +229,58 @@ def meta_coverage(store: Store, suite_prefix: str = "") -> list[tuple[str, str, 
         "ORDER BY field, conf", (suite_prefix + "%",)
     ).fetchall()
     return [(f, c, int(n)) for f, c, n in rows]
+
+
+Rule = dict[str, str | list[str]]
+
+
+def load_licence_rules(toml_path: Path) -> list[Rule]:
+    """The ordered rules of a licences toml (`[[rule]]` tables); each needs `match` (slug globs),
+    `licence`, `licence_source`, `licence_notice` and `conf`. A bad rule raises ValueError."""
+    rules = tomllib.loads(toml_path.read_text(encoding="utf-8")).get("rule", [])
+    for rule in rules:
+        absent = [k for k in ("id", "match", "licence", "licence_source", "licence_notice", "conf")
+                  if k not in rule]
+        if absent:
+            raise ValueError(f"licence rule {rule.get('id', '?')}: missing {absent}")
+        if rule["conf"] not in CONF_ORDER or rule["conf"] == "missing":
+            raise ValueError(f"licence rule {rule['id']}: bad conf {rule['conf']}")
+        if not rule["licence"] or not rule["licence_source"]:
+            raise ValueError(f"licence rule {rule['id']}: licence and licence_source are required")
+    return list(rules)
+
+
+def rule_for(slug: str, rules: list[Rule]) -> Rule | None:
+    """The first rule whose glob matches the slug (specific rules come first in the file)."""
+    for rule in rules:
+        if any(fnmatch.fnmatchcase(slug, str(g)) for g in rule["match"]):
+            return rule
+    return None
+
+
+def import_licences(store: Store, toml_path: Path) -> int:
+    """Write the `licence`, `licence_source` and `licence_notice` rows of every registered design,
+    from the first matching rule. The licence is recorded as the benchmark states it, never
+    changed or inferred; `none-stated` means the benchmark's own files and documents were read
+    and carry none. A design no rule matches gets a `missing` licence row. Returns the number of
+    designs a rule matched."""
+    rules = load_licence_rules(toml_path)
+    slugs = [s for (s,) in store.db.execute("SELECT slug FROM design ORDER BY slug").fetchall()]
+    hit = 0
+    try:
+        for slug in slugs:
+            rule = rule_for(slug, rules)
+            if rule is None:
+                _put_meta(store, slug, "licence", "", "no licence rule matches this design",
+                          "missing")
+                continue
+            hit += 1
+            conf, src = str(rule["conf"]), str(rule["licence_source"])
+            _put_meta(store, slug, "licence", str(rule["licence"]), src, conf)
+            _put_meta(store, slug, "licence_source", src, f"licence rule {rule['id']}", conf)
+            _put_meta(store, slug, "licence_notice", str(rule["licence_notice"]), src, conf)
+        store.db.commit()
+    except BaseException:
+        store.db.rollback()
+        raise
+    return hit
