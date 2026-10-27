@@ -67,7 +67,10 @@ class MetaTests(unittest.TestCase):
         bad = s.db.execute("SELECT slug, field FROM design_meta "
                            "WHERE conf = 'missing' AND value != ''").fetchall()
         self.assertEqual(bad, [])
-        note = s.db.execute("SELECT source FROM design_meta WHERE slug='mcnc20/s38417' "
+        item = dict(tomllib.loads(TOML.read_text(encoding="utf-8"))["circuit"]["apex2"])
+        item.update(intent="", intent_conf="missing", intent_src="", intent_note="Not stated here")
+        _toml_meta(s, "mcnc20/apex2", item)
+        note = s.db.execute("SELECT source FROM design_meta WHERE slug='mcnc20/apex2' "
                             "AND field='intent'").fetchone()[0]
         self.assertIn("note: Not stated", note)
         for name, item in tomllib.loads(TOML.read_text(encoding="utf-8"))["circuit"].items():
