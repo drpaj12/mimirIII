@@ -97,6 +97,42 @@ class Store:
             raise
         return deleted, len(batch)
 
+    def replace_measured(self, records: Iterable[Record]) -> tuple[int, int]:
+        """Store a re-measurement so that no row of an older measurer version stays behind.
+
+        In one transaction: delete every row of each (source, design, arch, measurer) the records
+        come from, whatever its measurer_version, then insert the records. Same pattern as
+        `replace_origins`. Returns (rows deleted, rows written)."""
+        batch = list(records)
+        for rec in batch:
+            check_record(rec)
+        groups = sorted({(r.source, r.design, r.arch, r.measurer) for r in batch})
+        marks = ", ".join("?" for _ in COLUMNS)
+        try:
+            before = self.db.total_changes
+            self.db.executemany(
+                "DELETE FROM records WHERE source = ? AND design = ? AND arch = ? AND measurer = ?",
+                groups,
+            )
+            deleted = self.db.total_changes - before
+            self.db.executemany(
+                f"INSERT OR REPLACE INTO records VALUES ({marks})", [r.as_tuple() for r in batch]
+            )
+            self.db.commit()
+        except BaseException:
+            self.db.rollback()
+            raise
+        return deleted, len(batch)
+
+    def mixed_versions(self) -> list[tuple[str, list[str]]]:
+        """Measurers that have more than one measurer_version in the store: (measurer, versions)."""
+        found: dict[str, list[str]] = {}
+        for measurer, version in self.db.execute(
+            "SELECT DISTINCT measurer, measurer_version FROM records ORDER BY 1, 2"
+        ):
+            found.setdefault(measurer, []).append(version)
+        return [(m, v) for m, v in found.items() if len(v) > 1]
+
     def merge(self, other: str | Path) -> int:
         """Copy every row of another Mimir database in (same schema version); return its rows."""
         other_store = Store(other)
