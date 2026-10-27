@@ -1,6 +1,8 @@
-"""Run a list of designs one at a time: flow under `tools/heavy-run` (and the Norns VPR lock),
-import into the store, then the detectors. Smallest design first; a design already in the store
-is skipped. Each design is one heavy-run call. Spec: docs/specs/2026-10-27-mimir-structures.md.
+"""Run a list of designs one at a time: the flow under `tools/heavy-run` (`structrun` takes the
+Norns VPR lock around its `odin3-flow` step itself), import into the store, then the detectors
+under `tools/heavy-run` too. Smallest design first; a design already in the store is skipped.
+Every Odin III or Loki run is one heavy-run call. The caller must set ODIN3_HEAVY_OK=1 (heavy-run
+exits 77 without it). Spec: docs/specs/2026-10-27-mimir-structures.md.
 """
 
 from __future__ import annotations
@@ -17,7 +19,6 @@ from collections.abc import Sequence
 from pathlib import Path
 
 MIN_FREE_GB = 30
-NORNS_LOCK = "/tmp/claude-1000/norns-vpr.lock"
 MAX_DETECT_LUTS = 4000
 _MODULE = re.compile(r"^\s*module\s+(\w+)", re.M)
 
@@ -65,7 +66,7 @@ def one(py: str, heavy: str, tree: Path, db: Path, work: Path, slug: str, suite:
     name = path.stem
     out = work / name
     top = find_top(path)
-    flow = ["flock", "-x", NORNS_LOCK, heavy, py, "-m", "mimir.structrun", "--tree", str(tree),
+    flow = [heavy, py, "-m", "mimir.structrun", "--tree", str(tree),
             "--odin3", str(tree / "build/release/odin3"), "--top", top, "--out", str(out),
             str(path)]
     if not (reuse and finished(out)) and _call(flow) != 0:
@@ -78,8 +79,8 @@ def one(py: str, heavy: str, tree: Path, db: Path, work: Path, slug: str, suite:
     luts = re.search(r'"luts": (\d+)', (out / "summary.json").read_text(encoding="utf-8"))
     if luts and int(luts.group(1)) > MAX_DETECT_LUTS:
         return f"{slug}: ok, detectors skipped ({luts.group(1)} LUTs)"
-    det = [*base, "detect", str(db), "--flow-dir", str(out), "--slug", slug, "--name", name,
-           "--work", str(work / "det"), *extra]
+    det = [heavy, py, "-m", "mimir.structcli", "detect", str(db), "--flow-dir", str(out), "--slug",
+           slug, "--name", name, "--work", str(work / "det"), *extra]
     return f"{slug}: ok" if _call(det) == 0 else f"{slug}: ok, detector failed"
 
 
@@ -90,11 +91,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     ap.add_argument("--work", required=True, type=Path)
     ap.add_argument("--suite", required=True)
     ap.add_argument("--slug-prefix", required=True)
-    ap.add_argument("--heavy-run", required=True)
+    ap.add_argument("--heavy-run", required=True,
+                    help="path of tools/heavy-run; needs ODIN3_HEAVY_OK=1 set")
     ap.add_argument("--blobs")
     ap.add_argument("--reuse", action="store_true", help="import a finished flow dir, do not rerun")
     ap.add_argument("designs", nargs="+", type=Path)
     ns = ap.parse_args(argv)
+    if os.environ.get("ODIN3_HEAVY_OK") != "1":
+        print("mimir.structbatch: set ODIN3_HEAVY_OK=1 in the environment (heavy-run needs it)",
+              file=sys.stderr)
+        return 2
     extra = ["--blobs", ns.blobs] if ns.blobs else []
     py = sys.executable
     for path in sorted(ns.designs, key=lambda p: (p.stat().st_size, p.name)):
@@ -111,5 +117,4 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("ODIN3_HEAVY_OK", "1")
     sys.exit(main())
