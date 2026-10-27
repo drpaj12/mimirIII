@@ -11,7 +11,14 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from mimir.citations import load_citations, render_markdown
-from mimir.flowcfg import ARCH_REL, config_coverage, import_runs, unknown_params
+from mimir.flowcfg import (
+    ARCH_REL,
+    SrcRoots,
+    config_coverage,
+    import_runs,
+    param_conf_counts,
+    unknown_params,
+)
 from mimir.importers.common import Report
 from mimir.measure import RENT_MAX_NODES, measure_job
 from mimir.meta import Roots, import_mcnc_meta, meta_coverage, register_designs
@@ -98,11 +105,19 @@ def _cmd_meta(args: argparse.Namespace) -> int:
 
 
 def _cmd_meta_coverage(args: argparse.Namespace) -> int:
-    store = Store(args.db)
+    store = Store(args.db, readonly=True)
     print("field\tconf\tdesigns")
     for field, conf, n in meta_coverage(store, args.prefix):
         print(f"{field}\t{conf}\t{n}")
     return 0
+
+
+def _src_roots(args: argparse.Namespace, vtr: Path | None) -> SrcRoots:
+    def opt(arg: str | None, var: str) -> Path | None:
+        value = arg or os.environ.get(var)
+        return Path(value) if value else None
+
+    return SrcRoots(opt(args.odin3, "MIMIR_ODIN3"), vtr, opt(args.norns_src, "MIMIR_NORNS_SRC"))
 
 
 def _cmd_runs(args: argparse.Namespace) -> int:
@@ -112,20 +127,31 @@ def _cmd_runs(args: argparse.Namespace) -> int:
     roots = _roots(args)
     arch = roots.vtr / ARCH_REL if roots.vtr else None
     sha = sha256_file(arch) if arch and arch.is_file() else None
-    counts = import_runs(store, sha, roots.loki)
-    for source, n in sorted(counts.items()):
+    res = import_runs(store, sha, roots.loki, _src_roots(args, roots.vtr))
+    for source, n in sorted(res.counts.items()):
         print(f"{source}: {n} runs")
-    return 0
+    for reason, n in sorted(res.skipped.items()):
+        print(f"skipped {n} runs: {reason}")
+    if res.ambiguous_time:
+        print(f"ambiguous time or RSS (a run stored twice, left NULL): {res.ambiguous_time}")
+    return 1 if res.skipped else 0
 
 
 def _cmd_run_coverage(args: argparse.Namespace) -> int:
-    store = Store(args.db)
+    store = Store(args.db, readonly=True)
     print("source\tstatus\tconfigs\truns")
     for row in config_coverage(store):
         print("\t".join(str(x) for x in row))
-    print("unknown parameter\tgroup\tconfigs")
+    print("parameter conf\trows\trows used by a run")
+    for conf in param_conf_counts(store):
+        print("\t".join(str(x) for x in conf))
+    print("unknown or unrecorded parameter\tgroup\tconfigs")
     for unk in unknown_params(store):
         print("\t".join(str(x) for x in unk))
+    collisions = store.db.execute(
+        "SELECT COUNT(*) FROM (SELECT 1 FROM run GROUP BY source, design, arch, seed, arm, "
+        "config_hash, tool_commit, input_sha256 HAVING COUNT(*) > 1)").fetchone()[0]
+    print(f"run-key collisions\t{collisions}")
     return 0
 
 
@@ -182,7 +208,7 @@ def _cmd_merge(args: argparse.Namespace) -> int:
 
 
 def _cmd_export(args: argparse.Namespace) -> int:
-    store = Store(args.db)
+    store = Store(args.db, readonly=True)
     if args.csv:
         print(f"csv: {store.export_csv(args.csv)} rows")
     if args.parquet:
@@ -203,7 +229,7 @@ GROUP BY source, level ORDER BY source, level
 
 
 def _cmd_coverage(args: argparse.Namespace) -> int:
-    store = Store(args.db)
+    store = Store(args.db, readonly=True)
     print("source\tlevel\tdesigns\twith_struct\twith_rent")
     for row in store.db.execute(COVERAGE_SQL):
         print("\t".join(str(x) for x in row))
@@ -211,7 +237,7 @@ def _cmd_coverage(args: argparse.Namespace) -> int:
 
 
 def _cmd_check(args: argparse.Namespace) -> int:
-    store = Store(args.db)
+    store = Store(args.db, readonly=True)
     mixed = store.mixed_versions()
     for measurer, versions in mixed:
         print(f"mixed versions: measurer {measurer} has {', '.join(versions)}; re-measure the set")
@@ -267,6 +293,9 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--vtr", help="VTR checkout (default $VTR_ROOT)")
     s.add_argument("--norns", help="unused; kept for symmetry with import-meta")
     s.add_argument("--loki", help="Loki sources dir (default $MIMIR_LOKI)")
+    s.add_argument("--odin3", help="Odin III checkout, for its defaults (default $MIMIR_ODIN3)")
+    s.add_argument("--norns-src", dest="norns_src",
+                   help="nornsIII checkout, for its defaults (default $MIMIR_NORNS_SRC)")
     s.set_defaults(fn=_cmd_runs)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")

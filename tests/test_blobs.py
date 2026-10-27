@@ -46,8 +46,9 @@ def make_store(path: Path) -> Store:
     s = Store(path)
     s.add([rec("a", "m", 0.1 + 0.2), rec("b", "m", 1e-300), rec("it's", "m", 3.0, "q'x")])
     s.db.execute("INSERT INTO design_meta VALUES ('s/a','f','v\\n''x','src','primary')")
-    s.db.execute("INSERT INTO run VALUES ('r','s/a','c','t','a','',-1,'','','',NULL,2.5,NULL,NULL,"
-                 "'o')")
+    s.db.execute("INSERT INTO run (run_id, slug, config_hash, source, design, arch, seed, arm, "
+                 "family, tool_commits, time_s, origin) "
+                 "VALUES ('r','s/a','c','t','a','',-1,'','','',2.5,'o')")
     s.db.commit()
     return s
 

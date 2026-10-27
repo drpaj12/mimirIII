@@ -79,8 +79,9 @@ class MigrationTests(unittest.TestCase):
     def test_record_run_view(self) -> None:
         s = Store(Path(tmpdir()) / "x.db")
         s.add([rec("a", "m", 1.0)])
-        s.db.execute("INSERT INTO run VALUES ('r1','t/a','c1','t','a','',-1,'','','',NULL,NULL,"
-                     "NULL,NULL,'o')")
+        s.db.execute("INSERT INTO run (run_id, slug, config_hash, source, design, arch, seed, arm, "
+                     "family, tool_commits, origin) "
+                     "VALUES ('r1','t/a','c1','t','a','',-1,'','','','o')")
         row = s.db.execute("SELECT run_id, slug FROM record_run").fetchall()
         self.assertEqual(row, [("r1", "t/a")])
 
