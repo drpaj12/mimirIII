@@ -149,6 +149,10 @@ def build_spec(flow_dir: Path, info: dict[str, Any], scrub: Scrubber, name: str,
              if vtr_root is not None and vtr != "unknown" else None)
     add_found(spec, "place", "seed_default", found, vtr_root, vtr, "vtr",
               "VTR checkout or its recorded commit not available")
+    if "placer_opts.seed" not in opts:
+        spec.add("place", "seed", "", "default-unrecorded",
+                 f"{log} has no placer_opts.seed: the placement of this run is VPR's analytical "
+                 "placer (a route retry); its annealer seed is not recorded")
     spec.add("route", "post_step", norm(" ".join(post_argv[1:])), "given",
              "mimir-run.json commands[1]")
     return spec
@@ -220,14 +224,16 @@ def put_design(store: Store, d: DesignInfo, scrub: Scrubber) -> str:
 def vpr_facts(flow_dir: Path, info: dict[str, Any]) -> tuple[str, int]:
     """(architecture file name, placement seed) of a run, from VPR's own recorded lines: the arch
     from the driver command in `vpr/vpr.log`, the seed from `placer_opts.seed` of the options block
-    of the run directory. Raises ValueError when either is not recorded."""
+    of the run directory. The seed is -1 when the run directory has none (the analytical placer of
+    a route retry; the flow config then holds `place.seed` as `default-unrecorded`). Raises
+    ValueError when the architecture is not recorded."""
     log = (flow_dir / "vpr" / "vpr.log").read_text(encoding="utf-8").split("\n")
     cmd = next((ln for ln in log if ln.startswith("$ ")), "")
     arch = next((Path(a).name for a in cmd.split() if a.endswith(".xml")), "")
     _, _, opts = read_vpr_log(flow_dir / str(info.get("run_dir", "vpr/run")) / "vpr_stdout.log")
-    if not arch or "placer_opts.seed" not in opts:
-        raise ValueError(f"{flow_dir}: the architecture or the seed is not recorded")
-    return arch, int(opts["placer_opts.seed"][0])
+    if not arch:
+        raise ValueError(f"{flow_dir}: the architecture is not recorded")
+    return arch, int(opts["placer_opts.seed"][0]) if "placer_opts.seed" in opts else -1
 
 
 def put_run(store: Store, d: DesignInfo, info: dict[str, Any], config: str, input_sha: str,
@@ -346,7 +352,8 @@ def check_hdl_files(info: dict[str, Any], d: DesignInfo) -> None:
 def import_flow_dir(store: Store, blobs: Path, flow_dir: Path, d: DesignInfo, deps: Deps,
                     scrub: Scrubber, config_name: str, vtr_root: Path | None = None) -> str:
     """Import one flow dir (a run that passed): returns the run id. Raises ValueError when the
-    run did not finish, the design files changed, or its config is not `full`. The design's old
+    run did not finish or the design files changed. The flow config is stored as it is: `full` or
+    `partial` (a parameter with no cited value), never relabelled. The design's old
     HDL and detector rows are replaced (the detector rows name the flow run, so a new flow run
     makes them stale)."""
     info = json.loads((flow_dir / "mimir-run.json").read_text(encoding="utf-8"))
@@ -354,8 +361,6 @@ def import_flow_dir(store: Store, blobs: Path, flow_dir: Path, d: DesignInfo, de
         raise ValueError(f"{flow_dir}: the run did not finish")
     check_hdl_files(info, d)
     spec = build_spec(flow_dir, info, scrub, config_name, vtr_root)
-    if spec.status() != "full":
-        raise ValueError(f"{flow_dir}: flow config is {spec.status()}")
     try:
         cfg = put_config(store, spec)
         sha = put_design(store, d, scrub)

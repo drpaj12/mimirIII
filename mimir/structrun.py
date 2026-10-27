@@ -105,6 +105,17 @@ def map_sources(out: Path) -> dict[str, str]:
     return dict(sorted(found.items()))
 
 
+def timing_failure(out: Path) -> str:
+    """The reason the `--timing-attr` step failed when it is the only step that did (VPR ran and
+    wrote its log, `timing/timing.log` is not `ok`); '' otherwise. Example: a design with no timed
+    path has no `#Path` section in VPR's setup report."""
+    log = out / "timing" / "timing.log"
+    if not log.is_file() or not (out / "vpr" / "vpr.log").is_file():
+        return ""
+    text = log.read_text(encoding="utf-8", errors="replace").strip()
+    return "" if text in ("", "ok") else text.replace(str(out), "<out>")
+
+
 def run_dir_of(out: Path) -> str:
     """The VPR run directory (relative to `out`) whose .net and .place prov-post reads: `vpr/run`,
     or `vpr/retry-<W>/run` when the flow retried the route at a fixed width."""
@@ -138,11 +149,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                           not ns.no_timing_attr)
     codes, times = [], []
     run_dir = "vpr/run"
+    failed_attr = ""
     for i, cmd in enumerate(cmds):
         if i == 1:
             run_dir = run_dir_of(ns.out)
             cmd += ["--run-dir", str(ns.out / run_dir)]
         code, secs = _run(cmd, NORNS_LOCK if i == 0 else "")
+        if i == 0 and code != 0 and "--timing-attr" in cmd:
+            failed_attr = timing_failure(ns.out)
+            if failed_attr:  # only the attribution step failed (a design with no timed path)
+                cmd = [c for c in cmd if c != "--timing-attr"]
+                cmds[0] = cmd
+                code, secs2 = _run(cmd, NORNS_LOCK)
+                secs += secs2
         codes.append(code)
         times.append(round(secs, 3))
         if code != 0:
@@ -157,7 +176,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         **build_check(ns.tree, ns.odin3),
         "design_files": [str(d) for d in ns.designs], "top": ns.top,
         "design_sha256": hashlib.sha256(b"".join(d.read_bytes() for d in ns.designs)).hexdigest(),
-        "timing_attr": not ns.no_timing_attr, "source_sha256": map_sources(ns.out),
+        "timing_attr": not ns.no_timing_attr and not failed_attr,
+        "timing_attr_failure": failed_attr, "source_sha256": map_sources(ns.out),
         "arch": ns.arch, "run_dir": run_dir,
         "ok": all(c == 0 for c in codes) and len(codes) == len(cmds),
     }

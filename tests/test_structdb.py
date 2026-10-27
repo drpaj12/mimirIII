@@ -250,12 +250,25 @@ class FlowDirTests(unittest.TestCase):
         self.assertEqual(s.db.execute("SELECT DISTINCT run_id FROM structure_member").fetchall(),
                          [(rid,)])
 
-    def test_without_the_vtr_checkout_the_config_is_partial_and_refused(self) -> None:
+    def test_without_the_vtr_checkout_the_config_is_partial(self) -> None:
         s = Store(self.tmp / "s.db")
-        with self.assertRaises(ValueError):
-            import_flow_dir(s, self.tmp / "blobs", self.flow, self.design, deps(), Scrubber({}),
-                            "test/flow", None)
-        self.assertEqual(s.db.execute("SELECT COUNT(*) FROM structure").fetchone()[0], 0)
+        import_flow_dir(s, self.tmp / "blobs", self.flow, self.design, deps(), Scrubber({}),
+                        "test/flow", None)
+        self.assertEqual(s.db.execute("SELECT status FROM flow_config").fetchall(),
+                         [("partial",)])
+        row = s.db.execute("SELECT conf FROM flow_param WHERE key='seed_default'").fetchone()
+        self.assertEqual(row[0], "default-unrecorded")
+
+    def test_retry_run_without_a_seed_is_partial_and_seed_minus_one(self) -> None:
+        log = self.flow / "vpr" / "run" / "vpr_stdout.log"
+        log.write_text(log.read_text(encoding="utf-8").replace("placer_opts.seed", "placer_opts.x"),
+                       encoding="utf-8")
+        s = Store(self.tmp / "s.db")
+        rid = self.import_it(s)
+        self.assertEqual(s.db.execute("SELECT seed FROM run WHERE run_id=?", (rid,)).fetchone()[0],
+                         -1)
+        self.assertEqual(s.db.execute("SELECT status FROM flow_config").fetchall(),
+                         [("partial",)])
 
     def test_changed_design_file_is_refused(self) -> None:
         s = Store(self.tmp / "s.db")
