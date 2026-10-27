@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mimir"
+version = "0.1.0"
+description = "Mimir III: the circuit knowledge base of Yggdrasil III"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = []
+
+# The extras' library pins are duplicated by hand in .github/workflows/ci.yml; keep them in step.
+[project.optional-dependencies]
+partition = ["pymetis>=2025.2"]
+parquet = ["pyarrow>=15"]
+analysis = ["numpy>=1.26"]
+dev = ["mimir[partition]", "mimir[parquet]", "mimir[analysis]"]
+
+[project.scripts]
+mimir = "mimir.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["mimir*"]
+
+[tool.setuptools.package-data]
+mimir = ["data/*.toml"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+
+[[tool.mypy.overrides]]
+# pyarrow ships no type stubs; it is an optional extra used in one function.
+module = ["pyarrow", "pyarrow.*"]
+ignore_missing_imports = true
