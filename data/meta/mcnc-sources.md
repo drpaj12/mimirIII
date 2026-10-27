@@ -2,6 +2,8 @@
 
 Checked 2026-10-27. "Verified" means: DOI resolved against the Crossref API (title, venue, year, pages, authors compared). DBLP was not queried. Items with no DOI are marked so. Downloads were kept in a scratch directory and treated as data; nothing from them was executed. Text was pulled from PDFs with a small local script and by decompressing the 7z container in memory.
 
+Second pass (originals lane, 2026-10-27): the original documents and files were collected into a private store (never committed, never hosted; every item is listed with URL, retrieval time, size and sha256 in a private sources.toml with a SHA256SUMS next to it). Ids added by that pass: iwls93-7z, iwls93-doc, mcnc-7z, hls91-benchdoc, hls91-stanford, iscas89-paper, cbl-pages, cbl-access, sis-scripts. The meta keeps only facts, each with its source id, and header comments of at most 5 lines.
+
 Source ids used in `mcnc.toml`:
 
 ## yang91 (primary)
@@ -140,14 +142,58 @@ Source ids used in `mcnc.toml`:
 % Checked: DOI verified against Crossref 2026-10-27 (title, journal, year, pp. 1-12, authors). Volume and number are from the VTR bibliography (z_references.bib), not re-fetched from Crossref.
 ```
 
-## sis (referenced, not fetched)
-- E. M. Sentovich et al., "SIS: A System for Sequential Circuit Synthesis", UC Berkeley, 1992. Cited as [Sent92] in marq99. Details beyond the key were not checked; no bib entry is given here. The SIS scripts script.rugged and script.algebraic are named by the VTR README; the script texts were not located.
+## sis (Sentovich et al. 1992)
+- E. M. Sentovich et al., "SIS: A System for Sequential Circuit Synthesis", UC Berkeley, 1992. Cited as [Sent92] in marq99. No bib entry is given here. The script texts are under sis-scripts below.
 
 ## fiser-collection (secondary, index page)
 - URL: https://ddd.fit.cvut.cz/www/prj/Benchmarks/ . P. Fišer's "Collection of Digital Design Benchmarks": states LGSynth89 / LGSynth91 (continuation of 89) / IWLS'93 (continuation of 91, K. McElvain, "IWLS'93 Benchmark Set: Version 4.0", May 1993). No separate LGSynth93 package or description exists on the page; IWLS93.pdf (6 pp) has no circuit list.
 
+## iwls93-7z (primary; archive members)
+- URL: https://ddd.fit.cvut.cz/www/prj/Benchmarks/IWLS93.7z (5.7 MB). Listed and extracted with path checks; nothing run. Holds edif/, blif/, pla/, kiss2/, tv/ (one test-pattern file per circuit), lib/, src/ (benchmark tools), doc/ (iwls93.pdf, iwls93.ps) and README.txt. This is the set the CBL pages call LGSynth93 ("LGSynth93 Benchmark Set: Version 4.0", Ken McElvain, Mentor Graphics, 15 May 1993). All 20 VTR MCNC circuits are in it (blif and edif, tv for each; pla for alu4, apex2, apex4, ex1010, ex5p, misex3, pdc, seq, spla; kiss2 for s298).
+- Facts used: every EDIF has `(author "David Rickel")`, `(program "autologic")`, `(timeStamp 1993 2 0 16 45 4)`; every BLIF starts with a comment "Written by e2fmt <date> 1993" (Jul 1 1993, 17:25 to 17:54); a restricted-EDIF to BLIF/SLIF translator (e2fmt) is part of the set and the doc warns that BLIF/SLIF written from the EDIF are not identical in detail to the older originals; ex5p.pla has the same product-term lines as LGSynth91 pla/ex5.pla (compared), so ex5p is the 1993 name of ex5.
+- The VTR README says the circuits are from LGSynth93; this archive is the only 1993 set found, and the VTR files were not compared with it (the copy used by VTR is not stated).
+
+## iwls93-doc (primary)
+- McElvain, K., "IWLS'93 Benchmark Set: Version 4.0", Mentor Graphics, 15 May 1993, 6 pp (https://ddd.fit.cvut.cz/www/prj/Benchmarks/IWLS93.pdf; the same text is in the archive's README.txt and in the CBL LGSynth93 README). Section 7: "Most of the benchmarks have been drawn from previous benchmark sets [yang91] and [lisanke89]." and "Conversion of benchmarks to the EDIF format and preparation of test pattern files for verification was done by David Rickel." No circuit descriptions, no licence text.
+```bibtex
+@techreport{mcelvain1993iwls,
+  author = {K. McElvain},
+  title  = {{IWLS}'93 Benchmark Set: Version 4.0},
+  note   = {Distributed as part of the IWLS'93 benchmark set},
+  month  = may,
+  year   = {1993},
+  url    = {https://ddd.fit.cvut.cz/www/prj/Benchmarks/IWLS93.pdf}
+}
+% Checked: title, author, date from the PDF and the CTU collection BibTeX; no DOI. Not verified against DBLP.
+```
+
+## mcnc-7z (primary; archive members)
+- URL: https://ddd.fit.cvut.cz/www/prj/Benchmarks/MCNC.7z (1.2 MB): Combinational (pla variants, blif, DOC) and Sequential (Kiss2, Blif, Slif) sets compiled from the same MCNC distributions, plus MCNC.pdf (the Yang 1991 guide again, in another font encoding). No new per-circuit facts were taken from it; its blif and pla bodies were not compared with the other archives.
+
+## hls91-benchdoc (primary)
+- URL (Wayback snapshot, 2001-01-04): http://web.archive.org/web/20010104141200id_/http://www.cbl.ncsu.edu/pub/Benchmark_dirs/HLSynth91/DOCUMENTATION/bench.doc . "BENCHMARK DOCUMENTATION, as of July 30, 1990": the benchmarks for the 1991 High-Level Synthesis Workshop (clearinghouse kept by Robert Mayo). "The second set comes from Giovanni De Micheli at Stanford." The Stanford set lists: daio_receiver, daio_phase_decoder, diffeq "Differential Equation Solver", ecc, elliptic "Fifth Order Elliptic Filter", frisc "RISC Microprocessor", gcd, parker1986, traffic, tseng "Example from Tseng". These ten names are exactly the ten files in LGSynth91 slif/hlexamples (daio_receiver, diffeq, ecc, elliptic, frisc, gcd, parker1986, phase_decoder, traffic, tseng), as the slif/README says.
+
+## hls91-stanford (primary)
+- URL (Wayback snapshot, 2004-06-14): http://web.archive.org/web/2004id_/http://www.cbl.ncsu.edu/pub/Benchmark_dirs/HLSynth91/DOCUMENTATION/readme.stanford (resolved to the 2004-06-14 snapshot). "Olympus Synthesis System, Stanford University, July 1990": "High-Level Synthesis benchmarks suite as of July 20, 1990", the same ten names; the flow HardwareC (.hc) to Hercules to SIF (.sif), then Hebe to SLIF (.slif), simulated with Ariadne and Mercury; notes that all were simulated at behavioral level and most were also synthesized and simulated at logic level.
+
+## iscas89-paper (primary; read from rendered pages)
+- F. Brglez, D. Bryan, K. Kozminski, "Combinational Profiles of Sequential Benchmark Circuits", Proc. ISCAS 1989, pp. 1929-1934 (the iscas89info.pdf scan; image-only, no OCR available, so pages 1-2 were read by viewing them). p.1930, Table 1: s298 3 in / 6 out / 14 flip-flops / 119 gates; s38417 28 / 106 / 1636 / 22179; s38584 12 / 278 / 1452 / 19253. Text: "No schematic diagrams are provided for these benchmark circuits. Also, the functional descriptions are not available for most of the circuits." "s298, s400, s444, and s526 are traffic light controllers", "s9234, s13207, s15850, s38417, s38584 are real-chip based and rely on partial scan", "s298, s208, s713, s641, and s832 are based on PLD devices". The benchmarks "were assembled from various netlist formats received from industrial and university sources". The bib entry is brglez1989combinational above. Pages 3 to 6 were not read.
+
+## cbl-pages and cbl-access (primary; Wayback snapshots)
+- The NCSU Collaborative Benchmarking Laboratory pages, offline now, via web.archive.org (id_ raw snapshots): benchmarks index and "Benchmarks at CBL up to 1996" (2002-12-17, lists ISCAS85/89, HLSynth89/91/92, LGSynth89/91/93/95), the LGSynth93 directory index (1998-07-12: LGSynth93.tar 10M, LIST, README, doc/, lib/, src/, testcases/), CBL_Docs lgs89, lgs91, lgs93, hls89, hls91, hls92 (2004-06), LGSynth93 README (1999-11-10), and the access policy http://www.cbl.ncsu.edu/benchmarks/access.html (snapshot 2002-09-03; page last modified 1997-04-02): "Users may copy and distribute the benchmarks as long as they do not charge for these services. These are NOT "MCNC benchmarks"." and a request to cite each set by the name of its directory (ISCAS'85, LGSynth93, and so on). LGSynth93.tar itself has no Wayback snapshot.
+
+## sis-scripts (primary for the script text)
+- URL: https://embedded.eecs.berkeley.edu/pubs/downloads/sis/sis-1.2.1.tar.gz (2.8 MB), the Berkeley SIS download page (UC Berkeley Pederson Center). Version offered there: sis-1.2.1.tar.gz (2017, "two LICENSE.txt files added that describe the license of the otherwise unlicensed files") and sis-1.2.tar.Z; SIS 1.3 is not offered. Members sis-1.2.1/sis/sis_lib/script.rugged (13 lines, sha256 53011e456a6c012283c1cdb99770cd1d3f4cda5f73b912e3c05fddd4359ae8c0) and script.algebraic (22 lines, sha256 c5d1debb2e1b0d955c331a07e748ce2b92012a73da183bc4ed2070e0a8972c59).
+- The script texts are kept in the private store only. Whether these are the scripts used for the VTR files is not stated: the VTR README names the two scripts but no SIS version, and the 1.2.1 package is a 1994 release with a 2017 licence file.
+- SIS licence (sis-1.2.1/LICENSE.txt and sis/LICENSE.txt): Copyright (c) 1989-1994, 2017 / 1994, 2017 The Regents of the University of California; permission "to use, copy, modify, and distribute this software and its documentation for any purpose, provided that the above copyright notice and the following two paragraphs appear in all copies". README: "SIS is free to the public via anonymous ftp ... PLEASE DO NOT REDISTRIBUTE SIS in any other manner."
+
+## Licence statements of the circuits (primary)
+- No circuit file of the MCNC, LGSynth89/91 or IWLS93 distributions carries licence or copyright text. Statements found: guide p.4 "You are free to copy and distribute material further to your colleagues as long as you don't charge for these services."; guide p.1 "Its distribution is limited to peer communication and to participants of the workshop." and the University of California copyright for material it reuses; the CBL access policy above. The IWLS93 tool sources (src/, not the circuits) carry "Copyright (C) 1993 Mentor Graphics Corporation" with permission to copy, distribute and modify for academic research, not for profit. In the meta, `licence` is `none-stated` for these circuits and the statements are in `licence_notice` (data/meta/licences.toml, which also holds the VTR, VerilogEval, Loki and Norns rules).
+
 ## Not found / not usable
-- A document that is explicitly the LGSynth93 user guide.
-- Any description of the HL synthesis workshop suite (year, authors, per-circuit text). The 1988 date is unverified.
-- ISCAS89 article "Combinational Profiles of Sequential Benchmark Circuits" full text (would state function of s298, s38417, s38584 "if known"). iscas89info.pdf is a scanned image.
-- The SIS script text and the SLIF/KISS2/PLA to SIS-input conversion step.
+- A document that is explicitly the LGSynth93 user guide: only the McElvain IWLS'93 document (iwls93-doc), which has no circuit list. The CBL LGSynth93.tar has no Wayback snapshot; IWLS93.7z is used instead.
+- Designer or author of any single circuit: no original names one, except `tseng` ("Example from Tseng") and the Stanford provenance of the four HL circuits (hls91-benchdoc). The guide acknowledges seven contributors (Benschop, De Micheli, Michel, OCT Tools Distribution, Sentovich, Somenzi, Trevillyan) without saying which circuit came from whom.
+- Function of the two-level circuits (apex2, apex4, ex1010, ex5p, misex3, pdc, seq, spla): the guide function column does not list two-level circuits at all; no original has a description. Function of s38417 and s38584.1 beyond "real-chip based".
+- HLSynth91.tar.Z and the HLSynth89/92 data: not fetched (the HLSynth91 documents were). The HL workshop 1991 documents give names and descriptions of the Stanford set, not per-circuit authors.
+- The SIS version used for the VTR files, and the SLIF/KISS2/PLA to SIS-input conversion steps (lineage gaps remain); SIS 1.3 is not on the Berkeley download page.
+- The ISCAS89 paper pages 3 to 6 (netlist format, method) were not read; iscas89.pdf and iscas85.pdf are notes only.
