@@ -53,18 +53,63 @@ FIELDS: dict[str, tuple[str, str]] = {
     "objective": ("norns.objective", "routed"),
     "n_blocks": ("norns.n_blocks", "clb"),
 }
-# fields that carry identity or text, not a measurement (not counted as skipped)
+# Fields that carry identity or text, not a measurement (not counted as skipped). Where each
+# one ends up:
+#   design       -> Record.design
+#   arm          -> Record.arm (rounds 1-7); round 3 appends "/<start>"
+#   pack         -> Record.arm in round 4 (`stock` or `norns`), with "/<start>" appended
+#   start        -> Record.arm suffix (`analytic`, `seed`, `wordseed`, `stagebit`), and family
+#   tag          -> Record.arm suffix "arm/tag" in rounds 1-2 and the round-3 pilot. In rounds 3
+#                   and 4 it is "<arm>.<start>.s<seed>", rebuilt from arm, start and seed: dropped
+#   vseed, seed  -> Record.seed (vseed when both exist)
+#   net_sha256   -> Record.input_sha256
+#   source       -> not stored: the round-3 and pilot affinity source (module, word, wordio,
+#                   stock) is the prefix of `arm`, so it is already in Record.arm
 IDENTITY = {"design", "arm", "tag", "vseed", "seed", "net_sha256", "source", "start", "pack"}
 
-# (glob under the Norns root, source label, family, tool commit)
+# (glob under the Norns root, source label, tool commit)
 RUN_FILES = (
-    ("data/*/runs.jsonl", None, "analytic", ""),
-    ("data/*/r3runs.jsonl", "norns-r3", "analytic", VTR_COMMIT),
-    ("data/*/r3pilot.jsonl", "norns-r3-pilot", "analytic", VTR_COMMIT),
-    ("data/*/r4runs.jsonl", "norns-r4", "analytic", VTR_COMMIT),
-    ("runs/r7/runs.jsonl", "norns-r7", "analytic", VTR_COMMIT),
-    ("runs/r7f/runs.jsonl", "norns-r7", "annealing", VTR_COMMIT),
+    ("data/*/runs.jsonl", None, ""),
+    ("data/*/r3runs.jsonl", "norns-r3", VTR_COMMIT),
+    ("data/*/r3pilot.jsonl", "norns-r3-pilot", VTR_COMMIT),
+    ("data/*/r4runs.jsonl", "norns-r4", VTR_COMMIT),
+    ("runs/r7/runs.jsonl", "norns-r7", VTR_COMMIT),
+    ("runs/r7f/runs.jsonl", "norns-r7", VTR_COMMIT),
 )
+
+# Family rule table, decided per round and per row from the flow each round recorded (the sources
+# are read-only and named in docs/specs section 4). The closed set is analytic, annealing, empty.
+#   analytic   = VPR's default flow in the pinned build: analytical placement (lp-b2b, APPack), then
+#                VPR's annealing refinement at the default schedule, from the flow's own start
+#                (norns round3.md "Flow", round7.md lines 33-36; vtr-interfaces.md line 13).
+#   annealing  = VPR's anneal from a supplied start (--read_initial_place_file continues placement
+#                from the file: vtr-interfaces.md line 11) or from a random start (round7.md lines
+#                271-275, "Analytical Placer: DISABLED"), or with a changed initial temperature.
+#   empty      = the flow is not stated for the row (round 1-2 `hard` region-constraint runs).
+SEEDED_START = {"seed", "wordseed", "stagebit"}
+R12_ANNEALING = {"soft", "cold", "cold-r2", "cold-off", "hot", "hot-r2"}
+
+
+def family_of(source: str, path: Path, row: dict[str, object]) -> str:
+    """The placer family of one run row (see the rule table above)."""
+    start, arm = row.get("start"), str(row.get("arm") or "")
+    if source == "norns-r1r2":
+        if arm == "baseline":
+            return "analytic"
+        if arm in R12_ANNEALING:
+            return "annealing"
+        if arm in ("unseeded", "unseeded-off"):
+            return "analytic" if row.get("scale") == 1.0 else "annealing"
+        return ""
+    if source in ("norns-r3", "norns-r4"):
+        if start == "analytic":
+            return "analytic"
+        return "annealing" if start in SEEDED_START else ""
+    if source == "norns-r7" and "runs/r7f/" in path.as_posix():
+        return "annealing"
+    return "analytic"  # round-3 pilot (--analytical_place), rounds 5 and 6, round-7 default flow
+
+
 ROUND_OF_DIR = {"r5": "norns-r5", "r6": "norns-r6"}
 
 
@@ -104,7 +149,11 @@ def _scalars(row: dict[str, object]) -> Iterator[tuple[str, str, float]]:
 
 
 def _arm(row: dict[str, object]) -> str:
+    """The experiment arm. Rounds 3 and 4: "<arm or pack>/<start>"; else "<arm>/<tag>" if both."""
     arm, tag = str(row.get("arm") or ""), str(row.get("tag") or "")
+    start = str(row.get("start") or "")
+    if start:
+        return f"{arm or str(row.get('pack') or '')}/{start}"
     return f"{arm}/{tag}" if arm and tag and tag != arm else arm or tag
 
 
@@ -122,7 +171,7 @@ def _count_skips(row: dict[str, object], source: str, report: Report) -> None:
 
 
 def import_run_file(
-    root: Path, path: Path, label: str | None, family: str, commit: str, report: Report
+    root: Path, path: Path, label: str | None, commit: str, report: Report
 ) -> Iterator[Record]:
     source = _source(path, label)
     commit = _commit(source, commit)
@@ -135,7 +184,7 @@ def import_run_file(
             design=str(row["design"]), source=source, origin=f"{rel}:{n}", measurer=MEASURER,
             measurer_version=VERSION, input_sha256=str(row.get("net_sha256") or ""),
             tool_commit=commit, arch=ARCH, seed=seed if isinstance(seed, int) else -1,
-            arm=_arm(row), family=family,
+            arm=_arm(row), family=family_of(source, path, row),
         )
         for metric, level, value in _scalars(row):
             made += 1
@@ -204,9 +253,9 @@ def import_norns(root: Path) -> tuple[list[Record], Report]:
     """All Norns records under `root` (the Norns checkout, read only)."""
     report = Report()
     out: list[Record] = []
-    for pattern, label, family, commit in RUN_FILES:
+    for pattern, label, commit in RUN_FILES:
         for path in sorted(root.glob(pattern)):
-            out.extend(import_run_file(root, path, label, family, commit, report))
+            out.extend(import_run_file(root, path, label, commit, report))
     out.extend(import_corpus(root, report))
     note_unimported(root, report)
     return out, report

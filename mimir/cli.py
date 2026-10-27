@@ -40,11 +40,11 @@ def _cmd_import(args: argparse.Namespace) -> int:
         root = _root(args.norns, "MIMIR_NORNS")
         for importer in (import_norns, import_atlas):
             recs, rep = importer(root)
-            store.add(recs)
+            store.replace_origins(recs)
             report.merge(rep)
     if args.what in ("loki", "all"):
         recs, rep = import_loki(_root(args.loki, "MIMIR_LOKI"))
-        store.add(recs)
+        store.replace_origins(recs)
         report.merge(rep)
     print("\n".join(report.lines()))
     print(f"records in store: {store.count()}")

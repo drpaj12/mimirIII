@@ -65,10 +65,56 @@ with the reason.
   `meta.json` counts (nodes, edges, luts, gates, ffs, pi, po) as records at the matching level.
 - Wyrd atlas exports (`*.json.gz` in the Norns round 7 data): the per-run scalars.
 
-Placer family: VPR in the VTR commit used (3c9a4d23b2) runs the analytical flow by default
-(analytical placement, then annealing refinement). Norns rows from the default flow are labelled
-`analytic` (an agent default; see the report). Rows of flows known to be annealing from a random
-start are not in the imported files.
+Placer family, per row from the flow each round recorded (sources read only: the Norns plan files
+`docs/plan/round3.md`, `round7.md`, `vtr-interfaces.md` and the runners `scripts/matrix.py`,
+`round3.py`, `round4.py`, `r7net.py`). The closed set is `analytic`, `annealing`, empty.
+
+- `analytic` = VPR's default flow in the pinned build: analytical placement (`lp-b2b`, APPack),
+  then VPR's annealing refinement at the default schedule, from the flow's own start
+  (round3.md "Flow"; round7.md lines 33-36). The family is the one of the start of the flow; the
+  refinement stage is part of that flow.
+- `annealing` = VPR's anneal from a start that was supplied or random: `--read_initial_place_file`
+  continues placement from the file (vtr-interfaces.md line 11), or `--place --net_file` with the
+  analytical placer disabled (round7.md lines 271-275), or an initial temperature changed with
+  `--anneal_auto_init_t_scale`.
+- empty = the flow is not stated for the row.
+
+| Source | Rows | Family | Evidence |
+|---|---|---|---|
+| norns-r1r2 | `baseline`; `unseeded`, `unseeded-off` at scale 1 | analytic | default flow (matrix.py baseline, no seed) |
+| norns-r1r2 | `soft`, `cold`, `cold-r2`, `cold-off`, `hot`, `hot-r2` | annealing | `--read_initial_place_file` (matrix.py, round2.py) |
+| norns-r1r2 | `unseeded`, `unseeded-off` at scale other than 1 | annealing | initial temperature changed |
+| norns-r1r2 | `hard` | empty | region constraints (`--read_vpr_constraints`); the flow under constraints is not stated |
+| norns-r3 | start `analytic` | analytic | default flow |
+| norns-r3 | start `seed` | annealing | `--read_initial_place_file` (round3.py) |
+| norns-r3-pilot | all | analytic | `--analytical_place` (round3.py) |
+| norns-r4 | start `analytic` | analytic | default flow |
+| norns-r4 | start `wordseed`, `stagebit` | annealing | `--read_initial_place_file` (round4.py) |
+| norns-r5, norns-r6 | all | analytic | default flow (round5.md) |
+| norns-r7 (`runs/r7`) | all | analytic | default flow (round7.md lines 33-36) |
+| norns-r7 (`runs/r7f`) | all | annealing | annealing from a random start (round7.md lines 271-275) |
+| wyrd-atlas-r7 | all | analytic | exports of the round 7 default-flow runs |
+| norns-r7-corpus | all | empty | corpus statistics, no placer |
+
+The earlier lane labelled every default-flow and seeded row `analytic`; the table replaces that.
+The `norns-experiment.md` sentence "SA from VTR's analytic start" is the design intent; the later
+round files describe the flow actually run and are the evidence used.
+
+The `arm` of a Norns row: rounds 1-2 and the round-3 pilot `arm/tag`; round 3 `arm/start`
+(e.g. `module-b1/seed`); round 4 `pack/start` (e.g. `norns/wordseed`); rounds 5-7 `arm`. In the
+data the round 3 and 4 `tag` already held the start (and the seed, redundantly), so the rows of the
+real data were distinct; the importer relied on that by accident and the arm now carries the start
+by construction, with no seed in the arm string.
+
+Idempotence: an import is one transaction that first deletes the rows already stored for the
+(source, origin file) pairs it is about to write, then inserts. A reordered or rewritten source
+file gives the same rows as a fresh import (the line number in `origin` can move). `measure-set`
+writes by identity (`INSERT OR REPLACE`) because its origins are whole files.
+
+Loki: `tool_commit` is empty unless `meta.json` records a commit; the meta files hold only version
+strings (`odin3_version`, `loki_version`, `abi_version`), which are not commits and are not stored.
+`loki.in_train` is set from an explicit map (`train` = 1, `test` = 0); a manifest entry with any
+other split value or none is counted as skipped with the reason and sets no value.
 
 ## 5. Measurers
 

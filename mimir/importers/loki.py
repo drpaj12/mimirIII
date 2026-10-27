@@ -20,6 +20,7 @@ COUNTS = {
 }
 TOP = {"loops_cut": "loki.loops_cut", "unmatched": "loki.unmatched"}
 SKIP_DIRS = {".venv", "node_modules", "__pycache__", ".git"}
+SPLIT_VALUE = {"train": 1.0, "test": 0.0}  # loki.in_train; any other split value is skipped
 
 
 def find_datasets(root: Path) -> list[Path]:
@@ -47,6 +48,13 @@ def _script_hash(meta: dict[str, object]) -> str:
     script = meta.get("script")
     text = "\n".join(script) if isinstance(script, list) else ""
     return hashlib.sha256(text.encode()).hexdigest()[:16] if text else ""
+
+
+def _commit(meta: dict[str, object]) -> str:
+    """The tool commit when meta.json records one; empty otherwise. The meta files carry only
+    version strings (odin3_version, loki_version), which are not commits and are not stored."""
+    value = meta.get("tool_commit") or meta.get("odin3_commit")
+    return value if isinstance(value, str) else ""
 
 
 def _number(v: object) -> float | None:
@@ -83,18 +91,31 @@ def _floor(
         design=design, source=source, origin=meta_path.relative_to(root).as_posix(),
         measurer=MEASURER, measurer_version=VERSION,
         input_sha256=sha256_file(blif) if blif.is_file() else "",
-        tool_commit="odin3-" + str(meta.get("odin3_version", "")), arch=floor,
+        tool_commit=_commit(meta), arch=floor,
         script_hash=_script_hash(meta),
     )
     vals = [(COUNTS[k], x) for k, v in sorted(meta.get("counts", {}).items())
             if k in COUNTS and (x := _number(v)) is not None]
     vals += [(m, x) for k, m in TOP.items() if (x := _number(meta.get(k))) is not None]
-    if "split" in info:
-        vals.append(("loki.in_train", 1.0 if info["split"] == "train" else 0.0))
+    if info:
+        _split(vals, info, source, report)
     recs = [ctx.rec(m, level, x) for m, x in vals]
     report.used[source] += bool(recs)
     report.records[source] += len(recs)
     return recs
+
+
+def _split(
+    vals: list[tuple[str, float]], info: dict[str, object], source: str, report: Report
+) -> None:
+    """Add loki.in_train for a known split value; count an absent or unknown split as skipped."""
+    split = info.get("split")
+    if isinstance(split, str) and split in SPLIT_VALUE:
+        vals.append(("loki.in_train", SPLIT_VALUE[split]))
+    elif split is None:
+        report.skip(source, "manifest entry without a split")
+    else:
+        report.skip(source, f"unknown split value {split!r}: loki.in_train not set")
 
 
 def import_loki(root: Path) -> tuple[list[Record], Report]:

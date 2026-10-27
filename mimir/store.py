@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import re
 import sqlite3
 from collections.abc import Iterable, Iterator
 from pathlib import Path
@@ -10,6 +11,12 @@ from pathlib import Path
 from mimir.schema import COLUMNS, KEY_COLUMNS, SCHEMA_VERSION, Record, check_record
 
 _SQL_TYPES = {"seed": "INTEGER", "value": "REAL"}
+_LINE_SUFFIX = re.compile(r":\d+$")
+
+
+def origin_file(origin: str) -> str:
+    """The file part of an origin ("path:12" gives "path"; an origin without a line is itself)."""
+    return _LINE_SUFFIX.sub("", origin)
 
 
 def _create_sql() -> str:
@@ -27,6 +34,9 @@ class Store:
             "CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
         )
         self.db.execute(_create_sql())
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)"
+        )
         self.db.execute(
             "INSERT OR IGNORE INTO meta VALUES ('schema_version', ?)", (str(SCHEMA_VERSION),)
         )
@@ -51,6 +61,41 @@ class Store:
         self.db.executemany(f"INSERT OR REPLACE INTO records VALUES ({marks})", rows)
         self.db.commit()
         return len(rows)
+
+    def replace_origins(self, records: Iterable[Record]) -> tuple[int, int]:
+        """Import records so that the result equals a fresh import of the same source files.
+
+        In one transaction: delete the rows already stored for the (source, origin file) pairs the
+        records come from, then insert the records. Rows of a reordered or rewritten file are
+        replaced, not added next to the old ones (the line number in `origin` can move). Returns
+        (rows deleted, rows written)."""
+        batch = list(records)
+        for rec in batch:
+            check_record(rec)
+        pairs: dict[str, set[str]] = {}
+        for rec in batch:
+            pairs.setdefault(rec.source, set()).add(origin_file(rec.origin))
+        marks = ", ".join("?" for _ in COLUMNS)
+        try:
+            stale = [
+                (source, origin)
+                for source, files in sorted(pairs.items())
+                for (origin,) in self.db.execute(
+                    "SELECT DISTINCT origin FROM records WHERE source = ?", (source,)
+                ).fetchall()
+                if origin_file(origin) in files
+            ]
+            before = self.db.total_changes
+            self.db.executemany("DELETE FROM records WHERE source = ? AND origin = ?", stale)
+            deleted = self.db.total_changes - before
+            self.db.executemany(
+                f"INSERT OR REPLACE INTO records VALUES ({marks})", [r.as_tuple() for r in batch]
+            )
+            self.db.commit()
+        except BaseException:
+            self.db.rollback()
+            raise
+        return deleted, len(batch)
 
     def merge(self, other: str | Path) -> int:
         """Copy every row of another Mimir database in (same schema version); return its rows."""
