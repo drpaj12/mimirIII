@@ -38,6 +38,24 @@ def mcnc_jobs(vtr_root: Path) -> list[Job]:
     ])
 
 
+def _lutk_jobs(vtr_root: Path, k: int) -> list[Job]:
+    """Every MCNC circuit of VTR's blif/<k>/ directory (the whole set mapped to k-input LUTs)."""
+    base = vtr_root / f"vtr_flow/benchmarks/blif/{k}"
+    return _smallest_first([
+        Job(path, path.stem, f"mcnc-k{k}", "lut", f"vtr:vtr_flow/benchmarks/blif/{k}/{path.name}",
+            tool_commit=VTR_COMMIT)
+        for path in sorted(base.glob("*.blif"))
+    ])
+
+
+def mcnc_k2_jobs(vtr_root: Path) -> list[Job]:
+    return _lutk_jobs(vtr_root, 2)
+
+
+def mcnc_k4_jobs(vtr_root: Path) -> list[Job]:
+    return _lutk_jobs(vtr_root, 4)
+
+
 def norns_jobs(norns_root: Path) -> list[Job]:
     """The Odin III netlists of the Norns designs (LUTs plus hard blocks)."""
     jobs = []
@@ -65,6 +83,8 @@ def loki_jobs(loki_root: Path) -> list[Job]:
 # set name -> (job builder, env var holding the root)
 SETS: dict[str, tuple[Callable[[Path], list[Job]], str]] = {
     "mcnc": (mcnc_jobs, "VTR_ROOT"),
+    "mcnc-k2": (mcnc_k2_jobs, "VTR_ROOT"),
+    "mcnc-k4": (mcnc_k4_jobs, "VTR_ROOT"),
     "norns": (norns_jobs, "MIMIR_NORNS"),
     "loki": (loki_jobs, "MIMIR_LOKI"),
 }

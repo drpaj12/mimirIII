@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 
 from mimir.citations import load_citations, render_markdown
+from mimir.hutton import characterise
+from mimir.netlist import COMB, CONST, HARD, LATCH, PI, Netlist
 from mimir.registry import load_registry
 from mimir.schema import LEVELS
 
@@ -29,6 +31,39 @@ class Registry(unittest.TestCase):
                     "mimir/importers/atlas.py", "mimir/importers/loki.py"):
             for name in pattern.findall((ROOT / rel).read_text()):
                 self.assertIn(name, reg, f"{name} in {rel}")
+
+    def test_every_emitted_struct_metric_is_registered(self) -> None:
+        nl = Netlist("everything")
+        a = nl.add(PI)
+        clk = nl.add(PI)
+        k = nl.add(CONST)
+        g = nl.add(COMB, (a, k))
+        h = nl.add(COMB, (g,))
+        q = nl.add(LATCH, (h,))
+        nl.add(HARD, (q,))
+        nl.add(COMB, (g, q))
+        nl.clocks = {clk}
+        nl.po_drivers = [h]
+        reg = load_registry()
+        names = {m for m, _, _ in characterise(nl)}
+        self.assertGreater(len(names), 30)
+        for name in names:
+            self.assertIn(name, reg, name)
+
+    def test_followed_metrics_name_a_page(self) -> None:
+        cites = load_citations(ROOT / "citations.toml")
+        for key, m in load_registry().items():
+            if m.definition_source in cites:
+                self.assertTrue(m.defined_in, f"{key} has a source but no page")
+                self.assertRegex(m.defined_in, r"\bp\. ?\d|\bSec\.", f"{key}: no p. or Sec.")
+                self.assertIn(m.definition_source, m.citations, key)
+                self.assertFalse(m.named_after, f"{key} follows a source, so it is not named_after")
+            elif m.definition_source == "mimir" and key.startswith("struct.mimir_"):
+                self.assertFalse(m.citations, key)
+
+    def test_aliases_do_not_clash(self) -> None:
+        cites = load_citations(ROOT / "citations.toml")
+        self.assertEqual(cites["kundarewich2004tcad"]["aliases"], ["Kundarewich03synth"])
 
     def test_citations_have_checked_notes_and_doc_is_current(self) -> None:
         items = load_citations(ROOT / "citations.toml")

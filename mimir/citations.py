@@ -5,9 +5,6 @@ from __future__ import annotations
 import tomllib
 from pathlib import Path
 
-_FIELDS = ("id", "name", "kind", "role", "authors", "year", "title", "venue", "doi", "url",
-           "license", "checked")
-
 
 def load_citations(path: Path) -> dict[str, dict[str, object]]:
     """Citation entries keyed by id. Every entry needs an id, a name, a kind and a checked note."""
@@ -20,6 +17,12 @@ def load_citations(path: Path) -> dict[str, dict[str, object]]:
         if item["id"] in out:
             raise ValueError(f"duplicate citation {item['id']!r}")
         out[item["id"]] = item
+    seen = set(out)
+    for item in items:
+        for alias in item.get("aliases", []):
+            if alias in seen:
+                raise ValueError(f"alias {alias!r} of {item['id']!r} is already an id or alias")
+            seen.add(alias)
     return out
 
 
@@ -44,7 +47,10 @@ def render_markdown(items: dict[str, dict[str, object]]) -> str:
              "| Id | Kind | Role | Reference | Link | Licence |", "|---|---|---|---|---|---|"]
     for key in sorted(items):
         it = items[key]
-        row = [key, str(it["kind"]), str(it.get("role", "")), _ref(it), _link(it),
+        raw = it.get("aliases", [])
+        aliases = [str(a) for a in raw] if isinstance(raw, list) else []
+        label = key + (f" (alias {', '.join(aliases)})" if aliases else "")
+        row = [label, str(it["kind"]), str(it.get("role", "")), _ref(it), _link(it),
                str(it.get("license", ""))]
         lines.append("| " + " | ".join(c.replace("|", "/") for c in row) + " |")
     lines += ["", "## Checked", ""]

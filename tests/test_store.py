@@ -46,6 +46,23 @@ class StoreTests(unittest.TestCase):
         s.add([rec("a", "m", 5)])
         self.assertEqual([r[COLUMNS.index("value")] for r in s.rows()], [5.0])
 
+    def test_remeasure_drops_old_version(self) -> None:
+        from dataclasses import replace
+
+        s = Store(Path(tmpdir()) / "x.db")
+        old = [replace(rec("a", "struct.edge_len_x", 1, "1"), measurer_version="struct-2"),
+               replace(rec("a", "struct.stale", 1), measurer_version="struct-2"),
+               replace(rec("b", "struct.stale", 1), measurer_version="struct-2")]
+        s.add(old)
+        self.assertEqual(s.mixed_versions(), [])
+        new = [replace(rec("a", "struct.edge_len_x", 2, "1"), measurer_version="struct-3")]
+        self.assertEqual(s.replace_measured(new), (2, 1))
+        got = [(r[COLUMNS.index("design")], r[COLUMNS.index("metric")],
+                r[COLUMNS.index("measurer_version")]) for r in s.rows()]
+        self.assertEqual(got, [("a", "struct.edge_len_x", "struct-3"),
+                               ("b", "struct.stale", "struct-2")])
+        self.assertEqual(s.mixed_versions(), [("m", ["struct-2", "struct-3"])])
+
     def test_bad_level_rejected(self) -> None:
         s = Store(Path(tmpdir()) / "x.db")
         bad = rec("a", "m", 1)

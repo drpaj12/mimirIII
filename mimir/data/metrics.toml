@@ -1,238 +1,499 @@
 # Metric registry (schema version 1). Every metric a record carries must be listed here.
 # kind: measured = computed by Mimir; imported = copied from a source, not re-derived.
-# definition_source: mimir = defined in the Mimir spec; vpr, norns, loki = as defined by that tool.
-# citations are ids in citations.toml that a metric's definition or method rests on. For struct.*
-# the list is empty: the definitions are Mimir's own because the Hutton works were not readable
-# (see docs/specs). `named_after` lists those works as context only: the metric names follow them,
-# their definitions were not read and are not claimed.
+# definition_source: a citation id (the work whose definition the metric follows; `defined_in`
+# gives the pages), "mimir" (Mimir's own definition: `struct.mimir_*` variants and bookkeeping), or
+# vpr, norns, loki = as defined by that tool.
+# citations are ids in citations.toml that a metric's definition or method rests on.
+# `named_after` lists works a Mimir-only metric is a variant of: context, not its definition.
+# Page numbers of the Hutton thesis are the printed ones (PDF page = printed page + 9).
 
 [[metric]]
 key = "struct.n_comb"
-description = "Combinational nodes (gates or LUTs, .names with inputs)"
+description = "Combinational nodes: .names with inputs (gates or LUTs); Hutton's n_LOG"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 46 (Sec. 4.1, n = n_LOG + n_PI + n_DFF); TCAD 2002 p. 928 (Sec. II)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder). Compared with the published values for MCNC circuits in the spec, section 10 (LUT counts of alu4 and the Fang MASc Table 3.2 sizes of 21 circuits)."
 
 [[metric]]
 key = "struct.n_latch"
-description = "Latches"
+description = "Latches; Hutton's n_DFF"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 46 (Sec. 4.1); TCAD 2002 p. 928"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (latch circuit). Compared with the published values for MCNC circuits in the spec, section 10 (Table 4.1 n_DFF of dsip, s298, bigkey, clma)."
 
 [[metric]]
 key = "struct.n_hard"
-description = "Hard-block instances (.subckt of a blackbox model)"
+description = "Hard-block instances (.subckt of a blackbox model); not in Hutton's model"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder, latch). No published value exists for it."
 
 [[metric]]
 key = "struct.n_pi"
-description = "Primary inputs"
+description = "Primary inputs: every .inputs signal of the top model, clock PIs included (Hutton leaves clocks out, thesis p. 26; use size and n_io for his counts)"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, clock PI in tests/test_blif.py). No published value exists for it."
 
 [[metric]]
 key = "struct.n_const"
-description = "Constant nodes (.names without inputs); undriven signals are not constants, see n_undriven"
+description = "Constant nodes (.names without inputs); undriven signals are not constants, see n_undriven; not in Hutton's model"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (constant in fanout test). No published value exists for it."
 
 [[metric]]
 key = "struct.n_po"
-description = "Primary outputs"
+description = "Primary outputs: the .outputs signals of the top model (Hutton: a PO is a property of the driving node, thesis p. 29; n_PO, p. 25)"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 25 (Sec. 3.2.1)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree). Compared with the published values for MCNC circuits in the spec, section 10 (n_io of Table 4.1)."
 
 [[metric]]
 key = "struct.n_edges"
-description = "Fanin pins of combinational, latch and hard nodes"
+description = "Fanin pins of combinational, latch and hard nodes (Hutton: the edges; hard-block pins are Mimir's addition)"
 unit = "pins"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 26 (Sec. 3.2.2); TCAD 2002 p. 928"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree). Compared with the published values for MCNC circuits in the spec, section 10 (alu4 edge total (5400) and Table 4.1 Edges)."
+
+[[metric]]
+key = "struct.size"
+description = "Hutton's size n = n_PI + n_LOG + n_DFF, with the clock PIs left out (PO nodes are not counted, TCAD 2002 p. 928 footnote 1)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 46 (Sec. 4.1); TCAD 2002 p. 928 (Sec. II) and footnote 1; the p. 25 wording 'number of LUTs' disagrees with Table 3.2 (alu4: 1536 = 1522 LUTs + 14 PIs), which follows the n of p. 46"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, clock PI in tests/test_blif.py). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.1 and 3.2 sizes of 10 circuits)."
+
+[[metric]]
+key = "struct.n_io"
+description = "Hutton's n_IO = n_PI + n_PO, clock PIs left out"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 25 (Sec. 3.2.1)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, clock PI in tests/test_blif.py). Compared with the published values for MCNC circuits in the spec, section 10 (Table 4.1 IOs)."
+
+[[metric]]
+key = "struct.fanin_max"
+description = "Largest number of distinct fanin of a combinational node: the LUT size k as the netlist shows it"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 53 (Sec. 4.3: k is the maximum in-degree, the LUT size)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (diamond, tree). Compared with the published values for MCNC circuits in the spec, section 10 (LUT size of the VTR BLIFs (2 and 4))."
 
 [[metric]]
 key = "struct.depth"
-description = "Maximum combinational level; sources are level 0"
+description = "Maximum combinational delay d(G): the longest path in nodes from a PI or latch (unit delay); PIs, constants, latches and hard blocks are delay 0"
 unit = "levels"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 28 (Sec. 3.3, d(x) and d(G)); p. 45 (delay 0 for a PI or DFF); TCAD 2002 p. 929 (Def. 2.1)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder, latch). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.2 delay of 10 circuits)."
 
 [[metric]]
 key = "struct.level_width"
-description = "Combinational nodes at one level (bin = level, levels above 64 not written)"
+description = "Hutton's shape: nodes per delay level (bin = level; level 0 holds the data PIs and the latches); bins above 64 are not written"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 28 (Sec. 3.3.1, shape), p. 45 (PI and DFF at delay 0), Table 3.2 p. 30; TCAD 2002 p. 929 (Def. 2.4)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder, latch). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.2 of 10 circuits)."
 
 [[metric]]
 key = "struct.edge_len_hist"
-description = "Comb-to-comb fanin pins by level difference (bin = length, 33+ folded); pins driven by a PI, constant, latch, hard block or undriven signal are in src_edge_len_hist"
+description = "Hutton's edge-length distribution: every fanin pin of a combinational node by delay(sink) - delay(source), PI-driven pins included (bin = length, 33+ folded); pins into latches (FF edges) are not counted"
 unit = "pins"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 31 (Sec. 3.3.2, Table 3.3); TCAD 2002 p. 929 (Def. 2.5 and 2.6); thesis p. 46 gives FF edges length 1 and Kundarewich and Rose p. 14 gives 0, so they are left out"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, long edge). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.3 of 10 circuits)."
 
 [[metric]]
 key = "struct.edge_len_mean"
-description = "Mean level difference over comb-to-comb fanin pins"
+description = "Mean of the edge-length distribution (derived from it)"
 unit = "levels"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 31 (derived)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, long edge). No published value exists for it."
 
 [[metric]]
 key = "struct.edge_len_max"
-description = "Maximum level difference over comb-to-comb fanin pins"
+description = "Maximum edge length"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 31 (derived)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, long edge). No published value exists for it."
+
+[[metric]]
+key = "struct.fanout_hist"
+description = "Hutton's fanout distribution: nodes by edges leaving them, PO pins not counted (bin = fanout, 0 = dangling, 33+ folded); constants and clock PIs are left out; hard blocks are included"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 26 (Sec. 3.2.3, a primary output is not necessarily of fanout zero), Table 3.1 p. 27; TCAD 2002 p. 928"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, dangling node, with-latch). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.1 of 10 circuits)."
+
+[[metric]]
+key = "struct.fanout_mean"
+description = "Mean edges leaving a node (derived from the distribution)"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 26 (derived)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree). No published value exists for it."
+
+[[metric]]
+key = "struct.fanout_max"
+description = "Maximum edges leaving a node (Hutton: max_fanout, Table 3.1 Max_out)"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 27 (Table 3.1)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, dangling node). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.1 Max_out of 10 circuits)."
+
+[[metric]]
+key = "struct.fanout_shape"
+description = "Hutton's delay-fanout distribution: total fanout of the nodes at each delay level (bin = level)"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 32 (Sec. 3.3.3, Table 3.4)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). Compared with the published values for MCNC circuits in the spec, section 10 (Table 3.4 of 9 circuits)."
+
+[[metric]]
+key = "struct.reconv_R"
+description = "Hutton's reconvergence number R(G) over the combinational out-cones of the data PIs: size-weighted mean of R(x) = sum of log2(fanin inside the cone) over the cone / cone size; cones follow combinational edges only. Absent when PIs x fanin pins exceeds 50,000,000"
+unit = "bits per node"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 33-34 (Sec. 3.4, eq. 3.1 and 3.2); thesis p. 53 (the combinational reconvergence of a sequential circuit ignores the back edges); preprint of the combinational TCAD paper p. 3 (Sec. B.6)"
+citations = ["hutton1997thesis", "hutton1998tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (thesis Figure 4.3 cone (R = 3/12), weighted two-PI case, latch and clock cases). Compared with the published values for MCNC circuits in the spec, section 10 (Tables 3.5 and 4.2 R for MCNC circuits; the sequential ones disagree, see section 10)."
+
+[[metric]]
+key = "struct.seq_levels"
+description = "Sequential levels: 1 + the largest sequential level (a combinational circuit has one)"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 45 (Sec. 4.1); TCAD 2002 p. 929 (Def. 2.2 and 2.3)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (latch circuit, chain). Compared with the published values for MCNC circuits in the spec, section 10 (Table 4.1 Levels)."
+
+[[metric]]
+key = "struct.seq_shape"
+description = "Hutton's sequential shape: nodes (data PIs, logic nodes, latches) per sequential level (bin = level). Level = fewest latches on any path from a PI (a 0-1 search), the minimum rule of the definition"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 45 (Sec. 4.1), p. 47 (Sec. 4.2.1, Table 4.1 Seq. Shape); TCAD 2002 p. 929 (Def. 2.2)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (latch circuit). Compared with the published values for MCNC circuits in the spec, section 10 (Table 4.1 Seq. Shape)."
+
+[[metric]]
+key = "struct.n_back_edges"
+description = "Back edges: fanin pins of logic and hard nodes whose driver has a deeper sequential level than the node"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "hutton1997thesis"
+defined_in = "thesis p. 45 (Sec. 4.1: a back edge goes to a lower sequential level); TCAD 2002 p. 929 (Def. 2.5)"
+citations = ["hutton1997thesis", "hutton2002tcad"]
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (feedback circuit). Compared with the published values for MCNC circuits in the spec, section 10 (Table 4.1 nBack)."
+
+[[metric]]
+key = "struct.mimir_edge_len_comb_hist"
+description = "Mimir split of edge_len: only the pins whose driver is a combinational node (bin = length, 33+ folded)"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, long edge). No published value exists for it."
+
+[[metric]]
+key = "struct.mimir_edge_len_comb_mean"
+description = "Mean of the comb-to-comb edge length"
 unit = "levels"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). No published value exists for it."
 
 [[metric]]
-key = "struct.fanout_hist"
-description = "Non-constant nodes by number of sink pins, POs included (bin = fanout, 0 = dangling driver, 33+ folded); clock PIs of latches are left out"
-unit = "nodes"
+key = "struct.mimir_edge_len_comb_max"
+description = "Maximum comb-to-comb edge length"
+unit = "levels"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). No published value exists for it."
 
 [[metric]]
-key = "struct.fanout_mean"
-description = "Mean sink pins per non-constant node, dangling drivers (fanout 0) included"
+key = "struct.mimir_edge_len_src_hist"
+description = "Mimir split of edge_len: pins driven by a source (PI, constant, latch, hard block, undriven): the level of the sink (bin = length, 33+ folded)"
 unit = "pins"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, long edge). No published value exists for it."
 
 [[metric]]
-key = "struct.fanout_max"
-description = "Maximum sink pins of a non-constant node"
+key = "struct.mimir_edge_len_src_mean"
+description = "Mean level of the sink over source-driven pins"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). No published value exists for it."
+
+[[metric]]
+key = "struct.mimir_edge_len_src_max"
+description = "Maximum level of the sink over source-driven pins"
+unit = "levels"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). No published value exists for it."
+
+[[metric]]
+key = "struct.mimir_fanout_po_hist"
+description = "Mimir variant of fanout_hist that counts a PO pin as a sink (the fix-round definition; bin = fanout, 33+ folded)"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, dangling node). No published value exists for it."
+
+[[metric]]
+key = "struct.mimir_fanout_po_mean"
+description = "Mean sink pins per node, PO pins counted"
 unit = "pins"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (chain). No published value exists for it."
 
 [[metric]]
-key = "struct.reconv_stems"
-description = "Stems: non-constant nodes with at least two distinct combinational sinks (bin = stem kind: pi, comb, latch, hard, undriven)"
+key = "struct.mimir_fanout_po_max"
+description = "Maximum sink pins of a node, PO pins counted"
+unit = "pins"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (dangling node). No published value exists for it."
+
+[[metric]]
+key = "struct.mimir_reconv_R_total_fanin"
+description = "Mimir variant of reconv_R that uses the full fanin of each cone node instead of the fanin inside the cone; it is near log2 k for every circuit, so it cannot be the published number"
+unit = "bits per node"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (fanin-outside-the-cone test). Compared with the published values for MCNC circuits in the spec, section 10 (Tables 3.5 and 4.2: does not reproduce them)."
+
+[[metric]]
+key = "struct.mimir_reconv_R_seqcone"
+description = "Mimir variant of reconv_R whose out-cones continue through latches (a count over the sequential out-cone, not the spanning-tree count R_s of thesis p. 50-53)"
+unit = "bits per node"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (latch cone test). Compared with the published values for MCNC circuits in the spec, section 10 (Tables 3.5 and 4.2 s298 match; section 10)."
+
+[[metric]]
+key = "struct.mimir_reconv_stems"
+description = "Mimir window search: stems, non-constant nodes with at least two distinct combinational sinks (bin = stem kind: pi, comb, latch, hard, undriven)"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (diamond, ladder, kinds). No published value exists for it."
 
 [[metric]]
-key = "struct.reconv_truncated"
-description = "Stems whose reconvergence search hit the 5000-visited-node bound before finding one (bin = stem kind); they are left out of the fraction and the span"
+key = "struct.mimir_reconv_truncated"
+description = "Mimir window search: stems whose reconvergence search hit the 5000-visited-node bound before finding one (bin = stem kind); left out of the fraction and the span"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (truncated-stem and wide-cone tests). No published value exists for it."
 
 [[metric]]
-key = "struct.reconv_stem_fraction"
-description = "Reconvergent stems divided by resolved stems, i.e. stems minus truncated ones (bin = stem kind). Window W = 8 levels past the deepest sink of the stem; search bound 5000 visited nodes per stem"
+key = "struct.mimir_reconv_stem_fraction"
+description = "Mimir window search: reconvergent stems divided by resolved stems, i.e. stems minus truncated ones (bin = stem kind). Window W = 8 levels past the deepest sink of the stem; search bound 5000 visited nodes per stem"
 unit = "ratio"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (diamond, ladder, wide-cone tests). No published value exists for it."
 
 [[metric]]
-key = "struct.reconv_span_mean"
-description = "Mean level distance from a reconvergent stem to its nearest reconvergence node (bin = stem kind; level 0 stems such as PIs measure from level 0)"
+key = "struct.mimir_reconv_span_mean"
+description = "Mimir window search: mean level distance from a reconvergent stem to its nearest reconvergence node (bin = stem kind; level 0 stems such as PIs measure from level 0)"
 unit = "levels"
 levels = ["gate", "lut"]
 kind = "measured"
 measurer = "struct"
 definition_source = "mimir"
 citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, diamond, ladder mesh, long edge, latch) in tests/test_hutton.py. No published value compared: the sources were not readable."
+named_after = ["hutton1997thesis"]
+validation = "Known-answer unit tests in tests/test_hutton.py (diamond, kinds, wide-cone tests). No published value exists for it."
+
+[[metric]]
+key = "struct.seq_unreached"
+description = "Latches, logic and hard nodes that no PI reaches (no sequential level); Mimir's own check"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "struct"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer unit tests in tests/test_hutton.py (island test). No published value exists for it."
 
 [[metric]]
 key = "struct.n_undriven"
@@ -260,7 +521,7 @@ validation = "Unit test test_undriven_and_multidriven_are_counted_not_constants 
 
 [[metric]]
 key = "struct.n_clock_pi"
-description = "PIs used as a latch clock (also counted in n_pi; they have no fanout pins and are left out of fanout_hist)"
+description = "PIs used as a latch clock (also counted in n_pi; they have no fanout pins; left out of size, n_io, fanout_hist and the R and sequential rows)"
 unit = "nodes"
 levels = ["gate", "lut"]
 kind = "measured"
@@ -269,42 +530,6 @@ definition_source = "mimir"
 citations = []
 named_after = []
 validation = "Unit test test_clock_pi_is_flagged_and_not_dangling in tests/test_blif.py."
-
-[[metric]]
-key = "struct.src_edge_len_hist"
-description = "Fanin pins of comb nodes driven by a source (PI, constant, latch, hard block, undriven): level of the sink, since a source is level 0 (bin = length, 33+ folded)"
-unit = "pins"
-levels = ["gate", "lut"]
-kind = "measured"
-measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, long edge) in tests/test_hutton.py. No published value compared."
-
-[[metric]]
-key = "struct.src_edge_len_mean"
-description = "Mean level of the sink over source-driven comb fanin pins"
-unit = "levels"
-levels = ["gate", "lut"]
-kind = "measured"
-measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, long edge) in tests/test_hutton.py. No published value compared."
-
-[[metric]]
-key = "struct.src_edge_len_max"
-description = "Maximum level of the sink over source-driven comb fanin pins"
-unit = "levels"
-levels = ["gate", "lut"]
-kind = "measured"
-measurer = "struct"
-definition_source = "mimir"
-citations = []
-named_after = ["hutton1996dac", "hutton1997fpga"]
-validation = "Known-answer unit tests (chain, tree, long edge) in tests/test_hutton.py. No published value compared."
 
 [[metric]]
 key = "struct.const_fanout_hist"

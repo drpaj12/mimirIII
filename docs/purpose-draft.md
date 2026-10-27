@@ -39,13 +39,15 @@ before its values are trusted.
 ## Measures used by lane 1
 
 Lane 1 answers Mi Q1.1 to Mi Q1.4 only: the correctness of the measurers, the coverage, the import
-completeness and the repeatability of the Rent exponent. The Hutton-style definitions in lane 1
-are Mimir's own (the sources were unreadable to the lane), so Mi Q1.1 is answered against
-constructions with known answers and not against published values.
+completeness and the repeatability of the Rent exponent. Lane 1b (2026-10-27) replaced the
+Hutton-style definitions by those of the thesis and TCAD 2002 (spec, section 10), so Mi Q1.1 is
+also answered against the published MCNC tables, where the netlists allow it.
 
 ## Citations
 
+Hutton (PhD thesis, Toronto 1997) and Hutton, Rose and Corneil (TCAD 2002) as definition sources,
 Hutton et al. (DAC 1996, doi 10.1145/240518.240537; FPGA 1997, doi 10.1145/258305.258333),
 Kundarewich and Rose (TCAD 2004, doi 10.1109/TCAD.2004.828132), Stroobandt et al. (TCAD 2000,
 doi 10.1109/43.863641), Landman and Russo (IEEE Trans. Computers 1971, doi 10.1109/T-C.1971.223159).
-Each is verified against its DOI record in `citations.toml`; none was read in full.
+Each is verified in `citations.toml` (the notes say against which record); the Hutton thesis and
+TCAD 2002 were read from local copies, the others by title page or DOI record only.

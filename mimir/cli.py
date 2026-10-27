@@ -1,4 +1,4 @@
-"""Command line: `mimir init|import|measure-set|merge|export|coverage|registry|citations`."""
+"""Command line: `mimir init|import|measure-set|merge|export|coverage|check|registry|citations`."""
 
 from __future__ import annotations
 
@@ -64,7 +64,7 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
         if out.error:
             errors[out.error[:90]] += 1
             continue
-        store.add(out.records)
+        store.replace_measured(out.records)
         done += 1
         if out.rent_note:
             notes[out.rent_note] += 1
@@ -113,6 +113,15 @@ def _cmd_coverage(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_check(args: argparse.Namespace) -> int:
+    store = Store(args.db)
+    mixed = store.mixed_versions()
+    for measurer, versions in mixed:
+        print(f"mixed versions: measurer {measurer} has {', '.join(versions)}; re-measure the set")
+    print(f"records in store: {store.count()}")
+    return 1 if mixed else 0
+
+
 def _cmd_registry(_: argparse.Namespace) -> int:
     for key, m in sorted(load_registry().items()):
         print(f"{key}\t{m.kind}\t{m.unit}\t{','.join(m.levels)}\t{m.definition_source}")
@@ -157,6 +166,9 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("coverage", help="designs x levels with the structural and Rent metrics")
     s.add_argument("db")
     s.set_defaults(fn=_cmd_coverage)
+    s = sub.add_parser("check", help="report a store that mixes versions of one measurer")
+    s.add_argument("db")
+    s.set_defaults(fn=_cmd_check)
     s = sub.add_parser("registry", help="list the metric registry")
     s.set_defaults(fn=_cmd_registry)
     s = sub.add_parser("citations", help="render citations.toml to markdown")
