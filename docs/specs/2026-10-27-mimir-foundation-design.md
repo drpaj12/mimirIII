@@ -77,7 +77,12 @@ start are not in the imported files.
 continuations) and flattens hierarchy: a `.subckt` of a model defined in the file is inlined; a
 `.subckt` of a `.blackbox` model is a hard node with the directions from its model; an undefined
 model is an error and the design is skipped. Node kinds: `pi`, `const` (a `.names` with no inputs),
-`comb` (a `.names`: a gate or a LUT), `latch`, `hard`.
+`comb` (a `.names`: a gate or a LUT), `latch`, `hard`. A signal that is read and never driven becomes
+an `undriven` source node (level 0): it is counted in `struct.n_undriven`, not in `n_const` or `n_pi`.
+A signal with more than one driver keeps the first driver and is counted in `struct.n_multidriven`.
+A `.latch`, `.names` or `.subckt` line with too few arguments raises `BlifError` and the design is
+skipped. A latch clock that is a primary input stays a PI node (in `n_pi`); `struct.n_clock_pi`
+counts those PIs and they are left out of the fanout histogram (they have no fanout pins).
 
 ### 5.2 Hutton-style characterisation
 The sources are Hutton et al. DAC 1996 and FPGA 1997 (and Hutton's thesis). **None of the three
@@ -95,17 +100,28 @@ node is 1 + the maximum level of its fanin):
 - `depth`: the maximum comb level.
 - shape: `level_width`, bin = level, value = the comb nodes at that level. Bins above 64 are not
   written; `depth` and `n_comb` carry the totals.
-- edge length: for each fanin pin of a comb node, level(sink) - level(driver) >= 1. `edge_len_hist`
-  (bin = length, lengths above 32 in bin `33+`), `edge_len_mean`, `edge_len_max`.
-- fanout: sinks per driving node (comb, latch and hard fanin pins, plus one per PO and one per
-  latch D input counted as a pin). `fanout_hist` (bin = fanout, above 32 in `33+`), `fanout_mean`,
-  `fanout_max`.
-- reconvergence: a *stem* is a node with at least two distinct comb sinks. A stem is *reconvergent*
-  if two of its sink branches reach a common comb node no more than `W = 8` levels above the deepest
-  sink of the stem. The search is bounded by 5000 visited nodes per stem; a stem that hits the bound
-  before a reconvergence is found is counted in `reconv_truncated` and not as reconvergent. `reconv_stems`, `reconv_stem_fraction`,
-  `reconv_span_mean` (mean level distance from the stem to its nearest reconvergence node). A node has
-  one output net, also for hard blocks with several outputs.
+- edge length: for each fanin pin of a comb node, level(sink) - level(driver) >= 1. Comb-to-comb
+  pins give `edge_len_hist` (bin = length, lengths above 32 in bin `33+`), `edge_len_mean`,
+  `edge_len_max`. Pins driven by a source (PI, constant, latch, hard block, undriven) have the
+  driver at level 0, so their length is the level of the sink; they are a separate histogram,
+  `src_edge_len_hist`, `src_edge_len_mean`, `src_edge_len_max`.
+- fanout: sinks per non-constant node (comb, latch and hard fanin pins, plus one per PO).
+  `fanout_hist` (bin = fanout, bin `0` = dangling drivers, above 32 in `33+`), `fanout_mean` and
+  `fanout_max` over the same nodes. Constants are reported apart in `const_fanout_hist`. Latch
+  clock PIs are left out (they have no fanout pins by construction).
+- reconvergence: a *stem* is a non-constant node with at least two distinct comb sinks. A stem is
+  *reconvergent* if two of its sink branches reach a common comb node no more than `W = 8` levels
+  above the deepest sink of the stem. The search advances all branches together, one level at a
+  time (so the nearest meeting is found first and a large cone on one branch cannot use up the bound
+  before another branch is searched), and is bounded by 5000 visited nodes per stem. A stem that
+  hits the bound before a reconvergence is found is *truncated*: counted in `reconv_truncated` and
+  left out of both the fraction and the span. Every reconvergence metric has `bin` = the stem kind
+  (`comb`, `pi`, `latch`, `hard`, `undriven`), so PI or latch stems (level 0, spans measured from
+  level 0) are not mixed with comb stems. `reconv_stems`, `reconv_truncated`,
+  `reconv_stem_fraction` = reconvergent stems / (stems - truncated), `reconv_span_mean` (mean level
+  distance from the stem to its nearest reconvergence node). The window W = 8 and the bound are
+  named in the registry definition of `reconv_stem_fraction`. A node has one output net, also for
+  hard blocks with several outputs.
 
 Unit-test constructions with known answers: a chain, a balanced tree, a diamond, a ladder mesh.
 
@@ -113,39 +129,67 @@ Unit-test constructions with known answers: a chain, a balanced tree, a diamond,
 Method: recursive bisection of the node set (comb, latch, hard; PIs and POs are the outside world)
 with METIS through `pymetis`, and a pins-against-blocks curve.
 
-- Graph for the partitioner: each net with k >= 2 non-PI pins gives a clique (k <= 8) or a star from
-  the driver (k > 8); integer edge weight 840 // (k - 1). The hypergraph is only approximated for
+- Graph for the partitioner: each net with k >= 2 pins inside the block being split (PIs and POs
+  are not pins) gives a clique (k <= 8) or a star (k > 8); integer edge weight
+  `max(1, 840 // (k - 1))` (the floor of 1 keeps the weight non-zero for k > 841). The star is rooted
+  at the driver when the driver is inside the block, and at the first in-block pin when the driver
+  is outside it (a PI driver, or a driver in the other half). k is counted per block, so a net can
+  change from a star to a clique at deeper depths. The hypergraph is only approximated for
   partitioning; terminals are counted exactly on the nets.
 - Terminals of a block: the nets with a pin inside the block and a pin outside it, where a PI driver
   and a PO sink count as outside.
-- Curve: at each depth the mean block size B (nodes) and mean terminals T over the blocks. Recursion
-  stops when a block has fewer than 2 nodes. Seeds fixed in a list (default 1, 2, 3); each seed gives
+- Curve: at each depth the mean block size B (nodes) and mean terminals T over the blocks. A block with
+  fewer than 4 nodes is not split but stays in the deeper depths, so every depth's mean is over
+  the whole partition and not only over blocks that can still split; recursion ends at the first
+  depth in which no block can be split. Seeds fixed in a list (default 1, 2, 3); each seed gives
   its own curve and fit.
 - Fit: least squares of log T on log B. The fit range is `4 <= B <= N / 32` (N = nodes). The upper
   limit excludes region II, the large-partition end of the curve where T falls below the power law.
-  The `4` and the `32` are Mimir choices, not taken from a source. At least 3 depths must lie in the
+  The `4` and the `32` are Mimir choices, not taken from a source. **The limit is fixed at `N / 32` and
+  was tuned on meshes (exploratory)**; it is not changed by the tests below. At least 3 depths must lie in the
   range (so N >= 512), otherwise the fit is skipped and counted as skipped.
   **Disclosure:** the first choice was `N / 8`. An exploratory look at regular meshes showed that the
   curve is already rolling off at `N / 8`, so the limit was tightened to `N / 32`. The mesh validation
   therefore does not test this one parameter independently; the chain, the random graph and the
   seed test-retest do not depend on it. Exploratory fits of a 64 x 64 mesh were 0.438 (N/8), 0.462
   (N/16), 0.473 (N/32), 0.484 (N/64); a 20 x 20 x 20 mesh gave 0.589, 0.623, 0.641, 0.656.
+- Few points: a fit on fewer than 5 depths is flagged by `rent.low_confidence` = 1 (one value per
+  seed; `rent.points` carries the count). A chain of 1024 nodes has 4 points and is flagged.
 - Metrics: `rent_p`, `rent_k` (the coefficient, T at B = 1 from the fit), `rent_r2`, `rent_points`,
   `rent_curve_T` (bin = depth, value = mean T), `rent_curve_B`, and `partitioner` provenance in the
   measurer version (`rent-1/pymetis-<version>`).
 - References: the rule is Landman and Russo 1971; Christie and Stroobandt 2000 interpret it;
   METIS is Karypis and Kumar 1998. Their full texts were not read in this lane; the registry cites
   them for the rule, the interpretation and the partitioner only, not for numerical values.
+  **Method source:** no source describing the measurement of Rent's rule by recursive bisection
+  with a graph partitioner was read. The bisection procedure, the terminal count and the fit range
+  are Mimir's own construction; Landman and Russo 1971 and Christie and Stroobandt 2000 are cited
+  for the rule and its interpretation only, and neither is claimed to describe this method.
 
 ## 6. Validation (gates before any measurer is trusted)
 
 - Hutton-style: hand-built netlists with known answers as unit tests.
-- Rent: a 1-D chain (p = 0, tolerance 0.05), a 2-D mesh of 64 x 64 (p = 0.5, tolerance 0.1), a 3-D
-  mesh of 20 x 20 x 20 (p = 2/3, tolerance 0.1) and a random graph of 2048 nodes with 3 fanin pins
-  each (near 1; require p > 0.8). The expected exponents of the regular meshes are the asymptotic
-  values 1 - 1/d; a finite mesh gives a smaller fit (see the disclosure above), which the tolerances
-  allow for. Plus test-retest over partitioner seeds: the standard deviation of p over 5 seeds must be
-  below 0.02.
+- Rent, with the fit limit fixed at `N / 32` (tuned on meshes, exploratory, so the mesh checks do
+  not test the limit independently):
+  - chain of 1024: p = 0 by construction (a chain cuts at 2 nets), tolerance 0.01.
+  - meshes: the expected p is derived from a finite-size model before the check. A cubic block of
+    side s in a d-dimensional mesh of side n has on average T = 2 d s^(d-1) (1 - s/n) terminals
+    (d upper faces with inside drivers, d lower faces with outside drivers, minus the faces on the
+    mesh edge), fitted over the same block sizes N / 2^k and range as the measurer: 0.454 for the
+    64 x 64 mesh and 0.589 for the 20 x 20 x 20 mesh (the model assumes ideal cubic blocks; the
+    asymptotic value 1 - 1/d is not used). The measurement must lie within 0.04 (2-D) and 0.07 (3-D)
+    of the model, and within 0.01 of a regression baseline measured at the fixed limit (5 seeds):
+    2-D 0.471 (sd 0.0024), 3-D 0.640 (sd 0.0013). The baselines are recorded measurements, not
+    independent truth.
+  - region II, the direct check of the fit range: a synthetic curve T = k B^p (p = 0.62, k = 4) with
+    a roll-off above B = N / 32 must give p to 1e-9 and 10 points; with the limit raised to N / 4 the
+    same test must fail (it does: the roll-off enters), which shows the test has power.
+  - a uniform random graph of 2048 nodes with 3 distinct fanin pins chosen from all other nodes:
+    near 1 asymptotically; measured 0.8915 (sd 0.001), required > 0.85 and within 0.01 of that
+    baseline. `random_dag` (each node reads 3 earlier nodes, a DAG and not a uniform random graph)
+    is kept as a separate baseline, 0.866.
+  - test-retest over partitioner seeds: sd of p over 5 seeds below 0.006 (observed 0.0024 at most)
+    on both meshes and the random graph.
 - Published values: none compared, with the reason in section 5.2.
 
 ## 7. Runs

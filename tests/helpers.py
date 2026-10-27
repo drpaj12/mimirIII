@@ -113,3 +113,21 @@ def random_dag(n: int, fanin: int, seed: int) -> Netlist:
             nl.add(COMB, tuple(rng.sample(range(v), fanin)))
     nl.po_drivers = [n - 1]
     return nl
+
+
+def random_graph(n: int, fanin: int, seed: int) -> Netlist:
+    """A uniform random graph: each of n nodes reads `fanin` distinct other nodes chosen uniformly
+    from all n (loops allowed; only for structure that does not need levels, such as Rent)."""
+    import random
+
+    rng = random.Random(seed)
+    nl = Netlist(f"graph{n}")
+    for v in range(n):
+        picks: set[int] = set()
+        while len(picks) < fanin:
+            u = rng.randrange(n)
+            if u != v:
+                picks.add(u)
+        nl.add(COMB, tuple(sorted(picks)))
+    nl.po_drivers = [n - 1]
+    return nl

@@ -17,7 +17,8 @@ class Metric:
     kind: str  # "measured" (computed by Mimir) or "imported" (copied from a source)
     measurer: str
     definition_source: str  # "mimir", "source" (the producing tool) or a citation id
-    citations: tuple[str, ...]
+    citations: tuple[str, ...]  # works the definition or method rests on
+    named_after: tuple[str, ...]  # works the name follows; context only, definitions not read
     validation: str
 
 
@@ -48,6 +49,7 @@ def _metric(item: dict[str, object]) -> Metric:
         measurer=_text(item, "measurer"),
         definition_source=_text(item, "definition_source"),
         citations=_str_list(item, "citations"),
+        named_after=_str_list(item, "named_after"),
         validation=_text(item, "validation"),
     )
 

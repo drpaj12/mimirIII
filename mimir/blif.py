@@ -6,7 +6,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from mimir.netlist import COMB, CONST, HARD, LATCH, PI, Netlist
+from mimir.netlist import COMB, CONST, HARD, LATCH, PI, UNDRIVEN, Netlist
 
 
 class BlifError(ValueError):
@@ -39,6 +39,15 @@ def _logical_lines(text: str) -> list[list[str]]:
     return out
 
 
+_MIN_ARGS = {".names": 1, ".latch": 2, ".subckt": 1}
+
+
+def _check_item(head: str, args: list[str], model: str) -> None:
+    """Raise BlifError for a directive with too few arguments (a truncated or malformed line)."""
+    if len(args) < _MIN_ARGS[head]:
+        raise BlifError(f"malformed {head} in model {model}: needs {_MIN_ARGS[head]} argument(s)")
+
+
 def parse_models(text: str) -> list[Model]:
     """All models in file order. Truth-table rows and unknown directives are ignored."""
     models: list[Model] = []
@@ -57,6 +66,7 @@ def parse_models(text: str) -> list[Model]:
         elif head == ".blackbox":
             cur.blackbox = True
         elif head in (".names", ".latch", ".subckt"):
+            _check_item(head, toks[1:], cur.name)
             cur.items.append((head, toks[1:]))
     if not models:
         raise BlifError("no .model found")
@@ -67,6 +77,7 @@ class _Flattener:
     def __init__(self, models: list[Model]) -> None:
         self.models = {m.name: m for m in models}
         self.prims: list[tuple[str, list[str], list[str]]] = []  # kind, input sigs, output sigs
+        self.clocks: list[str] = []  # latch clock signals
 
     def expand(self, model: Model, prefix: str, ports: dict[str, str], depth: int) -> None:
         if depth > 64:
@@ -80,6 +91,8 @@ class _Flattener:
                 self.prims.append((COMB, [sig(a) for a in args[:-1]], [sig(args[-1])]))
             elif head == ".latch":
                 self.prims.append((LATCH, [sig(args[0])], [sig(args[1])]))
+                if len(args) >= 4 and args[3] != "NIL":  # .latch in out type control [init]
+                    self.clocks.append(sig(args[3]))
             else:
                 self._subckt(model, args, prefix, sig, depth)
 
@@ -114,17 +127,21 @@ def flatten(models: list[Model], name: str) -> Netlist:
         node = nl.add(kind)
         pending.append((node, ins))
         for out in outs:
-            driver.setdefault(out, node)
+            if out in driver:
+                nl.multidriven += 1
+            else:
+                driver[out] = node
 
     def resolve(signal: str) -> int:
         if signal not in driver:
-            driver[signal] = nl.add(CONST)
+            driver[signal] = nl.add(UNDRIVEN)
             nl.undriven += 1
         return driver[signal]
 
     for node, ins in pending:
         nl.fanin[node] = tuple(resolve(s) for s in ins)
     nl.po_drivers = [resolve(s) for s in top.outputs]
+    nl.clocks = {driver[s] for s in flat.clocks if s in driver and nl.kind[driver[s]] == PI}
     return nl
 
 

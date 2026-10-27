@@ -9,19 +9,22 @@ import math
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 
-from mimir.netlist import COMB, CONST, HARD, LATCH, PI, Netlist
+from mimir.netlist import COMB, CONST, HARD, LATCH, PI, UNDRIVEN, Netlist
 
 MIN_NODES = 512  # fewer nodes than this cannot give 3 depths in the fit range; Rent is not run
 MIN_FIT_BLOCK = 4  # smallest mean block size in the fit
 REGION2_DIV = 32  # largest mean block size in the fit is N / REGION2_DIV (excludes region II)
-CLIQUE_MAX = 8  # nets with more in-block pins use a star from the first pin
-EDGE_UNIT = 840  # lcm(1..8): integer weight EDGE_UNIT // (k - 1) per clique edge
+CLIQUE_MAX = 8  # nets with more in-block pins use a star rooted at the driver
+EDGE_UNIT = 840  # lcm(1..8): integer weight max(1, EDGE_UNIT // (k - 1)) per edge
+SPLIT_MIN = 4  # blocks with fewer nodes are not split; they are carried to the deeper depths
+LOW_POINTS = 5  # a fit on fewer points than this is flagged low-confidence
 
 
 @dataclass
 class Net:
     pins: tuple[int, ...]  # node ids inside the partitioned set
-    external: bool  # also touches the outside world (a PI driver or a PO)
+    external: bool  # also touches the outside world (a PI or undriven driver, or a PO)
+    driver: int = -1  # the driving node when it is inside the partitioned set, else -1
 
 
 @dataclass
@@ -64,9 +67,9 @@ def build_nets(nl: Netlist) -> tuple[list[int], list[Net]]:
         if nl.kind[u] == CONST:
             continue
         pins = ([u] if nl.kind[u] in inside else []) + sinks[u]
-        ext = nl.kind[u] == PI or u in po
+        ext = nl.kind[u] in (PI, UNDRIVEN) or u in po
         if len(pins) + (1 if ext else 0) >= 2 and pins:
-            nets.append(Net(tuple(pins), ext))
+            nets.append(Net(tuple(pins), ext, u if nl.kind[u] in inside else -1))
     return nodes, nets
 
 
@@ -84,6 +87,15 @@ def terminals(block: set[int], incident: Sequence[int], nets: Sequence[Net]) -> 
 Csr = tuple[list[int], list[int], list[int]]
 
 
+def _pairs(pins: list[int], driver: int) -> list[tuple[int, int]]:
+    """Edges of one net in the block: a clique up to CLIQUE_MAX pins, else a star rooted at the
+    driver (at the first pin when the driver is outside the block)."""
+    if len(pins) <= CLIQUE_MAX:
+        return [(a, b) for i, a in enumerate(pins) for b in pins[i + 1 :]]
+    root = driver if driver in pins else pins[0]
+    return [(root, b) for b in pins if b != root]
+
+
 def _csr(block: list[int], nets: Sequence[Net], incident: dict[int, list[int]]) -> Csr:
     """Weighted CSR adjacency of the block (clique for small nets, a star for large ones)."""
     local = {v: i for i, v in enumerate(block)}
@@ -97,12 +109,8 @@ def _csr(block: list[int], nets: Sequence[Net], incident: dict[int, list[int]]) 
             pins = [local[p] for p in nets[ni].pins if p in local]
             if len(pins) < 2:
                 continue
-            w = EDGE_UNIT // (len(pins) - 1)
-            pairs = (
-                [(a, b) for i, a in enumerate(pins) for b in pins[i + 1 :]]
-                if len(pins) <= CLIQUE_MAX
-                else [(pins[0], b) for b in pins[1:]]
-            )
+            w = max(1, EDGE_UNIT // (len(pins) - 1))
+            pairs = _pairs(pins, local.get(nets[ni].driver, -1))
             for a, b in pairs:
                 adj[a][b] = adj[a].get(b, 0) + w
                 adj[b][a] = adj[b].get(a, 0) + w
@@ -138,7 +146,11 @@ def bisect(
 
 
 def curve(nodes: list[int], nets: list[Net], seed: int) -> Curve:
-    """Recursive bisection down to blocks of fewer than 2 nodes; one point set per depth."""
+    """Recursive bisection; one point set per depth, each over all blocks of that depth.
+
+    A block with fewer than SPLIT_MIN nodes is not split but stays in the deeper depths, so a
+    depth's mean is over the whole partition and not only over the blocks that can still split.
+    Recursion ends at the first depth in which no block can be split."""
     incident: dict[int, list[int]] = {v: [] for v in nodes}
     for ni, net in enumerate(nets):
         for p in net.pins:
@@ -155,13 +167,15 @@ def curve(nodes: list[int], nets: list[Net], seed: int) -> Curve:
             inc = sorted({ni for v in block for ni in incident[v]})
             sizes.append(len(block))
             terms.append(terminals(members, inc, nets))
-            if len(block) >= 4:
+            if len(block) >= SPLIT_MIN:
                 nxt.extend(bisect(block, nets, incident, seed))
+            else:
+                nxt.append(block)
         out.depth.append(depth)
         out.blocks.append(len(level))
         out.size.append(sum(sizes) / len(sizes))
         out.terminals.append(sum(terms) / len(terms))
-        level, depth = nxt, depth + 1
+        level, depth = (nxt if any(len(b) >= SPLIT_MIN for b in level) else []), depth + 1
     return out
 
 
@@ -203,5 +217,6 @@ def measure(nl: Netlist, seeds: Sequence[int] = (1, 2, 3)) -> tuple[list[Row], i
             skipped += 1
             continue
         rows += [("rent.p", "", seed, f.p), ("rent.k", "", seed, f.k),
-                 ("rent.r2", "", seed, f.r2), ("rent.points", "", seed, float(f.points))]
+                 ("rent.r2", "", seed, f.r2), ("rent.points", "", seed, float(f.points)),
+                 ("rent.low_confidence", "", seed, float(f.points < LOW_POINTS))]
     return rows, skipped

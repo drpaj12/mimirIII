@@ -78,6 +78,32 @@ class Parse(unittest.TestCase):
         with self.assertRaises(BlifError):
             read_blif(write(".model t\n.inputs a\n.outputs y\n.subckt nope p=a q=y\n.end\n"))
 
+    def test_malformed_directives_raise(self) -> None:
+        head = ".model t\n.inputs a\n.outputs y\n"
+        for bad in (".latch a\n", ".names\n", ".subckt\n"):
+            with self.assertRaises(BlifError, msg=bad):
+                read_blif(write(head + bad + ".end\n"))
+
+    def test_undriven_and_multidriven_are_counted_not_constants(self) -> None:
+        text = (".model t\n.inputs a\n.outputs y\n.names a x y\n11 1\n"
+                ".names a y\n1 1\n.end\n")  # x is read but never driven; y has two drivers
+        nl = read_blif(write(text))
+        self.assertEqual(nl.undriven, 1)
+        self.assertEqual(nl.multidriven, 1)
+        self.assertEqual(nl.count("const"), 0)
+        rows = {(m, b): v for m, b, v in characterise(nl)}
+        self.assertEqual(rows[("struct.n_const", "")], 0)
+        self.assertEqual(rows[("struct.n_undriven", "")], 1)
+        self.assertEqual(rows[("struct.n_multidriven", "")], 1)
+
+    def test_clock_pi_is_flagged_and_not_dangling(self) -> None:
+        text = (".model t\n.inputs a clk\n.outputs q\n.latch a q re clk 0\n.end\n")
+        nl = read_blif(write(text))
+        rows = {(m, b): v for m, b, v in characterise(nl)}
+        self.assertEqual(rows[("struct.n_clock_pi", "")], 1)
+        self.assertEqual(rows[("struct.n_pi", "")], 2)
+        self.assertNotIn(("struct.fanout_hist", "0"), rows)  # the clock PI is not a dangling driver
+
 
 if __name__ == "__main__":
     unittest.main()

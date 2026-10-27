@@ -15,7 +15,7 @@ class Registry(unittest.TestCase):
     def test_entries_are_consistent(self) -> None:
         cites = load_citations(ROOT / "citations.toml")
         for key, m in load_registry().items():
-            for c in m.citations:
+            for c in (*m.citations, *m.named_after):
                 self.assertIn(c, cites, f"{key} cites unknown {c}")
             for lv in m.levels:
                 self.assertIn(lv, LEVELS)
