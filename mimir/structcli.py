@@ -158,6 +158,29 @@ def _cmd_detect(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_detect_mcnc(args: argparse.Namespace) -> int:
+    """Detector structures for the 20 MCNC circuits (no HDL: detector rows, lut level only)."""
+    from mimir.sets import mcnc_jobs
+
+    store, deps, scrub = Store(args.db), _deps(args), make_scrub(args)
+    blob_root = Path(args.blobs) if args.blobs else blobs.default_dir()
+    for job in mcnc_jobs(_env(None, "VTR_ROOT")):
+        slug = f"mcnc20/{job.design}"
+        sha = hashlib.sha256(job.path.read_bytes()).hexdigest()
+        store.db.execute("INSERT OR REPLACE INTO design VALUES (?,?,?,?,?,?)",
+                         (slug, sha, "blif", "mcnc20", job.design, job.origin))
+        store.db.commit()
+        one = argparse.Namespace(**{**vars(args), "slug": slug, "name": job.design,
+                                    "blif": str(job.path), "flow_dir": None})
+        try:
+            print(f"{slug}: detect run {detect_one(store, deps, blob_root, one, scrub)}",
+                  flush=True)
+        except (ValueError, OSError, KeyError) as exc:
+            print(f"{slug}: failed: {exc}", flush=True)
+    store.close()
+    return 0
+
+
 REPORT_SQL = {
     "structures by kind x source": (
         "SELECT kind, CASE WHEN label_source='hdl' THEN 'hdl' ELSE 'detector' END AS src, "
@@ -281,6 +304,11 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--work", required=True)
     s.add_argument("--loki-python", default=os.environ.get("MIMIR_LOKI_PYTHON", "python3"))
     s.set_defaults(fn=_cmd_detect)
+    s = sub.add_parser("detect-mcnc", help="run the detectors on the 20 MCNC circuits")
+    common(s)
+    s.add_argument("--work", required=True)
+    s.add_argument("--loki-python", default=os.environ.get("MIMIR_LOKI_PYTHON", "python3"))
+    s.set_defaults(fn=_cmd_detect_mcnc)
     s = sub.add_parser("report", help="coverage tables and detector precision and recall")
     s.add_argument("db")
     s.add_argument("--prefix", default="")

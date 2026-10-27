@@ -5,7 +5,7 @@ Mimir III: the circuit knowledge base of Yggdrasil III. Holds the characteristic
 per placer family) in one tidy table, so that circuits can be classified over time.
 
 Spec: `docs/specs/2026-10-27-mimir-foundation-design.md`. Plan: `docs/plans/2026-10-27-mimir-foundation-plan.md`.
-Schema v2 spec: `docs/specs/2026-10-27-mimir-schema-v2.md`. Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
+Schema v2 spec: `docs/specs/2026-10-27-mimir-schema-v2.md`. Structures and their mapping (schema v3): `docs/specs/2026-10-27-mimir-structures.md`. Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
 
 ## Setup
 
@@ -21,7 +21,7 @@ The base install is stdlib only. `partition` (pymetis, for the Rent measurer), `
     .venv/bin/mypy --strict mimir tests
 
 Data sources are read only and come from arguments or env vars (`MIMIR_NORNS`, `MIMIR_LOKI`,
-`VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`); never write an absolute home path into a committed file.
+`VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`; for lane 3 `MIMIR_ODIN3_TREE` (an Odin III checkout with `tools/flow`), `MIMIR_LOKI_SRC`, `MIMIR_LOKI_PYTHON`); the structure tests skip without the first two; never write an absolute home path into a committed file.
 
 ## Rules
 
