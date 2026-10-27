@@ -11,6 +11,6 @@ value, unit and the measurer that computed it. Storage is SQLite with CSV and Pa
     .venv/bin/mimir measure mimir.db --blif path/to/design.blif --source mcnc --level lut
     .venv/bin/mimir export mimir.db --csv out.csv
 
-Measurers: a Hutton-style structural characterisation and Rent's rule by recursive bisection (METIS through
+Measurers: the structural characterisation of Hutton (thesis and TCAD 2002) and Rent's rule by recursive bisection (METIS through
 pymetis). See `docs/specs/` for the definitions and what each is validated against. Credits:
 `docs/CITATIONS.md`. Licence: MIT.

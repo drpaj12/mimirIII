@@ -18,7 +18,7 @@ definition_source = "hutton1997thesis"
 defined_in = "thesis p. 46 (Sec. 4.1, n = n_LOG + n_PI + n_DFF); TCAD 2002 p. 928 (Sec. II)"
 citations = ["hutton1997thesis", "hutton2002tcad"]
 named_after = []
-validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder). Compared with the published values for MCNC circuits in the spec, section 10 (LUT counts of alu4 and the Fang MASc Table 3.2 sizes of 16 circuits)."
+validation = "Known-answer unit tests in tests/test_hutton.py (chain, tree, ladder). Compared with the published values for MCNC circuits in the spec, section 10 (LUT counts of alu4 and the Fang MASc Table 3.2 sizes of 21 circuits)."
 
 [[metric]]
 key = "struct.n_latch"
