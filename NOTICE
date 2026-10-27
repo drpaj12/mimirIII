@@ -1,0 +1,7 @@
+Mimir III reads, and does not redistribute, data from the sibling repos Norns III, Loki III and Wyrd III,
+and benchmark circuits from VTR (vtr_flow/benchmarks/blif, the MCNC LGSynth93 set mapped to 4-LUTs;
+VTR commit 3c9a4d23b2, MIT-style licence in VTR's LICENSE.md). Each source keeps its own licence.
+
+Optional extra `partition` uses pymetis (MIT) wrapping METIS (Apache-2.0). Optional extra `parquet` uses
+pyarrow (Apache-2.0). Optional extra `analysis` uses numpy (BSD-3-Clause). Packages are installed by the
+user, not vendored.

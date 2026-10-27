@@ -1,0 +1,37 @@
+name: ci
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install ruff mypy
+      # These library pins duplicate pyproject.toml's [project.optional-dependencies]; keep the two
+      # files in step when either changes.
+      - run: pip install "pymetis>=2025.2" "pyarrow>=15" "numpy>=1.26"
+      - run: ruff check .
+      - run: mypy --strict mimir tests
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install "pymetis>=2025.2" "pyarrow>=15" "numpy>=1.26"
+      - run: pip install --no-deps .
+      - run: python -m unittest discover -s tests -t . -v
