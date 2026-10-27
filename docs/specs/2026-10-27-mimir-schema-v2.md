@@ -164,8 +164,9 @@ v2 code, export CSV again, compare bytes; count and list the tables before and a
 - **Designs already in the store**: every `(source, design)` pair in `records` is registered with a slug
   (`mcnc20/<n>`, `norns/<n>`, `loki/<dataset>/<n>`). A design without sourced meta gets rows from its
   source only (`suite`, `origin`) with `conf = inferred`, and `function_class` etc. `missing`.
-- **Norns configs and runs**: `mimir/data/flow_configs.toml` holds one entry per (round, arm family) with
+- **Norns configs and runs**: `mimir/flowcfg.py` builds one config per (round, arm, design kind) with
   the verbatim command template, the file and lines it came from under the Norns checkout, and the parameters.
+  Arm names give the parameters that vary (affinity weight, annealing scale, start kind).
   A parameter that no script or plan states is listed `unknown`. `mimir import runs` reads the records already
   stored, groups them by `(source, design, arch, seed, arm)`, and creates one `run` per group, linked to the
   config by `source` and arm pattern. No jsonl is re-read.
@@ -182,8 +183,8 @@ v2 code, export CSV again, compare bytes; count and list the tables before and a
   uncompressed bytes. `put` of an existing hash is a no-op.
 - `mimir blob get SHA OUT` decompresses and checks the hash. `mimir blob verify [SHA...]` re-reads each blob,
   decompresses it and compares the hash; non-zero exit on any mismatch.
-- `mimir snapshot DB DIR` writes the store as a compressed SQL dump (`mimir-<version>.sql.xz`, from
-  `sqlite3.Connection.iterdump` with `ORDER BY` rowid-free logic as below) plus `MANIFEST.json`
+- `mimir snapshot DB DIR` writes the store as a compressed SQL dump (`mimir.sql.xz`, written by `mimir.snapshot.dump_lines`: DDL, rows in primary-key order, floats
+  by `repr` so they round-trip exactly) plus `MANIFEST.json`
   (`schema_version`, per-table row counts, sha256 of the dump, sha256 of the canonical store text). Parquet
   needs `pyarrow` (extra `parquet`) and is optional: `--parquet` writes one zstd file per table when
   pyarrow is installed. The default snapshot is the xz SQL dump.

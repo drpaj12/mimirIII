@@ -161,6 +161,18 @@ def _cmd_snapshot(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_partition_example(args: argparse.Namespace) -> int:
+    from mimir import blobs
+    from mimir.partition import import_norns_hindsight
+
+    store = Store(args.db)
+    root = Path(args.blobs) if args.blobs else blobs.default_dir()
+    pid = import_norns_hindsight(store, root, _root(args.norns, "MIMIR_NORNS"), args.design,
+                                 args.arm)
+    print(f"partition {pid}")
+    return 0
+
+
 def _cmd_merge(args: argparse.Namespace) -> int:
     store = Store(args.db)
     for other in args.other:
@@ -272,6 +284,13 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--parquet", action="store_true", help="also one zstd Parquet file per table")
     s.add_argument("--tmp", default="/tmp/claude-1000", help="parent of the restore temp dir")
     s.set_defaults(fn=_cmd_snapshot)
+    s = sub.add_parser("partition-example", help="import a Norns round 7 hindsight clustering")
+    s.add_argument("db")
+    s.add_argument("--design", default="ch_intrinsics")
+    s.add_argument("--arm", default="h1")
+    s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
+    s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.set_defaults(fn=_cmd_partition_example)
     s = sub.add_parser("merge", help="copy the rows of other databases into this one")
     s.add_argument("db")
     s.add_argument("other", nargs="+")
