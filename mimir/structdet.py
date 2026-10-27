@@ -28,7 +28,7 @@ KIND_MAP = {
     "mux_tree": "mux", "hard_mul": "multiplier", "hard_mem": "memory",
 }
 MIN_P = 0.5
-WALL_LIMIT_S = 900.0  # the Loki time budget is checked between rounds only; this is the hard stop
+WALL_LIMIT_S = 300.0  # the Loki time budget is checked between rounds only; this is the hard stop
 
 
 @dataclass(frozen=True)
