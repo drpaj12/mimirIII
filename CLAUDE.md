@@ -21,7 +21,7 @@ The base install is stdlib only. `partition` (pymetis, for the Rent measurer), `
     .venv/bin/mypy --strict mimir tests
 
 Data sources are read only and come from arguments or env vars (`MIMIR_NORNS`, `MIMIR_LOKI`,
-`VTR_ROOT`); never write an absolute home path into a committed file.
+`VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`); never write an absolute home path into a committed file.
 
 ## Rules
 
