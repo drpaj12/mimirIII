@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import fnmatch
 import hashlib
+import re
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from mimir.importers.common import sha256_file
 from mimir.store import Store
@@ -166,11 +168,41 @@ def derive_lineage(steps: list[dict[str, object]]) -> tuple[str, int]:
     return ("secondary" if gaps and worst == "primary" else worst), gaps
 
 
+# a token that looks like a source id must be a known key (data/meta/source-keys.txt): the keys of
+# the private originals store (sources.toml, status ok) and the ids that mcnc-sources.md defines
+SOURCE_ID_RE = re.compile(
+    r"(?<![\w./-])((?:fiser|cbl|sis|iscas|iwls|hls|lgsynth|vtr|mcnc|yang|hutton|marq|betz|flowmap)"
+    r"[a-z0-9]*(?:-[a-z0-9.]*[a-z0-9])*)(?![\w.-])")
+
+
+def load_source_keys(path: Path) -> set[str]:
+    return {x.strip() for x in path.read_text(encoding="utf-8").splitlines()
+            if x.strip() and not x.startswith("#")}
+
+
+def cited_source_problems(circuits: dict[str, dict[str, Any]], keys: set[str]) -> list[str]:
+    """`circuit field: token` for every source-id-like token of a `*_src` field or a lineage
+    `src` that is not in `keys`."""
+    bad: list[str] = []
+    for name in sorted(circuits):
+        item = circuits[name]
+        texts = [(k, str(v)) for k, v in item.items() if k.endswith("_src")]
+        texts += [(f"lineage step {st.get('step')}", str(st.get("src", "")))
+                  for st in item.get("lineage", [])]
+        for field, text in texts:
+            bad += [f"{name} {field}: {t}" for t in SOURCE_ID_RE.findall(text) if t not in keys]
+    return bad
+
+
 def import_mcnc_meta(store: Store, toml_path: Path, roots: Roots) -> int:
     """Write design, design_meta and design_lineage for the circuits of mcnc.toml that are in
     circuits.txt (the 20 MCNC circuits). Returns the number of circuits. A field with conf
-    `missing` has the value '' and its note, if any, goes to the source column."""
+    `missing` has the value '' and its note, if any, goes to the source column. Every source id
+    cited in the toml must be in source-keys.txt next to it, else ValueError lists the cites."""
     data = tomllib.loads(toml_path.read_text(encoding="utf-8"))["circuit"]
+    problems = cited_source_problems(data, load_source_keys(toml_path.with_name("source-keys.txt")))
+    if problems:
+        raise ValueError("unknown source ids cited: " + "; ".join(problems))
     n = 0
     try:
         for name in sorted(data):

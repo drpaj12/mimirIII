@@ -9,10 +9,12 @@ from pathlib import Path
 from mimir.meta import (
     Roots,
     _toml_meta,
+    cited_source_problems,
     derive_lineage,
     import_licences,
     import_mcnc_meta,
     load_licence_rules,
+    load_source_keys,
     meta_coverage,
     register_designs,
     rule_for,
@@ -27,6 +29,7 @@ REPO = Path(__file__).resolve().parents[1]
 TOML = REPO / "data/meta/mcnc.toml"
 LICENCES = REPO / "data/meta/licences.toml"
 SLUGS = REPO / "data/meta/design-slugs.txt"
+KEYS = REPO / "data/meta/source-keys.txt"
 MISSING_RULES = (
     '\n[[rule]]\nid = "t-missing"\nmatch = ["norns/zzz", "loki/ds/*"]\nlicence = ""\n'
     'licence_source = "test: looked for, not found"\nlicence_notice = ""\nconf = "missing"\n')
@@ -312,6 +315,46 @@ class MetaTests(unittest.TestCase):
                 if chk["file"].endswith(".v"):
                     cite = chk["file"] + ":" + chk["lines"]
                     self.assertIn(cite, rule["licence_source"], rule["id"])
+
+    def test_every_cited_source_id_is_a_known_key(self) -> None:
+        circuits = tomllib.loads(TOML.read_text(encoding="utf-8"))["circuit"]
+        keys = load_source_keys(KEYS)
+        self.assertEqual(cited_source_problems(circuits, keys), [])
+        self.assertIn("fiser-lgsynth91-pdf", keys)
+        src = "yang91 s3.3 p.11; fiser-nope-pdf; vtr_flow/benchmarks/blif/README"
+        bad = {"x": {"intent_src": src,
+                     "lineage": [{"step": 1, "src": "lgsynth91-7z slif/README; sis/sis_lib/x"}]}}
+        got = cited_source_problems(bad, keys)
+        self.assertEqual(sorted(g.split(": ")[1] for g in got),
+                         ["fiser-nope-pdf", "lgsynth91-7z", "yang91"])
+
+    def test_unknown_source_id_fails_the_import(self) -> None:
+        d = Path(tmpdir())
+        text = TOML.read_text(encoding="utf-8").replace("fiser-lgsynth89-txt", "lgsynth89-txt", 1)
+        (d / "mcnc.toml").write_text(text, encoding="utf-8")
+        (d / "source-keys.txt").write_text(KEYS.read_text(encoding="utf-8"), encoding="utf-8")
+        s, _ = mk_store()
+        with self.assertRaises(ValueError) as cm:
+            import_mcnc_meta(s, d / "mcnc.toml", Roots())
+        self.assertIn("lgsynth89-txt", str(cm.exception))
+
+    def test_review_round_1_facts(self) -> None:
+        c = tomllib.loads(TOML.read_text(encoding="utf-8"))["circuit"]
+        for name in ("s38417", "s38584.1"):
+            self.assertEqual((c[name]["intent_conf"], c[name]["intent"]), ("missing", ""))
+            self.assertIn("real-chip based", c[name]["intent_note"])
+            self.assertEqual((c[name]["author_conf"], c[name]["institution_conf"]),
+                             ("inferred", "inferred"))
+            self.assertIn("previous record", c[name]["author_note"])
+        self.assertEqual(c["diffeq"]["function_class_conf"], "inferred")
+        self.assertEqual(c["clma"]["original_header"].splitlines()[-1], "## latches 33 ")
+        for name, item in c.items():
+            for st in item["lineage"]:
+                if st["tool"] == "SIS":
+                    self.assertTrue(st["src"].startswith("vtr-readme"), name)
+                    self.assertNotIn("marq99", st["src"], name)
+                if st["tool"].startswith("FlowMap"):
+                    self.assertNotIn("marq00", st["src"] + st["tool"], name)
 
     def test_no_legal_conclusions_in_licence_rules(self) -> None:
         text = LICENCES.read_text(encoding="utf-8").lower()
