@@ -251,24 +251,33 @@ and larger ones are skipped for Rent with the reason recorded. Hutton runs on al
 Python 3.11+, stdlib-only base install, ruff and `mypy --strict`, unittest, deterministic outputs
 (sorted keys, `\n`, UTF-8), no absolute home paths in committed files (env vars or arguments).
 
-## 9. Validation results (lane 1)
+## 9. Validation results (lane 1, fix round 1, 2026-10-27)
 
 | Measurer | Construction | Known answer | Observed | Tolerance | Source of the known answer |
 |---|---|---|---|---|---|
-| struct | chain of 5 | depth 5, width 1 per level, all edges length 1 | as expected | exact | construction |
-| struct | balanced tree, 8 PIs | depth 3, widths 4, 2, 1, 14 edges | as expected | exact | construction |
-| struct | diamond | 1 reconvergent stem, span 2 | as expected | exact | construction |
-| struct | 3 x 3 ladder mesh | depth 5, widths 1, 2, 3, 2, 1, 4 reconvergent stems | as expected | exact | construction |
-| rent | chain of 1024 | p = 0 | 0.000 (5 seeds) | 0.05 | construction (a chain cuts at 2 nets) |
-| rent | 64 x 64 mesh | p = 0.5 | 0.471 (5 seeds, sd 0.0024) | 0.1 | asymptotic value 1 - 1/d, d = 2; not read from a source |
-| rent | 20 x 20 x 20 mesh | p = 2/3 | 0.640 (5 seeds, sd 0.0013) | 0.1 | asymptotic value 1 - 1/d, d = 3; not read from a source |
-| rent | random, 2048 nodes, 3 fanin | near 1 | 0.866 (5 seeds, sd 0.0015) | > 0.8 | brief |
-| rent | test-retest, MCNC (20), Norns netlists (197), Loki (59) | repeatable across seeds | median sd over 3 seeds 0.0043, max 0.032 | 0.02 on the constructions | measurement |
+| struct | chain of 5 | depth 5, width 1 per level, 4 comb-to-comb edges of length 1, 1 source edge | as expected | exact | construction |
+| struct | balanced tree, 8 PIs | depth 3, widths 4, 2, 1; 6 comb-to-comb and 8 source edges | as expected | exact | construction |
+| struct | diamond | 1 reconvergent stem (kind pi), span 2 | as expected | exact | construction |
+| struct | diamond behind a cone of 6400 nodes | the diamond stem reconverges at distance 2 | found (the depth-first search reported it truncated) | exact | construction |
+| struct | 3 x 3 ladder mesh | depth 5, widths 1, 2, 3, 2, 1, 4 reconvergent comb stems | as expected | exact | construction |
+| rent | chain of 1024 | p = 0 | 0.000 (5 seeds), 4 points, flagged low-confidence | 0.01 | construction (a chain cuts at 2 nets) |
+| rent | 64 x 64 mesh | 0.454 | 0.471 (5 seeds, sd 0.0024) | model band 0.04; baseline 0.01 | finite-size model, section 6; derived before the check |
+| rent | 20 x 20 x 20 mesh | 0.589 | 0.640 (5 seeds, sd 0.0013) | model band 0.07; baseline 0.01 | finite-size model, section 6; blocks are not cubes |
+| rent | uniform random graph, 2048 nodes, 3 fanin | near 1 | 0.8915 (5 seeds, sd 0.001) | > 0.85; baseline 0.01 | asymptote 1; not derived at this size |
+| rent | random DAG (earlier nodes), 2048 nodes, 3 fanin | baseline | 0.866 (5 seeds, sd 0.0015) | 0.01 | measurement at the fixed limit |
+| rent | synthetic T = 4 B^0.62 with roll-off above N/32 | p = 0.62, k = 4, 10 points | exact to 1e-9; with the limit at N/4 p is off by more than 0.1 | 1e-9 | construction (region II check) |
+| rent | test-retest, MCNC (20), Norns netlists (197), Loki (59) | repeatable across seeds | median sd over 3 seeds 0.0043, max 0.032 (276 netlists) | sd 0.006 on the constructions | measurement |
 
 Published values: none compared. The three Hutton sources and the Kundarewich and Rose paper could
 not be read, so no table or page is cited as a reference value.
 
+The mesh and random-graph numbers are regression baselines measured at the fixed fit limit
+`N / 32` (tuned on meshes, exploratory); only the chain, the model band and the region II test
+have an expected value that does not come from the measurer. The model band is wide because the
+model assumes cubic blocks.
+
 A caution for users of `rent.p`: strongly clustered designs (the Norns synthetic chain, mesh and
 tree families) give a curve whose terminals fall as the blocks shrink inside a cluster, so the
 single-exponent fit gives p near 0 or negative with a low `rent.r2`. Read `rent.p` together with
-`rent.r2` and `rent.points`.
+`rent.r2`, `rent.points` and `rent.low_confidence` (354 of 828 fits, 12 of the 20 MCNC circuits,
+use fewer than 5 points because N / 32 is small).
