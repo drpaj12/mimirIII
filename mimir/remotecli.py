@@ -59,8 +59,13 @@ def _cmd_index(args: argparse.Namespace) -> int:
 
     idx = _idx(args)
     store = Path(args.blobs) if args.blobs else blobs.default_dir()
-    archives = run_index(Path(args.archive_dir), idx, store, idx / "licences.toml")
+    priv = Path(args.private) if args.private else remote.private_dir()
+    report: list[str] = []
+    archives = run_index(Path(args.archive_dir), idx, store, idx / "licences.toml", priv,
+                         [Path(d) for d in args.db], report)
     print(f"archives: {len(archives)}")
+    for line in report:
+        print(line)
     return 0
 
 
@@ -119,6 +124,9 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     i.add_argument("archive_dir")
     i.add_argument("--index")
     i.add_argument("--blobs")
+    i.add_argument("--private", help="dir for the manifests of private archives (local only)")
+    i.add_argument("--db", action="append", default=[],
+                   help="a store whose blob references decide blob visibility (repeatable)")
     i.set_defaults(fn=_cmd_index)
     p = rs.add_parser("publish-plan", help="what to upload; --stage writes the tree locally")
     p.add_argument("--index")

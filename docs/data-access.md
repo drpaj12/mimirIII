@@ -12,7 +12,10 @@ xz archives on a private drive, and later on a static web host. The repo holds a
 (`MIMIR_CACHE`, default `~/.cache/mimir`), then the URL (`MIMIR_DATA_URL`, or the `urls` of
 `data/remote/archives.toml`; `--online` uses
 `https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data`). Private archives (copyrighted papers, the MCNC
-originals) are never downloaded; they are read only from `MIMIR_ARCHIVE`.
+originals, the superseded snapshot and the Odin development intermediates) are never downloaded; they
+are read only from `MIMIR_ARCHIVE`. The committed index holds only a row for each (name, date, sha256,
+size, kind, `visibility = "private"`); their member manifests are local files in
+`$MIMIR_PRIVATE_INDEX/manifests/` (default `mimir-data/remote-private/`), never committed.
 
 ## Commands
 
@@ -24,12 +27,16 @@ originals) are never downloaded; they are read only from `MIMIR_ARCHIVE`.
 
 The archive sha256 is checked before use and the member sha256 after extraction; a mismatch is an
 error and nothing is written. Only one member is read; absolute paths, `..`, links and devices are
-refused. A URL download is hashed and copied, never run.
+refused. A URL download is hashed and copied, never run. Every download stops at the indexed size
+plus one byte (archive `size` or `public_size`, member `size`, blob `xz_bytes`), and a blob is decompressed
+in memory with a bound from the index (`raw_bytes`), so a long stream or an xz bomb fails.
 
 ## Index
 
 `manifests/<archive>.tsv.xz` lists every member (`path type size sha256`; a link's last field is its
-target, with the home dir as `$HOME`). `blobs.tsv.xz` lists the content-addressed blobs. `licences.toml`
+target, with the home dir as `$HOME`). `blobs.tsv.xz` lists the content-addressed blobs
+(`sha256 xz_bytes raw_bytes archive visibility`); `visibility` is `public`, `private` (the blob traces to a
+private archive) or `orphan` (no store row uses it). Only `public` blobs are staged or downloaded. `licences.toml`
 holds the per-archive hosting verdicts; the per-design licence of a benchmark is in the Mimir meta
 (`data/meta/licences.toml`). Public archives on the web are repacks of the private masters: links,
 virtual envs, caches, pickles, databases, locks and shell scripts are removed and home paths are

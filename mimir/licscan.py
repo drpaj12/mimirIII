@@ -16,6 +16,11 @@ from mimir.meta import Rule
 from mimir.remote import Entry
 
 DESIGN_SUFFIXES = (".v", ".sv", ".vhd", ".blif")
+# One more line of the public NOTICE for a rule: what the source states, and what it does not.
+NOTICE_EXTRA = {
+    "verilogeval": "VerilogEval repository licence: MIT (NVIDIA); the original problem source "
+                   "does not state a licence",
+}
 
 
 def _tokens(rules: list[Rule]) -> list[tuple[str, bool, str]]:
@@ -87,7 +92,10 @@ def notice(name: str, row: dict[str, object] | None, hits: dict[str, list[str]],
     for rid, names in hits.items():
         rule = by_id[rid]
         lines += [f"Designs ({rid}): {', '.join(names)}", f"  Licence: {rule['licence']}",
-                  f"  Source: {rule['licence_source']}", f"  Notice: {rule['licence_notice']}", ""]
+                  f"  Source: {rule['licence_source']}", f"  Notice: {rule['licence_notice']}"]
+        if rid in NOTICE_EXTRA:
+            lines.append(f"  {NOTICE_EXTRA[rid]}")
+        lines.append("")
     return "\n".join(lines) + "\n"
 
 

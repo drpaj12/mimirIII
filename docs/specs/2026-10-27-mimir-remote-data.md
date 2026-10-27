@@ -21,12 +21,18 @@ correctness (a fetched file's sha256 equals its manifest sha256), index size (a 
   field is its target. The home dir in a target is written `$HOME` (`$WS` for the workspace). Archives without a F:
   manifest (`mimir-meta-papers`, the blob tarball, the snapshot dirs) get one built by reading them.
   `manifests/<name>.public.tsv.xz` is the manifest of a repack.
-- `blobs.tsv.xz`: `sha256<TAB>xz_bytes<TAB>archive` for every blob of the store; `archive` names a blob tarball that
-  holds it as `blobs/<ab>/<sha>.xz`, or `-`.
+- `blobs.tsv.xz`: `sha256<TAB>xz_bytes<TAB>raw_bytes<TAB>archive<TAB>visibility` for every blob of the store;
+  `archive` names a blob tarball that holds it as `blobs/<ab>/<sha>.xz`, or `-`. `visibility`: `private` when the blob
+  is a file of a private archive's manifest or only runs of a private source use it; `orphan` when no store row uses
+  it (and no public blob tarball holds it); else `public`. Fix round 1.
 - `licences.toml`: the reviewed copy of the controller's per-archive verdicts (section 3).
 
 A private archive (`mimir-meta-papers`, `mimir-mcnc-originals`, `mimir-mcnc-originals-r2`, the superseded snapshot
-`mimir-snapshot-2026-10-27`) is never given a URL, never staged, and `mimir fetch` refuses to download it.
+`mimir-snapshot-2026-10-27`, and the Odin development intermediates `odin3-spike-abc`, `odin3-writer-run`,
+`odin3-vtr-gfx`) is never given a URL, never staged, and `mimir fetch` refuses to download it. Its row in
+`archives.toml` has only name, date, file, form, kind, sha256, size and `visibility = "private"` (no manifest,
+source or URLs). Its member manifest is local only: `$MIMIR_PRIVATE_INDEX/manifests/<name>.tsv.xz`. The staged
+`index/` holds no private row, manifest or `licences.toml` entry, and only `public` blobs.
 
 ## 2. Locations and `mimir fetch`
 
@@ -53,7 +59,8 @@ A private archive (`mimir-meta-papers`, `mimir-mcnc-originals`, `mimir-mcnc-orig
   archive: `verdict` (`host`, `host-with-notices`, `split`, `do-not-host`), `sources`, `licence_refs`, `notes`, `drop`
   (extra member globs to drop) and `texts` (licence texts shipped). Archives the controller table does not cover get a
   derived entry (`basis = "derived"`).
-- An archive's licence is its verdict, or `pending` when a design in it has no licence meta. A design is found in a
+- An archive's licence is its verdict. It is `pending` (refused without `--allow-pending`) when it has no row in
+  `licences.toml` (fail closed) or when a design in it has no licence meta. A design is found in a
   manifest by the rules of `data/meta/licences.toml` (a path component equal to the benchmark name, or starting with
   the prefix of a wildcard rule). `NOTICE` lists, per rule hit, the design, licence, source and notice from that file.
 - `mimir remote publish-plan` uploads nothing. It prints, per hostable archive, the file name and size, and scans each

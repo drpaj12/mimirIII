@@ -63,19 +63,24 @@ def make_index(root: Path, tar: Path, private: bool = False, urls: tuple[str, ..
     idx = root / "idx"
     (idx / "manifests").mkdir(parents=True)
     ents = entries(tar)
-    remote.write_xz(idx / "manifests" / "t.tsv.xz", remote.manifest_text(ents))
     sha = remote.sha256_path(tar)
-    arch = Archive("t", "2026-10-27", tar.name, "tar.xz", "norns-runs", "src", "manifests/t.tsv.xz",
+    if private:  # the manifest of a private archive is local only, never in the index
+        remote.write_xz(root / "priv" / "manifests" / "t.tsv.xz", remote.manifest_text(ents))
+    else:
+        remote.write_xz(idx / "manifests" / "t.tsv.xz", remote.manifest_text(ents))
+    arch = Archive("t", "2026-10-27", tar.name, "tar.xz", "norns-runs", "src",
+                   "" if private else "manifests/t.tsv.xz",
                    "private" if private else "public", "host", "0" * 64 if bad_sha else sha,
                    tar.stat().st_size, len(ents), urls)
     (idx / "archives.toml").write_text(remote.dump_archives([arch]), encoding="utf-8")
     bsha = SHA(BLOB).hexdigest()
-    remote.write_xz(idx / "blobs.tsv.xz", f"{bsha}\t10\tt\n".encode())
+    remote.write_xz(idx / "blobs.tsv.xz",
+                    f"{bsha}\t10\t{len(BLOB)}\tt\tpublic\n".encode())
     return idx
 
 
 def loc(root: Path, archive_dir: Path | None = None, url: str | None = None) -> Locations:
-    return Locations(root / "blobs", archive_dir, url, root / "cache")
+    return Locations(root / "blobs", archive_dir, url, root / "cache", root / "priv")
 
 
 class FetchTests(unittest.TestCase):
@@ -262,6 +267,7 @@ class PublishTests(unittest.TestCase):
             (rdir.parent / "meta" / "licences.toml").read_bytes())
         rules = load_licence_rules(meta / "licences.toml")
         rows, _ = load_table(idx / "licences.toml")
+        rows["t"] = rows["norns-runs-n5"]  # a reviewed row for the fixture archive
         plans = publish.build_plans(idx, rules, rows)
         stage = self.root / "stage"
         store = self.root / "store"
@@ -281,3 +287,4 @@ class PublishTests(unittest.TestCase):
         self.assertEqual(pub.public_sha256,
                          remote.sha256_path(stage / "2026-10-27" / "t.tar.xz"))
         self.assertEqual(pub.public_dropped, 2)
+        self.assertEqual(publish.status_of(pub, None, {}, []), "pending")  # no row: fail closed
