@@ -20,7 +20,7 @@ archive = "loki-exp2-data.tar.xz"
 verdict = "host-with-notices"
 sources = ["VTR odin_ii micros (micro_*)", "VerilogEval/HDLBits (ve_Prob*)", "Loki/Wyrd tool output"]
 licence_refs = ["external/vtr-verilog-to-routing/LICENSE.md", "external/verilog-eval/LICENSE (MIT, NVIDIA)", "loki/LICENSE (MIT)"]
-notes = "1304 design.v + 65 blif. ve_ part rests on HDLBits problems with no stated licence (Peter decision 1). Drop __pycache__, designdata.pkl if wished (pickle, no licence issue, safety only)."
+notes = "1304 design.v + 65 blif. The ve_ part rests on HDLBits problems: the VerilogEval repository licence (MIT, NVIDIA) is recorded and the original problem source does not state a licence. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted. Drop __pycache__, designdata.pkl (safety only)."
 basis = "controller"
 drop = []
 
@@ -38,7 +38,7 @@ archive = "loki-exp4-data.tar.xz"
 verdict = "split"
 sources = ["Loki r4_* synthetic corpus and twins (own generator, MIT)", "VTR micros", "VerilogEval ve_*", "VTR big designs (big/: blob_merge boundtop mk* or1200 raygentop sha spree LU8PEEng LU32PEEng stereovision0-3; bgm arm_core build.log only)"]
 licence_refs = ["vtr_flow/benchmarks/verilog/or1200.v:1979 (LGPL-2.1+)", "sha.v:14-21 (opencores, permissive notice)", "mkPktMerge.v:371-378 + mkDelayWorker32B.v, mkSMAdapter4B.v (generic_fifos, permissive notice)", "diffeq2.v:19 (no-warranty disclaimer)", "VTR LICENSE.md (benchmarks keep own terms)"]
-notes = "Drop: 30573 symlinks (dangling outside tree, absolute home paths), 2 .db, 2 .lock, *.sh, logs with home paths unless scrubbed. Keep big/ with notices; or1200 netlist.v/blif are LGPL-2.1 derivatives (ship LGPL notice or drop or1200). spree, LU8PEEng, LU32PEEng, blob_merge, boundtop, raygentop, stereovision*, bgm: no licence in file, unclear."
+notes = "Drop: 30573 symlinks (dangling outside tree, absolute home paths), 2 .db, 2 .lock, *.sh, logs with home paths unless scrubbed. Keep big/ with notices; or1200 netlist.v/blif are LGPL-2.1 derivatives, so the LGPL text ships. spree, LU8PEEng, LU32PEEng, blob_merge, boundtop, raygentop, stereovision*, bgm carry no licence in the file: recorded as none-stated. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
 basis = "controller"
 drop = []
 
@@ -56,7 +56,7 @@ archive = "loki-exp6-data.tar.xz"
 verdict = "host-with-notices"
 sources = ["r4_* (CI), VTR micros (MI), VerilogEval (VT)", "Loki output"]
 licence_refs = ["loki/LICENSE (MIT)", "VTR LICENSE.md", "verilog-eval/LICENSE (MIT)"]
-notes = "VT part has HDLBits provenance question."
+notes = "VT part: VerilogEval problems; the repository licence is MIT (NVIDIA) and the original problem source does not state a licence. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
 basis = "controller"
 drop = []
 
@@ -65,7 +65,7 @@ archive = "loki-veval-exp.tar.xz"
 verdict = "split"
 sources = ["VerilogEval spec-to-rtl ref.sv (156 .sv), derived netlists, Loki output", ".venv third-party Python packages"]
 licence_refs = ["external/verilog-eval/LICENSE (MIT, NVIDIA Research Projects)", "Gate-Breaker/LICENSE (BSD-3)"]
-notes = "Drop .venv (3676 files, 243 .so, pip/jinja2/mypy/ruff etc, mixed licences, no value) and wyrd.db/.wyrd.lock/logs with home paths. HDLBits provenance of problems unstated: Peter decision."
+notes = "Drop .venv (3676 files, 243 .so, pip/jinja2/mypy/ruff etc, mixed licences, no value) and wyrd.db/.wyrd.lock/logs with home paths. HDLBits provenance of the problems: the VerilogEval repository licence is MIT (NVIDIA) and the original problem source does not state a licence. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
 basis = "controller"
 drop = []
 
@@ -146,7 +146,7 @@ archive = "norns-runs-stereovision-a.tar.xz"
 verdict = "host-with-notices"
 sources = ["VTR stereovision0, stereovision1 derived BLIF/place/VPR output"]
 licence_refs = ["VTR LICENSE.md: benchmark terms live in source; stereovision*.v carry authorship comments only"]
-notes = "No licence text in source: unclear (Peter decision 2)."
+notes = "No licence text in the source: recorded as none-stated. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
 basis = "controller"
 drop = []
 
@@ -184,4 +184,202 @@ sources = ["original MCNC / LGSynth / IWLS circuit files and documents, SIS, NCS
 licence_refs = []
 notes = "Private, never host (archive README 2026-10-27): no original states a licence that allows hosting."
 basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-blob_merge.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (blob_merge), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-boundtop.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (boundtop), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-ch_intrinsics.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (ch_intrinsics), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-diffeq1.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (diffeq1), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-diffeq2.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (diffeq2), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-mkDelayWorker32B.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (mkDelayWorker32B), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-mkPktMerge.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (mkPktMerge), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-mkSMAdapter4B.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (mkSMAdapter4B), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-or1200.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (or1200), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-raygentop.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (raygentop), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-sha.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (sha), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-stereovision0.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (stereovision0), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-stereovision1.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (stereovision1), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-stereovision2.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (stereovision2), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-stereovision3.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (stereovision3), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-temp-2Wce.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (temp-2Wce), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-temp-QqPI.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (temp-QqPI), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-d4-temp-kJIB.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (temp-kJIB), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "norns-placers-fix1-runs.tar.xz"
+verdict = "host-with-notices"
+sources = ["Norns placer runs on VTR benchmark designs (fix1 runs), derived BLIF/place/VPR output"]
+licence_refs = ["VTR LICENSE.md: benchmark terms live in the source of each benchmark", "per-design notices in the archive NOTICE"]
+notes = "Derived row (no controller entry): the verdict follows the designs the manifest names and their rules in data/meta/licences.toml. Peter 2026-10-27: each benchmark keeps its own licence as it states it (or none-stated) and is hosted with its own notice; the source PDFs and the old snapshot are never hosted."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "odin3-spike-abc.tar.xz"
+verdict = "do-not-host"
+sources = ["Odin development intermediates"]
+licence_refs = []
+notes = "Not dataset: an Odin development intermediate (controller decision 2026-10-27). Private, never host."
+basis = "controller"
+drop = []
+
+[[archive]]
+archive = "odin3-vtr-gfx.tar.xz"
+verdict = "do-not-host"
+sources = ["Odin development intermediates"]
+licence_refs = []
+notes = "Not dataset: an Odin development intermediate (controller decision 2026-10-27). Private, never host."
+basis = "controller"
+drop = []
+
+[[archive]]
+archive = "odin3-writer-run.tar.xz"
+verdict = "do-not-host"
+sources = ["Odin development intermediates"]
+licence_refs = []
+notes = "Not dataset: an Odin development intermediate (controller decision 2026-10-27). Private, never host."
+basis = "controller"
 drop = []
