@@ -1323,3 +1323,93 @@ measurer = "import-norns"
 definition_source = "norns"
 citations = ["rose2012vtr", "elgammal2025vtr9"]
 validation = "Imported as stored in the source file; not re-derived."
+
+# Partition quality metrics (schema version 2). Records of a partition have source "partition:<id>".
+
+[[metric]]
+key = "partition.n_objects"
+description = "Objects (netlist atoms) in the partition's cluster assignment"
+unit = "count"
+levels = ["clb"]
+kind = "measured"
+measurer = "partition-import"
+definition_source = "mimir"
+citations = []
+validation = "Counted from the stored assignment; tests/test_partition.py checks the count on a constructed assignment."
+
+[[metric]]
+key = "partition.n_clusters"
+description = "Distinct cluster ids in the partition's cluster assignment"
+unit = "count"
+levels = ["clb"]
+kind = "measured"
+measurer = "partition-import"
+definition_source = "mimir"
+citations = []
+validation = "Counted from the stored assignment; tests/test_partition.py checks the count on a constructed assignment."
+
+[[metric]]
+key = "partition.cluster_size_max"
+description = "Objects in the largest cluster of the partition"
+unit = "count"
+levels = ["clb"]
+kind = "measured"
+measurer = "partition-import"
+definition_source = "mimir"
+citations = []
+validation = "Counted from the stored assignment; tests/test_partition.py checks it on a constructed assignment."
+
+[[metric]]
+key = "partition.cluster_size_mean"
+description = "Mean objects per cluster of the partition (n_objects / n_clusters)"
+unit = "count"
+levels = ["clb"]
+kind = "measured"
+measurer = "partition-import"
+definition_source = "mimir"
+citations = []
+validation = "Computed from the stored assignment; tests/test_partition.py checks it on a constructed assignment."
+
+[[metric]]
+key = "partition.cost_before"
+description = "Norns hindsight re-clustering cost before the moves (recluster.json cost_before). Definition: the Norns round 7 plan, Stage 2, not restated here."
+unit = "cost"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-partition"
+definition_source = "norns"
+citations = []
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "partition.cost_after"
+description = "Norns hindsight re-clustering cost after the moves (recluster.json cost_after). Definition: the Norns round 7 plan, Stage 2, not restated here."
+unit = "cost"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-partition"
+definition_source = "norns"
+citations = []
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "partition.atoms_moved"
+description = "Atoms that changed cluster in the Norns hindsight re-clustering (recluster.json atoms_moved)"
+unit = "count"
+levels = ["clb"]
+kind = "imported"
+measurer = "import-partition"
+definition_source = "norns"
+citations = []
+validation = "Imported as stored in the source file; not re-derived."
+
+[[metric]]
+key = "partition.downstream_median_objective"
+description = "Downstream QoR of a partition: the median routed WL x CPD objective of the arm (bin) in rounds.json; bin is the arm name, the partition's own arm and the stock arm"
+unit = "ratio"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-partition"
+definition_source = "norns"
+citations = []
+validation = "Imported as stored in the source file (rounds.json medians); not re-derived."

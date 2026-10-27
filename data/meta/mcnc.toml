@@ -1,0 +1,805 @@
+# Mimir design meta: VTR MCNC20 circuits (research output, copied from the Mimir research lane).
+# A field with conf = missing has the value ""; any text the research gave is in <field>_note.
+# lineage_conf and lineage_gaps are derived from the steps (schema v2 fix round 1): gaps = steps
+# with conf missing; lineage_conf = primary only when no step is missing and all are primary.
+# year = earliest year found in a source listing the circuit (not necessarily design year).
+# conf in {primary, secondary, inferred, missing}. Source ids are defined in mcnc-sources.md.
+# Archive member paths refer to LGSynth91.7z (https://ddd.fit.cvut.cz/www/prj/Benchmarks/LGSynth91.7z).
+
+[circuit.alu4]
+vtr_file = "vtr_flow/benchmarks/blif/alu4.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 (listed in v3.0 guide s3.3; not in the 1988 v2.0 text)"
+suite_src = "yang91 s3.3 p.10-11"
+suite_conf = "primary"
+original_file = "blif/alu4.blif (also pla/alu4.pla, slif/mlexamples/alu4.slif, Verilog/cmlexamples/alu4_orig.v)"
+original_file_src = "lgsynth91-7z member listing"
+original_file_conf = "primary"
+original_format = "multi-level BLIF (combinational); twin PLA also distributed"
+original_format_src = "yang91 s3.3; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = "ALU (guide function column: \"ALU\"), 14 inputs 8 outputs ~681 gates"
+intent_src = "yang91 s3.3 p.10"
+intent_conf = "primary"
+function_class = "arith"
+function_class_src = "mapped from guide function \"ALU\""
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15; slif .date 1991-01-03"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.apex2]
+vtr_file = "vtr_flow/benchmarks/blif/apex2.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth89"
+suite_src = "lgsynth89-txt (Two-Level Examples table)"
+suite_conf = "primary"
+original_file = "apex2.pla"
+original_file_src = "lgsynth89-txt Two-Level Examples table"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 39 in / 3 out / 1035 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1988"
+year_src = "lgsynth89-txt dated 1988-12-16"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.apex4]
+vtr_file = "vtr_flow/benchmarks/blif/apex4.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth89"
+suite_src = "lgsynth89-txt (Two-Level Examples table)"
+suite_conf = "primary"
+original_file = "apex4.pla"
+original_file_src = "lgsynth89-txt Two-Level Examples table"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 9 in / 19 out / 438 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1988"
+year_src = "lgsynth89-txt dated 1988-12-16"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.bigkey]
+vtr_file = "vtr_flow/benchmarks/blif/bigkey.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 (sequential multi-level, s3.2)"
+suite_src = "yang91 s3.2 p.8-9"
+suite_conf = "primary"
+original_file = "blif/bigkey.blif (also Verilog/smlexamples/bigkey_{orig,sweep,synth}.v)"
+original_file_src = "lgsynth91-7z member listing"
+original_file_conf = "primary"
+original_format = "sequential multi-level BLIF (extended BLIF with latches)"
+original_format_src = "yang91 s3.2; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = "Key encryption circuit (guide: \"Key Encription\"), 262 in 197 out 221 latches ~4765 gates; Hutton Table 4.2: \"key encryption\""
+intent_src = "yang91 s3.2 p.8; hutton97 Table 4.2 p.55"
+intent_conf = "primary"
+function_class = "crypto"
+function_class_src = "mapped from guide function; hutton97 agrees"
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.clma]
+vtr_file = "vtr_flow/benchmarks/blif/clma.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 (sequential multi-level, s3.2)"
+suite_src = "yang91 s3.2"
+suite_conf = "primary"
+original_file = "blif/clma.blif (also Verilog/smlexamples/clma_{orig,sweep}.v; a clmb variant with 0 latches is listed)"
+original_file_src = "lgsynth91-7z member listing; yang91 s3.2"
+original_file_conf = "primary"
+original_format = "sequential multi-level BLIF"
+original_format_src = "yang91 s3.2; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = "Bus interface (guide: \"Bus Interface\"), 382 in 82 out 33 latches ~35000 gates"
+intent_src = "yang91 s3.2 p.8"
+intent_conf = "primary"
+function_class = "control"
+function_class_src = "mapped from guide function \"Bus Interface\" (rule in README)"
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.des]
+vtr_file = "vtr_flow/benchmarks/blif/des.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth89 (v2.0 multi-level table); also in LGSynth91 s3.3"
+suite_src = "lgsynth89-txt Multi-Level Examples; yang91 s3.3 p.11"
+suite_conf = "primary"
+original_file = "blif/des.blif (also slif/mlexamples/des.slif, Verilog/cmlexamples/des_{orig,sweep,synth}.v)"
+original_file_src = "lgsynth91-7z member listing"
+original_file_conf = "primary"
+original_format = "multi-level BLIF/SLIF, combinational (register state exposed as 256 inputs/245 outputs)"
+original_format_src = "yang91 s3.3 (256 in, 245 out, ~4000 gates); lgsynth91-7z slif .model DES ports inreg<..>"
+original_format_conf = "primary"
+intent = "DES data encryption circuit (guide: \"Data Encription\"); SLIF ports data_in<7:0>, reset, encrypt, load_key"
+intent_src = "lgsynth89-txt; yang91 s3.3 p.11; lgsynth91-7z slif/mlexamples/des.slif"
+intent_conf = "primary"
+function_class = "crypto"
+function_class_src = "mapped from guide function"
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1988"
+year_src = "lgsynth89-txt dated 1988-12-16"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.diffeq]
+vtr_file = "vtr_flow/benchmarks/blif/diffeq.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 high-level examples (slif/hlexamples, \"high level benchmarks of the HL synthesis workshop suite\"); not in the guide tables"
+suite_src = "lgsynth91-7z member slif/README; listing"
+suite_conf = "primary"
+original_file = "slif/hlexamples/diffeq.slif"
+original_file_src = "lgsynth91-7z listing"
+original_file_conf = "primary"
+original_format = "SLIF (Stanford Structure/Logic Intermediate Format) logic-level netlist, .date 1991-01-04, with hand-made simulation pattern file"
+original_format_src = "lgsynth91-7z slif/hlexamples/diffeq.slif header; slif/README"
+original_format_conf = "primary"
+intent = "Differential equation solver (pattern file loads x, y, dx, a, u; iterates). Hutton lists a circuit \"dieq\" as \"differential eqn solver\"; identity of dieq with diffeq not confirmed"
+intent_src = "lgsynth91-7z slif/hlexamples/sim/diffeq.pat; hutton97 Table 4.2 p.55"
+intent_conf = "inferred"
+function_class = "dsp"
+function_class_src = "numeric datapath solver; class assigned by lane from inferred intent"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991 (SLIF file date); HL workshop suite year not verified"
+year_src = "lgsynth91-7z slif .date 910104"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
+  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.dsip]
+vtr_file = "vtr_flow/benchmarks/blif/dsip.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 (sequential multi-level, s3.2)"
+suite_src = "yang91 s3.2 p.8"
+suite_conf = "primary"
+original_file = "blif/dsip.blif (also Verilog/smlexamples/dsip_{orig,sweep,synth}.v)"
+original_file_src = "lgsynth91-7z listing"
+original_file_conf = "primary"
+original_format = "sequential multi-level BLIF"
+original_format_src = "yang91 s3.2; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = "Encryption circuit (guide: \"Encription Circuit\"), 228 in 197 out 224 latches ~2097 gates; Hutton: \"encryption\""
+intent_src = "yang91 s3.2 p.8; hutton97 Table 4.2"
+intent_conf = "primary"
+function_class = "crypto"
+function_class_src = "mapped from guide function"
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "multi-level (sequential) BLIF in LGSynth91", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.elliptic]
+vtr_file = "vtr_flow/benchmarks/blif/elliptic.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 high-level examples (slif/hlexamples)"
+suite_src = "lgsynth91-7z slif/README"
+suite_conf = "primary"
+original_file = "slif/hlexamples/elliptic.slif"
+original_file_src = "lgsynth91-7z listing"
+original_file_conf = "primary"
+original_format = "SLIF logic-level netlist, .date 1991-01-04 and a 1991-01-09 revision; hand-made pattern file"
+original_format_src = "lgsynth91-7z slif header"
+original_format_conf = "primary"
+intent = "Elliptic filter (pattern file header \"elliptic filter input patterns\", loads 8 state registers inp, sv2, sv13, sv18, sv26, sv33, sv38, sv39). Hutton labels it \"elliptic eqn solver\" (differs)"
+intent_src = "lgsynth91-7z slif/hlexamples/sim/elliptic.pat; hutton97 Table 4.2"
+intent_conf = "primary"
+function_class = "dsp"
+function_class_src = "mapped from \"elliptic filter\""
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991 (SLIF file date); HL workshop suite year not verified"
+year_src = "lgsynth91-7z slif .date 910104/910109"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
+  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.ex1010]
+vtr_file = "vtr_flow/benchmarks/blif/ex1010.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91"
+suite_src = "yang91 s3.4 table, first-listed in v3.0 guide; absent from lgsynth89-txt"
+suite_conf = "primary"
+original_file = "pla/ex1010.pla"
+original_file_src = "lgsynth91-7z member listing (LGSynth91/pla/ex1010.pla)"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 10 in / 10 out / 810 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15 (first listing found)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.ex5p]
+vtr_file = "vtr_flow/benchmarks/blif/ex5p.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91"
+suite_src = "yang91 s3.4 table, first-listed in v3.0 guide; absent from lgsynth89-txt"
+suite_conf = "primary"
+original_file = "pla/ex5.pla (guide row shows name \"ex5\"; VTR name ex5p matched by 8 in / 63 out / 256 terms)"
+original_file_src = "lgsynth91-7z listing; yang91 s3.4"
+original_file_conf = "inferred"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 8 in / 63 out / 256 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15 (first listing found)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.frisc]
+vtr_file = "vtr_flow/benchmarks/blif/frisc.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 high-level examples (slif/hlexamples)"
+suite_src = "lgsynth91-7z slif/README"
+suite_conf = "primary"
+original_file = "slif/hlexamples/frisc.slif"
+original_file_src = "lgsynth91-7z listing"
+original_file_conf = "primary"
+original_format = "SLIF logic-level netlist, .date 1991-01-04; hand-made pattern file"
+original_format_src = "lgsynth91-7z slif header"
+original_format_conf = "primary"
+intent = "Small processor: pattern file runs an assembly program (pc, stack, interrupt service, external memory supplied by hand). Name expansion not stated"
+intent_src = "lgsynth91-7z slif/hlexamples/sim/frisc.pat comments"
+intent_conf = "primary"
+function_class = "cpu"
+function_class_src = "mapped from pattern-file description"
+function_class_conf = "primary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991 (SLIF file date)"
+year_src = "lgsynth91-7z slif .date 910104"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
+  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.misex3]
+vtr_file = "vtr_flow/benchmarks/blif/misex3.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth89"
+suite_src = "lgsynth89-txt (Two-Level Examples table)"
+suite_conf = "primary"
+original_file = "misex3"
+original_file_src = "lgsynth89-txt Two-Level Examples table"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 14 in / 14 out / 1848 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1988"
+year_src = "lgsynth89-txt dated 1988-12-16"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.pdc]
+vtr_file = "vtr_flow/benchmarks/blif/pdc.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91"
+suite_src = "yang91 s3.4 table, first-listed in v3.0 guide; absent from lgsynth89-txt"
+suite_conf = "primary"
+original_file = "pla/pdc.pla"
+original_file_src = "lgsynth91-7z member listing (LGSynth91/pla/pdc.pla)"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 16 in / 40 out / 2406 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15 (first listing found)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.s298]
+vtr_file = "vtr_flow/benchmarks/blif/s298.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 FSM set (s3.1 row s298: 3 in 6 out 1096 terms 218 states, KISS2); distinct from ISCAS89 s298 (s3.2: 14 latches, 119 gates)"
+suite_src = "yang91 s3.1 p.7 and s3.2 p.9; lgsynth91-7z kiss2/s298.kiss2"
+suite_conf = "primary"
+original_file = "kiss2/s298.kiss2 (VTR netlist matches this FSM, not blif/s298.blif which is the 14-FF ISCAS89 .bench netlist)"
+original_file_src = "lgsynth91-7z listing; VTR s298.blif has 8 latches and 3 in/6 out"
+original_file_conf = "inferred"
+original_format = "KISS2 FSM state table (3 in, 6 out, 218 states); ISCAS89 gate-level twin also distributed"
+original_format_src = "yang91 s3.1; lgsynth91-7z listing"
+original_format_conf = "inferred"
+intent = "Finite state machine \"from a PLD\" (Hutton Table 4.2); guide labels ISCAS89 s298 \"PLD\""
+intent_src = "hutton97 Table 4.2 p.55; yang91 s3.2 p.8"
+intent_conf = "secondary"
+function_class = "fsm"
+function_class_src = "hutton97 and guide FSM table"
+function_class_conf = "secondary"
+author = "F. Brglez, D. Bryan, K. Kozminski (ISCAS89 set compilers, only if the ISCAS89 twin is the source; FSM-version author not found)"
+author_src = "iscas89-notes; unresolved"
+author_conf = "inferred"
+institution = "MCNC (ISCAS89 distributor)"
+institution_src = "iscas89-notes"
+institution_conf = "inferred"
+year = "1989 (ISCAS89 tape); FSM version 1991 guide"
+year_src = "iscas89-notes; yang91"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "KISS2 FSM (inferred source)", src = "see original_file", conf = "inferred" },
+  { step = 2, tool = "unknown FSM state assignment / logic synthesis to gate-level (VTR netlist has 8 latches for 218 states)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "inferred"
+lineage_gaps = 1
+
+[circuit.s38417]
+vtr_file = "vtr_flow/benchmarks/blif/s38417.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "ISCAS89 (via LGSynth91 s3.2 sequential multi-level table, function \"Logic\")"
+suite_src = "yang91 s3.2 p.9; yang91 s1 ack ISCAS85/ISCAS89 included; name match to ISCAS89 inferred"
+suite_conf = "inferred"
+original_file = "blif/s38417.blif, internal .model \"s38417.bench\" (also Verilog/smlexamples/s38417_orig.v)"
+original_file_src = "lgsynth91-7z listing and member header"
+original_file_conf = "primary"
+original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 28 in 106 out 1636 latches 22179 gates"
+original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
+original_format_conf = "primary"
+intent = ""
+intent_note = "Not stated (guide function column says only \"Logic\")"
+intent_src = "yang91 s3.2 p.9"
+intent_conf = "missing"
+function_class = ""
+function_class_note = "unknown"
+function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
+function_class_conf = "missing"
+author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
+author_src = "iscas89-notes; membership inferred by name and .bench model name"
+author_conf = "inferred"
+institution = "MCNC (set distributor)"
+institution_src = "iscas89-notes"
+institution_conf = "inferred"
+year = "1989"
+year_src = "iscas89-notes (tape distributed May 1989)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "ISCAS89 .bench netlist converted to BLIF (converter not named); LGSynth91 distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit."s38584.1"]
+vtr_file = "vtr_flow/benchmarks/blif/s38584.1.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "ISCAS89 (via LGSynth91 s3.2). Name suffix \".1\": guide footnote to rows s208.1, s420.1, s838.1, s9234.1, s13207.1, s15850.1, s38584.1 says these examples are corrected versions of the originals; see /bench.update (text partly dropped in extraction). ISCAS89 membership inferred from name"
+suite_src = "yang91 s3.2 p.9 footnote"
+suite_conf = "inferred"
+original_file = "blif/s38584.1.blif, internal .model \"s38584.1.bench\" (also Verilog/smlexamples/s38584.1_orig.v)"
+original_file_src = "lgsynth91-7z listing and member header"
+original_file_conf = "primary"
+original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 38 in 304 out 1426 latches 19253 gates; \".1\" marked with * in the guide"
+original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
+original_format_conf = "primary"
+intent = ""
+intent_note = "Not stated (guide function column says only \"Logic\")"
+intent_src = "yang91 s3.2 p.9"
+intent_conf = "missing"
+function_class = ""
+function_class_note = "unknown"
+function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
+function_class_conf = "missing"
+author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
+author_src = "iscas89-notes; membership inferred by name and .bench model name"
+author_conf = "inferred"
+institution = "MCNC (set distributor)"
+institution_src = "iscas89-notes"
+institution_conf = "inferred"
+year = "1989"
+year_src = "iscas89-notes (tape distributed May 1989)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "ISCAS89 .bench netlist converted to BLIF (converter not named); LGSynth91 distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 3, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 4, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "primary"
+lineage_gaps = 0
+
+[circuit.seq]
+vtr_file = "vtr_flow/benchmarks/blif/seq.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth89"
+suite_src = "lgsynth89-txt (Two-Level Examples table)"
+suite_conf = "primary"
+original_file = "seq.pla"
+original_file_src = "lgsynth89-txt Two-Level Examples table"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 41 in / 35 out / 1459 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1988"
+year_src = "lgsynth89-txt dated 1988-12-16"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.spla]
+vtr_file = "vtr_flow/benchmarks/blif/spla.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91"
+suite_src = "yang91 s3.4 table, first-listed in v3.0 guide; absent from lgsynth89-txt"
+suite_conf = "primary"
+original_file = "pla/spla.pla"
+original_file_src = "lgsynth91-7z member listing (LGSynth91/pla/spla.pla)"
+original_file_conf = "primary"
+original_format = "PLA (espresso/Berkeley PLA format), two-level; 16 in / 46 out / 2296 product terms"
+original_format_src = "yang91 s3.4; lgsynth91-7z listing"
+original_format_conf = "primary"
+intent = ""
+intent_src = ""
+intent_conf = "missing"
+function_class = "pla_random"
+function_class_src = "category two-level in yang91 s3.4; no function stated anywhere found"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991"
+year_src = "yang91 dated 1991-01-15 (first listing found)"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "PLA (espresso) in LGSynth distribution", src = "see original_file", conf = "primary" },
+  { step = 2, tool = "unknown conversion PLA to SIS input (SIS reads PLA directly; not documented for this set)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.tseng]
+vtr_file = "vtr_flow/benchmarks/blif/tseng.blif"
+vtr_rev = "3c9a4d23b2"
+suite = "LGSynth91 high-level examples (slif/hlexamples)"
+suite_src = "lgsynth91-7z slif/README"
+suite_conf = "primary"
+original_file = "slif/hlexamples/tseng.slif"
+original_file_src = "lgsynth91-7z listing"
+original_file_conf = "primary"
+original_format = "SLIF logic-level netlist, .date 1991-01-04 and 1991-01-09 revision; hand-made pattern file"
+original_format_src = "lgsynth91-7z slif header"
+original_format_conf = "primary"
+intent = "Bus controller (Hutton Table 4.2: \"bus-controller\"). SLIF has 15 bidirectional 8-bit ports v1..v15, inputs reset and ready, output DN (done). Origin of the name \"tseng\" not found"
+intent_src = "hutton97 Table 4.2 p.55; lgsynth91-7z slif header"
+intent_conf = "secondary"
+function_class = "control"
+function_class_src = "mapped from hutton97 \"bus-controller\""
+function_class_conf = "secondary"
+author = ""
+author_src = ""
+author_conf = "missing"
+institution = ""
+institution_src = ""
+institution_conf = "missing"
+year = "1991 (SLIF file date)"
+year_src = "lgsynth91-7z slif .date 910104"
+year_conf = "primary"
+lineage = [
+  { step = 1, tool = "original", script = "HL-workshop behavioral design realised as SLIF logic netlist (Jan 1991, Stanford)", src = "lgsynth91-7z slif/README", conf = "primary" },
+  { step = 2, tool = "unknown: synthesis from behavior to SLIF and SLIF to BLIF/SIS input (not documented in sources found)", script = "", src = "", conf = "missing" },
+  { step = 3, tool = "SIS", script = "script.rugged and script.algebraic; the smaller result kept", src = "vtr blif README (rev 3c9a4d23b2); marq99 s2.2/3.1 \"logic-optimized by SIS [Sent92]\"", conf = "primary" },
+  { step = 4, tool = "FlowMap (4-LUT + flip-flops; Flowpack named in marq00 Fig.3)", script = "", src = "vtr blif README; marq00 s4.1 Fig.3; betz97 s5.3; flowmap94", conf = "primary" },
+  { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
+]
+lineage_src = "per step"
+lineage_conf = "secondary"
+lineage_gaps = 1
+
+[circuit.adder]
+vtr_file = "vtr_flow/benchmarks/blif/adder.blif"
+vtr_rev = "3c9a4d23b2"
+in_circuits_txt = false
+in_readme_list = true
+suite = "not MCNC (not in LGSynth89/91 listings read)"
+suite_src = "netlist inspection"
+suite_conf = "inferred"
+intent = "Adder test: .model adder_test, 8 hard .subckt adder instances, Odin II style names top^a~0"
+intent_src = "vtr_flow/benchmarks/blif/adder.blif"
+intent_conf = "inferred"
+function_class = "arith"
+function_class_src = "netlist inspection"
+function_class_conf = "inferred"
+author = ""
+author_src = ""
+author_conf = "missing"
+lineage = []
+lineage_conf = "missing"
+
+[circuit.multiclock]
+vtr_file = "vtr_flow/benchmarks/blif/multiclock/multiclock.blif"
+vtr_rev = "3c9a4d23b2"
+in_circuits_txt = false
+in_readme_list = true
+suite = "not MCNC (22-line hand-sized test in subdir multiclock/)"
+suite_src = "netlist inspection"
+suite_conf = "inferred"
+intent = "Multi-clock regression test: inputs in1..in3, clk, clk2; latches on two clocks"
+intent_src = "vtr_flow/benchmarks/blif/multiclock/multiclock.blif"
+intent_conf = "inferred"
+function_class = ""
+function_class_note = "unknown"
+function_class_src = ""
+function_class_conf = "missing"
+author = ""
+author_src = ""
+author_conf = "missing"
+lineage = []
+lineage_conf = "missing"

@@ -26,9 +26,9 @@ class Registry(unittest.TestCase):
 
     def test_every_code_metric_is_registered(self) -> None:
         reg = load_registry()
-        pattern = re.compile(r'"((?:struct|rent|vpr|norns|atlas|loki)\.[a-z_.0-9]+)"')
+        pattern = re.compile(r'"((?:struct|rent|vpr|norns|atlas|loki|partition)\.[a-z_.0-9]+)"')
         for rel in ("mimir/hutton.py", "mimir/rent.py", "mimir/importers/norns.py",
-                    "mimir/importers/atlas.py", "mimir/importers/loki.py"):
+                    "mimir/importers/atlas.py", "mimir/importers/loki.py", "mimir/partition.py"):
             for name in pattern.findall((ROOT / rel).read_text()):
                 self.assertIn(name, reg, f"{name} in {rel}")
 

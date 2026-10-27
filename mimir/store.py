@@ -8,7 +8,14 @@ import sqlite3
 from collections.abc import Iterable, Iterator
 from pathlib import Path
 
-from mimir.schema import COLUMNS, KEY_COLUMNS, SCHEMA_VERSION, Record, check_record
+from mimir.schema import (
+    COLUMNS,
+    KEY_COLUMNS,
+    SCHEMA_VERSION,
+    V2_DDL,
+    Record,
+    check_record,
+)
 
 _SQL_TYPES = {"seed": "INTEGER", "value": "REAL"}
 _LINE_SUFFIX = re.compile(r":\d+$")
@@ -27,26 +34,60 @@ def _create_sql() -> str:
 class Store:
     """A Mimir database. A write replaces rows with the same identity, so imports are idempotent."""
 
-    def __init__(self, path: str | Path) -> None:
+    def __init__(self, path: str | Path, readonly: bool = False) -> None:
+        """Open a store. The version is read first and nothing is written before it is accepted:
+        a store of another version raises ValueError and is left as it was. A new or version 1
+        store is created or migrated to version 2 in one transaction (not with readonly=True);
+        a version 2 store is not written at all, so it opens read only."""
         self.path = str(path)
-        self.db = sqlite3.connect(self.path)
-        self.db.execute(
-            "CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
-        )
-        self.db.execute(_create_sql())
-        self.db.execute(
-            "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)"
-        )
-        self.db.execute(
-            "INSERT OR IGNORE INTO meta VALUES ('schema_version', ?)", (str(SCHEMA_VERSION),)
-        )
-        self.db.commit()
-        self._check_version()
+        if readonly:
+            self.db = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True)
+        else:
+            self.db = sqlite3.connect(self.path)
+        try:
+            self._open_version(readonly)
+        except BaseException:
+            self.db.close()
+            raise
 
-    def _check_version(self) -> None:
+    def _stored_version(self) -> str | None:
+        has_meta = self.db.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='meta'").fetchone()
+        if has_meta is None:
+            return None
         row = self.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
-        if row is None or int(row[0]) != SCHEMA_VERSION:
-            raise ValueError(f"{self.path}: schema version {row} is not {SCHEMA_VERSION}")
+        return None if row is None else str(row[0])
+
+    def _open_version(self, readonly: bool) -> None:
+        """Create a new store, migrate a v1 store, accept v2, refuse any other version."""
+        version = self._stored_version()
+        if version == str(SCHEMA_VERSION):
+            return
+        if version not in (None, "1"):
+            raise ValueError(f"{self.path}: schema version {version} is not {SCHEMA_VERSION}")
+        if readonly:
+            raise ValueError(f"{self.path}: schema version {version} cannot be opened read only")
+        self._upgrade(new=version is None)
+
+    def _upgrade(self, new: bool) -> None:
+        """One transaction: for a new store the meta and records tables, then the v2 tables and
+        the version. A version 1 store keeps its `records` table untouched."""
+        try:
+            self.db.execute("BEGIN")
+            if new:
+                self.db.execute(
+                    "CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+                self.db.execute(_create_sql())
+                self.db.execute(
+                    "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)")
+            for stmt in V2_DDL:
+                self.db.execute(stmt)
+            self.db.execute("INSERT OR REPLACE INTO meta VALUES ('schema_version', ?)",
+                            (str(SCHEMA_VERSION),))
+            self.db.commit()
+        except BaseException:
+            self.db.rollback()
+            raise
 
     def close(self) -> None:
         self.db.close()
