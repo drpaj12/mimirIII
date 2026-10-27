@@ -10,6 +10,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from mimir.citations import load_citations, render_markdown
+from mimir.flowcfg import ARCH_REL, config_coverage, import_runs, unknown_params
 from mimir.importers.common import Report
 from mimir.measure import RENT_MAX_NODES, measure_job
 from mimir.meta import Roots, import_mcnc_meta, meta_coverage, register_designs
@@ -103,6 +104,30 @@ def _cmd_meta_coverage(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_runs(args: argparse.Namespace) -> int:
+    from mimir.importers.common import sha256_file
+
+    store = Store(args.db)
+    roots = _roots(args)
+    arch = roots.vtr / ARCH_REL if roots.vtr else None
+    sha = sha256_file(arch) if arch and arch.is_file() else None
+    counts = import_runs(store, sha, roots.loki)
+    for source, n in sorted(counts.items()):
+        print(f"{source}: {n} runs")
+    return 0
+
+
+def _cmd_run_coverage(args: argparse.Namespace) -> int:
+    store = Store(args.db)
+    print("source\tstatus\tconfigs\truns")
+    for row in config_coverage(store):
+        print("\t".join(str(x) for x in row))
+    print("unknown parameter\tgroup\tconfigs")
+    for unk in unknown_params(store):
+        print("\t".join(str(x) for x in unk))
+    return 0
+
+
 def _cmd_merge(args: argparse.Namespace) -> int:
     store = Store(args.db)
     for other in args.other:
@@ -192,6 +217,15 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("db")
     s.add_argument("--prefix", default="", help="slug prefix, for example mcnc20/")
     s.set_defaults(fn=_cmd_meta_coverage)
+    s = sub.add_parser("import-runs", help="flow_config and run rows from the stored records")
+    s.add_argument("db")
+    s.add_argument("--vtr", help="VTR checkout (default $VTR_ROOT)")
+    s.add_argument("--norns", help="unused; kept for symmetry with import-meta")
+    s.add_argument("--loki", help="Loki sources dir (default $MIMIR_LOKI)")
+    s.set_defaults(fn=_cmd_runs)
+    s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
+    s.add_argument("db")
+    s.set_defaults(fn=_cmd_run_coverage)
     s = sub.add_parser("merge", help="copy the rows of other databases into this one")
     s.add_argument("db")
     s.add_argument("other", nargs="+")
