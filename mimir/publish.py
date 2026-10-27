@@ -30,7 +30,6 @@ from mimir.remote import (
     Archive,
     Entry,
     dump_archives,
-    index_dir,
     load_archives,
     load_blob_index,
     manifest_text,
@@ -355,6 +354,8 @@ def stage_blobs(store: Path, stage: Path, shas: list[str]) -> tuple[int, list[st
     n, skipped = 0, []
     for sha in shas:
         path = blobs.blob_path(store, sha)
+        if not path.is_file():
+            continue  # a member of a blob tarball only
         data = path.read_bytes()
         new, _ = process_bytes(path.name, data, scrub=False)
         if new is None:
@@ -395,7 +396,7 @@ text) and the licence texts it names under LICENSES/. This is not legal advice.
 Archives and their verdicts:
 """
     rows = "\n".join(f"  {p.archive.name}: {p.licence}" for p in plans)
-    return head + rows + "\n"
+    return head + rows + "\n\nSee NOTICE-<archive>.txt for the per-design licence notices.\n"
 
 
 def run_stage(stage: Path, master_dir: Path, plans: list[Plan], idx: Path, store: Path | None,
@@ -434,5 +435,8 @@ def run_stage(stage: Path, master_dir: Path, plans: list[Plan], idx: Path, store
     return report
 
 
-def default_index() -> Path:
-    return index_dir()
+def record_licences(idx: Path, plans: list[Plan]) -> None:
+    """Write each plan's licence status into archives.toml."""
+    archives = load_archives(idx)
+    new = [replace(archives[p.archive.name], licence=p.licence) for p in plans]
+    (idx / "archives.toml").write_text(dump_archives(new), encoding="utf-8")

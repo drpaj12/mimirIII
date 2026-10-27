@@ -417,8 +417,15 @@ def fetch_blob(idx: Path, loc: Locations, sha: str, out: Path | None = None) -> 
     if cached.is_file():
         return _unpack_blob(cached.read_bytes(), sha, dest)
     if loc.data_url:
-        download_blob(loc.data_url.rstrip("/"), sha, cached)
-        return _unpack_blob(cached.read_bytes(), sha, dest)
+        try:
+            download_blob(loc.data_url.rstrip("/"), sha, cached)
+            return _unpack_blob(cached.read_bytes(), sha, dest)
+        except FetchError:
+            if ref.archive == "-":
+                raise
+        data = _blob_bytes_from_archive(idx, loc, ref)
+        if data is not None:
+            return _unpack_blob(data, sha, dest)
     raise FetchError(f"blob {sha}: not found locally and no URL is known (not uploaded yet?)")
 
 

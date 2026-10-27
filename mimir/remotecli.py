@@ -73,7 +73,7 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     try:
         chosen = publish.select(plans, only, args.allow_pending)
         print(publish.format_plan(chosen))
-        for p in plans:
+        for p in plans if not only else []:
             if p not in chosen:
                 print(f"skipped\t{p.archive.name}\t{p.licence}")
         for p in chosen:
@@ -89,6 +89,8 @@ def _cmd_plan(args: argparse.Namespace) -> int:
             for line in publish.run_stage(stage, master, chosen, idx, store, remote.DEFAULT_BASE,
                                           args.with_blobs, args.record):
                 print(line)
+        if args.record:
+            publish.record_licences(idx, plans)
     except publish.PlanError as exc:
         print(f"error: {exc}")
         return 2
