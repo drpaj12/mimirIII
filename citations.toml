@@ -147,7 +147,7 @@ title = "Characterization and Parameterized Generation of Digital Circuits"
 venue = "PhD thesis, Department of Computer Science, University of Toronto (supervisors J. Rose and D. G. Corneil), 155 pp."
 url = "https://www.eecg.toronto.edu/~jayar/pubs/"
 role = "Definition source for the struct.* metrics that follow Hutton (size, I/O, delay, shape, edge length, fanout, reconvergence R, sequential levels; pages in metrics.toml), and the MCNC values of Tables 3.1-3.5, 4.1 and 4.2 compared in the spec, section 10"
-checked = "2026-10-27, the local PDF MichaelHutton.pdf read in full (155 pages; the printed page number is the PDF page minus 9; pages 141-153, appendices, have damaged streams and were not used): title page (title, author, 1997, University of Toronto, Department of Computer Science, PhD), abstract and acknowledgments (supervisors Rose and Corneil). Not matched to a DOI or DBLP record (none exists for a thesis; no download in this lane). Note the title: ref. [12] of hutton2002tcad and the `thesis` entry of joined.bib say 'Characterization and Generation of Digital Benchmark Circuits'; the title page says the title given here."
+checked = "2026-10-27, the local PDF MichaelHutton.pdf read in full (155 pages; the printed page number is the PDF page minus 8 (rechecked in the fix round: PDF page 42 prints 34, PDF page 63 prints 55); pages 141-153, appendices, have damaged streams and were not used): title page (title, author, 1997, University of Toronto, Department of Computer Science, PhD), abstract and acknowledgments (supervisors Rose and Corneil). Not matched to a DOI or DBLP record (none exists for a thesis; no download in this lane). Note the title: ref. [12] of hutton2002tcad and the `thesis` entry of joined.bib say 'Characterization and Generation of Digital Benchmark Circuits'; the title page says the title given here."
 
 [[item]]
 id = "hutton1998tcad"
@@ -179,10 +179,10 @@ kind = "thesis"
 authors = "P. D. Kundarewich"
 year = 2002
 title = "Synthetic Circuit Generation Using Clustering and Iteration"
-venue = "MASc thesis, Department of Electrical and Computer Engineering, University of Toronto (supervisor J. Rose)"
+venue = "MASc thesis, Department of Electrical and Computer Engineering, University of Toronto (advisor J. Rose, named in the acknowledgments)"
 url = "https://www.eecg.toronto.edu/~jayar/pubs/"
 role = "Generator line for Mi Q3; the longer form of kundarewich2004tcad. Not a source of any struct.* definition"
-checked = "2026-10-27, the title page of the local PDF PaulKundarewich.pdf (title, author Paul Daniel Kundarewich, MASc, University of Toronto, copyright 2002). The PDF has 207 pages, not the 55 the brief expected. No thesis record was checked (no download in this lane); the supervisor is not on the title page and is not stated here."
+checked = "2026-10-27, the title page of the local PDF PaulKundarewich.pdf (title, author Paul Daniel Kundarewich, MASc, University of Toronto, copyright 2002). The PDF has 207 pages, not the 55 the brief expected. No thesis record was checked (no download in this lane); the advisor is not on the title page; the acknowledgments (PDF page 5) thank 'my advisor Jonathan Rose', which is the only statement of it."
 
 [[item]]
 id = "fang2007masc"
@@ -194,7 +194,7 @@ title = "Modeling Routing Demand for Early-Stage FPGA Architecture Development"
 venue = "MASc thesis, Graduate Department of Electrical and Computer Engineering, University of Toronto"
 url = "https://www.eecg.toronto.edu/~jayar/pubs/"
 role = "Routing-demand line for Mimir lane 2: its circuit inputs lambda and R (spec 5.5) and the 4-LUT BLE counts of Table 3.2 (p. 40, compared in section 10)"
-checked = "2026-10-27, the title page and abstract of the local PDF WeiMarkFang.pdf (title, author Wei Mark Fang, MASc, University of Toronto, copyright 2007). The PDF opens in full: 160 pages (`file` reported 2). Printed page = PDF page minus 12. No record checked (no download in this lane)."
+checked = "2026-10-27, the title page and abstract of the local PDF WeiMarkFang.pdf (title, author Wei Mark Fang, MASc, University of Toronto, copyright 2007). The PDF opens in full: 160 pages (`file` reported 2). Printed page = PDF page minus 12 (rechecked in the fix round: PDF page 40 prints 28, PDF page 52, which holds Table 3.2, prints 40). No record checked (no download in this lane)."
 
 [[item]]
 id = "fang2008fpga"

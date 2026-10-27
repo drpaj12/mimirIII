@@ -304,7 +304,7 @@ use fewer than 5 points because N / 32 is small).
 Sources (local read-only copies, never committed): Hutton thesis 1997 (T), Hutton, Rose and Corneil
 TCAD 2002 (H02), the preprint of the combinational TCAD paper (HC), Kundarewich and Rose TCAD 2004
 manuscript (K04), Kundarewich MASc 2002, Fang and Rose FPGA 2008 and Fang MASc 2007. Page numbers
-of T are printed pages (PDF page - 9). The DAC 1996 and FPGA 1997 PDFs and the combinational
+of T are printed pages (PDF page - 8). The DAC 1996 and FPGA 1997 PDFs and the combinational
 TCAD preprint have unreadable text layers; the preprint was read as images, the other two only by
 title page. The thesis appendix pages 141-153 (PDF) have damaged streams and were not used.
 
@@ -376,7 +376,11 @@ agree for eight circuits. The gaps in shape (cht, 9symml, C1908, x3) are one or 
 adjacent level while the edge-length and fanout vectors agree: the table's own rows are
 inconsistent there (cht: the delay-fanout entries sum to 158 and the edge-length entries to 202; Mimir's delay-fanout
 entries are 183, 19, 0 and sum to 202), so a typing or tooling slip in the table is likelier than a
-definition gap; not proven. ex4p and C6288 differ in size or edges, so VTR's netlists of those two
+definition gap; not proven. A sharper argument for cht (fix-round review): the published edge-length
+row is `0 202 0`, so every edge has length 1; the 11 level-2 nodes of the published shape
+(47, 44, 11) each have at least one level-1 fanin, so level 1 must carry at least 11 fanouts, but the
+published delay-fanout row gives 1 there (157, 1, 0). That row cannot be right for the published
+shape, so the table is inconsistent with itself, not only with Mimir. ex4p and C6288 differ in size or edges, so VTR's netlists of those two
 are another version from the thesis's; this is not an error of a definition (alu4, in the same
 directory, is exact).
 
@@ -464,8 +468,53 @@ column is 2-LUT and is in the same format):
 Only s298 is reproduced (both columns, to 0.01, with R_seq); elliptic, dsip, bigkey, tseng, diffeq are not, with
 either value, at k = 4 (gaps 0.1 to 0.7); the 4-LUT netlists of dsip and bigkey are other versions (above) but the
 others are not shown to be. Published R_s needs the spanning-tree count, which Mimir does not compute;
-R_s is not compared. The table's text (p. 54) says R_c grows with k; Mimir's reconv_R is nearly flat from k = 2
+R_s is not compared. The text under Table 4.2 (p. 55) implies R_c grows with k; Mimir's reconv_R is nearly flat from k = 2
 to k = 4 for dsip, bigkey, tseng, elliptic and diffeq (dsip 0.338 to 0.359) and doubles only for s298. This is a gap that stays unexplained.
+
+#### 10.3a Fix round 2026-10-27: the R gap at k = 4 and the shape gaps
+
+*R at k = 4.* Evidence (fix-round review, checked against the thesis): T p. 55 (the sentence under
+Table 4.2, bottom of the page; the review gave p. 56, the text layer has it on PDF page 63 = printed 55) says that on going to larger LUTs "the number of nodes in an out-cone decreases, but
+the number of reconvergent paths remains unchanged", so R, a count of reconvergence over cone size,
+should rise with k (the published R_c goes from 0.27 to 0.81 for dsip). Mimir's `reconv_R` is flat
+(dsip: sum 4993 over cone size 14791 at k = 2, 0.338; 3168 over 8816 at k = 4, 0.359) because the
+log2 of the in-cone fanin of a 4-LUT is 1 or 2 where a 2-LUT node adds 1. The reviewer also tried the
+latch outputs as extra roots; that does not reproduce the published rise either.
+
+Exploratory candidate (labelled as such, not a published definition): the k > 2 numerator as eq. 3.2
+writes it, the sum over the out-cone of log2(fanin(y)) with the full fanin of y and the in-cone
+restriction only on which nodes y are summed. This is the metric already stored as
+`mimir_reconv_R_total_fanin`. Against Table 4.2, R_c:
+
+| circuit | published k=2 | candidate k=2 | published k=4 | candidate k=4 | `reconv_R` k=4 | reproduced at k=4? |
+|---|---|---|---|---|---|---|
+| dsip | 0.27 | 0.985 | 0.81 | 1.947 | 0.359 | no |
+| elliptic | 0.47 | 0.970 | 0.85 | 1.668 | 0.263 | no |
+| s298 | 0.84 | 1.000 | 1.60 | 1.867 | 0.762 | no |
+| bigkey | 0.53 | 0.982 | 0.89 | 1.938 | 0.356 | no |
+| tseng | 0.49 | 0.973 | 0.78 | 1.777 | 0.303 | no |
+| diffeq | 0.57 | 0.962 | 0.97 | 1.682 | 0.310 | no |
+
+Result: 0 of 6 reproduced (needs at least 4); the candidate overshoots by 0.7 to 1.1 at k = 4 and at
+k = 2 it is about 1 for every circuit, as expected when every node with two or more fanins counts
+(eq. 3.2 at k = 2 would count every fanin-2 node, whereas eq. 3.1 counts only those with both
+fanins in the cone). The published-reading `reconv_R` is therefore unchanged, and no new definition
+is added. The gap at k = 4 (R rising with k) stays unexplained.
+
+*Shape gaps.* Reading the printed shape vectors of Table 3.3 (T p. 30) against Mimir (level 0 = PIs):
+cht published (47, 44, 11) against Mimir (47, 46, 9): 2 nodes one level deeper; C1908 published has
+(.., 8, 2) at levels 9 and 10 against Mimir (.., 9, 1): 1 node one level deeper; x3 published has 40
+and 10 at levels 3 and 4 against Mimir 43 and 7: 3 nodes one level deeper; 9symml published has 57
+at level 1 and 2 at level 5 against Mimir 58 and 1: 1 node, and by this reading it moved four levels,
+not one. In all four the edge-length vector agrees, which a moved node should change (its in-edges
+would all be one longer), so the published shape and edge-length rows were not computed from one
+level assignment. This is systematic (all four circuits have a few nodes deeper, never shallower)
+and unexplained; it is not treated as a typing slip. Hypotheses tested on the 4-LUT BLIFs:
+(1) the moved nodes are nodes with only PO fanout one level below the deepest: the pool has 27, 0, 7
+and 5 such nodes against 2, 1, 1 and 3 needed (cht, 9symml, C1908, x3), and 9symml has none, so no;
+(2) the moved nodes drive several PO pins: none does, so no; (3) levels counted from 1 shift every
+node, add a level to the vector and change the delay, which the table gives as equal, so no.
+The sizes, delays and edge-length vectors still agree, so the gap does not affect the other metrics.
 
 Sizes, Fang MASc Table 3.2 (p. 40, 4-input BLE counts) against the 20 top-level netlists (LUTs):
 
@@ -527,5 +576,7 @@ authors' values, Fang p. 16 the same, H02 and K04 give none), so there is no Ren
 | s38584.1 | 6269 | 1260 | 39 | 304 | 9 | 0.422 | 0.991 | 0.524 | 0.999 |
 | clma | 8380 | 33 | 383 | 82 | 16 | 0.529 | 1.429 | 0.615 | 0.999 |
 
-The Rent code is unchanged in lane 1b; three of the p values differ in the third decimal from the
-lane-1 table (dsip 0.334, elliptic 0.620, clma 0.613 there).
+The Rent code is unchanged in lane 1b and there is no drift: the values above equal the fix-round
+table, and the runs are deterministic (two runs give byte-identical CSV). The third-decimal
+differences noted at the end of lane 1b were against lane-1 figures from an earlier table, not a
+change in the measurer.
