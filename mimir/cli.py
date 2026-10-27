@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from collections import Counter
@@ -128,6 +129,38 @@ def _cmd_run_coverage(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_blob(args: argparse.Namespace) -> int:
+    from mimir import blobs
+
+    root = Path(args.blobs) if args.blobs else blobs.default_dir()
+    if args.action == "put":
+        print(blobs.put_file(root, Path(args.arg)))
+    elif args.action == "get":
+        Path(args.out).write_bytes(blobs.get_bytes(root, args.arg))
+    else:
+        problems = blobs.verify(root, [args.arg] if args.arg else None)
+        print("\n".join(problems) or f"ok: {len(blobs.all_hashes(root))} blobs")
+        return 1 if problems else 0
+    return 0
+
+
+def _cmd_snapshot(args: argparse.Namespace) -> int:
+    import tempfile
+
+    from mimir import snapshot
+
+    out = Path(args.dir)
+    manifest = snapshot.write_snapshot(Path(args.db), out, parquet=args.parquet)
+    print(json.dumps({k: manifest[k] for k in ("dump_bytes", "dump_sha256", "canonical_sha256",
+                                                "source_db_bytes")}, sort_keys=True))
+    if args.verify:
+        tmp = Path(tempfile.mkdtemp(prefix="mim-verify-", dir=args.tmp)) / "restored.db"
+        problems = snapshot.verify_snapshot(Path(args.db), out, tmp)
+        print("\n".join(problems) or "verify: restored store is identical")
+        return 1 if problems else 0
+    return 0
+
+
 def _cmd_merge(args: argparse.Namespace) -> int:
     store = Store(args.db)
     for other in args.other:
@@ -226,6 +259,19 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")
     s.set_defaults(fn=_cmd_run_coverage)
+    s = sub.add_parser("blob", help="content-addressed xz blob store: put, get, verify")
+    s.add_argument("action", choices=("put", "get", "verify"))
+    s.add_argument("arg", nargs="?", help="put: file; get: sha256; verify: sha256 (default all)")
+    s.add_argument("out", nargs="?", help="get: output file")
+    s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.set_defaults(fn=_cmd_blob)
+    s = sub.add_parser("snapshot", help="write the store as an xz SQL dump plus a manifest")
+    s.add_argument("db")
+    s.add_argument("dir")
+    s.add_argument("--verify", action="store_true", help="restore and compare byte for byte")
+    s.add_argument("--parquet", action="store_true", help="also one zstd Parquet file per table")
+    s.add_argument("--tmp", default="/tmp/claude-1000", help="parent of the restore temp dir")
+    s.set_defaults(fn=_cmd_snapshot)
     s = sub.add_parser("merge", help="copy the rows of other databases into this one")
     s.add_argument("db")
     s.add_argument("other", nargs="+")
