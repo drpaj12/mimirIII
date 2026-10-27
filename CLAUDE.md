@@ -5,7 +5,7 @@ Mimir III: the circuit knowledge base of Yggdrasil III. Holds the characteristic
 per placer family) in one tidy table, so that circuits can be classified over time.
 
 Spec: `docs/specs/2026-10-27-mimir-foundation-design.md`. Plan: `docs/plans/2026-10-27-mimir-foundation-plan.md`.
-Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
+Schema v2 spec: `docs/specs/2026-10-27-mimir-schema-v2.md`. Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
 
 ## Setup
 
