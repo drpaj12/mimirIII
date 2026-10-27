@@ -12,6 +12,7 @@ from pathlib import Path
 from mimir.citations import load_citations, render_markdown
 from mimir.importers.common import Report
 from mimir.measure import RENT_MAX_NODES, measure_job
+from mimir.meta import Roots, import_mcnc_meta, meta_coverage, register_designs
 from mimir.registry import load_registry
 from mimir.sets import SETS
 from mimir.store import Store
@@ -73,6 +74,32 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
         print(f"  skipped {n}: {msg}")
     for msg, n in sorted(notes.items()):
         print(f"  rent note {n}: {msg}")
+    return 0
+
+
+def _roots(args: argparse.Namespace) -> Roots:
+    def opt(arg: str | None, var: str) -> Path | None:
+        value = arg or os.environ.get(var)
+        return Path(value) if value else None
+
+    return Roots(opt(args.vtr, "VTR_ROOT"), opt(args.norns, "MIMIR_NORNS"),
+                 opt(args.loki, "MIMIR_LOKI"))
+
+
+def _cmd_meta(args: argparse.Namespace) -> int:
+    store = Store(args.db)
+    roots = _roots(args)
+    n = import_mcnc_meta(store, Path(args.toml), roots)
+    m = register_designs(store, roots)
+    print(f"mcnc meta circuits: {n}; designs registered: {m}")
+    return 0
+
+
+def _cmd_meta_coverage(args: argparse.Namespace) -> int:
+    store = Store(args.db)
+    print("field\tconf\tdesigns")
+    for field, conf, n in meta_coverage(store, args.prefix):
+        print(f"{field}\t{conf}\t{n}")
     return 0
 
 
@@ -154,6 +181,17 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--seeds", default="1,2,3")
     s.add_argument("--rent-max-nodes", type=int, default=RENT_MAX_NODES)
     s.set_defaults(fn=_cmd_measure_set)
+    s = sub.add_parser("import-meta", help="MCNC design meta from the toml, then register designs")
+    s.add_argument("db")
+    s.add_argument("--toml", default="data/meta/mcnc.toml")
+    s.add_argument("--vtr", help="VTR checkout (default $VTR_ROOT)")
+    s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
+    s.add_argument("--loki", help="Loki sources dir (default $MIMIR_LOKI)")
+    s.set_defaults(fn=_cmd_meta)
+    s = sub.add_parser("meta-coverage", help="design_meta rows per field and confidence")
+    s.add_argument("db")
+    s.add_argument("--prefix", default="", help="slug prefix, for example mcnc20/")
+    s.set_defaults(fn=_cmd_meta_coverage)
     s = sub.add_parser("merge", help="copy the rows of other databases into this one")
     s.add_argument("db")
     s.add_argument("other", nargs="+")
