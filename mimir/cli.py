@@ -106,8 +106,13 @@ def _cmd_meta(args: argparse.Namespace) -> int:
     roots = _roots(args)
     n = import_mcnc_meta(store, Path(args.toml), roots)
     m = register_designs(store, roots)
-    k = import_licences(store, Path(args.licences))
-    print(f"mcnc meta circuits: {n}; designs registered: {m}; licences matched: {k}")
+    try:
+        k = import_licences(store, Path(args.licences))
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+    print(f"mcnc meta circuits: {n}; designs registered: {m}; licences matched: {k}; "
+          "unmatched: 0")
     return 0
 
 

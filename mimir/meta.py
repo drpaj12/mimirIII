@@ -22,7 +22,6 @@ TOML_FIELDS = ("suite", "original_file", "original_format", "intent", "function_
                "institution", "year", "original_header", "stated_counts", "lgsynth93")
 # a design's own header comment is kept verbatim, at most this many lines (never a whole file)
 HEADER_MAX_LINES = 5
-LICENCE_FIELDS = ("licence", "licence_source", "licence_notice")
 
 
 @dataclass(frozen=True)
@@ -232,53 +231,82 @@ def meta_coverage(store: Store, suite_prefix: str = "") -> list[tuple[str, str, 
 
 
 Rule = dict[str, str | list[str]]
+RULE_KEYS = ("id", "match", "licence", "licence_source", "licence_notice", "conf")
 
 
 def load_licence_rules(toml_path: Path) -> list[Rule]:
-    """The ordered rules of a licences toml (`[[rule]]` tables); each needs `match` (slug globs),
-    `licence`, `licence_source`, `licence_notice` and `conf`. A bad rule raises ValueError."""
+    """The ordered rules of a licences toml (`[[rule]]` tables); each needs `match` (a list of
+    slug globs), `licence`, `licence_source`, `licence_notice` and `conf`. A rule with conf
+    `missing` must have an empty licence (the licence was looked for and not found); every other
+    rule needs a licence. A bad rule raises ValueError."""
     rules = tomllib.loads(toml_path.read_text(encoding="utf-8")).get("rule", [])
     for rule in rules:
-        absent = [k for k in ("id", "match", "licence", "licence_source", "licence_notice", "conf")
-                  if k not in rule]
+        absent = [k for k in RULE_KEYS if k not in rule]
         if absent:
             raise ValueError(f"licence rule {rule.get('id', '?')}: missing {absent}")
-        if rule["conf"] not in CONF_ORDER or rule["conf"] == "missing":
-            raise ValueError(f"licence rule {rule['id']}: bad conf {rule['conf']}")
-        if not rule["licence"] or not rule["licence_source"]:
-            raise ValueError(f"licence rule {rule['id']}: licence and licence_source are required")
+        rid = rule["id"]
+        globs = rule["match"]
+        if (not isinstance(globs, list) or not globs
+                or not all(isinstance(g, str) and g for g in globs)):
+            raise ValueError(f"licence rule {rid}: match must be a non-empty list of strings")
+        if rule["conf"] not in CONF_ORDER:
+            raise ValueError(f"licence rule {rid}: bad conf {rule['conf']}")
+        if not rule["licence_source"]:
+            raise ValueError(f"licence rule {rid}: licence_source is required")
+        if bool(rule["licence"]) == (rule["conf"] == "missing"):
+            raise ValueError(f"licence rule {rid}: licence is empty exactly when conf is missing")
     return list(rules)
 
 
+def rules_matching(slug: str, rules: list[Rule]) -> list[Rule]:
+    """Every rule whose glob matches the slug (a sound rule set gives exactly one)."""
+    return [r for r in rules if any(fnmatch.fnmatchcase(slug, str(g)) for g in r["match"])]
+
+
 def rule_for(slug: str, rules: list[Rule]) -> Rule | None:
-    """The first rule whose glob matches the slug (specific rules come first in the file)."""
-    for rule in rules:
-        if any(fnmatch.fnmatchcase(slug, str(g)) for g in rule["match"]):
-            return rule
-    return None
+    """The first rule whose glob matches the slug."""
+    hit = rules_matching(slug, rules)
+    return hit[0] if hit else None
+
+
+def _licence_rows(rule: Rule) -> list[tuple[str, str]]:
+    return [("licence", str(rule["licence"])), ("licence_source", str(rule["licence_source"])),
+            ("licence_notice", str(rule["licence_notice"])), ("licence_rule", str(rule["id"]))]
+
+
+def _holds_licence(store: Store, slug: str, own_sources: set[str]) -> bool:
+    """True when the design has a primary or secondary licence row from another source (its
+    source is not the licence_source of a rule of this file)."""
+    row = store.db.execute(
+        "SELECT conf, source FROM design_meta WHERE slug = ? AND field = 'licence'",
+        (slug,)).fetchone()
+    return bool(row) and row[0] in ("primary", "secondary") and row[1] not in own_sources
 
 
 def import_licences(store: Store, toml_path: Path) -> int:
-    """Write the `licence`, `licence_source` and `licence_notice` rows of every registered design,
-    from the first matching rule. The licence is recorded as the benchmark states it, never
-    changed or inferred; `none-stated` means the benchmark's own files and documents were read
-    and carry none. A design no rule matches gets a `missing` licence row. Returns the number of
-    designs a rule matched."""
+    """Write `licence`, `licence_source`, `licence_notice` and `licence_rule` rows of every
+    registered design, from the one rule that matches it. The licence is recorded as the
+    benchmark states it, never changed or inferred; `none-stated` means the benchmark's own
+    files and documents were read and carry none. A design with a primary or secondary licence
+    row from another source keeps it. A design that no rule matches fails the import with the
+    list of such slugs, and nothing is written; a rule with conf `missing` is the explicit way
+    to say a licence was not found. Returns the number of designs a rule matched."""
     rules = load_licence_rules(toml_path)
     slugs = [s for (s,) in store.db.execute("SELECT slug FROM design ORDER BY slug").fetchall()]
+    unmatched = [s for s in slugs if not rules_matching(s, rules)]
+    if unmatched:
+        raise ValueError(f"{len(unmatched)} designs match no licence rule: " + ", ".join(unmatched))
+    own = {str(r["licence_source"]) for r in rules}
     hit = 0
     try:
         for slug in slugs:
-            rule = rule_for(slug, rules)
-            if rule is None:
-                _put_meta(store, slug, "licence", "", "no licence rule matches this design",
-                          "missing")
+            if _holds_licence(store, slug, own):
                 continue
+            rule = rules_matching(slug, rules)[0]
             hit += 1
             conf, src = str(rule["conf"]), str(rule["licence_source"])
-            _put_meta(store, slug, "licence", str(rule["licence"]), src, conf)
-            _put_meta(store, slug, "licence_source", src, f"licence rule {rule['id']}", conf)
-            _put_meta(store, slug, "licence_notice", str(rule["licence_notice"]), src, conf)
+            for field, value in _licence_rows(rule):
+                _put_meta(store, slug, field, value, src, conf)
         store.db.commit()
     except BaseException:
         store.db.rollback()
