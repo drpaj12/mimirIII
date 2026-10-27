@@ -100,12 +100,18 @@ def _put_meta(store: Store, slug: str, field: str, value: str, source: str, conf
                      (slug, field, value, source, conf))
 
 
+REGISTER = "mimir-register"
+CONF_ORDER = {"primary": 0, "secondary": 1, "inferred": 2, "missing": 3}
+
+
 def register_designs(store: Store, roots: Roots) -> int:
     """Register every (source, design) pair of the records; return the number of designs.
 
-    A design with no sourced meta gets rows for what its source states (suite, origin path), marked
-    `inferred`, and `missing` rows for the label fields. A design that already has meta rows
-    (MCNC from the research file) is left as it is."""
+    A design gets rows for what its source states: `records_source` and `repo_path` (where its
+    defining file was found), both `inferred`, and `missing` rows for suite, original_file and
+    the label fields. Re-registering refreshes the rows this function wrote while their conf is
+    `inferred` or `missing` (a later run with more sources fills them); `primary` and `secondary`
+    rows, and rows from another source (the MCNC research file), are never touched."""
     pairs = store.db.execute(
         "SELECT DISTINCT source, design FROM records WHERE source NOT LIKE 'partition:%' "
         "AND source NOT LIKE 'analysis:%' ORDER BY 1, 2"
@@ -120,11 +126,7 @@ def register_designs(store: Store, roots: Roots) -> int:
                 continue
             seen.add(ref.slug)
             _put_design(store, ref)
-            has_meta = store.db.execute(
-                "SELECT 1 FROM design_meta WHERE slug = ? LIMIT 1", (ref.slug,)
-            ).fetchone()
-            if not has_meta:
-                _inferred_meta(store, ref, source)
+            _registered_meta(store, ref, source)
         store.db.commit()
     except BaseException:
         store.db.rollback()
@@ -132,20 +134,39 @@ def register_designs(store: Store, roots: Roots) -> int:
     return len(seen)
 
 
-def _inferred_meta(store: Store, ref: DesignRef, source: str) -> None:
-    how = f"records.source {source}"
-    _put_meta(store, ref.slug, "suite", ref.suite, how, "inferred")
-    if ref.origin:
-        _put_meta(store, ref.slug, "original_file", ref.origin, how, "inferred")
-    else:
-        _put_meta(store, ref.slug, "original_file", "", "", "missing")
-    for field in LABEL_FIELDS:
-        _put_meta(store, ref.slug, field, "", "", "missing")
+def _registered_meta(store: Store, ref: DesignRef, source: str) -> None:
+    how = f"{REGISTER}: records.source {source}"
+    none = f"{REGISTER}: no source states it"
+    rows = [("records_source", source, how, "inferred")]
+    rows.append(("repo_path", ref.origin, how, "inferred") if ref.origin
+                else ("repo_path", "", none, "missing"))
+    rows.append(("suite", "", none, "missing"))
+    rows.append(("original_file", "", none, "missing"))
+    rows += [(f, "", none, "missing") for f in LABEL_FIELDS if f != "original_file"]
+    for field, value, src, conf in rows:
+        store.db.execute(
+            "INSERT INTO design_meta VALUES (?, ?, ?, ?, ?) ON CONFLICT(slug, field) DO UPDATE "
+            "SET value = excluded.value, source = excluded.source, conf = excluded.conf "
+            "WHERE design_meta.conf IN ('inferred', 'missing') AND design_meta.source LIKE ?",
+            (ref.slug, field, value, src, conf, REGISTER + "%"))
+
+
+def derive_lineage(steps: list[dict[str, object]]) -> tuple[str, int]:
+    """(lineage_conf, gaps) from the steps: gaps = steps with conf missing; the conf is the
+    weakest conf of the other steps, and `primary` only when there is no gap."""
+    confs = [str(st["conf"]) for st in steps]
+    gaps = sum(1 for c in confs if c == "missing")
+    present = [c for c in confs if c != "missing"]
+    if not present:
+        return "missing", gaps
+    worst = max(present, key=lambda c: CONF_ORDER[c])
+    return ("secondary" if gaps and worst == "primary" else worst), gaps
 
 
 def import_mcnc_meta(store: Store, toml_path: Path, roots: Roots) -> int:
     """Write design, design_meta and design_lineage for the circuits of mcnc.toml that are in
-    circuits.txt (the 20 MCNC circuits). Returns the number of circuits."""
+    circuits.txt (the 20 MCNC circuits). Returns the number of circuits. A field with conf
+    `missing` has the value '' and its note, if any, goes to the source column."""
     data = tomllib.loads(toml_path.read_text(encoding="utf-8"))["circuit"]
     n = 0
     try:
@@ -155,24 +176,34 @@ def import_mcnc_meta(store: Store, toml_path: Path, roots: Roots) -> int:
                 continue
             ref = design_ref("mcnc", name, roots)
             _put_design(store, ref)
-            slug = ref.slug
-            for field in TOML_FIELDS:
-                if field in item:
-                    _put_meta(store, slug, field, str(item[field]),
-                              str(item.get(f"{field}_src", "")), str(item[f"{field}_conf"]))
-            for field in ("vtr_file", "vtr_rev"):
-                _put_meta(store, slug, field, str(item[field]), "VTR repository at vtr_rev",
-                          "primary")
-            if "lineage_gaps" in item:
-                _put_meta(store, slug, "lineage_gaps", str(item["lineage_gaps"]),
-                          "count of lineage steps with conf missing", str(item["lineage_conf"]))
-            _lineage(store, slug, item.get("lineage", []))
+            _toml_meta(store, ref.slug, item)
+            _lineage(store, ref.slug, item.get("lineage", []))
             n += 1
         store.db.commit()
     except BaseException:
         store.db.rollback()
         raise
     return n
+
+
+def _toml_meta(store: Store, slug: str, item: dict[str, object]) -> None:
+    for field in TOML_FIELDS:
+        if field not in item:
+            continue
+        conf = str(item[f"{field}_conf"])
+        src = str(item.get(f"{field}_src", ""))
+        note = str(item.get(f"{field}_note", ""))
+        value = "" if conf == "missing" else str(item[field])
+        if conf == "missing" and note:
+            src = f"{src}; note: {note}" if src else f"note: {note}"
+        _put_meta(store, slug, field, value, src, conf)
+    for field in ("vtr_file", "vtr_rev"):
+        _put_meta(store, slug, field, str(item[field]), "VTR repository at vtr_rev", "primary")
+    steps = item.get("lineage", [])
+    if isinstance(steps, list) and steps:
+        conf, gaps = derive_lineage(steps)
+        _put_meta(store, slug, "lineage_gaps", str(gaps),
+                  "count of lineage steps with conf missing", conf)
 
 
 def _lineage(store: Store, slug: str, steps: list[dict[str, object]]) -> None:

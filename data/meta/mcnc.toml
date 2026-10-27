@@ -1,4 +1,7 @@
-# Mimir design meta: VTR MCNC20 circuits. Research output, not yet in git.
+# Mimir design meta: VTR MCNC20 circuits (research output, copied from the Mimir research lane).
+# A field with conf = missing has the value ""; any text the research gave is in <field>_note.
+# lineage_conf and lineage_gaps are derived from the steps (schema v2 fix round 1): gaps = steps
+# with conf missing; lineage_conf = primary only when no step is missing and all are primary.
 # year = earliest year found in a source listing the circuit (not necessarily design year).
 # conf in {primary, secondary, inferred, missing}. Source ids are defined in mcnc-sources.md.
 # Archive member paths refer to LGSynth91.7z (https://ddd.fit.cvut.cz/www/prj/Benchmarks/LGSynth91.7z).
@@ -75,7 +78,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.apex4]
@@ -113,7 +116,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.bigkey]
@@ -262,7 +265,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.dsip]
@@ -337,7 +340,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.ex1010]
@@ -375,7 +378,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.ex5p]
@@ -413,7 +416,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.frisc]
@@ -451,7 +454,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.misex3]
@@ -489,7 +492,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.pdc]
@@ -527,7 +530,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.s298]
@@ -580,10 +583,12 @@ original_file_conf = "primary"
 original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 28 in 106 out 1636 latches 22179 gates"
 original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
 original_format_conf = "primary"
-intent = "Not stated (guide function column says only \"Logic\")"
+intent = ""
+intent_note = "Not stated (guide function column says only \"Logic\")"
 intent_src = "yang91 s3.2 p.9"
 intent_conf = "missing"
-function_class = "unknown"
+function_class = ""
+function_class_note = "unknown"
 function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
 function_class_conf = "missing"
 author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
@@ -617,10 +622,12 @@ original_file_conf = "primary"
 original_format = "ISCAS .bench gate-level netlist, distributed as sequential BLIF (model name ends .bench); guide: 38 in 304 out 1426 latches 19253 gates; \".1\" marked with * in the guide"
 original_format_src = "lgsynth91-7z blif header; yang91 s3.2"
 original_format_conf = "primary"
-intent = "Not stated (guide function column says only \"Logic\")"
+intent = ""
+intent_note = "Not stated (guide function column says only \"Logic\")"
 intent_src = "yang91 s3.2 p.9"
 intent_conf = "missing"
-function_class = "unknown"
+function_class = ""
+function_class_note = "unknown"
 function_class_src = "function not stated; ISCAS89 notes say the 1989 article lists function if known but it was not retrieved"
 function_class_conf = "missing"
 author = "F. Brglez, D. Bryan, K. Kozminski (compilers of ISCAS89 set; circuit designers not identified)"
@@ -677,7 +684,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.spla]
@@ -715,7 +722,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.tseng]
@@ -753,7 +760,7 @@ lineage = [
   { step = 5, tool = "VTR repo file", script = "vtr_flow/benchmarks/blif/<name>.blif; per vtr docs \"versions used in the VPR 4.3 release\"", src = "vtr doc/src/vtr/benchmarks.rst; vtr README", conf = "primary" },
 ]
 lineage_src = "per step"
-lineage_conf = "primary"
+lineage_conf = "secondary"
 lineage_gaps = 1
 
 [circuit.adder]
@@ -787,7 +794,8 @@ suite_conf = "inferred"
 intent = "Multi-clock regression test: inputs in1..in3, clk, clk2; latches on two clocks"
 intent_src = "vtr_flow/benchmarks/blif/multiclock/multiclock.blif"
 intent_conf = "inferred"
-function_class = "unknown"
+function_class = ""
+function_class_note = "unknown"
 function_class_src = ""
 function_class_conf = "missing"
 author = ""

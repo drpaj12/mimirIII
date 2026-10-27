@@ -1,6 +1,6 @@
 # Sources for mcnc.toml
 
-Checked 2026-10-27. "Verified" means: DOI resolved against the Crossref API (title, venue, year, pages, authors compared). DBLP was not queried. Items with no DOI are marked so. Downloads were kept under /tmp/claude-1000/mim-meta-*/ and treated as data; nothing from them was executed. Text was pulled from PDFs with a small local script and by decompressing the 7z container in memory.
+Checked 2026-10-27. "Verified" means: DOI resolved against the Crossref API (title, venue, year, pages, authors compared). DBLP was not queried. Items with no DOI are marked so. Downloads were kept in a scratch directory and treated as data; nothing from them was executed. Text was pulled from PDFs with a small local script and by decompressing the 7z container in memory.
 
 Source ids used in `mcnc.toml`:
 
@@ -73,7 +73,7 @@ Source ids used in `mcnc.toml`:
 - Local: doc/src/vtr/benchmarks.rst, section "MCNC20 Benchmarks" (circa 1991; versions used in the VPR 4.3 release; FlowMap; warning that they are not recommended for modern research). Bib key `mcnc_benchmarks` = Yang 1991 above; `cong_flowmap` below.
 
 ## hutton97 (secondary)
-- Local: work/mimir-papers/MichaelHutton.pdf (relative reference, read only). M. D. Hutton, "Characterization and Parameterized Generation of Digital Circuits", Ph.D. thesis, Dept. of Computer Science, University of Toronto, 1997. Table 4.2 (p.55) gives one-line descriptions: elliptic "elliptic eqn solver", dsip "encryption", bigkey "key encryption", tseng "bus-controller", dieq "differential eqn solver", s298 "fsm from a PLD". Text on p.54: the MCNC circuits "have no documentation beyond these brief one-line descriptions". Footnote (Ch.6, p.92 or 93): "109 combinational circuits in the LGSynth93 benchmark suite".
+- Local copy of the thesis PDF, read only. M. D. Hutton, "Characterization and Parameterized Generation of Digital Circuits", Ph.D. thesis, Dept. of Computer Science, University of Toronto, 1997. Table 4.2 (p.55) gives one-line descriptions: elliptic "elliptic eqn solver", dsip "encryption", bigkey "key encryption", tseng "bus-controller", dieq "differential eqn solver", s298 "fsm from a PLD". Text on p.54: the MCNC circuits "have no documentation beyond these brief one-line descriptions". Footnote (Ch.6, p.92 or 93): "109 combinational circuits in the LGSynth93 benchmark suite".
 ```bibtex
 @phdthesis{hutton1997characterization,
   author = {Michael D. Hutton},
