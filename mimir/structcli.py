@@ -190,10 +190,29 @@ REPORT_SQL = {
     "structures by kind x source": (
         "SELECT kind, CASE WHEN label_source='hdl' THEN 'hdl' ELSE 'detector' END AS src, "
         "COUNT(*) FROM structure GROUP BY 1, 2 ORDER BY 1, 2"),
+    "designs with a structure of the kind, by source": (
+        "SELECT kind, CASE WHEN label_source='hdl' THEN 'hdl' ELSE 'detector' END AS src, "
+        "COUNT(DISTINCT design) FROM structure GROUP BY 1, 2 ORDER BY 1, 2"),
+    "structures with a mapping at the level, by suite and source": (
+        "SELECT substr(m.design, 1, instr(m.design, '/') - 1) AS suite, "
+        "CASE WHEN s.label_source='hdl' THEN 'hdl' ELSE 'detector' END AS src, m.level, "
+        "COUNT(*) FROM structure_mapping m JOIN structure s ON s.design = m.design "
+        "AND s.structure_id = m.structure_id GROUP BY 1, 2, 3 ORDER BY 1, 2, "
+        "CASE m.level WHEN 'gate' THEN 1 WHEN 'lut' THEN 2 WHEN 'ble' THEN 3 WHEN 'clb' THEN 4 "
+        "ELSE 5 END"),
     "mappings by level": (
         "SELECT level, COUNT(*), SUM(n_pure > 0), SUM(lost_at_pass != ''), SUM(joined_with != '') "
         "FROM structure_mapping GROUP BY level ORDER BY CASE level WHEN 'gate' THEN 1 "
         "WHEN 'lut' THEN 2 WHEN 'ble' THEN 3 WHEN 'clb' THEN 4 ELSE 5 END"),
+    "hdl structures by level: mapped, with no pure object (joined away)": (
+        "SELECT m.level, COUNT(*), SUM(m.n_pure = 0) FROM structure_mapping m JOIN structure s "
+        "ON s.design = m.design AND s.structure_id = m.structure_id WHERE s.label_source='hdl' "
+        "GROUP BY 1 ORDER BY CASE m.level WHEN 'gate' THEN 1 WHEN 'lut' THEN 2 WHEN 'ble' THEN 3 "
+        "WHEN 'clb' THEN 4 ELSE 5 END"),
+    "hdl structures lost (no pure object) by level and pass": (
+        "SELECT m.level, m.lost_at_pass, COUNT(*) FROM structure_mapping m JOIN structure s "
+        "ON s.design = m.design AND s.structure_id = m.structure_id WHERE s.label_source='hdl' "
+        "AND m.level IN ('gate', 'lut') AND m.lost_at_pass != '' GROUP BY 1, 2 ORDER BY 1, 2"),
     "lost at pass (hdl structures, lut level)": (
         "SELECT lost_at_pass, COUNT(*) FROM structure_mapping m JOIN structure s "
         "ON s.design=m.design AND s.structure_id=m.structure_id WHERE m.level='lut' "
