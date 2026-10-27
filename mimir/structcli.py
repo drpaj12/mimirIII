@@ -27,7 +27,7 @@ from mimir.structdet import compare, loki_argv, read_structs, run_loki
 from mimir.structmap import Deps, atoms_from_blif, load_deps, set_rows
 
 DETECT_SOURCE = "mimir-detect"
-TABLES = ("structure", "structure_mapping", "structure_member")
+TABLES = {"structure": "1, 2", "structure_mapping": "1, 2, 3, 4", "structure_member": "1, 2, 3"}
 
 
 def _env(arg: str | None, var: str) -> Path:
@@ -221,8 +221,8 @@ def export_tables(store: Store, out: Path) -> dict[str, int]:
     """One CSV per new table, rows in primary-key order, `\\n` line ends, floats by repr."""
     out.mkdir(parents=True, exist_ok=True)
     counts = {}
-    for table in TABLES:
-        cur = store.db.execute(f"SELECT * FROM {table} ORDER BY 1, 2, 3, 4")
+    for table, order in TABLES.items():
+        cur = store.db.execute(f"SELECT * FROM {table} ORDER BY {order}")
         cols = [d[0] for d in cur.description]
         with open(out / f"{table}.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh, lineterminator="\n")

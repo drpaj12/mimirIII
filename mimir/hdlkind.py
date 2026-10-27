@@ -21,10 +21,11 @@ _COUNTER = re.compile(r"(\w+)\s*(?:\[[^\]]*\])?\s*<=\s*\1\s*(?:\[[^\]]*\])?\s*[+
 _MEM_WORDS = ("single_port_ram", "dual_port_ram", "spram", "dpram", "ram")
 _MULT_WORDS = ("multiply", "mult")
 _ADD_WORDS = ("adder",)
-_ARITH = re.compile(r"(?<![\w\])'])\s*[+-]\s*(?=[\w(\[{'])|(?<=[\w\])])\s*[+-]\s*(?=[\w(\[{'])")
+_ARITH = re.compile(r"[\w\])]\s*[+-]\s*[\w(\[{']")
 _COMPARE = re.compile(r"==|!=|<=|>=|<(?!<)|>(?!>)")
 _SHIFT = re.compile(r"<<|>>")
 _MUL = re.compile(r"(?<!\*)\*(?!\*)")
+_SENS = re.compile(r"@\s*\*|@\s*\([^)]*\)")
 _TERNARY = re.compile(r"\?")
 _BLOCK_KINDS = frozenset({"ALWAYS", "CONT_ASSIGN", "NET_ASSIGN", "INSTANCE", "GATE_DECL"})
 
@@ -97,7 +98,7 @@ def classify(construct_kind: str, text: str, arrays: frozenset[str]) -> tuple[st
             return _sequential(body, arrays)
         if any(re.search(rf"\b{re.escape(a)}\s*\[", body) for a in arrays):
             return "memory", 0.7
-        return _expression(body)
+        return _expression(_SENS.sub(" ", body))
     rhs = body.split("=", 1)[1] if "=" in body else body
     if any(re.search(rf"\b{re.escape(a)}\s*\[", rhs) for a in arrays):
         return "memory", 0.7
