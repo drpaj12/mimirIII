@@ -152,8 +152,9 @@ with METIS through `pymetis`, and a pins-against-blocks curve.
 
 MCNC BLIFs from `$VTR_ROOT/vtr_flow/benchmarks/blif/` (4-LUT netlists, level `lut`), the Norns BLIFs
 under `runs/<design>/netlist/` (level `lut` with hard blocks) and the Loki corpus netlists
-(`f1-k6`, `f2` = LUT, `f3` = gate), smallest first. Rent is run on netlists up to 20000 nodes.
-Larger netlists are skipped for Rent with the reason recorded; Hutton runs on all.
+(`f1-k6` and `f2` = LUT level, `f3` = gate level; the floor id is stored in `arch`), smallest first.
+Rent is run on netlists of 512 to 100000 nodes: fewer than 512 cannot give 3 depths in the fit range,
+and larger ones are skipped for Rent with the reason recorded. Hutton runs on all.
 
 ## 8. Conventions
 

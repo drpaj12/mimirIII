@@ -52,6 +52,17 @@ class Store:
         self.db.commit()
         return len(rows)
 
+    def merge(self, other: str | Path) -> int:
+        """Copy every row of another Mimir database in (same schema version); return its rows."""
+        other_store = Store(other)
+        other_store.close()
+        self.db.execute("ATTACH DATABASE ? AS other", (str(other),))
+        self.db.execute("INSERT OR REPLACE INTO records SELECT * FROM other.records")
+        n = int(self.db.execute("SELECT COUNT(*) FROM other.records").fetchone()[0])
+        self.db.commit()
+        self.db.execute("DETACH DATABASE other")
+        return n
+
     def count(self, where: str = "1", args: tuple[str, ...] = ()) -> int:
         row = self.db.execute(f"SELECT COUNT(*) FROM records WHERE {where}", args).fetchone()
         return int(row[0])

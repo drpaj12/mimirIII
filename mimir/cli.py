@@ -1,4 +1,4 @@
-"""Command line: `mimir init|import|measure-set|export|coverage|registry|citations`."""
+"""Command line: `mimir init|import|measure-set|merge|export|coverage|registry|citations`."""
 
 from __future__ import annotations
 
@@ -76,6 +76,14 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_merge(args: argparse.Namespace) -> int:
+    store = Store(args.db)
+    for other in args.other:
+        print(f"{other}: {store.merge(other)} rows")
+    print(f"records in store: {store.count()}")
+    return 0
+
+
 def _cmd_export(args: argparse.Namespace) -> int:
     store = Store(args.db)
     if args.csv:
@@ -137,6 +145,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--seeds", default="1,2,3")
     s.add_argument("--rent-max-nodes", type=int, default=RENT_MAX_NODES)
     s.set_defaults(fn=_cmd_measure_set)
+    s = sub.add_parser("merge", help="copy the rows of other databases into this one")
+    s.add_argument("db")
+    s.add_argument("other", nargs="+")
+    s.set_defaults(fn=_cmd_merge)
     s = sub.add_parser("export", help="write CSV and/or Parquet in identity order")
     s.add_argument("db")
     s.add_argument("--csv")

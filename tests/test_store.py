@@ -31,6 +31,15 @@ class StoreTests(unittest.TestCase):
         self.assertEqual(first[0].split(",")[0], "design")
         self.assertTrue(first[1].startswith("a,"))
 
+    def test_merge(self) -> None:
+        d = Path(tmpdir())
+        a, b = Store(d / "a.db"), Store(d / "b.db")
+        a.add([rec("a", "m", 1)])
+        b.add([rec("a", "m", 2), rec("b", "m", 3)])
+        b.close()
+        self.assertEqual(a.merge(d / "b.db"), 2)
+        self.assertEqual(a.count(), 2)
+
     def test_replace_updates_value(self) -> None:
         s = Store(Path(tmpdir()) / "x.db")
         s.add([rec("a", "m", 1)])
