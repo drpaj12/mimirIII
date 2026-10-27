@@ -102,7 +102,11 @@ class Parse(unittest.TestCase):
         rows = {(m, b): v for m, b, v in characterise(nl)}
         self.assertEqual(rows[("struct.n_clock_pi", "")], 1)
         self.assertEqual(rows[("struct.n_pi", "")], 2)
-        self.assertNotIn(("struct.fanout_hist", "0"), rows)  # the clock PI is not a dangling driver
+        # the clock is not a node of the fanout distribution: a (1 sink) and the latch (0, PO only)
+        self.assertEqual(rows[("struct.fanout_hist", "1")], 1)
+        self.assertEqual(rows[("struct.fanout_hist", "0")], 1)
+        self.assertEqual(rows[("struct.size", "")], 2)  # PI a and the latch; no node for the clock
+        self.assertEqual(rows[("struct.n_io", "")], 2)
 
 
 if __name__ == "__main__":
