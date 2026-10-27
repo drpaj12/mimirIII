@@ -1479,3 +1479,42 @@ defined_in = ""
 citations = []
 named_after = []
 validation = "tests/test_structmap.py."
+
+[[metric]]
+key = "structure.operators_reached"
+description = "Operator structures (BINARY or TERNARY constructs with a kind of their own) that at least one atom traces to"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "mimir"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py: a map with a known number of operators."
+
+[[metric]]
+key = "structure.blocks_unknown"
+description = "Structures (block or operator) whose HDL text was not available, so no rule ran: kind unknown, confidence NULL"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "mimir"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py: a map analysed without its HDL text."
+
+[[metric]]
+key = "structure.gate_only_structures"
+description = "Structures reached by gate-level records but by no atom of the final netlist (no lut row is written for them)"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "mimir"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py."

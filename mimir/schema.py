@@ -11,8 +11,9 @@ UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the ru
 TEXT_KINDS = ("reconstructed", "recorded-normalised")
 LEVELS = ("hdl", "elab", "gate", "lut", "ble", "clb", "placed", "routed")
 FAMILIES = ("", "analytic", "annealing")
-STRUCT_KINDS = ("adder", "multiplier", "shifter", "comparator", "mux", "register_word", "counter",
-                "fsm", "memory", "logic")
+STRUCT_KINDS = ("adder", "multiplier", "shifter", "equality", "relational", "mux", "register_word",
+                "counter", "fsm", "memory", "logic", "unknown")
+STRUCT_GRANULARITY = ("block", "operator", "")  # '' for a detector structure
 MAP_LEVELS = ("gate", "lut", "ble", "clb", "placed")
 
 
@@ -122,18 +123,19 @@ V3_DDL: tuple[str, ...] = (
         design TEXT NOT NULL, structure_id TEXT NOT NULL,
         kind TEXT NOT NULL {_ck("kind", STRUCT_KINDS)},
         hdl_span TEXT NOT NULL, construct_chain TEXT NOT NULL, label_source TEXT NOT NULL,
-        confidence REAL NOT NULL, run_id TEXT NOT NULL, config_hash TEXT NOT NULL,
-        PRIMARY KEY (design, structure_id))""",
+        confidence REAL, run_id TEXT NOT NULL, config_hash TEXT NOT NULL,
+        granularity TEXT NOT NULL {_ck("granularity", STRUCT_GRANULARITY)},
+        parent_id TEXT NOT NULL, PRIMARY KEY (design, structure_id))""",
     f"""CREATE TABLE IF NOT EXISTS structure_mapping (
         design TEXT NOT NULL, structure_id TEXT NOT NULL, run_id TEXT NOT NULL,
         level TEXT NOT NULL {_ck("level", MAP_LEVELS)}, config_hash TEXT NOT NULL,
         n_objects INTEGER NOT NULL, n_pure INTEGER NOT NULL, n_shared INTEGER NOT NULL,
         n_gates INTEGER, n_luts INTEGER, n_carry INTEGER, n_ffs INTEGER, n_bles INTEGER,
-        n_clbs INTEGER, joined_with TEXT NOT NULL, lost_at_pass TEXT NOT NULL,
+        n_clbs INTEGER, n_sites INTEGER, joined_with TEXT NOT NULL, lost_at_pass TEXT NOT NULL,
         bbox_x0 INTEGER, bbox_y0 INTEGER, bbox_x1 INTEGER, bbox_y1 INTEGER, spread REAL,
         crit_share REAL, PRIMARY KEY (design, structure_id, run_id, level))""",
     """CREATE TABLE IF NOT EXISTS structure_member (
-        design TEXT NOT NULL, structure_id TEXT NOT NULL, atom TEXT NOT NULL,
-        PRIMARY KEY (design, structure_id, atom))""",
+        design TEXT NOT NULL, structure_id TEXT NOT NULL, run_id TEXT NOT NULL,
+        atom TEXT NOT NULL, PRIMARY KEY (design, structure_id, run_id, atom))""",
     "CREATE INDEX IF NOT EXISTS structure_run ON structure(run_id)",
 )
