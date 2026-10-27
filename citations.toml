@@ -50,7 +50,7 @@ title = "Characterization and parameterized random generation of digital circuit
 venue = "Proc. 33rd Design Automation Conference (DAC), pp. 94-99"
 doi = "10.1145/240518.240537"
 role = "Context: first publication of the combinational characterisation; the thesis (hutton1997thesis) supersedes it and is the definition source. Its text layer is unreadable; only the title page was read"
-checked = "Alternate DOI 10.1109/dac.1996.545553 (IEEE record, Crossref 2026-10-27 by the controller, pp. 94-99; the record misspells Corneil as Carneil). 2026-10-27, Crossref record of the ACM DOI (title, four authors, DAC '96, pp. 94-99); 2026-10-27 (lane 1b) the title page of the local PDF huttondac96.pdf (page 1: same title, authors M. Hutton, J. P. Grossman, J. Rose, D. Corneil, Toronto), and the page range as printed in ref. [2] of hutton2002tcad. No definition is taken from this paper."
+checked = "2026-10-27, Crossref record of the ACM DOI (title, four authors, DAC '96, pp. 94-99); 2026-10-27 (lane 1b) the title page of the local PDF huttondac96.pdf (page 1: same title, authors M. Hutton, J. P. Grossman, J. Rose, D. Corneil, Toronto), and the page range as printed in ref. [2] of hutton2002tcad. No definition is taken from this paper. Alternate DOI 10.1109/dac.1996.545553 (the IEEE record, Crossref 2026-10-27 by the controller, pp. 94-99; the record misspells Corneil as Carneil)."
 
 [[item]]
 id = "hutton1997fpga"
@@ -159,7 +159,7 @@ title = "Characterization and parameterized generation of synthetic combinationa
 venue = "IEEE Trans. CAD of Integrated Circuits and Systems, vol. 17, no. 10, pp. 985-996, Oct. 1998"
 doi = "10.1109/43.728919"
 role = "Reconvergence R: eq. 1 and 2, Sec. B.6, p. 3 of the manuscript copy; the same combinational definitions as the thesis"
-checked = "Crossref 2026-10-27 (controller): DOI 10.1109/43.728919, vol. 17, no. 10, pp. 985-996, 1998, authors in order Hutton, Rose, Grossman, Corneil. Lane 1b (2026-10-27): the title page of the local PDF huttontcadcomb.pdf (12 pages) is a manuscript copy (running head 'VOL. XX, NO. Y, MONTH 1999'; authors listed Hutton, Grossman, Rose, Corneil; its text layer is unreadable and the pages were read as images), so the page numbers cited in role are those of the manuscript, not the published layout. The pages 955-996 printed in ref. [1] of hutton2002tcad are wrong."
+checked = "2026-10-27, Crossref (controller): DOI 10.1109/43.728919, vol. 17, no. 10, pp. 985-996, 1998, authors in order Hutton, Rose, Grossman, Corneil. Lane 1b (2026-10-27): the title page of the local PDF huttontcadcomb.pdf (12 pages) is a manuscript copy (running head 'VOL. XX, NO. Y, MONTH 1999'; authors listed Hutton, Grossman, Rose, Corneil; its text layer is unreadable and the pages were read as images), so the page numbers cited in role are those of the manuscript, not the published layout. The pages 955-996 printed in ref. [1] of hutton2002tcad are wrong."
 
 [[item]]
 id = "hutton2002tcad"

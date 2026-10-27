@@ -55,6 +55,7 @@ class Registry(unittest.TestCase):
         for key, m in load_registry().items():
             if m.definition_source in cites:
                 self.assertTrue(m.defined_in, f"{key} has a source but no page")
+                self.assertRegex(m.defined_in, r"\bp\. ?\d|\bSec\.", f"{key}: no p. or Sec.")
                 self.assertIn(m.definition_source, m.citations, key)
                 self.assertFalse(m.named_after, f"{key} follows a source, so it is not named_after")
             elif m.definition_source == "mimir" and key.startswith("struct.mimir_"):
