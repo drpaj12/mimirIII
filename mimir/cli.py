@@ -357,6 +357,9 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--toml", default="citations.toml")
     s.add_argument("--out", default="docs/CITATIONS.md")
     s.set_defaults(fn=_cmd_citations)
+    from mimir.remotecli import add_parsers
+
+    add_parsers(sub)
     return p
 
 
