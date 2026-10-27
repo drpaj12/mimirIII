@@ -18,12 +18,15 @@ def rec(design: str, metric: str, value: float) -> Record:
 class L15Tests(unittest.TestCase):
     def test_counts_and_compare(self) -> None:
         d = Path(tmpdir())
-        units = [{"status": s} for s in ("kept", "late", "lost", "born-joined", "kept")]
+        units: list[dict[str, object]] = [
+            {"status": s} for s in ("kept", "late", "lost", "born-joined", "kept")]
+        units.append({"status": "lost", "loss": {"transient": True}})   # pure again later
+        units.append({"status": "lost", "loss": {"transient": False}})
         (d / "micro_x.stmt.json").write_text(json.dumps({"units": units}), encoding="utf-8")
-        self.assertEqual(loki_counts(d / "micro_x.stmt.json"), (5, 3))
+        self.assertEqual(loki_counts(d / "micro_x.stmt.json"), (7, 3, 4))
         s = Store(d / "s.db")
         s.add([rec("x", "structure.l15_units_reached", 4),
                rec("x", "structure.l15_units_separable", 2),
                rec("y", "structure.l15_units_reached", 1),
                rec("y", "structure.l15_units_separable", 1)])
-        self.assertEqual(compare(s, d), [("x", 4, 2, 5, 3)])  # y has no Loki file
+        self.assertEqual(compare(s, d), [("x", 4, 2, 7, 3, 4)])  # y has no Loki file

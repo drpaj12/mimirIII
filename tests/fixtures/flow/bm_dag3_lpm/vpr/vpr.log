@@ -1,0 +1,2 @@
+$ /vtr/.venv/bin/python /vtr/vtr_flow/scripts/run_vtr_flow.py /flow-out/vpr/bm_dag3_lpm.blif /vtr/vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml -start vpr -track_memory_usage -crit_path_router_iterations 100 -temp_dir /flow-out/vpr/run -timeout 7200 -delete_intermediate_files
+k6_frac_N10_frac_chain_mem32K_40nm/bm_dag3_lpm		OK (took 0.21 seconds, overall memory peak 63.00 MiB consumed by vpr run)

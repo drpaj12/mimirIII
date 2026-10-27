@@ -28,6 +28,7 @@ mimir = ["data/*.toml"]
 
 [tool.ruff]
 line-length = 100
+extend-exclude = ["tests/fixtures"]
 target-version = "py311"
 
 [tool.ruff.lint]
@@ -35,6 +36,7 @@ select = ["E", "F", "W", "I", "B", "UP", "SIM"]
 
 [tool.mypy]
 strict = true
+exclude = ["tests/fixtures/"]
 python_version = "3.11"
 
 [[tool.mypy.overrides]]

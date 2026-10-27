@@ -1,0 +1,51 @@
+$ /odin3-tree/build/release/odin3 --diag-paths resolved --top bm_dag3_lpm -p read_techlib /odin3-tree/lib/vtr.o3lib; read_verilog --nolatches --vtr-compat --prov-ast refs "tests/fixtures/flow/design/bm_dag3_lpm.v"; proc; fsm; opt; flatten; opt -full; wreduce; hardmap; lower; abc --lut 6; write_blif --vtr --lut-k 6 --name-style hash --prov-map "/flow-out/odin3/bm_dag3_lpm.blif"; write_json --odin3 "/flow-out/timing/netlist.odin3.json"
+odin3: info: pass read_techlib: 0.069 ms
+odin3: info: read_verilog: 1 units (0 library), 102 nodes, 3 comments, 440 bytes, 0.106 ms
+odin3: info: read_verilog: elaborated top 'bm_dag3_lpm': 1 modules (0 specializations), 0 processes, 7 cells, 20 nets, 0.135 + 0.058 ms
+odin3: info: pass read_verilog: 0.396 ms
+odin3: info: proc: no processes
+odin3: info: pass proc: 0.001 ms
+odin3: info: pass fsm: 0.010 ms
+odin3: info: opt_expr: 0 cells rewritten, 0 cells folded to constants
+odin3: info: opt_merge: removed 0 cells
+odin3: info: opt_muxtree: removed 0 multiplexer ports
+odin3: info: opt_reduce: performed 0 changes
+odin3: info: opt_merge: removed 0 cells
+odin3: info: opt_dff: 0 flip-flops changed, 0 constant bits
+odin3: info: opt_clean: removed 0 unused cells, 0 unused nets and 0 unused wires
+odin3: info: opt_expr: 0 cells rewritten, 0 cells folded to constants
+odin3: info: opt: fixed point after 1 iterations
+odin3: info: pass opt: 0.180 ms
+odin3: info: flatten: 0 instances to expand
+odin3: info: flatten: 0 instances expanded (0 kept) in 1 roots; 0 modules unused
+odin3: info: flatten: cost: bytes 384880 -> 384880, provenance records 18 -> 18; added nodes 0 pins 0 nets 0 wires 0; estimate 0; renamed 0; alias bits 0 bare 0
+odin3: info: pass flatten: 0.022 ms
+odin3: info: opt_expr: 0 cells rewritten, 0 cells folded to constants
+odin3: info: opt_merge: removed 0 cells
+odin3: info: opt_muxtree: removed 0 multiplexer ports
+odin3: info: opt_reduce: performed 0 changes
+odin3: info: opt_merge: removed 0 cells
+odin3: info: opt_share: merged 0 cells
+odin3: info: opt_dff: 0 flip-flops changed, 0 constant bits
+odin3: info: opt_clean: removed 0 unused cells, 1 unused nets and 0 unused wires
+odin3: info: opt_expr: 0 cells rewritten, 0 cells folded to constants
+odin3: info: opt: fixed point after 1 iterations
+odin3: info: pass opt: 0.178 ms
+odin3: info: wreduce: 0 cells narrowed, 0 bits removed, 0 cells removed, 0 cells made signed, 0 cells made unsigned
+odin3: info: pass wreduce: 0.041 ms
+odin3: info: partial_map: 0 multiply, 28 adder in 7 chains, 0 single_port_ram + 0 dual_port_ram slices; 0 cells left soft
+odin3: info: pass hardmap: 0.101 ms
+odin3: info: lower: module 'bm_dag3_lpm': lowered 2 word cells to 2 bit cells
+odin3: info: pass lower: 0.022 ms
+odin3: info: abc: script builtin:lib/abc/vtr.abc (embedded), sha256 0d0d27670d8c71d6…, K=6, exchange blif, ABC a3001b72edc5
+odin3: info: abc: module 'bm_dag3_lpm': cut points: 28 hard or black-box cells, 0 instances, 0 level latches, 0 tri-state or bus cells, 0 other cells
+odin3: info: abc| [1;37mo3abc                         :[0m i/o =    2/    2  lat =    0  nd =     2  edge =      2  cube =     2  lev = 1
+odin3: info: abc: module 'bm_dag3_lpm', no flip-flops: no name map (BLIF exchange); provenance uses cut cones
+odin3: info: abc: module 'bm_dag3_lpm', no flip-flops: 2 cells and 0 flip-flops -> 2 LUTs (at most 1 inputs, depth 1) and 0 flip-flops, 21.7 ms in ABC
+odin3: info: abc: final: depth 1
+odin3: info: pass abc: 21.806 ms
+odin3: info: name map: sort 0.0 ms, number and label 0.0 ms, emit 0.1 ms
+odin3: info: name map: 67 object(s), 26 record(s); defaults: BLIF N lines are nets only, cell= not written, 8 locations and 16 joined rows at most
+odin3: info: write_blif: --vtr: 'bm_dag3_lpm': 4 .names, 0 .latch, 28 .subckt (adder 28), K=6; x bits: 0 to gnd, 1 open (unconn)
+odin3: info: pass write_blif: 0.335 ms
+odin3: info: pass write_json: 0.152 ms

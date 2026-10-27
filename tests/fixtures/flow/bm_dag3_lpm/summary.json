@@ -1,0 +1,27 @@
+{
+  "luts": 0,
+  "luts_note": ".names with two or more inputs (constants and one-input buffers or inverters excluded)",
+  "clbs": 6,
+  "hard_blocks": {
+    "mult_36": 0,
+    "memory": 0
+  },
+  "min_chan_width": 14,
+  "crit_path_ns": 4.91291,
+  "wirelength": 77,
+  "timing_attr": {
+    "paths": 2,
+    "matched_share": 0.733333,
+    "critical_spans": [
+      "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+      "tests/fixtures/flow/design/bm_dag3_lpm.v:27",
+      "tests/fixtures/flow/design/bm_dag3_lpm.v:26"
+    ]
+  },
+  "seconds": {
+    "odin3": 0.032,
+    "prov": 0.0,
+    "vpr": 0.264,
+    "timing": 0.003
+  }
+}
