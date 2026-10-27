@@ -5,7 +5,7 @@ from pathlib import Path
 
 from mimir.cli import main
 from mimir.measure import measure_job
-from mimir.sets import Job
+from mimir.sets import SETS, Job
 from mimir.store import Store
 from tests.helpers import skip_without, tmpdir
 
@@ -27,6 +27,21 @@ def job() -> Job:
     d = Path(tmpdir())
     (d / "t.blif").write_text(BLIF, encoding="utf-8")
     return Job(d / "t.blif", "t", "unit", "lut", "unit:t.blif")
+
+
+class LutkSets(unittest.TestCase):
+    def test_k_directories_are_sets(self) -> None:
+        root = Path(tmpdir())
+        for k in (2, 4):
+            d = root / f"vtr_flow/benchmarks/blif/{k}"
+            d.mkdir(parents=True)
+            (d / "t.blif").write_text(BLIF, encoding="utf-8")
+        for name, k in (("mcnc-k2", 2), ("mcnc-k4", 4)):
+            build, var = SETS[name]
+            self.assertEqual(var, "VTR_ROOT")
+            jobs = build(root)
+            self.assertEqual([(j.design, j.source, j.level) for j in jobs], [("t", name, "lut")])
+            self.assertEqual(jobs[0].origin, f"vtr:vtr_flow/benchmarks/blif/{k}/t.blif")
 
 
 class MeasureTests(unittest.TestCase):
