@@ -3,14 +3,20 @@ from __future__ import annotations
 import hashlib
 import json
 import lzma
+import os
 import sqlite3
 import unittest
+from collections.abc import Iterator
 from pathlib import Path
+from typing import Any
+from unittest import mock
 
 from mimir import blobs, snapshot
 from mimir.store import Store
 from tests.helpers import skip_without, tmpdir
 from tests.test_store import rec
+
+PathArg = str | os.PathLike[str]
 
 
 class BlobTests(unittest.TestCase):
@@ -36,6 +42,57 @@ class BlobTests(unittest.TestCase):
         self.assertEqual(len(problems), 1)
         self.assertTrue(problems[0].startswith(sha))
         self.assertEqual(blobs.verify(root, [other]), [])
+
+    def test_put_repairs_a_corrupt_existing_blob(self) -> None:
+        root = Path(tmpdir())
+        sha = blobs.put_bytes(root, b"abc")
+        blobs.blob_path(root, sha).write_bytes(lzma.compress(b"not abc"))
+        self.assertEqual(len(blobs.verify(root)), 1)
+        self.assertEqual(blobs.put_bytes(root, b"abc"), sha)
+        self.assertEqual(blobs.verify(root), [])
+        blobs.blob_path(root, sha).write_bytes(b"garbage")
+        blobs.put_bytes(root, b"abc")
+        self.assertEqual(blobs.get_bytes(root, sha), b"abc")
+
+    def test_name_must_fully_match(self) -> None:
+        sha = "a" * 64
+        with self.assertRaises(ValueError):
+            blobs.blob_path(Path("/x"), sha + "\n")
+        self.assertEqual(blobs.blob_path(Path("/x"), sha).name, f"{sha}.xz")
+
+    def test_temp_file_is_removed_when_the_rename_fails(self) -> None:
+        root = Path(tmpdir())
+        with mock.patch.object(os, "replace", side_effect=OSError("disk")), \
+                self.assertRaises(OSError):
+            blobs.put_bytes(root, b"abc")
+        self.assertEqual([p.name for p in root.glob("*/.put-*")], [])
+        self.assertEqual(blobs.put_bytes(root, b"abc"), hashlib.sha256(b"abc").hexdigest())
+        self.assertEqual([p.name for p in root.glob("*/.put-*")], [])
+
+    def test_fsync_before_rename(self) -> None:
+        root = Path(tmpdir())
+        order: list[str] = []
+        real_fsync, real_replace = os.fsync, os.replace
+
+        def fsync(fd: int) -> None:
+            order.append("fsync")
+            real_fsync(fd)
+
+        def replace(a: PathArg, b: PathArg) -> None:
+            order.append("replace")
+            real_replace(a, b)
+
+        with mock.patch.object(os, "fsync", fsync), mock.patch.object(os, "replace", replace):
+            blobs.put_bytes(root, b"abc")
+        self.assertEqual(order, ["fsync", "replace"])
+
+    def test_verify_empty_list_checks_none_and_none_checks_all(self) -> None:
+        root = Path(tmpdir())
+        sha = blobs.put_bytes(root, b"abc")
+        blobs.blob_path(root, sha).write_bytes(lzma.compress(b"zzz"))
+        self.assertEqual(blobs.verify(root, []), [])
+        self.assertEqual(len(blobs.verify(root, None)), 1)
+        self.assertEqual(len(blobs.verify(root)), 1)
 
     def test_bad_name(self) -> None:
         with self.assertRaises(ValueError):
@@ -80,6 +137,93 @@ class SnapshotTests(unittest.TestCase):
         s.close()
         problems = snapshot.verify_snapshot(d / "x.db", d / "snap", d / "r.db")
         self.assertTrue(problems)
+
+    def test_manifest_lists_blobs_and_verify_reports_missing_ones(self) -> None:
+        d = Path(tmpdir())
+        s = make_store(d / "x.db")
+        sha = blobs.put_bytes(d / "blobs", b"assignment")
+        s.db.execute("INSERT INTO partition (partition_id, algorithm, algorithm_version, params, "
+                     "seed, slug, input_hash, n_objects, n_clusters, assignment_blob, origin) "
+                     "VALUES ('p','a','1','{}',1,'s/a','h',1,1,?, 'o')", (sha,))
+        s.db.commit()
+        s.close()
+        man = snapshot.write_snapshot(d / "x.db", d / "snap")
+        self.assertEqual(man["blob_refs"], [sha])
+        ok = snapshot.verify_snapshot(d / "x.db", d / "snap", d / "r1.db", d / "blobs")
+        self.assertEqual(ok, [])
+        empty = Path(tmpdir())
+        bad = snapshot.verify_snapshot(d / "x.db", d / "snap", d / "r2.db", empty)
+        self.assertEqual(len(bad), 1)
+        self.assertIn(f"blob {sha} missing", bad[0])
+
+    def test_schema_is_part_of_the_canonical_text(self) -> None:
+        d = Path(tmpdir())
+        s = make_store(d / "x.db")
+        snapshot.write_snapshot(d / "x.db", d / "snap")
+        s.db.execute("CREATE INDEX extra_idx ON design_meta(value)")
+        s.db.commit()
+        s.close()
+        problems = snapshot.verify_snapshot(d / "x.db", d / "snap", d / "r.db", d / "none")
+        self.assertTrue(any("canonical text differs" in p for p in problems), problems)
+
+    def test_one_read_transaction_covers_the_dump(self) -> None:
+        d = Path(tmpdir())
+        make_store(d / "x.db").close()
+        outcome: list[str] = []
+        real = snapshot.iter_dump
+
+        def spying(db: sqlite3.Connection) -> Iterator[str]:
+            for i, line in enumerate(real(db)):
+                if i == 5:  # in the middle of the dump, another connection tries to write
+                    other = sqlite3.connect(d / "x.db", timeout=0.05)
+                    try:
+                        other.execute("UPDATE meta SET value = value")
+                        other.commit()
+                        outcome.append("wrote")
+                    except sqlite3.OperationalError:
+                        outcome.append("locked")
+                    finally:
+                        other.close()
+                yield line
+
+        with mock.patch.object(snapshot, "iter_dump", spying):
+            snapshot.write_snapshot(d / "x.db", d / "snap")
+        self.assertEqual(outcome, ["locked"])
+
+    def test_failure_leaves_no_manifest_and_closes_the_db(self) -> None:
+        d = Path(tmpdir())
+        make_store(d / "x.db").close()
+        closed: list[bool] = []
+        real = sqlite3.connect
+
+        class Spy(sqlite3.Connection):
+            def close(self) -> None:
+                closed.append(True)
+                super().close()
+
+        def connect(database: str, **kw: Any) -> sqlite3.Connection:
+            return real(database, factory=Spy, **kw)
+
+        with mock.patch("sqlite3.connect", connect), \
+                mock.patch.object(snapshot, "canonical_sha256", side_effect=RuntimeError("x")), \
+                self.assertRaises(RuntimeError):
+            snapshot.write_snapshot(d / "x.db", d / "snap")
+        self.assertEqual(closed, [True])
+        self.assertFalse((d / "snap" / "MANIFEST.json").exists())
+
+    def test_manifest_is_the_last_file_written(self) -> None:
+        d = Path(tmpdir())
+        make_store(d / "x.db").close()
+        seen: list[str] = []
+        real = os.replace
+
+        def replace(a: PathArg, b: PathArg) -> None:
+            seen.append(Path(b).name)
+            real(a, b)
+
+        with mock.patch.object(os, "replace", replace):
+            snapshot.write_snapshot(d / "x.db", d / "snap")
+        self.assertEqual(seen, ["mimir.sql.xz", "MANIFEST.json"])
 
     @skip_without("pyarrow")
     def test_parquet(self) -> None:

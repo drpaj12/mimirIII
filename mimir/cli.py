@@ -181,7 +181,8 @@ def _cmd_snapshot(args: argparse.Namespace) -> int:
                                                 "source_db_bytes")}, sort_keys=True))
     if args.verify:
         tmp = Path(tempfile.mkdtemp(prefix="mim-verify-", dir=args.tmp)) / "restored.db"
-        problems = snapshot.verify_snapshot(Path(args.db), out, tmp)
+        blob_root = Path(args.blobs) if args.blobs else None
+        problems = snapshot.verify_snapshot(Path(args.db), out, tmp, blob_root)
         print("\n".join(problems) or "verify: restored store is identical")
         return 1 if problems else 0
     return 0
@@ -312,6 +313,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--verify", action="store_true", help="restore and compare byte for byte")
     s.add_argument("--parquet", action="store_true", help="also one zstd Parquet file per table")
     s.add_argument("--tmp", default="/tmp/claude-1000", help="parent of the restore temp dir")
+    s.add_argument("--blobs", help="blob directory the manifest's blobs are checked in "
+                   "(default $MIMIR_BLOBS)")
     s.set_defaults(fn=_cmd_snapshot)
     s = sub.add_parser("partition-example", help="import a Norns round 7 hindsight clustering")
     s.add_argument("db")
