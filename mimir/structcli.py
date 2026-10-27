@@ -72,7 +72,7 @@ def _git(root: Path, *a: str) -> str:
 
 def detect_spec(argv: Sequence[str], loki_src: Path, tree: Path) -> Spec:
     """The detector configuration: the Loki command with paths replaced by placeholders."""
-    opts = list(argv[3:])
+    opts = list(argv[4:])
     skip = {"--odin3-root", "--out"}
     norm = [("<" + o.lstrip("-") + ">" if o in skip else o) for o in opts]
     for i in range(1, len(opts)):

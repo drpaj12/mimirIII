@@ -53,7 +53,7 @@ def build_spec(flow_dir: Path, info: dict[str, Any], scrub: Scrubber, name: str)
         t = scrub.text(text)
         for f in files:
             t = t.replace(f, "<design_file>")
-        t = t.replace(top, "<design>")
+        t = re.sub(rf"(?<![\w-]){re.escape(top)}(?!\w)", "<design>", t)
         return t.replace(scrub.text(str(flow_dir)), "<out>")
 
     odin_line = _first_line(next(flow_dir.glob("odin3/odin3.log")))
