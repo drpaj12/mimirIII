@@ -347,6 +347,19 @@ class DetectOneTests(unittest.TestCase):
         self.assertEqual(s.db.execute("SELECT kind FROM run_artifact WHERE run_id=?",
                                       (rid,)).fetchall(), [("detect_log",)])
 
+    def test_lock_note_is_in_the_run_record_and_log(self) -> None:
+        tmp = Path(tmpdir())
+        s = self.setup_store(tmp)
+        args = self.args(tmp)
+        args.lock_note = "no heavy lock held, because"
+        with mock.patch("mimir.structcli.run_loki", return_value=self.fake_run(3)):
+            rid = detect_one(s, deps(), tmp / "blobs", args, Scrubber({}))
+        origin = s.db.execute("SELECT origin FROM run WHERE run_id=?", (rid,)).fetchone()[0]
+        self.assertTrue(origin.endswith("; no heavy lock held, because"))
+        sha = s.db.execute("SELECT blob_sha256 FROM run_artifact WHERE run_id=?",
+                           (rid,)).fetchone()[0]
+        self.assertIn(b"no heavy lock held", blobs.get_bytes(tmp / "blobs", sha))
+
     def test_an_error_after_the_run_rolls_the_store_back(self) -> None:
         tmp = Path(tmpdir())
         s = self.setup_store(tmp)

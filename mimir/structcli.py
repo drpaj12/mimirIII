@@ -182,8 +182,9 @@ def _detect_one(store: Store, deps: Deps, blob_root: Path, args: argparse.Namesp
         if flow else ""
     rid = run_id_of(DETECT_SOURCE, args.name, arch, 1, "", cfg, commit, sha)
     where = "the run's BLIF" if flow else "the BLIF as distributed (no flow, no architecture)"
+    note = getattr(args, "lock_note", "")
     origin = (f"status={status}; exit={run.returncode}; final_equiv={_final_equiv(out / 're')}; "
-              f"loki re on {where}")
+              f"loki re on {where}" + (f"; {note}" if note else ""))
     store.db.execute(
         "INSERT OR REPLACE INTO run (run_id, slug, config_hash, source, design, arch, seed, arm, "
         "family, tool_commits, command_line, time_s, peak_rss_mib, host, origin, tool_commit, "
@@ -193,7 +194,9 @@ def _detect_one(store: Store, deps: Deps, blob_root: Path, args: argparse.Namesp
          scrub.text(" ".join(argv)), run.time_s, run.peak_rss_mib, os.uname().nodename, origin,
          commit, sha))
     log = scrub.text(f"exit {run.returncode}, status {status}, {run.time_s} s\n"
-                     f"final_equiv {_final_equiv(out / 're')}\n--- stderr tail\n{run.stderr_tail}")
+                     + (f"{note}\n" if note else "")
+                     + f"final_equiv {_final_equiv(out / 're')}\n"
+                     f"--- stderr tail\n{run.stderr_tail}")
     store.db.execute("DELETE FROM run_artifact WHERE run_id = ? AND kind = 'detect_log'", (rid,))
     store.db.execute("INSERT INTO run_artifact VALUES (?, 'detect_log', ?)",
                      (rid, put_bytes(blob_root, log.encode())))
@@ -249,10 +252,13 @@ def _cmd_detect_mcnc(args: argparse.Namespace) -> int:
         store.db.execute("INSERT OR REPLACE INTO design VALUES (?,?,?,?,?,?)",
                          (slug, sha, "blif", "mcnc20", job.design, job.origin))
         store.db.commit()
-        cmd = [*args.heavy_run, sys.executable, "-m", "mimir.structcli", "detect", args.db,
+        wrap = args.heavy_run or ["nice", "-n", "10"]
+        cmd = [*wrap, sys.executable, "-m", "mimir.structcli", "detect", args.db,
                "--slug", slug, "--name", job.design, "--blif", str(job.path),
                "--work", args.work, "--wall-limit", str(args.wall_limit),
                "--loki-python", args.loki_python]
+        if not args.heavy_run:
+            cmd += ["--lock-note", NO_LOCK_NOTE]
         for opt, val in (("--odin3-tree", args.odin3_tree), ("--loki-src", args.loki_src),
                          ("--blobs", args.blobs)):
             if val:
@@ -396,6 +402,9 @@ def _cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+NO_LOCK_NOTE = ("no heavy lock held, run at nice 10: controller ruling 2026-10-27, an MCNC detect "
+                "is one core and about 200 MB, and holding the lock for up to 30 min blocked "
+                "other lanes' builds")
 NULL_MARK = "\\N"
 
 
@@ -454,14 +463,17 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--loki-python", default=os.environ.get("MIMIR_LOKI_PYTHON", "python3"))
     s.add_argument("--wall-limit", type=float, default=WALL_LIMIT_S, help="hard stop in seconds")
     s.add_argument("--flow-run", default="", help="run id of the flow run to attach to")
+    s.add_argument("--lock-note", default="", help="text for the run record (no lock held, why)")
     s.set_defaults(fn=_cmd_detect)
     s = sub.add_parser("detect-mcnc", help="run the detectors on the 20 MCNC circuits")
     common(s)
     s.add_argument("--work", required=True)
     s.add_argument("--loki-python", default=os.environ.get("MIMIR_LOKI_PYTHON", "python3"))
     s.add_argument("--wall-limit", type=float, default=WALL_LIMIT_S, help="hard stop in seconds")
-    s.add_argument("--heavy-run", nargs="+", required=True,
-                   help="the heavy-run command; ODIN3_HEAVY_OK=1 must be set by the caller")
+    s.add_argument("--heavy-run", nargs="*", default=[],
+                   help="the heavy-run command (needs ODIN3_HEAVY_OK=1 from the caller); "
+                   "without it each detect runs at nice 10 and the run record says "
+                   "no lock was held")
     s.add_argument("--only", default="", help="comma separated circuit names")
     s.set_defaults(fn=_cmd_detect_mcnc)
     s = sub.add_parser("report", help="coverage tables and detector precision and recall")
