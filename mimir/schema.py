@@ -132,5 +132,8 @@ V3_DDL: tuple[str, ...] = (
         n_clbs INTEGER, joined_with TEXT NOT NULL, lost_at_pass TEXT NOT NULL,
         bbox_x0 INTEGER, bbox_y0 INTEGER, bbox_x1 INTEGER, bbox_y1 INTEGER, spread REAL,
         crit_share REAL, PRIMARY KEY (design, structure_id, run_id, level))""",
+    """CREATE TABLE IF NOT EXISTS structure_member (
+        design TEXT NOT NULL, structure_id TEXT NOT NULL, atom TEXT NOT NULL,
+        PRIMARY KEY (design, structure_id, atom))""",
     "CREATE INDEX IF NOT EXISTS structure_run ON structure(run_id)",
 )

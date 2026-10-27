@@ -1413,3 +1413,69 @@ measurer = "import-partition"
 definition_source = "norns"
 citations = []
 validation = "Imported as stored in the source file (rounds.json medians); not re-derived."
+
+# Lane 3: structures (docs/specs/2026-10-27-mimir-structures.md, section 6)
+[[metric]]
+key = "structure.blocks_reached"
+description = "HDL structures (process-level constructs) that at least one atom of the final netlist traces to"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "mimir"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py: a hand-made map with a known number of blocks."
+
+[[metric]]
+key = "structure.blocks_separable"
+description = "HDL structures with at least one pure atom (an atom whose chain reaches only that structure); Loki L15 separable, at structure level"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "loki"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py: pure and shared atoms in a hand-made map; agrees with loki.audit.loss.separable."
+
+[[metric]]
+key = "structure.l15_units_reached"
+description = "Loki L15 units (stmt-level anchors, reduced) reached by the atoms of the final netlist"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "loki"
+defined_in = ""
+citations = []
+named_after = []
+validation = "Computed with loki.audit.units.reduce_units and loki.audit.loss.reached; tests/test_structmap.py."
+
+[[metric]]
+key = "structure.l15_units_separable"
+description = "Loki L15 units with at least one pure atom in the final netlist"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "loki"
+defined_in = ""
+citations = []
+named_after = []
+validation = "Computed with loki.audit.loss.separable; tests/test_structmap.py."
+
+[[metric]]
+key = "structure.atoms_unattributed"
+description = "Atoms (LUT, FF, carry, hard block) of the final netlist with no HDL block in their record chain"
+unit = "count"
+levels = ["lut"]
+kind = "measured"
+measurer = "structures"
+definition_source = "mimir"
+defined_in = ""
+citations = []
+named_after = []
+validation = "tests/test_structmap.py."
