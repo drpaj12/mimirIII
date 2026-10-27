@@ -13,6 +13,7 @@ from mimir.schema import (
     KEY_COLUMNS,
     SCHEMA_VERSION,
     V2_DDL,
+    V3_DDL,
     Record,
     check_record,
 )
@@ -36,9 +37,10 @@ class Store:
 
     def __init__(self, path: str | Path, readonly: bool = False) -> None:
         """Open a store. The version is read first and nothing is written before it is accepted:
-        a store of another version raises ValueError and is left as it was. A new or version 1
-        store is created or migrated to version 2 in one transaction (not with readonly=True);
-        a version 2 store is not written at all, so it opens read only."""
+        a store of another version raises ValueError and is left as it was. A new store is
+        created, and a version 1 or 2 store is migrated to version 3 (additive, no row touched),
+        in one transaction (not with readonly=True); a version 3 store is not written at all, so
+        it opens read only."""
         self.path = str(path)
         if readonly:
             self.db = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True)
@@ -63,7 +65,7 @@ class Store:
         version = self._stored_version()
         if version == str(SCHEMA_VERSION):
             return
-        if version not in (None, "1"):
+        if version not in (None, "1", "2"):
             raise ValueError(f"{self.path}: schema version {version} is not {SCHEMA_VERSION}")
         if readonly:
             raise ValueError(f"{self.path}: schema version {version} cannot be opened read only")
@@ -80,7 +82,7 @@ class Store:
                 self.db.execute(_create_sql())
                 self.db.execute(
                     "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)")
-            for stmt in V2_DDL:
+            for stmt in (*V2_DDL, *V3_DDL):
                 self.db.execute(stmt)
             self.db.execute("INSERT OR REPLACE INTO meta VALUES ('schema_version', ?)",
                             (str(SCHEMA_VERSION),))

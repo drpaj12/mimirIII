@@ -76,7 +76,7 @@ class MigrationTests(unittest.TestCase):
         s = Store(d / "v1.db")
         s.export_csv(d / "after.csv")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "2")
+        self.assertEqual(v, "3")
         self.assertEqual(s.db.execute("SELECT * FROM records ORDER BY rowid").fetchall(),
                          rows_before)
         s.close()

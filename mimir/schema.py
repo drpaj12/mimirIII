@@ -4,13 +4,16 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 2  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 3  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
 TEXT_KINDS = ("reconstructed", "recorded-normalised")
 LEVELS = ("hdl", "elab", "gate", "lut", "ble", "clb", "placed", "routed")
 FAMILIES = ("", "analytic", "annealing")
+STRUCT_KINDS = ("adder", "multiplier", "shifter", "comparator", "mux", "register_word", "counter",
+                "fsm", "memory", "logic")
+MAP_LEVELS = ("gate", "lut", "ble", "clb", "placed")
 
 
 @dataclass(frozen=True)
@@ -110,4 +113,24 @@ V2_DDL: tuple[str, ...] = (
         FROM records r JOIN run u ON u.source = r.source AND u.design = r.design
              AND u.arch = r.arch AND u.seed = r.seed AND u.arm = r.arm
              AND u.tool_commit = r.tool_commit AND u.input_sha256 = r.input_sha256""",
+)
+
+
+# Tables added in schema version 3 (docs/specs/2026-10-27-mimir-structures.md, section 3).
+V3_DDL: tuple[str, ...] = (
+    f"""CREATE TABLE IF NOT EXISTS structure (
+        design TEXT NOT NULL, structure_id TEXT NOT NULL,
+        kind TEXT NOT NULL {_ck("kind", STRUCT_KINDS)},
+        hdl_span TEXT NOT NULL, construct_chain TEXT NOT NULL, label_source TEXT NOT NULL,
+        confidence REAL NOT NULL, run_id TEXT NOT NULL, config_hash TEXT NOT NULL,
+        PRIMARY KEY (design, structure_id))""",
+    f"""CREATE TABLE IF NOT EXISTS structure_mapping (
+        design TEXT NOT NULL, structure_id TEXT NOT NULL, run_id TEXT NOT NULL,
+        level TEXT NOT NULL {_ck("level", MAP_LEVELS)}, config_hash TEXT NOT NULL,
+        n_objects INTEGER NOT NULL, n_pure INTEGER NOT NULL, n_shared INTEGER NOT NULL,
+        n_gates INTEGER, n_luts INTEGER, n_carry INTEGER, n_ffs INTEGER, n_bles INTEGER,
+        n_clbs INTEGER, joined_with TEXT NOT NULL, lost_at_pass TEXT NOT NULL,
+        bbox_x0 INTEGER, bbox_y0 INTEGER, bbox_x1 INTEGER, bbox_y1 INTEGER, spread REAL,
+        crit_share REAL, PRIMARY KEY (design, structure_id, run_id, level))""",
+    "CREATE INDEX IF NOT EXISTS structure_run ON structure(run_id)",
 )
