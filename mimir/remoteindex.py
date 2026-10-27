@@ -15,6 +15,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from mimir import blobs
+from mimir.publish import has_home
 from mimir.remote import (
     Archive,
     Entry,
@@ -204,20 +205,6 @@ def _manifest(date_dir: Path, item: Path, name: str, form: str) -> list[Entry]:
     return read_f_manifest(f) if f.exists() else manifest_from_tar(item)
 
 
-def raw_size(xz_bytes: bytes) -> int:
-    """Decompressed size of an xz blob, counted in chunks (never held whole)."""
-    dec = lzma.LZMADecompressor(format=lzma.FORMAT_XZ)
-    total, data = 0, xz_bytes
-    while True:
-        out = dec.decompress(data, max_length=1 << 20)
-        total += len(out)
-        if dec.eof:
-            return total
-        if not out and dec.needs_input:
-            raise ValueError("truncated xz blob")
-        data = b""
-
-
 def db_blob_refs(dbs: list[Path]) -> tuple[set[str], set[str]]:
     """(shas used by a public row, shas used only by runs of a private source) of the stores,
     read only. A blob column is any column whose name holds `blob`."""
@@ -255,17 +242,20 @@ def private_shas(priv: Path | None, archives: list[Archive]) -> dict[str, set[st
 
 
 def blob_visibility(sha: str, archive: str, used: set[str], priv_used: set[str],
-                    traced: set[str], public_tars: set[str]) -> str:
-    """public, private or orphan. A blob that is a file of a private archive, or that only
-    runs of a private source use, is private. A blob nothing uses is an orphan, unless a
-    public blob tarball holds it."""
+                    traced: set[str], public_tars: set[str], identity: bool = False) -> str:
+    """public, private, withheld or orphan. A blob that is a file of a private archive, or
+    that only runs of a private source use, is private. A blob nothing uses is an orphan,
+    unless a public blob tarball holds it. A blob whose content holds a home path, the user
+    name or an e-mail is withheld (it is named by its hash, so it cannot be scrubbed)."""
     if sha in traced:
         return "private"
     if sha in used:
-        return "public"
-    if sha in priv_used:
+        vis = "public"
+    elif sha in priv_used:
         return "private"
-    return "public" if archive in public_tars else "orphan"
+    else:
+        vis = "public" if archive in public_tars else "orphan"
+    return "withheld" if identity and vis == "public" else vis
 
 
 def build_blob_index(store: Path, date_dir: Path, archives: list[Archive],
@@ -274,9 +264,13 @@ def build_blob_index(store: Path, date_dir: Path, archives: list[Archive],
     """sha256, xz bytes, raw bytes, archive, visibility: the store's blobs, plus members of
     the blob tarballs. Also the count per visibility (and `traced-to:<archive>`)."""
     rows: dict[str, tuple[int, int, str]] = {}
+    ident: set[str] = set()
     for sha in blobs.all_hashes(store):
         data = blobs.blob_path(store, sha).read_bytes()
-        rows[sha] = (len(data), raw_size(data), "-")
+        raw = lzma.decompress(data)
+        rows[sha] = (len(data), len(raw), "-")
+        if has_home(raw):
+            ident.add(sha)
     for arch in archives:
         if arch.kind != "blobs":
             continue
@@ -287,7 +281,10 @@ def build_blob_index(store: Path, date_dir: Path, archives: list[Archive],
                     src = tf.extractfile(ti)
                     assert src is not None
                     data = src.read()
-                    rows[stem[:-3]] = (ti.size, raw_size(data), arch.name)
+                    raw = lzma.decompress(data)
+                    rows[stem[:-3]] = (ti.size, len(raw), arch.name)
+                    if has_home(raw):
+                        ident.add(stem[:-3])
     used, priv_used = db_blob_refs(dbs or [])
     by_arch = private_shas(priv, archives)
     traced = set().union(*by_arch.values()) if by_arch else set()
@@ -295,7 +292,7 @@ def build_blob_index(store: Path, date_dir: Path, archives: list[Archive],
     counts: Counter[str] = Counter()
     lines = []
     for sha, (nx, nr, arch_name) in sorted(rows.items()):
-        vis = blob_visibility(sha, arch_name, used, priv_used, traced, public_tars)
+        vis = blob_visibility(sha, arch_name, used, priv_used, traced, public_tars, sha in ident)
         counts[vis] += 1
         for name, shas in by_arch.items():
             if sha in shas:

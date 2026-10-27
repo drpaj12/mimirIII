@@ -47,9 +47,9 @@ from mimir.remote import (
 _USER = "jamie" + "spa"
 _PERSON = "jamieson" + r"\." + "peter"
 HOME_RE = re.compile(rb"/home/[A-Za-z0-9_.-]+(/odin3-ws)?")
-USER_RE = re.compile(rb"\b" + _USER.encode() + rb"\b")
+USER_RE = re.compile(_USER.encode(), re.IGNORECASE)  # also inside a host name such as CEC-<USER>701
 EMAIL_RE = re.compile(rb"[A-Za-z0-9_.+-]*" + _PERSON.encode() + rb"@[A-Za-z0-9.-]+")
-PERSON_RE = re.compile(rb"\b" + _PERSON.encode() + rb"\b")
+PERSON_RE = re.compile(_PERSON.encode(), re.IGNORECASE)
 MAIL_RE = re.compile(("g" + "mail").encode(), re.IGNORECASE)
 # (pattern, replacement), applied in order; a bare "user" stands for the user name.
 SCRUBS = ((EMAIL_RE, b"user@example.invalid"), (PERSON_RE, b"user"), (USER_RE, b"user"),

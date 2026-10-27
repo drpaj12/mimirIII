@@ -35,7 +35,7 @@ in memory with a bound from the index (`raw_bytes`), so a long stream or an xz b
 
 `manifests/<archive>.tsv.xz` lists every member (`path type size sha256`; a link's last field is its
 target, with the home dir as `$HOME`). `blobs.tsv.xz` lists the content-addressed blobs
-(`sha256 xz_bytes raw_bytes archive visibility`); `visibility` is `public`, `private` (the blob traces to a
+(`sha256 xz_bytes raw_bytes archive visibility`); `visibility` is `public`, `withheld` (its content holds a home path or identity string), `private` (the blob traces to a
 private archive) or `orphan` (no store row uses it). Only `public` blobs are staged or downloaded. `licences.toml`
 holds the per-archive hosting verdicts; the per-design licence of a benchmark is in the Mimir meta
 (`data/meta/licences.toml`). Public archives on the web are repacks of the private masters: links,

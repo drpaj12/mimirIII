@@ -302,6 +302,7 @@ class ScrubTests(unittest.TestCase):
     def test_email_and_person_scrubbed(self) -> None:
         text = f"by {MAIL}\n{PERSON} wrote\nuser {USER}\nsee {GM}\n".encode()
         self.assertTrue(publish.has_home(text))
+        self.assertTrue(publish.has_home(f"CEC-{USER.upper()}701".encode()))  # a host name
         new = publish.scrub_bytes(text)
         self.assertFalse(publish.has_home(new))
         for bad in (MAIL, PERSON, USER, "g" + "mail"):
@@ -448,6 +449,8 @@ class VisibilityTests(unittest.TestCase):
         self.assertEqual(vis("b", "-", {"a"}, {"b"}, set(), set()), "private")
         self.assertEqual(vis("c", "-", {"a"}, set(), set(), set()), "orphan")
         self.assertEqual(vis("d", "t", set(), set(), set(), {"t"}), "public")
+        self.assertEqual(vis("a", "-", {"a"}, set(), set(), set(), True), "withheld")
+        self.assertEqual(vis("c", "-", set(), set(), set(), set(), True), "orphan")
 
     def test_index_visibility_from_store(self) -> None:
         from mimir import blobs
@@ -458,6 +461,7 @@ class VisibilityTests(unittest.TestCase):
         only_priv = blobs.put_bytes(store, b"private run blob")
         orphan = blobs.put_bytes(store, b"orphan blob")
         traced = blobs.put_bytes(store, b"original circuit")
+        named = blobs.put_bytes(store, f"host CEC-{USER.upper()}701".encode())
         db_path = root / "s.db"
         db = sqlite3.connect(db_path)
         db.execute("CREATE TABLE run (run_id TEXT, source TEXT)")
@@ -465,7 +469,8 @@ class VisibilityTests(unittest.TestCase):
         db.executemany("INSERT INTO run VALUES (?,?)", [("r1", "mimir-structures"),
                                                         ("r2", "mcnc-originals")])
         db.executemany("INSERT INTO run_artifact VALUES (?,?,?)",
-                       [("r1", "net", pub), ("r2", "net", only_priv), ("r2", "x", pub)])
+                       [("r1", "net", pub), ("r2", "net", only_priv), ("r2", "x", pub),
+                        ("r1", "host", named)])
         db.commit()
         db.close()
         priv = root / "priv"
@@ -479,10 +484,12 @@ class VisibilityTests(unittest.TestCase):
         self.assertEqual(rows[pub][4], "public")
         self.assertEqual(rows[only_priv][4], "private")
         self.assertEqual(rows[orphan][4], "orphan")
+        self.assertEqual(rows[named][4], "withheld")
         self.assertEqual(rows[traced][4], "private")
         self.assertEqual(int(rows[pub][2]), len(b"public blob"))
         self.assertEqual(counts["traced-to:mimir-mcnc-originals"], 1)
         self.assertEqual((counts["public"], counts["private"], counts["orphan"]), (1, 2, 1))
+        self.assertEqual(counts["withheld"], 1)
 
     def test_stage_blobs_public_only(self) -> None:
         root = Path(tmpdir())
