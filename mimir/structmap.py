@@ -103,6 +103,23 @@ class Analysis:
 
 # ---------------------------------------------------------------- atoms from the BLIF
 
+def atom_candidates(head: str, args: list[str], outs: Mapping[str, set[str]]
+                    ) -> tuple[list[str], str] | None:
+    """(candidate output nets, class) of one primitive of the top model, None for a directive
+    that is not an atom. `outs` maps a model name to its output names."""
+    if head == ".names" and len(args) >= 2:
+        return [args[-1]], LUT
+    if head == ".latch":
+        return [args[1]], FF
+    if head == ".subckt":
+        pins = [a.split("=", 1) for a in args[1:] if "=" in a]
+        wanted = outs.get(args[0], set())
+        cands = [net for pin, net in pins if pin.split("[")[0] in wanted
+                 or pin in wanted] or [net for _, net in pins]
+        return cands, CARRY if args[0] == "adder" else HARD
+    return None
+
+
 def atoms_from_blif(models: list[Model], resolve: Callable[[str], bool]) -> dict[str, str]:
     """Atom name -> class (lut, ff, carry, hard) for the top model's primitives. The name is the
     first output net `resolve` accepts (VPR names an atom after its first output); when none is
@@ -111,19 +128,9 @@ def atoms_from_blif(models: list[Model], resolve: Callable[[str], bool]) -> dict
     outs = {m.name: set(m.outputs) for m in models}
     atoms: dict[str, str] = {}
     for head, args in models[0].items:
-        if head == ".names" and len(args) >= 2:
-            cands, cls = [args[-1]], LUT
-        elif head == ".latch":
-            cands, cls = [args[1]], FF
-        elif head == ".subckt":
-            pins = [a.split("=", 1) for a in args[1:] if "=" in a]
-            wanted = outs.get(args[0], set())
-            cands = [net for pin, net in pins if pin.split("[")[0] in wanted
-                     or pin in wanted] or [net for _, net in pins]
-            cls = CARRY if args[0] == "adder" else HARD
-        else:
-            continue
-        if cands:
+        got = atom_candidates(head, args, outs)
+        if got is not None and got[0]:
+            cands, cls = got
             atoms[next((c for c in cands if resolve(c)), cands[0])] = cls
     return atoms
 

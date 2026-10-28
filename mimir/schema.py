@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 6  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 7  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -193,4 +193,28 @@ V6_DDL: tuple[str, ...] = (
         delay_ns REAL, PRIMARY KEY (run_id, path_index, step))""",
     "CREATE INDEX IF NOT EXISTS timing_path_node_span ON timing_path_node(run_id, span)",
     "CREATE INDEX IF NOT EXISTS timing_path_node_word ON timing_path_node(run_id, word, bit)",
+)
+
+
+# Tables added in schema version 7 (docs/specs/2026-10-28-hdl-graph.md, section 2): the line-level
+# HDL graph of a run. A node is (span `file:line`, module, word, bit); bit is -1 when unknown.
+# `via_register` is 1 when the edge's source is, or is reached through, a register output.
+V7_DDL: tuple[str, ...] = (
+    """CREATE TABLE IF NOT EXISTS hdl_graph_run (
+        run_id TEXT PRIMARY KEY, n_atoms INTEGER NOT NULL, n_unattributed INTEGER NOT NULL,
+        n_edges INTEGER NOT NULL, n_ports INTEGER NOT NULL, blif_sha256 TEXT NOT NULL,
+        map_sha256 TEXT NOT NULL)""",
+    """CREATE TABLE IF NOT EXISTS hdl_edge (
+        run_id TEXT NOT NULL, src_span TEXT NOT NULL, src_module TEXT NOT NULL,
+        src_word TEXT NOT NULL, src_bit INTEGER NOT NULL, dst_span TEXT NOT NULL,
+        dst_module TEXT NOT NULL, dst_word TEXT NOT NULL, dst_bit INTEGER NOT NULL,
+        via_register INTEGER NOT NULL,
+        PRIMARY KEY (run_id, src_span, src_module, src_word, src_bit, dst_span, dst_module,
+                     dst_word, dst_bit, via_register))""",
+    """CREATE TABLE IF NOT EXISTS hdl_port (
+        run_id TEXT NOT NULL, span TEXT NOT NULL, module TEXT NOT NULL, word TEXT NOT NULL,
+        bit INTEGER NOT NULL, kind TEXT NOT NULL CHECK (kind IN ('PI', 'PO')),
+        port TEXT NOT NULL, PRIMARY KEY (run_id, kind, port, span, module, word, bit))""",
+    "CREATE INDEX IF NOT EXISTS hdl_edge_src ON hdl_edge(run_id, src_span)",
+    "CREATE INDEX IF NOT EXISTS hdl_edge_dst ON hdl_edge(run_id, dst_span)",
 )

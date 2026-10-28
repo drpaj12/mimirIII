@@ -60,7 +60,7 @@ class MigrationV3Tests(unittest.TestCase):
         self.assertFalse(V3_TABLES & tables(d / "v2.db"))
         s = Store(d / "v2.db")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "6")
+        self.assertEqual(v, "7")
         s.close()
         self.assertTrue(tables(d / "v2.db") >= V3_TABLES)
         self.assertEqual(dump(d / "v2.db", V2_TABLES), before)

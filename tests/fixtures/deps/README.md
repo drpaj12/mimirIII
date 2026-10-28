@@ -9,9 +9,11 @@ when they are.
 | File | Origin | Last commit touching it | sha256 |
 |---|---|---|---|
 | `tools/flow/name_map_v2.py` | odin3 `tools/flow/name_map_v2.py` | 513414fe7f62b83660542c01faff5bc2b4819511 | 9b743d51dcf97a77361c65e7cfa4b98005d3558b21ca4f44dffaae85f5d11e97 |
+| `tools/flow/timing_attr.py` | odin3 `tools/flow/timing_attr.py` | c82609e601ceda2533f436041fa5f31d304741ea | e94c869d62145dbab68c2349b8e7cc0a749fa8ef5a6cea6ee562ed87603191ee |
+| `tools/flow/timing_report.py` | odin3 `tools/flow/timing_report.py` | c82609e601ceda2533f436041fa5f31d304741ea | e3ff87f70885ee28748ec87ce727372dfa4d23197be59396c3e2cf548131d67f |
 | `loki/audit/__init__.py` | loki `loki/audit/__init__.py` | 53a7d9bf451605f0aa1b1cd57db49f64d25d4c1b | cf9838bad9fece10e7fdffab49321f25b80fc742ccaf5a25c9ae66d36597a3e6 |
 | `loki/audit/units.py` | loki `loki/audit/units.py` | 53a7d9bf451605f0aa1b1cd57db49f64d25d4c1b | 8a833d1d449fd64462f90a784c79c790fada5f5f54a13118313da78056ca7638 |
 | `loki/audit/loss.py` | loki `loki/audit/loss.py` | 53a7d9bf451605f0aa1b1cd57db49f64d25d4c1b | bd3ead1b9c4c1c56891d5fe56a631bd07c0cbf2215290c1c67ef1536c36dfab9 |
 | `loki/__init__.py` | empty stub (the real one only holds `__version__`) | | |
 
-Both files are standard library only. Do not edit them; copy them again from the sources.
+These files are standard library only. Do not edit them; copy them again from the sources.
