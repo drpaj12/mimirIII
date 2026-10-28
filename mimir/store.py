@@ -15,6 +15,8 @@ from mimir.schema import (
     V2_DDL,
     V3_DDL,
     V4_DDL,
+    V5_ALTER,
+    V5_DDL,
     Record,
     check_record,
 )
@@ -39,9 +41,11 @@ class Store:
     def __init__(self, path: str | Path, readonly: bool = False) -> None:
         """Open a store. The version is read first and nothing is written before it is accepted:
         a store of another version raises ValueError and is left as it was. A new store is
-        created, and a version 1, 2 or 3 store is migrated to version 4 (additive, no row touched),
-        in one transaction (not with readonly=True); a version 4 store is not written at all, so
-        it opens read only. A reader of version 3 refuses a version 4 store."""
+        created, and a version 1 to 4 store is migrated to version 5 (additive, no row touched),
+        in one transaction, on a write open only (or with `mimir migrate`). With readonly=True a
+        version 4 store opens as it is (bytes and mtime unchanged; the v5 timing tables are
+        absent, see `timing.has_tables`); versions 1 to 3 cannot be opened read only. A version 5
+        store is not written at all. A reader of version 4 refuses a version 5 store."""
         self.path = str(path)
         if readonly:
             self.db = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True)
@@ -62,15 +66,26 @@ class Store:
         return None if row is None else str(row[0])
 
     def _open_version(self, readonly: bool) -> None:
-        """Create a new store, migrate a v1, v2 or v3 store, accept v4, refuse any other version."""
+        """Create a new store, migrate a v1 to v4 store, accept v5, refuse any other version."""
         version = self._stored_version()
         if version == str(SCHEMA_VERSION):
+            if not readonly:
+                self._ensure_v5_columns()
             return
-        if version not in (None, "1", "2", "3"):
+        if version not in (None, "1", "2", "3", "4"):
             raise ValueError(f"{self.path}: schema version {version} is not {SCHEMA_VERSION}")
         if readonly:
+            if version == "4":
+                return  # a version 4 store reads as it is: no write, no migration
             raise ValueError(f"{self.path}: schema version {version} cannot be opened read only")
         self._upgrade(new=version is None)
+
+    def _ensure_v5_columns(self) -> None:
+        """Add timing_run.req_spread_ns to a v5 store written before the column existed."""
+        cols = {r[1] for r in self.db.execute("PRAGMA table_info(timing_run)")}
+        if cols and "req_spread_ns" not in cols:
+            self.db.execute(V5_ALTER)
+            self.db.commit()
 
     def _upgrade(self, new: bool) -> None:
         """One transaction: for a new store the meta and records tables, then the v2 tables and
@@ -83,7 +98,7 @@ class Store:
                 self.db.execute(_create_sql())
                 self.db.execute(
                     "CREATE INDEX IF NOT EXISTS records_source_origin ON records(source, origin)")
-            for stmt in (*V2_DDL, *V3_DDL, *V4_DDL):
+            for stmt in (*V2_DDL, *V3_DDL, *V4_DDL, *V5_DDL):
                 self.db.execute(stmt)
             self.db.execute("INSERT OR REPLACE INTO meta VALUES ('schema_version', ?)",
                             (str(SCHEMA_VERSION),))

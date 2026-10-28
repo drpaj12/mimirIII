@@ -1518,3 +1518,120 @@ defined_in = ""
 citations = []
 named_after = []
 validation = "tests/test_structmap.py."
+
+[[metric]]
+key = "timing.paths_used"
+description = "Setup paths of the report that have a criticality (used for the statistics)"
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.truncated_090"
+description = "1 when the report was full and its last path still has crit >= 0.90 (the near-critical set is cut), else 0"
+unit = "flag"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.last_crit"
+description = "Criticality of the last reported path"
+unit = "crit"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_paths_090"
+description = "Reported setup paths with criticality >= 0.90"
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_endpoints_090"
+description = "Distinct endpoints among the reported paths with criticality >= 0.90"
+unit = "endpoints"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_paths_095"
+description = "Reported setup paths with criticality >= 0.95"
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_endpoints_095"
+description = "Distinct endpoints among the reported paths with criticality >= 0.95"
+unit = "endpoints"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_paths_099"
+description = "Reported setup paths with criticality >= 0.99"
+unit = "paths"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "timing.nc_endpoints_099"
+description = "Distinct endpoints among the reported paths with criticality >= 0.99"
+unit = "endpoints"
+levels = ["routed"]
+kind = "imported"
+measurer = "import-timing"
+definition_source = "mimir"
+defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
+citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
+named_after = []
+validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
