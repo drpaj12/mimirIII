@@ -109,10 +109,10 @@ class Analyse(unittest.TestCase):
         n2 = node("f.v:7", loc="f.v:7.2-7.12")
         n3 = node("f.v:8")
         structs = [("s1", "hdl:/x/f.v:7.13-7.24:op"), ("s2", "hdl:/x/f.v:7.2-8.25"),
-                   ("d1", "det:mux:1")]
+                   ("d1", ""), ("s3", "/x/f.v:8-8")]
         res = timing.analyse(tinput([row(1, -4.0, nodes=(n1, n2, n3))]), structs)
         keys = {k[1] for k in res.objects if k[0] == "structure"}
-        self.assertEqual(keys, {"s1", "s2"})
+        self.assertEqual(keys, {"s1", "s2", "s3"})  # s3: whole line 8, so the line-only n3
         self.assertEqual(res.objects[("structure", "s1", -1)].delay090, 1.0)  # n1 only
         self.assertEqual(res.objects[("structure", "s2", -1)].delay090, 3.0)
 

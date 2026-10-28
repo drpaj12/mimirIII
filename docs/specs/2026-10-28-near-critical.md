@@ -100,7 +100,7 @@ path carries `module`, `span` (`file:line`), `loc` (full span `file:L.C-EL.EC`, 
 | `span` | `file:line` | nodes with that `span` |
 | `word` | `module/word` | nodes with that module and word; `bit = -1` |
 | `word` | `module/word` | the same, one row per declared `bit` where the node has one; `bit >= 0` |
-| `structure` | `structure_id` | nodes whose `loc` lies inside the structure's `hdl_span` (same file); line range when a node has no `loc` |
+| `structure` | `structure_id` | nodes whose `loc` lies inside the structure's `hdl_span` (same file base name); line range when a node has no `loc`. Lane 3 spans are whole lines (`file:L-L`), so two operators on one line share their nodes |
 
 Per object and run: `crit_max`, `n_paths` (all paths through it), `n_paths_090/095/099` (paths through
 it with crit >= theta, each path counted once), and `delay_share_090` = the delay of the object's nodes
@@ -116,7 +116,7 @@ level only and the word row carries `via = 'json-id'` so a consumer can drop it;
 (`~name` guess only, `assigned_word`) joins by module and span only. The attribution's `~name`
 guess from the source line is never used as a word.
 
-A structure that comes from a detector (`det:` id, no `hdl_span`) has no object row: there is no span
+A structure that comes from a detector (empty `hdl_span`) has no object row: there is no span
 to join. Counted in the import report.
 
 ## 3. Storage (schema version 5)

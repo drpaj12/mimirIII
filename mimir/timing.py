@@ -188,17 +188,28 @@ def bin_of(c: float) -> int:
     return min(BINS - 1, int(c * BINS))
 
 
+_SPAN_COLS = re.compile(r"^(.*):(\d+)\.(\d+)-(\d+)\.(\d+)(?::\w+)?$")
+_SPAN_LINES = re.compile(r"^(.*):(\d+)-(\d+)$")
+_BIG = 10**9
+
+
 def _struct_spans(rows: Iterable[tuple[str, str]]) -> list[StructSpan]:
-    """StructSpans from (structure_id, hdl_span) rows; detector structures have no `hdl:` span."""
+    """StructSpans from (structure_id, hdl_span) rows. Two forms: `file:L-L` (the lane 3 HDL
+    structures: whole lines) and `[hdl:]file:L.C-L.C[:op]`; a detector structure has an empty
+    span and gives none."""
     out = []
     for sid, span in rows:
-        if not span.startswith("hdl:"):
-            continue
-        m = re.match(r"^(.*):(\d+)\.(\d+)-(\d+)\.(\d+)(?::\w+)?$", span[4:])
+        text = span[4:] if span.startswith("hdl:") else span
+        m = _SPAN_COLS.match(text)
         if m:
             out.append(StructSpan(sid, m.group(1).rsplit("/", 1)[-1],
                                   (int(m.group(2)), int(m.group(3))),
                                   (int(m.group(4)), int(m.group(5)))))
+            continue
+        m2 = _SPAN_LINES.match(text)
+        if m2:
+            out.append(StructSpan(sid, m2.group(1).rsplit("/", 1)[-1], (int(m2.group(2)), 0),
+                                  (int(m2.group(3)), _BIG)))
     return out
 
 
@@ -346,7 +357,7 @@ def import_run(store: Store, run_id: str, inp: TimingInput, scrub: Scrubber,
                analysis_n: int | None = None) -> tuple[Result, int]:
     """Analyse one run's input and write everything. Structures come from the store."""
     structs = store.db.execute(
-        "SELECT structure_id, hdl_span FROM structure WHERE run_id = ? AND hdl_span LIKE 'hdl:%'",
+        "SELECT structure_id, hdl_span FROM structure WHERE run_id = ? AND hdl_span <> ''",
         (run_id,)).fetchall()
     res = analyse(inp, [(a, b) for a, b in structs], scrub)
     n = write_result(store, run_id, inp, res, analysis_n)
