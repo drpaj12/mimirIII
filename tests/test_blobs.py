@@ -115,7 +115,7 @@ class SnapshotTests(unittest.TestCase):
         d = Path(tmpdir())
         make_store(d / "x.db").close()
         man = snapshot.write_snapshot(d / "x.db", d / "snap")
-        self.assertEqual(man["schema_version"], "3")
+        self.assertEqual(man["schema_version"], "4")
         self.assertEqual(snapshot.verify_snapshot(d / "x.db", d / "snap", d / "r.db"), [])
         a, b = sqlite3.connect(d / "x.db"), sqlite3.connect(d / "r.db")
         self.assertEqual(snapshot.canonical_lines(a), snapshot.canonical_lines(b))

@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from mimir import hostalias
 from mimir.blif import parse_models
 from mimir.blobs import put_bytes
 from mimir.flowcfg import put_config, run_id_of
@@ -242,15 +243,29 @@ def put_run(store: Store, d: DesignInfo, info: dict[str, Any], config: str, inpu
     commit = commit_or_unknown(info["odin3_commit"])
     rid = run_id_of(SOURCE, d.name, arch, seed, "", config, commit, input_sha)
     cmd = " && ".join(scrub.text(" ".join(c)) for c in info["commands"])
+    alias = hostalias.alias_of(str(info["host"]))
     store.db.execute(
         "INSERT OR REPLACE INTO run (run_id, slug, config_hash, source, design, arch, seed, arm, "
         "family, tool_commits, command_line, time_s, peak_rss_mib, host, origin, tool_commit, "
         "input_sha256) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (rid, d.slug, config, SOURCE, d.name, arch, seed, "", "",
          f"odin3={commit};vtr={commit_or_unknown(info['vtr_commit'])}", cmd, info["time_s"],
-         info["peak_rss_mib"], f"{info['host']} {info['kernel']} {info['started_utc']}",
+         info["peak_rss_mib"],
+         f"{alias} {info['kernel']} {info['started_utc']}",
          scrub.text(str(flow_dir)), commit, input_sha))
+    put_host_facts(store, config, alias, info.get("host_facts"))
     return rid
+
+
+def put_host_facts(store: Store, config: str, alias: str, facts: object) -> None:
+    """Hardware facts of the host (CPU model, cores, RAM, kernel) as `flow_param` rows of step
+    `host`, key `<alias>.<fact>`, each with the source it was read from."""
+    if not isinstance(facts, dict):
+        return
+    store.db.executemany(
+        "INSERT OR IGNORE INTO flow_param VALUES (?, 'host', ?, ?, 'given', ?)",
+        [(config, f"{alias}.{k}", str(v["value"]), str(v["source"]))
+         for k, v in sorted(facts.items())])
 
 
 def _row_values(d: str, rid: str, cfg: str, r: MapRow) -> tuple[Any, ...]:
@@ -360,6 +375,7 @@ def import_flow_dir(store: Store, blobs: Path, flow_dir: Path, d: DesignInfo, de
     if not info["ok"]:
         raise ValueError(f"{flow_dir}: the run did not finish")
     check_hdl_files(info, d)
+    hostalias.alias_of(str(info["host"]))  # known to the map before any text is scrubbed
     spec = build_spec(flow_dir, info, scrub, config_name, vtr_root)
     try:
         cfg = put_config(store, spec)

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 3  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 4  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -138,4 +138,14 @@ V3_DDL: tuple[str, ...] = (
         design TEXT NOT NULL, structure_id TEXT NOT NULL, run_id TEXT NOT NULL,
         atom TEXT NOT NULL, PRIMARY KEY (design, structure_id, run_id, atom))""",
     "CREATE INDEX IF NOT EXISTS structure_run ON structure(run_id)",
+)
+
+
+# Table added in schema version 4 (docs/specs/2026-10-28-mimir-host-alias.md): the scrub record
+# that extends an artifact row (`scrubbed_from` is the sha before the private strings were removed).
+V4_DDL: tuple[str, ...] = (
+    """CREATE TABLE IF NOT EXISTS blob_scrub (
+        ref_table TEXT NOT NULL, ref_column TEXT NOT NULL, ref_key TEXT NOT NULL,
+        scrubbed_from TEXT NOT NULL, blob_sha256 TEXT NOT NULL,
+        PRIMARY KEY (ref_table, ref_column, ref_key))""",
 )

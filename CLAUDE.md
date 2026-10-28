@@ -23,6 +23,8 @@ The base install is stdlib only. `partition` (pymetis, for the Rent measurer), `
 Data sources are read only and come from arguments or env vars (`MIMIR_NORNS`, `MIMIR_LOKI`,
 `VTR_ROOT`, and for tool defaults `MIMIR_ODIN3`, `MIMIR_NORNS_SRC`; for lane 3 `MIMIR_ODIN3_TREE` (an Odin III checkout with `tools/flow`), `MIMIR_LOKI_SRC`, `MIMIR_LOKI_PYTHON`); the structure tests use vendored copies of the Odin III map parser and Loki's audit (`tests/fixtures/deps`) when `MIMIR_ODIN3_TREE` and `MIMIR_LOKI_SRC` are not set, so they run in CI; lane 3 runs need `VTR_ROOT` and `ODIN3_HEAVY_OK=1`; never write an absolute home path into a committed file.
 
+Host names: a `host` value is always an alias (`host-1`); the real name lives only in the private map `$MIMIR_HOST_MAP` (default `work/mimir-data/remote-private/hosts.toml`), never committed. The map is created only by `mimir host-alias --init` and a missing map is an error, never an empty map (no alias is invented, no text passes unscrubbed). `mimir host-alias` rewrites a store (schema 4), `mimir privacy-check` gates it (`$MIMIR_PRIVATE_STRINGS` adds strings; it looks inside xz, gz, zip, npz, tar and Parquet, and reads the raw `.db` bytes). Spec: `docs/specs/2026-10-28-mimir-host-alias.md`.
+
 ## Rules
 
 - Python 3.11+, no 3.12-only syntax. Runtime dependencies: none.
