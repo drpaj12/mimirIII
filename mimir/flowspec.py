@@ -22,7 +22,9 @@ Param = tuple[str, str, str, str, str]  # (step, key, value, conf, source)
 # parameters whose value depends on which checkout was at hand; kept as a parameter, left out of
 # the hash (an import with and without $VTR_ROOT gives the same config_hash)
 HASH_EXCLUDE = ("arch.arch_file_sha256", "vpr.placer_opts.place_chan_width",
-                "vpr.router_opts.fixed_channel_width")  # the last two: the width a run settled on
+                "vpr.router_opts.fixed_channel_width",  # these two: the width a run settled on
+                "run.seed",  # the seed of a run record: the seeds of one setup share a config
+                "vpr.placer_opts.seed")  # VPR echoes the seed it ran with (show_setup.cpp:626)
 
 
 @dataclass(frozen=True)

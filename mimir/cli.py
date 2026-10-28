@@ -149,6 +149,32 @@ def _cmd_runs(args: argparse.Namespace) -> int:
     return 1 if res.skipped else 0
 
 
+def _cmd_import_runrecords(args: argparse.Namespace) -> int:
+    from mimir.runrecord import conf_counts, coverage, import_runrecords, non_given
+
+    store = Store(args.db)
+    try:
+        rep = import_runrecords(store, Path(args.dir))
+    except NotADirectoryError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    for rel, errs in rep.refused:
+        print(f"refused {rel}")
+        for err in errs:
+            print(f"  {err}")
+    print(f"imported {len(rep.imported)} records, refused {len(rep.refused)}")
+    print("arm\tstatus\truns")
+    for row in coverage(store, args.source):
+        print("\t".join(str(x) for x in row))
+    print("conf\tparameters")
+    for conf, n in sorted(conf_counts(store, args.source).items()):
+        print(f"{conf}\t{n}")
+    print("non-given parameter\tarm\tconf\tsource")
+    for arm, key, conf, src in non_given(store, args.source):
+        print(f"{key}\t{arm}\t{conf}\t{src}")
+    return 1 if rep.refused else 0
+
+
 def _cmd_run_coverage(args: argparse.Namespace) -> int:
     store = Store(args.db, readonly=True)
     print("source\tstatus\tconfigs\truns")
@@ -311,6 +337,11 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--norns-src", dest="norns_src",
                    help="nornsIII checkout, for its defaults (default $MIMIR_NORNS_SRC)")
     s.set_defaults(fn=_cmd_runs)
+    s = sub.add_parser("import-runrecords", help="runs and flow configs from run records")
+    s.add_argument("db")
+    s.add_argument("dir", help="directory searched for mimir-run.json files")
+    s.add_argument("--source", default="", help="report only the runs of this source (exact)")
+    s.set_defaults(fn=_cmd_import_runrecords)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")
     s.set_defaults(fn=_cmd_run_coverage)
