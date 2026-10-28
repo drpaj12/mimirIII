@@ -189,7 +189,7 @@ class Migration(unittest.TestCase):
         s = Store(d / "x.db")
         self.assertEqual(s.db.execute("SELECT COUNT(*) FROM timing_object").fetchone()[0], 0)
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "5")
+        self.assertEqual(v, "6")
         s.close()
         Store(d / "x.db", readonly=True).close()
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 5  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 6  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -176,4 +176,21 @@ V5_DDL: tuple[str, ...] = (
         crit_max REAL NOT NULL, n_paths INTEGER NOT NULL, n_paths_090 INTEGER NOT NULL,
         n_paths_095 INTEGER NOT NULL, n_paths_099 INTEGER NOT NULL, delay_share_090 REAL,
         PRIMARY KEY (run_id, kind, object_key, bit))""",
+)
+
+
+# Tables added in schema version 6 (docs/specs/2026-10-28-timing-paths.md, section 2): the
+# reported paths of a run and their nodes. `bit` is -1 where the attribution gives none.
+V6_DDL: tuple[str, ...] = (
+    """CREATE TABLE IF NOT EXISTS timing_path (
+        run_id TEXT NOT NULL, path_index INTEGER NOT NULL, slack_ns REAL, arrival_ns REAL,
+        required_ns REAL, crit REAL, startpoint TEXT NOT NULL, endpoint TEXT NOT NULL,
+        n_nodes INTEGER NOT NULL, PRIMARY KEY (run_id, path_index))""",
+    """CREATE TABLE IF NOT EXISTS timing_path_node (
+        run_id TEXT NOT NULL, path_index INTEGER NOT NULL, step INTEGER NOT NULL,
+        atom TEXT, block_type TEXT, pins TEXT, span TEXT, loc TEXT, module TEXT, word TEXT,
+        bit INTEGER, word_via TEXT, category TEXT, cell_delay_ns REAL, net_delay_in_ns REAL,
+        delay_ns REAL, PRIMARY KEY (run_id, path_index, step))""",
+    "CREATE INDEX IF NOT EXISTS timing_path_node_span ON timing_path_node(run_id, span)",
+    "CREATE INDEX IF NOT EXISTS timing_path_node_word ON timing_path_node(run_id, word, bit)",
 )

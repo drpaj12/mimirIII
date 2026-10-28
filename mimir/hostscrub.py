@@ -26,7 +26,9 @@ TEXT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("run", "command_line"), ("run", "origin"), ("run", "tool_commits"),
     ("structure", "hdl_span"), ("structure", "construct_chain"),
     ("structure_mapping", "joined_with"), ("structure_mapping", "lost_at_pass"),
-    ("timing_object", "object_key"),
+    ("timing_object", "object_key"), ("timing_path", "startpoint"), ("timing_path", "endpoint"),
+    ("timing_path_node", "atom"), ("timing_path_node", "pins"), ("timing_path_node", "span"),
+    ("timing_path_node", "loc"), ("timing_path_node", "module"), ("timing_path_node", "word"),
 )
 EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("analysis_result", "analysis_id"), ("analysis_result", "algorithm"),
@@ -62,6 +64,9 @@ EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("timing_run", "run_id"), ("timing_run", "dmax_source"), ("timing_run", "source_kind"),
     ("timing_run", "source_sha256"), ("timing_path_hist", "run_id"),
     ("timing_object", "run_id"), ("timing_object", "kind"), ("timing_object", "via"),
+    ("timing_path", "run_id"), ("timing_path_node", "run_id"),
+    ("timing_path_node", "block_type"), ("timing_path_node", "word_via"),
+    ("timing_path_node", "category"),
 )  # run.host has its own rule (`alias_host_value`)
 # The blob columns and how a blob_scrub row names the artifact row that holds the column.
 BLOB_KEYS = {"run_artifact": "run_id || ':' || kind", "partition": "partition_id",
