@@ -17,7 +17,6 @@ Paths of the Odin III checkout and the Loki checkout come from `MIMIR_ODIN3_TREE
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import sys
@@ -33,10 +32,11 @@ from mimir.structmap import Deps, analyse, atoms_from_blif, load_deps
 
 
 def run_row(store: Store, job: dict[str, Any]) -> tuple[str, str]:
-    """(run_id, config_hash) of the run row a job names; ValueError when there is none or several."""
+    """(run_id, config_hash) of the run row a job names; ValueError for none or several."""
     rows = store.db.execute(
         "SELECT run_id, config_hash FROM run WHERE source=? AND design=? AND arch=? AND seed=? "
-        "AND arm=?", (job["source"], job["design"], job["arch"], job["seed"], job["arm"])).fetchall()
+        "AND arm=?",
+        (job["source"], job["design"], job["arch"], job["seed"], job["arm"])).fetchall()
     if len(rows) != 1:
         raise ValueError(f"{job['source']}/{job['design']}/{job['arm']}/s{job['seed']}: "
                          f"{len(rows)} run rows (need exactly one: import the run records first)")
