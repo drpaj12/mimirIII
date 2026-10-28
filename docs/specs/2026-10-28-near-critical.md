@@ -86,7 +86,7 @@ worst slack are VPR's. Mimir records which case a run is in, in `timing_run.dmax
 such a pair is skipped and counted (`pairs_skipped`). Crit is rounded to 9 decimals before it is
 compared with theta or put in a bin, so a value that float arithmetic gives as 0.8999999999 is 0.9.
 
-Observed in `lane3-structures.db` (79 runs, all one clock `clk`): see section 7.
+Observed in `lane3-structures.db` (79 runs): see section 7.
 
 ### 2.2 Near-critical
 

@@ -3,6 +3,7 @@ rows. Spec: docs/specs/2026-10-28-near-critical.md."""
 
 from __future__ import annotations
 
+import dataclasses
 import hashlib
 import json
 import re
@@ -531,9 +532,28 @@ def check_keys(store: Store, run_id: str) -> bool:
     return all(check_clean(r[0]) for r in rows)
 
 
+def _full_extent(full_dir: Path, run_id: str, requested: int) -> tuple[
+        tuple[tuple[str, str], float, float], ...]:
+    """Exact (pair, max_req, worst_slack) from `full_dir/<run_id>.rpt.xz`, or () when absent."""
+    import lzma
+
+    path = full_dir / f"{run_id}.rpt.xz"
+    if not path.is_file():
+        return ()
+    data = lzma.decompress(path.read_bytes())
+    return exhaustive_extent(parse_report(data.decode("utf-8", "replace"), sha_of(data),
+                                          requested))
+
+
 def import_from_blobs(store: Store, blobs_dir: Path, scrub: Scrubber,
-                      only: set[str] | None = None) -> list[tuple[str, str]]:
-    """Import every `timing` run artifact not yet imported. Returns (run_id, status) rows."""
+                      only: set[str] | None = None, attr_dir: Path | None = None,
+                      full_dir: Path | None = None,
+                      full_requested: int = 500000) -> list[tuple[str, str]]:
+    """Import every `timing` run artifact. Returns (run_id, status) rows.
+
+    `attr_dir/<run_id>.attribution.json` replaces the stored artifact of that run (a re-run with a
+    larger N; `analysis_n` is then its paths_requested). `full_dir/<run_id>.rpt.xz` is an
+    exhaustive report of the run (N = `full_requested`) that gives the exact max_req."""
     from mimir import blobs
 
     out = []
@@ -544,8 +564,13 @@ def import_from_blobs(store: Store, blobs_dir: Path, scrub: Scrubber,
         if only is not None and run_id not in only:
             continue
         try:
-            inp = load_attribution_bytes(blobs.get_bytes(blobs_dir, sha))
-            res, _ = import_run(store, run_id, inp, scrub)
+            over = attr_dir / f"{run_id}.attribution.json" if attr_dir else None
+            data = over.read_bytes() if over and over.is_file() else blobs.get_bytes(blobs_dir, sha)
+            inp = load_attribution_bytes(data)
+            if full_dir is not None:
+                inp = dataclasses.replace(inp, full=_full_extent(full_dir, run_id, full_requested))
+            an = inp.requested if over and over.is_file() else None
+            res, _ = import_run(store, run_id, inp, scrub, an)
         except (ValueError, KeyError, OSError) as exc:
             out.append((run_id, f"error: {exc}"))
             continue

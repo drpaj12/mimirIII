@@ -185,7 +185,10 @@ def _cmd_import_timing(args: argparse.Namespace) -> int:
     scrub = Scrubber({})
     if args.from_blobs:
         root = Path(args.blobs) if args.blobs else blobs.default_dir()
-        rows = timing.import_from_blobs(store, root, scrub)
+        rows = timing.import_from_blobs(
+            store, root, scrub, attr_dir=Path(args.attr_dir) if args.attr_dir else None,
+            full_dir=Path(args.full_dir) if args.full_dir else None,
+            full_requested=args.full_requested or 500000)
     else:
         data = Path(args.file).read_bytes()
         if args.report:
@@ -415,6 +418,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--analysis-n", type=int, help="npaths of a timing-only re-run")
     s.add_argument("--from-blobs", action="store_true", help="every stored `timing` artifact")
     s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.add_argument("--attr-dir", help="with --from-blobs: DIR/<run_id>.attribution.json replaces "
+                   "that run's stored artifact (a re-run with a larger N)")
+    s.add_argument("--full-dir", help="with --from-blobs: DIR/<run_id>.rpt.xz is an exhaustive "
+                   "report of that run (see --full-requested)")
     s.add_argument("--full-report", help="an exhaustive report_timing.setup.rpt of the same "
                    "run: gives the exact max required time per clock domain pair")
     s.add_argument("--full-requested", type=int, help="--timing_report_npaths of --full-report "

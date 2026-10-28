@@ -245,5 +245,30 @@ class ImportRun(unittest.TestCase):
             "SELECT value FROM records WHERE metric='timing.truncated_090'").fetchone()[0], 0.0)
 
 
+class FromBlobs(unittest.TestCase):
+    def test_attr_dir_and_full_dir(self) -> None:
+        import lzma
+
+        from mimir import blobs
+
+        d = Path(tmpdir())
+        s, rid = run_store()
+        sha = blobs.put_bytes(d / "blobs", FIX.read_bytes())
+        s.db.execute("INSERT INTO run_artifact VALUES (?, 'timing', ?)", (rid, sha))
+        s.db.commit()
+        (d / "full").mkdir()
+        (d / "full" / f"{rid}.rpt.xz").write_bytes(lzma.compress(FULL_RPT.encode()))
+        rows = timing.import_from_blobs(s, d / "blobs", Scrubber({}), full_dir=d / "full",
+                                        full_requested=100)
+        self.assertEqual(rows, [(rid, "ok")])
+        self.assertEqual(s.db.execute("SELECT dmax_source, analysis_n FROM timing_run"
+                                      ).fetchone(), ("full-report", None))
+        (d / "attr").mkdir()
+        (d / "attr" / f"{rid}.attribution.json").write_bytes(FIX.read_bytes())
+        timing.import_from_blobs(s, d / "blobs", Scrubber({}), attr_dir=d / "attr")
+        self.assertEqual(s.db.execute("SELECT dmax_source, analysis_n FROM timing_run"
+                                      ).fetchone(), ("exhaustive", 100))
+
+
 if __name__ == "__main__":
     unittest.main()
