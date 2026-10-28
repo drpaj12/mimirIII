@@ -1,7 +1,8 @@
 # Getting the raw files
 
 The raw data behind Mimir (Norns runs, Loki experiment data, snapshots, blobs) is offloaded: it lives in
-xz archives on a private drive, and later on a static web host. The repo holds an index of all of it
+xz archives on a private drive, and the public repacks are on a static web host
+(`https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data`, uploaded 2026-10-28). The repo holds an index of all of it
 (`data/remote/`), so one file can be fetched with `mimir fetch`. Spec:
 `docs/specs/2026-10-27-mimir-remote-data.md`.
 
