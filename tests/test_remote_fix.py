@@ -503,3 +503,40 @@ class VisibilityTests(unittest.TestCase):
         self.assertIn(a, text)
         self.assertNotIn(b, text)
         self.assertEqual(BlobRef(a, 1, 1, "-", "public").visibility, "public")
+
+
+class SumsAllDatesTests(unittest.TestCase):
+    def test_every_date_dir_gets_sums(self) -> None:
+        root = Path(tmpdir())
+        (root / "a").mkdir()
+        tar = root / "a" / "t.tar.xz"
+        make_tar(tar)
+        idx = make_index(root, tar)
+        arch = remote.load_archives(idx)["t"]
+        t2 = replace(arch, name="t2", file="t2.tar.xz", date="2026-10-28",
+                     manifest="manifests/t2.tsv.xz")
+        (root / "a" / "t2.tar.xz").write_bytes(tar.read_bytes())
+        (idx / "manifests" / "t2.tsv.xz").write_bytes((idx / arch.manifest).read_bytes())
+        (idx / "archives.toml").write_text(remote.dump_archives([arch, t2]), encoding="utf-8")
+        rdir = REPO / "data" / "remote"
+        (idx / "licences.toml").write_bytes((rdir / "licences.toml").read_bytes())
+        (idx / "licence-texts").mkdir()
+        for p in (rdir / "licence-texts").iterdir():
+            (idx / "licence-texts" / p.name).write_bytes(p.read_bytes())
+        meta = idx.parent / "meta"
+        meta.mkdir()
+        (meta / "licences.toml").write_bytes((REPO / "data/meta/licences.toml").read_bytes())
+        rules = load_licence_rules(meta / "licences.toml")
+        rows, _ = load_table(idx / "licences.toml")
+        rows["t"] = rows["t2"] = rows["norns-runs-n5"]
+        plans = publish.build_plans(idx, rules, rows)
+        stage = root / "stage"
+        lines = publish.run_stage(stage, root / "a", plans, idx, None, "https://x", False, False)
+        self.assertTrue(any("2026-10-27" in x and "2026-10-28" in x for x in lines))
+        for date, name in (("2026-10-27", "t.tar.xz"), ("2026-10-28", "t2.tar.xz")):
+            sums = remoteindex.read_sums(stage / date)
+            self.assertEqual(sums[name], remote.sha256_path(stage / date / name))
+        first = {d: (stage / d / "SHA256SUMS").read_bytes() for d in ("2026-10-27", "2026-10-28")}
+        publish.run_stage(stage, root / "a", plans, idx, None, "https://x", False, False)
+        for d, b in first.items():
+            self.assertEqual((stage / d / "SHA256SUMS").read_bytes(), b)
