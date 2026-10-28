@@ -67,3 +67,33 @@ refuses a version 4 store.
   xz, gz or zip) is a hit `undecodable`; a Parquet file is read with pyarrow, and without pyarrow is a
   hit `not scanned`, never clean. The report names places and string numbers only, never a string.
   Exit 1 on a hit, 2 when the map is missing.
+
+## Result of the fix round (2026-10-28)
+
+Stores after `mimir host-alias --dir work/mimir-data --blobs ... --index data/remote`: no cell needed a
+rewrite (the earlier lanes had aliased them), 0 referenced blobs needed a re-blob, every store was
+VACUUMed. The lane-2 main store (11,114 runs) was restored from `2026-10-27/mimir-snapshot-2026-10-27b`
+(canonical sha256 `3105e73e...1152`, equal to its manifest), migrated v2 to v4; its one partition blob,
+missing from the local blob dir, was restored from the 10-27b blob tarball.
+
+`mimir privacy-check` (2 private strings: the host map and the login name; has_home on every unit):
+
+| Scanned | Units | Hits |
+|---|---|---|
+| mimir-main.db (cells, schema, raw bytes) | 585,384 records, 11,114 runs | 0 |
+| lane3-structures.db | 183 runs | 0 |
+| mimir-structures.db | 164 runs | 0 |
+| structures.db | 164 runs | 0 |
+| CSV exports of the four stores | 4 files | 0 |
+| public blobs (index `public` only) | 816 | 0 |
+| snapshot dir `mimir-snapshot-2026-10-28b` (4 dumps, 4 manifests) | 8 files | 0 |
+| public blob tarball `mimir-snapshot-2026-10-28b-blobs.tar.xz` | 816 members | 0 |
+
+`mimir remote check`: every blob reference of the four stores resolves in the index (100%).
+
+Snapshot `2026-10-28/mimir-snapshot-2026-10-28b` on F: (schema 4, `--verify` identical for each):
+`lane2/` dump 3,345,416 B, `main/` 1,296,932 B, `lane3/` 2,134,716 B, `structures/` 1,298,784 B; blob tarball
+15,983,080 B, sha256 `0cada7e6...7697`, 816 members, public blobs only. The earlier
+`mimir-snapshot-2026-10-28` pair is marked SUPERSEDED in the index and kept. Licence verdict of all the
+2026-10-28 snapshot archives: `host-with-notices` (controller, per Peter's rule: each benchmark carries
+its own licence and notice).

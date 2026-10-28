@@ -386,18 +386,36 @@ drop = []
 
 [[archive]]
 archive = "mimir-snapshot-2026-10-28"
-verdict = "pending"
+verdict = "host-with-notices"
 sources = ["Mimir metrics and structure tables (own, MIT)", "design names and measured numbers of VTR micros, MCNC circuits and VTR big designs"]
 licence_refs = ["mimir/LICENSE (MIT)"]
-notes = "Two stores (structures, lane 3). The dump holds tables only (no HDL text), but the blobs it names hold design HDL, BLIF and VPR outputs of VTR and Norns designs: the hosting verdict per design licence is the controller's. Pending, not decided by the host-alias lane."
-basis = "derived"
+notes = "SUPERSEDED by mimir-snapshot-2026-10-28b (kept, never deleted). Two stores (structures, lane 3), schema 3. Controller verdict (Peter's rule): each benchmark carries its own licence and notice; the blobs it names hold design HDL, BLIF and VPR outputs of VTR and Norns designs."
+basis = "controller"
 drop = []
 
 [[archive]]
 archive = "mimir-snapshot-2026-10-28-blobs"
-verdict = "pending"
+verdict = "host-with-notices"
 sources = ["Mimir blob store: design HDL, BLIF, VPR net/place/route, logs and timing of 83 flow runs"]
 licence_refs = ["mimir/LICENSE (MIT)"]
-notes = "815 blobs, scrubbed of the host name, user name and home paths (privacy-check 0 hits). The design sources keep their own licences (VTR micros and big designs); the verdict is the controller's. Pending, not decided by the host-alias lane."
-basis = "derived"
+notes = "SUPERSEDED by mimir-snapshot-2026-10-28b-blobs (kept, never deleted). 815 blobs, scrubbed of the host name, user name and home paths. Controller verdict (Peter's rule): each benchmark carries its own licence and notice."
+basis = "controller"
+drop = []
+
+[[archive]]
+archive = "mimir-snapshot-2026-10-28b"
+verdict = "host-with-notices"
+sources = ["Mimir metrics and structure tables (own, MIT)", "design names and measured numbers of VTR micros, MCNC circuits and VTR big designs"]
+licence_refs = ["mimir/LICENSE (MIT)"]
+notes = "Four stores (lane 2 main with 11,114 runs, structures, lane 3, structures copy), schema 4, aliased, free-text columns scrubbed, privacy-check 0 hits. Controller verdict (Peter's rule): each benchmark carries its own licence and notice. Supersedes mimir-snapshot-2026-10-28."
+basis = "controller"
+drop = []
+
+[[archive]]
+archive = "mimir-snapshot-2026-10-28b-blobs"
+verdict = "host-with-notices"
+sources = ["Mimir blob store: design HDL, BLIF, VPR net/place/route, logs and timing of 83 flow runs, and the lane 2 partition assignment"]
+licence_refs = ["mimir/LICENSE (MIT)"]
+notes = "816 blobs, public ones only (no withheld sha), scrubbed of the host name, user name, e-mail and home paths (privacy-check 0 hits). Controller verdict (Peter's rule): each benchmark carries its own licence and notice. Supersedes mimir-snapshot-2026-10-28-blobs."
+basis = "controller"
 drop = []
