@@ -27,6 +27,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from urllib.parse import unquote
 
+from mimir import hostalias
+
 NORNS_LOCK = os.environ.get("MIMIR_NORNS_LOCK", "/tmp/claude-1000/norns-vpr.lock")
 _SHA40 = re.compile(r"[0-9a-f]{40}")
 
@@ -170,7 +172,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     info = {
         "commands": cmds[:len(codes)], "exit_codes": codes, "step_time_s": times,
         "time_s": round(sum(times), 3), "peak_rss_mib": round(rss, 1),
-        "host": platform.node(), "kernel": platform.release(),
+        "host": hostalias.this_host(), "host_facts": hostalias.host_facts(),
+        "kernel": platform.release(),
         "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "odin3_commit": odin_commit, "vtr_commit": vtr_commit,
         **build_check(ns.tree, ns.odin3),

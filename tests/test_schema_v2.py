@@ -76,7 +76,7 @@ class MigrationTests(unittest.TestCase):
         s = Store(d / "v1.db")
         s.export_csv(d / "after.csv")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "3")
+        self.assertEqual(v, "4")
         self.assertEqual(s.db.execute("SELECT * FROM records ORDER BY rowid").fetchall(),
                          rows_before)
         s.close()
@@ -86,6 +86,23 @@ class MigrationTests(unittest.TestCase):
         fresh.add([rec("a", "m", 1.5), rec("b", "m", 2.0), rec("a", "n", 0.1, "x")])
         fresh.export_csv(d / "fresh.csv")
         self.assertEqual((d / "after.csv").read_bytes(), (d / "fresh.csv").read_bytes())
+
+    def test_v3_store_migrates_to_v4_and_a_v3_reader_refuses_v4(self) -> None:
+        d = Path(tmpdir())
+        Store(d / "x.db").close()
+        db = sqlite3.connect(d / "x.db")
+        db.execute("DROP TABLE blob_scrub")  # what a store written by version 3 lacks
+        db.execute("UPDATE meta SET value='3' WHERE key='schema_version'")
+        db.commit()
+        db.close()
+        with self.assertRaises(ValueError):
+            Store(d / "x.db", readonly=True)
+        s = Store(d / "x.db")
+        self.assertEqual(s.db.execute("SELECT value FROM meta WHERE key='schema_version'")
+                         .fetchone()[0], "4")
+        self.assertEqual(s.db.execute("SELECT COUNT(*) FROM blob_scrub").fetchone()[0], 0)
+        s.close()
+        Store(d / "x.db", readonly=True).close()  # a v4 store opens read only, untouched
 
     def test_fixture_is_the_v1_ddl(self) -> None:
         db = sqlite3.connect(FIXTURE)

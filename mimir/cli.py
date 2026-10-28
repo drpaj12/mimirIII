@@ -360,6 +360,9 @@ def build_parser() -> argparse.ArgumentParser:
     from mimir.remotecli import add_parsers
 
     add_parsers(sub)
+    from mimir.hostcli import add_parsers as add_host_parsers
+
+    add_host_parsers(sub)
     return p
 
 

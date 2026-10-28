@@ -73,7 +73,7 @@ class Registry(unittest.TestCase):
         self.assertEqual(doc, render_markdown(items))
 
     def test_no_home_paths_committed(self) -> None:
-        needle = "/home/" + "jamiespa"
+        needle = "/home/" + "jamie" + "spa"
         for path in ROOT.rglob("*"):
             skip = {".git", ".venv", ".mypy_cache", ".ruff_cache", "__pycache__"}
             if path.is_file() and not skip & set(path.parts) and path.suffix in (

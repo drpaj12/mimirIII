@@ -17,7 +17,7 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from mimir import blobs
+from mimir import blobs, hostalias
 from mimir.blif import parse_models
 from mimir.blobs import put_bytes
 from mimir.flowcfg import put_config, run_id_of
@@ -191,7 +191,7 @@ def _detect_one(store: Store, deps: Deps, blob_root: Path, args: argparse.Namesp
         "input_sha256) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (rid, args.slug, cfg, DETECT_SOURCE, args.name, arch, 1, "", "",
          f"loki={commit};odin3={commit_or_unknown(_git(tree, 'rev-parse', 'HEAD'))}",
-         scrub.text(" ".join(argv)), run.time_s, run.peak_rss_mib, os.uname().nodename, origin,
+         scrub.text(" ".join(argv)), run.time_s, run.peak_rss_mib, hostalias.this_host(), origin,
          commit, sha))
     log = scrub.text(f"exit {run.returncode}, status {status}, {run.time_s} s\n"
                      + (f"{note}\n" if note else "")
