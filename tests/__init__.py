@@ -1,10 +1,12 @@
-"""Tests never touch the real private host map: point it at a temp file before any import."""
+"""Tests never touch the real private host map: point it at a fresh, initialised temp map,
+whatever the shell has set (the map is read at call time, so this runs before any use)."""
 
 import os
 import tempfile
 
-if "MIMIR_HOST_MAP" not in os.environ:
-    _base = "/tmp/claude-1000"
-    os.environ["MIMIR_HOST_MAP"] = os.path.join(
-        tempfile.mkdtemp(prefix="mhost-test-", dir=_base if os.path.isdir(_base) else None),
-        "hosts.toml")
+from mimir import hostalias
+
+_base = "/tmp/claude-1000"
+_dir = tempfile.mkdtemp(prefix="mhost-test-", dir=_base if os.path.isdir(_base) else None)
+os.environ["MIMIR_HOST_MAP"] = os.path.join(_dir, "hosts.toml")
+hostalias.init_map()

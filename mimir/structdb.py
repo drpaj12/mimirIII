@@ -243,6 +243,7 @@ def put_run(store: Store, d: DesignInfo, info: dict[str, Any], config: str, inpu
     commit = commit_or_unknown(info["odin3_commit"])
     rid = run_id_of(SOURCE, d.name, arch, seed, "", config, commit, input_sha)
     cmd = " && ".join(scrub.text(" ".join(c)) for c in info["commands"])
+    alias = hostalias.alias_of(str(info["host"]))
     store.db.execute(
         "INSERT OR REPLACE INTO run (run_id, slug, config_hash, source, design, arch, seed, arm, "
         "family, tool_commits, command_line, time_s, peak_rss_mib, host, origin, tool_commit, "
@@ -250,9 +251,9 @@ def put_run(store: Store, d: DesignInfo, info: dict[str, Any], config: str, inpu
         (rid, d.slug, config, SOURCE, d.name, arch, seed, "", "",
          f"odin3={commit};vtr={commit_or_unknown(info['vtr_commit'])}", cmd, info["time_s"],
          info["peak_rss_mib"],
-         f"{hostalias.alias_of(str(info['host']))} {info['kernel']} {info['started_utc']}",
+         f"{alias} {info['kernel']} {info['started_utc']}",
          scrub.text(str(flow_dir)), commit, input_sha))
-    put_host_facts(store, config, hostalias.alias_of(str(info["host"])), info.get("host_facts"))
+    put_host_facts(store, config, alias, info.get("host_facts"))
     return rid
 
 
@@ -374,6 +375,7 @@ def import_flow_dir(store: Store, blobs: Path, flow_dir: Path, d: DesignInfo, de
     if not info["ok"]:
         raise ValueError(f"{flow_dir}: the run did not finish")
     check_hdl_files(info, d)
+    hostalias.alias_of(str(info["host"]))  # known to the map before any text is scrubbed
     spec = build_spec(flow_dir, info, scrub, config_name, vtr_root)
     try:
         cfg = put_config(store, spec)
