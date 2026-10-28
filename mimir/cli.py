@@ -21,7 +21,13 @@ from mimir.flowcfg import (
 )
 from mimir.importers.common import Report
 from mimir.measure import RENT_MAX_NODES, measure_job
-from mimir.meta import Roots, import_mcnc_meta, meta_coverage, register_designs
+from mimir.meta import (
+    Roots,
+    import_licences,
+    import_mcnc_meta,
+    meta_coverage,
+    register_designs,
+)
 from mimir.registry import load_registry
 from mimir.sets import SETS
 from mimir.store import Store
@@ -100,7 +106,13 @@ def _cmd_meta(args: argparse.Namespace) -> int:
     roots = _roots(args)
     n = import_mcnc_meta(store, Path(args.toml), roots)
     m = register_designs(store, roots)
-    print(f"mcnc meta circuits: {n}; designs registered: {m}")
+    try:
+        k = import_licences(store, Path(args.licences))
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+    print(f"mcnc meta circuits: {n}; designs registered: {m}; licences matched: {k}; "
+          "unmatched: 0")
     return 0
 
 
@@ -281,6 +293,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("import-meta", help="MCNC design meta from the toml, then register designs")
     s.add_argument("db")
     s.add_argument("--toml", default="data/meta/mcnc.toml")
+    s.add_argument("--licences", default="data/meta/licences.toml")
     s.add_argument("--vtr", help="VTR checkout (default $VTR_ROOT)")
     s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
     s.add_argument("--loki", help="Loki sources dir (default $MIMIR_LOKI)")
@@ -344,6 +357,9 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--toml", default="citations.toml")
     s.add_argument("--out", default="docs/CITATIONS.md")
     s.set_defaults(fn=_cmd_citations)
+    from mimir.remotecli import add_parsers
+
+    add_parsers(sub)
     return p
 
 

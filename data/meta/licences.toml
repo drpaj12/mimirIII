@@ -1,0 +1,242 @@
+# Licence of every benchmark design in Mimir, recorded as the benchmark states it (Peter 2026-10-27:
+# "keep the licenses in the meta with each of the benchmarks"). Never changed, upgraded or inferred.
+# `none-stated` = the benchmark's own files and documents were read and carry no licence text; any
+# distribution statement they do carry is quoted in licence_notice. Legal conclusions are never
+# recorded as facts here: a scope question is written as an "Open question" in licence_notice.
+# Rules apply to the design slug (fnmatch). Each slug must match exactly one rule: import-meta
+# fails with the list of unmatched slugs, and a test checks the committed design list. A rule with
+# conf = "missing" and licence = "" records that the licence was looked for and not found.
+# conf: primary = read in the benchmark's own file or documentation. Fields written to design_meta:
+# licence, licence_source (file:line or URL, no local paths), licence_notice (text that must
+# travel), licence_rule (the rule id).
+# VTR files cited at commit 3c9a4d23b2 of the VTR repository (vtr_flow/benchmarks/verilog/).
+# `check` entries are machine-checked by tests/test_meta.py when the source is present: the text
+# (comment marks and blanks normalised) must occur in the cited lines of the file. root = vtr
+# ($VTR_ROOT), verilog-eval ($MIMIR_VERILOG_EVAL) or verilog-eval-fork ($MIMIR_VERILOG_EVAL_FORK).
+
+[[rule]]
+id = "vtr-or1200"
+match = ["norns/or1200"]
+licence = "LGPL-2.1-or-later (the file: GNU Lesser General Public License version 2.1 or, at your option, any later version)"
+licence_source = "vtr_flow/benchmarks/verilog/or1200.v:1972-1983"
+licence_notice = "Copyright (C) 2000 Authors and OPENCORES.ORG. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/or1200.v", lines = "1972-1983", text = "Copyright (C) 2000 Authors and OPENCORES.ORG" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/or1200.v", lines = "1972-1983", text = "GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version." },
+]
+
+[[rule]]
+id = "vtr-arm_core"
+match = ["norns/arm_core"]
+licence = "LGPL-2.1-or-later (the file: GNU Lesser General Public License version 2.1 or, at your option, any later version)"
+licence_source = "vtr_flow/benchmarks/verilog/arm_core.v:3263-3274"
+licence_notice = "Copyright (C) 2011 Authors and OPENCORES.ORG. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/arm_core.v", lines = "3263-3274", text = "Copyright (C) 2011 Authors and OPENCORES.ORG" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/arm_core.v", lines = "3263-3274", text = "GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version." },
+]
+
+[[rule]]
+id = "vtr-sha"
+match = ["norns/sha"]
+licence = "opencores permissive notice: may be used and distributed without restriction provided the copyright statement is not removed"
+licence_source = "vtr_flow/benchmarks/verilog/sha.v:14-21"
+licence_notice = "Copyright (C) 2002-2004 marsgod, marsgod@opencores.org. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/sha.v", lines = "14-21", text = "Copyright (C) 2002-2004 marsgod" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/sha.v", lines = "14-21", text = "This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer." },
+]
+
+[[rule]]
+id = "vtr-mkPktMerge"
+match = ["norns/mkPktMerge"]
+licence = "none-stated for the file as a whole; its embedded generic_fifos block carries an opencores permissive notice"
+licence_source = "vtr_flow/benchmarks/verilog/mkPktMerge.v:371-378"
+licence_notice = "Embedded block: Copyright (C) 2000-2002 Rudolf Usselmann, www.asics.ws. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkPktMerge.v", lines = "371-378", text = "Copyright (C) 2000-2002 Rudolf Usselmann" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkPktMerge.v", lines = "371-378", text = "This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer." },
+]
+
+[[rule]]
+id = "vtr-mkDelayWorker32B"
+match = ["norns/mkDelayWorker32B"]
+licence = "none-stated for the file as a whole; its embedded generic_fifos block carries an opencores permissive notice"
+licence_source = "vtr_flow/benchmarks/verilog/mkDelayWorker32B.v:3884-3892"
+licence_notice = "Embedded block: Copyright (C) 2000-2002 Rudolf Usselmann, www.asics.ws. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkDelayWorker32B.v", lines = "3884-3892", text = "Copyright (C) 2000-2002 Rudolf Usselmann" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkDelayWorker32B.v", lines = "3884-3892", text = "This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer." },
+]
+
+[[rule]]
+id = "vtr-mkSMAdapter4B"
+match = ["norns/mkSMAdapter4B"]
+licence = "none-stated for the file as a whole; its embedded generic_fifos block carries an opencores permissive notice"
+licence_source = "vtr_flow/benchmarks/verilog/mkSMAdapter4B.v:3199-3207"
+licence_notice = "Embedded block: Copyright (C) 2000-2002 Rudolf Usselmann, www.asics.ws. \"This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkSMAdapter4B.v", lines = "3199-3207", text = "Copyright (C) 2000-2002 Rudolf Usselmann" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/mkSMAdapter4B.v", lines = "3199-3207", text = "This source file may be used and distributed without restriction provided that this copyright statement is not removed from the file and that any derivative work contains the original copyright notice and the associated disclaimer." },
+]
+
+[[rule]]
+id = "vtr-diffeq2"
+match = ["norns/diffeq2"]
+licence = "none-stated (the header has a no-warranty disclaimer only)"
+licence_source = "vtr_flow/benchmarks/verilog/diffeq2.v:2-27"
+licence_notice = "Header: Author(s) P. Sridhar, Laboratory for Digital Design Environments, University of Cincinnati, June 1991; modified for synthesis by Jay(anta) Roy; \"Source: Written in HardwareC by Rajesh Gupta, Stanford Univ. Obtained from the Highlevel Synthesis Workshop Repository.\" Disclaimer: \"This comes with absolutely no guarantees of any kind (just stating the obvious ...)\"."
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/diffeq2.v", lines = "2-27", text = "Author(s) : P. Sridhar" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/diffeq2.v", lines = "2-27", text = "This comes with absolutely no guarantees of any kind (just stating the obvious ...)" },
+]
+
+[[rule]]
+id = "vtr-blob_merge"
+match = ["norns/blob_merge"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/blob_merge.v:1-3; VTR LICENSE.md:56-58"
+licence_notice = "File header: \"author: Alexander Bochem\", \"date: 07.05.2010\". VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/blob_merge.v", lines = "1-3", text = "author: Alexander Bochem" },
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-stereovision"
+match = ["norns/stereovision*"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/stereovision0.v:1-6; VTR LICENSE.md:56-58"
+licence_notice = "stereovision0 header: \"Ahmad Darabiha\", \"last updated Aug, 2002\". VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/stereovision0.v", lines = "1-6", text = "Ahmad Darabiha" },
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-other-verilog"
+match = ["norns/boundtop", "norns/raygentop", "norns/ch_intrinsics", "norns/diffeq1", "norns/boundtop_nolatches", "norns/raygentop_nolatches", "norns/ch_intrinsics_nolatches"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/ (boundtop, raygentop, ch_intrinsics, diffeq1 and the three _nolatches files were read: none has licence or copyright text); VTR LICENSE.md:56-58"
+licence_notice = "VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-LU"
+match = ["norns/LU8PEEng", "norns/LU32PEEng", "norns/LU64PEEng"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/LU8PEEng.v:1-3 (LU32PEEng.v and LU64PEEng.v have the same three header lines; none of the three has licence or copyright text); VTR LICENSE.md:56-58"
+licence_notice = "File header: \"auto-generated top.v\", \"top level module of LU factorization\", \"by Wei Zhang\". VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/LU8PEEng.v", lines = "1-3", text = "by Wei Zhang" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/LU32PEEng.v", lines = "1-3", text = "by Wei Zhang" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/LU64PEEng.v", lines = "1-3", text = "by Wei Zhang" },
+]
+
+[[rule]]
+id = "vtr-bgm-mcml-spree"
+match = ["norns/bgm", "norns/mcml", "norns/spree"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/bgm.v, mcml.v and spree.v (read: none has licence or copyright text); VTR LICENSE.md:56-58"
+licence_notice = "VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-small-test-circuits"
+match = ["norns/and_latch", "norns/single_ff", "norns/single_wire", "norns/multiclock_output_and_latch", "norns/multiclock_reader_writer", "norns/multiclock_separate_and_latch"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/ and_latch.v, single_ff.v, single_wire.v and the three multiclock_*.v (read: none has licence or copyright text); VTR LICENSE.md:56-58"
+licence_notice = "VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-koios"
+match = ["norns/koios/*", "norns/attention_layer", "norns/bnn", "norns/bwave_like.fixed.large", "norns/bwave_like.fixed.small", "norns/bwave_like.float.large", "norns/bwave_like.float.small", "norns/clstm_like.large", "norns/clstm_like.medium", "norns/clstm_like.small", "norns/complex_dsp_include", "norns/conv_layer", "norns/conv_layer_hls", "norns/dla_like.large", "norns/dla_like.medium", "norns/dla_like.small", "norns/dnnweaver", "norns/eltwise_layer", "norns/gemm_layer", "norns/hard_block_include", "norns/hard_mem_include", "norns/lenet", "norns/lstm", "norns/reduction_layer", "norns/robot_rl", "norns/softmax", "norns/spmv", "norns/tdarknet_like.large", "norns/tdarknet_like.small", "norns/test", "norns/tpu_like.large.os", "norns/tpu_like.large.ws", "norns/tpu_like.small.os", "norns/tpu_like.small.ws"]
+licence = "Koios README: \"Koios benchmarks are distributed under the same license as VTR\" (the VTR LICENSE.md link in that README)"
+licence_source = "vtr_flow/benchmarks/verilog/koios/README.md:124-125; VTR LICENSE.md:7-9,56-58"
+licence_notice = "VTR LICENSE.md: all VTR software, documents and scripts follow the MIT licence \"Unless otherwise noted (in particular ABC, the benchmark circuits and some libraries)\"; \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\" Individual Koios files carry their own copyright text: Xilinx, Inc. (bnn.v:14, lenet.v:8, conv_layer_hls.v:13, tdarknet_like.small.v:10, tdarknet_like.large.v:10), Rudolf Usselmann (spmv.v:3456), The Regents of the University of California (softmax.v:1457)."
+conf = "primary"
+check = [
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/koios/README.md", lines = "124-125", text = "Koios benchmarks are distributed under the" },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/koios/bnn.v", lines = "14-14", text = "Copyright (C) 1986-2019 Xilinx, Inc." },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/koios/softmax.v", lines = "1457-1457", text = "Copyright 2019 The Regents of the University of California." },
+  { root = "vtr", file = "vtr_flow/benchmarks/verilog/koios/spmv.v", lines = "3456-3456", text = "Copyright (C) 2000-2002 Rudolf Usselmann" },
+]
+
+[[rule]]
+id = "vtr-koios-proxy"
+match = ["norns/proxy.*"]
+licence = "none-stated"
+licence_source = "vtr_flow/benchmarks/verilog/koios_proxy/ (README.md and proxy.1.v to proxy.8.v read: no licence or copyright text); VTR LICENSE.md:56-58"
+licence_notice = "VTR LICENSE.md: \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\""
+conf = "primary"
+check = [
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "vtr-micro"
+match = ["micro/*", "loki/*/micro_*"]
+licence = "none-stated"
+licence_source = "odin_ii/regression_test/benchmark/verilog/micro (336 files read: none carries licence or copyright text); odin3 tests/micro/SOURCES.md:3-5 (the micros are byte-identical copies of those files); VTR LICENSE.md:7-9,56-58"
+licence_notice = "VTR LICENSE.md: all VTR software, documents and scripts follow the MIT licence \"Unless otherwise noted (in particular ABC, the benchmark circuits and some libraries)\"; \"The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark.\" MIT notice: Copyright 2012 VTR Developers. Open question (not a conclusion): whether these LICENSE.md sentences apply to the micro files is not stated in the files or in LICENSE.md."
+conf = "primary"
+check = [
+  { root = "vtr", file = "LICENSE.md", lines = "7-9", text = "Unless otherwise noted (in particular ABC, the benchmark circuits and some libraries)," },
+  { root = "vtr", file = "LICENSE.md", lines = "56-58", text = "The benchmark circuits are all open source but each have their own individual terms and conditions which are listed in the source code of each benchmark." },
+]
+
+[[rule]]
+id = "verilogeval"
+match = ["loki/*/ve_*"]
+licence = "MIT (VerilogEval LICENSE, Copyright (c) 2023-2024 NVIDIA Research Projects)"
+licence_source = "verilog-eval LICENSE:1-3; NMSU-PEARL/verilog-eval fork (https://github.com/NMSU-PEARL/verilog-eval, checkout d60f0b1045) LICENSE:1-3, the same file (sha256 57ba983be500462670e5e6de0655ed6fb0a30b4b17be8030ec935bb514b562d1); loki NOTICE:1-3"
+licence_notice = "Keep the MIT copyright and permission notice. Loki NOTICE: VerilogEval \"MIT, Copyright NVIDIA Research Projects, via the NMSU-PEARL fork pinned by Gate-Breaker\" and \"Each fetched design keeps its own licence\". The word HDLBits does not occur in the README.md or LICENSE of either checkout."
+conf = "primary"
+check = [
+  { root = "verilog-eval", file = "LICENSE", lines = "1-3", text = "MIT License Copyright (c) 2023-2024 NVIDIA Research Projects" },
+  { root = "verilog-eval-fork", file = "LICENSE", lines = "1-3", text = "MIT License Copyright (c) 2023-2024 NVIDIA Research Projects" },
+]
+
+[[rule]]
+id = "loki-synthetic"
+match = ["loki/*/r4_*", "loki/*/r4t_*"]
+licence = "MIT (Loki LICENSE, Copyright (c) 2026 drpaj12)"
+licence_source = "loki LICENSE:1-3"
+licence_notice = "Keep the MIT copyright and permission notice."
+conf = "primary"
+
+[[rule]]
+id = "norns-synthetic"
+match = ["norns/n5_*", "norns/r5_*", "norns/r6_*", "norns/r7_*"]
+licence = "MIT (Norns LICENSE, Copyright (c) 2026 drpaj12)"
+licence_source = "norns LICENSE:1-3"
+licence_notice = "Keep the MIT copyright and permission notice."
+conf = "primary"
+
+[[rule]]
+id = "mcnc"
+match = ["mcnc20/*"]
+licence = "none-stated"
+licence_source = "MCNC LGSynth guide v3.0 (Yang 1991) title page (PDF page 1, unnumbered) and p.5; CBL page benchmarks/access.html (web.archive.org snapshot 2002-09-03); LGSynth91.readme; circuit files read, no licence text"
+licence_notice = "Distribution statements the sources carry: guide p.5 \"You are free to copy and distribute material further to your colleagues as long as you don't charge for these services.\"; guide title page \"Its distribution is limited to peer communication and to participants of the workshop.\" and \"This report contains material previously published and distributed by the University of California (Copyright 1979, 1980, 1983, 1986 Regents of the University of California)\"; CBL access policy \"Users may copy and distribute the benchmarks as long as they do not charge for these services. These are NOT 'MCNC benchmarks'.\" Cite as the guide and CBL name them (LGSynth89, LGSynth91, LGSynth93)."
+conf = "primary"
