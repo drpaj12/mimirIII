@@ -175,6 +175,31 @@ def _cmd_import_runrecords(args: argparse.Namespace) -> int:
     return 1 if rep.refused else 0
 
 
+def _cmd_import_timing(args: argparse.Namespace) -> int:
+    from mimir import blobs, timing
+    from mimir.scrub import Scrubber
+
+    store = Store(args.db)
+    scrub = Scrubber({})
+    if args.from_blobs:
+        root = Path(args.blobs) if args.blobs else blobs.default_dir()
+        rows = timing.import_from_blobs(store, root, scrub)
+    else:
+        data = Path(args.file).read_bytes()
+        if args.report:
+            inp = timing.parse_report(data.decode("utf-8", "replace"), timing.sha_of(data),
+                                      args.requested)
+        else:
+            inp = timing.load_attribution_bytes(data)
+        res, _ = timing.import_run(store, args.run_id, inp, scrub, args.analysis_n)
+        rows = [(args.run_id, "truncated" if res.stats.trunc[0] else "ok")]
+    for run_id, status in rows:
+        print(f"{run_id}\t{status}")
+    print(f"runs {len(rows)}, truncated {sum(1 for _, s in rows if s == 'truncated')}, "
+          f"errors {sum(1 for _, s in rows if s.startswith('error'))}")
+    return 1 if any(s.startswith("error") for _, s in rows) else 0
+
+
 def _cmd_run_coverage(args: argparse.Namespace) -> int:
     store = Store(args.db, readonly=True)
     print("source\tstatus\tconfigs\truns")
@@ -342,6 +367,16 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("dir", help="directory searched for mimir-run.json files")
     s.add_argument("--source", default="", help="report only the runs of this source (exact)")
     s.set_defaults(fn=_cmd_import_runrecords)
+    s = sub.add_parser("import-timing", help="near-critical timing data of runs (schema 5)")
+    s.add_argument("db")
+    s.add_argument("file", nargs="?", help="attribution.json, or a VPR report with --report")
+    s.add_argument("--run-id", help="the run the file belongs to")
+    s.add_argument("--report", action="store_true", help="FILE is report_timing.setup.rpt")
+    s.add_argument("--requested", type=int, help="--timing_report_npaths of a report")
+    s.add_argument("--analysis-n", type=int, help="npaths of a timing-only re-run")
+    s.add_argument("--from-blobs", action="store_true", help="every stored `timing` artifact")
+    s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.set_defaults(fn=_cmd_import_timing)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")
     s.set_defaults(fn=_cmd_run_coverage)

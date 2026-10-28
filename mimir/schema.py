@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 4  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 5  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -148,4 +148,28 @@ V4_DDL: tuple[str, ...] = (
         ref_table TEXT NOT NULL, ref_column TEXT NOT NULL, ref_key TEXT NOT NULL,
         scrubbed_from TEXT NOT NULL, blob_sha256 TEXT NOT NULL,
         PRIMARY KEY (ref_table, ref_column, ref_key))""",
+)
+
+
+# Tables added in schema version 5 (docs/specs/2026-10-28-near-critical.md, section 3).
+V5_DDL: tuple[str, ...] = (
+    """CREATE TABLE IF NOT EXISTS timing_run (
+        run_id TEXT PRIMARY KEY, cpd_ns REAL, worst_slack_ns REAL, paths_requested INTEGER,
+        paths_in_report INTEGER NOT NULL, paths_used INTEGER NOT NULL, max_req_ns REAL,
+        dmax_source TEXT NOT NULL, pairs INTEGER NOT NULL, pairs_skipped INTEGER NOT NULL,
+        last_crit REAL, trunc_090 INTEGER NOT NULL, trunc_095 INTEGER NOT NULL,
+        trunc_099 INTEGER NOT NULL, n_endpoints_090 INTEGER NOT NULL,
+        n_endpoints_095 INTEGER NOT NULL, n_endpoints_099 INTEGER NOT NULL,
+        source_kind TEXT NOT NULL CHECK (source_kind IN ('attribution', 'report')),
+        source_sha256 TEXT NOT NULL, analysis_n INTEGER)""",
+    """CREATE TABLE IF NOT EXISTS timing_path_hist (
+        run_id TEXT NOT NULL, bin INTEGER NOT NULL, n INTEGER NOT NULL,
+        PRIMARY KEY (run_id, bin))""",
+    """CREATE TABLE IF NOT EXISTS timing_object (
+        run_id TEXT NOT NULL, kind TEXT NOT NULL
+        CHECK (kind IN ('module', 'span', 'word', 'structure')),
+        object_key TEXT NOT NULL, bit INTEGER NOT NULL DEFAULT -1, via TEXT NOT NULL DEFAULT '',
+        crit_max REAL NOT NULL, n_paths INTEGER NOT NULL, n_paths_090 INTEGER NOT NULL,
+        n_paths_095 INTEGER NOT NULL, n_paths_099 INTEGER NOT NULL, delay_share_090 REAL,
+        PRIMARY KEY (run_id, kind, object_key, bit))""",
 )
