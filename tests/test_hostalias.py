@@ -144,6 +144,10 @@ class RewriteTests(unittest.TestCase):
         ref = load_blob_index(idx)
         self.assertEqual(ref[old].visibility, "withheld")
         self.assertEqual((ref[new].visibility, ref[new].archive), ("public", "arc.tar.xz"))
+        late = blobs.put_bytes(root, b"late clean blob")
+        self.assertEqual(hostscrub.update_blob_index(idx, {}, root, "arc.tar.xz", {late, "0" * 64}),
+                         1)
+        self.assertEqual(load_blob_index(idx)[late].visibility, "public")
 
 
 class PrivacyTests(unittest.TestCase):

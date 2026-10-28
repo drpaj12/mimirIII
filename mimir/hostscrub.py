@@ -109,9 +109,21 @@ def _repoint(db: sqlite3.Connection, table: str, col: str, old: str, new: str) -
     db.execute(f'UPDATE "{table}" SET "{col}" = ? WHERE "{col}" = ?', (new, old))
 
 
-def update_blob_index(idx: Path, mapping: dict[str, str], root: Path, archive: str) -> int:
-    """blobs.tsv.xz: each old sha becomes `withheld`; each new sha is added as `public` in
-    `archive` (a row that exists is kept). Returns the number of rows changed or added."""
+def referenced_blobs(db_path: Path) -> set[str]:
+    """Every sha a blob column of the store holds."""
+    db = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    try:
+        return {str(v) for t, c in blob_columns(db) for (v,) in db.execute(
+            f'SELECT DISTINCT "{c}" FROM "{t}" WHERE "{c}" IS NOT NULL AND "{c}" != \'\'')}
+    finally:
+        db.close()
+
+
+def update_blob_index(idx: Path, mapping: dict[str, str], root: Path, archive: str,
+                      extra: set[str] | None = None) -> int:
+    """blobs.tsv.xz: each old sha becomes `withheld`; each new sha, and each sha of `extra` that
+    the store has and the index lacks, is added as `public` in `archive` (a row that exists is
+    kept). Returns the number of rows changed or added."""
     rows = {sha: (r.xz_bytes, r.raw_bytes, r.archive, r.visibility)
             for sha, r in load_blob_index(idx).items()}
     changed = 0
@@ -123,6 +135,11 @@ def update_blob_index(idx: Path, mapping: dict[str, str], root: Path, archive: s
             raw = blobs.get_bytes(root, new)
             nx = blobs.blob_path(root, new).stat().st_size
             rows[new] = (nx, len(raw), archive, "public")
+            changed += 1
+    for sha in sorted((extra or set()) - set(rows)):
+        if blobs.blob_path(root, sha).exists():
+            raw = blobs.get_bytes(root, sha)
+            rows[sha] = (blobs.blob_path(root, sha).stat().st_size, len(raw), archive, "public")
             changed += 1
     text = "".join(f"{s}\t{a}\t{b}\t{c}\t{d}\n" for s, (a, b, c, d) in sorted(rows.items()))
     write_xz(idx / "blobs.tsv.xz", text.encode())

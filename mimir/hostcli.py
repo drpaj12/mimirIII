@@ -34,7 +34,8 @@ def _cmd_host_alias(args: argparse.Namespace) -> int:
         for old, new in sorted(total.items()):
             print(f"blob\t{old}\t{new}")
         if args.index:
-            n = hostscrub.update_blob_index(Path(args.index), total, root, args.archive)
+            refs = set().union(*(hostscrub.referenced_blobs(d) for d in dbs)) if dbs else set()
+            n = hostscrub.update_blob_index(Path(args.index), total, root, args.archive, refs)
             print(f"blob index rows changed: {n}")
     return 0
 
