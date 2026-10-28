@@ -150,8 +150,12 @@ V4_DDL: tuple[str, ...] = (
         PRIMARY KEY (ref_table, ref_column, ref_key))""",
 )
 
+V5_ALTER = "ALTER TABLE timing_run ADD COLUMN req_spread_ns REAL"
+
 
 # Tables added in schema version 5 (docs/specs/2026-10-28-near-critical.md, section 3).
+# `req_spread_ns` was added to timing_run while v5 was in review: a v5 store without it gets it
+# by ALTER on its next write open (V5_ALTER).
 V5_DDL: tuple[str, ...] = (
     """CREATE TABLE IF NOT EXISTS timing_run (
         run_id TEXT PRIMARY KEY, cpd_ns REAL, worst_slack_ns REAL, paths_requested INTEGER,
@@ -161,7 +165,7 @@ V5_DDL: tuple[str, ...] = (
         trunc_099 INTEGER NOT NULL, n_endpoints_090 INTEGER NOT NULL,
         n_endpoints_095 INTEGER NOT NULL, n_endpoints_099 INTEGER NOT NULL,
         source_kind TEXT NOT NULL CHECK (source_kind IN ('attribution', 'report')),
-        source_sha256 TEXT NOT NULL, analysis_n INTEGER)""",
+        source_sha256 TEXT NOT NULL, analysis_n INTEGER, req_spread_ns REAL)""",
     """CREATE TABLE IF NOT EXISTS timing_path_hist (
         run_id TEXT NOT NULL, bin INTEGER NOT NULL, n INTEGER NOT NULL,
         PRIMARY KEY (run_id, bin))""",

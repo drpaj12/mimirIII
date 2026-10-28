@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import os
+import sqlite3
 import sys
 from collections import Counter
 from collections.abc import Sequence
@@ -191,13 +193,50 @@ def _cmd_import_timing(args: argparse.Namespace) -> int:
                                       args.requested)
         else:
             inp = timing.load_attribution_bytes(data)
-        res, _ = timing.import_run(store, args.run_id, inp, scrub, args.analysis_n)
-        rows = [(args.run_id, "truncated" if res.stats.trunc[0] else "ok")]
+        if args.full_report:
+            fdata = Path(args.full_report).read_bytes()
+            full = timing.exhaustive_extent(timing.parse_report(
+                fdata.decode("utf-8", "replace"), timing.sha_of(fdata), args.full_requested))
+            inp = dataclasses.replace(inp, full=full)
+        try:
+            res, _ = timing.import_run(store, args.run_id, inp, scrub, args.analysis_n)
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        rows = [(args.run_id, timing.status_of(res))]
     for run_id, status in rows:
         print(f"{run_id}\t{status}")
     print(f"runs {len(rows)}, truncated {sum(1 for _, s in rows if s == 'truncated')}, "
           f"errors {sum(1 for _, s in rows if s.startswith('error'))}")
     return 1 if any(s.startswith("error") for _, s in rows) else 0
+
+
+def _cmd_timing_coverage(args: argparse.Namespace) -> int:
+    from mimir import timing
+
+    store = Store(args.db, readonly=True)
+    try:
+        rows = timing.coverage(store)
+    except LookupError as exc:
+        print(str(exc))
+        return 0
+    print("dmax_source\truns\ttruncated\ttruncation unknown\tlower-bound runs")
+    for row in rows:
+        print("\t".join(str(x) for x in row))
+    return 0
+
+
+def _cmd_migrate(args: argparse.Namespace) -> int:
+    if not Path(args.db).is_file():
+        print(f"error: no such store {args.db}", file=sys.stderr)
+        return 2
+    db = sqlite3.connect(f"file:{args.db}?mode=ro", uri=True)
+    row = db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
+    db.close()
+    old = None if row is None else str(row[0])
+    Store(args.db).close()
+    print(f"{args.db}: schema version {old} -> 5")
+    return 0
 
 
 def _cmd_run_coverage(args: argparse.Namespace) -> int:
@@ -376,7 +415,19 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--analysis-n", type=int, help="npaths of a timing-only re-run")
     s.add_argument("--from-blobs", action="store_true", help="every stored `timing` artifact")
     s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.add_argument("--full-report", help="an exhaustive report_timing.setup.rpt of the same "
+                   "run: gives the exact max required time per clock domain pair")
+    s.add_argument("--full-requested", type=int, help="--timing_report_npaths of --full-report "
+                   "(the report must hold fewer paths)")
     s.set_defaults(fn=_cmd_import_timing)
+    s = sub.add_parser("timing-coverage", help="timing runs by max_req basis and truncation "
+                       "(read only; reports 'no timing tables' on a version 4 store)")
+    s.add_argument("db")
+    s.set_defaults(fn=_cmd_timing_coverage)
+    s = sub.add_parser("migrate", help="migrate a store to the current schema version in place "
+                       "(additive; BACK UP the file first: copy it and compare sha256)")
+    s.add_argument("db")
+    s.set_defaults(fn=_cmd_migrate)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")
     s.set_defaults(fn=_cmd_run_coverage)

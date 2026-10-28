@@ -185,8 +185,7 @@ class Migration(unittest.TestCase):
         db.execute("UPDATE meta SET value='4' WHERE key='schema_version'")
         db.commit()
         db.close()
-        with self.assertRaises(ValueError):
-            Store(d / "x.db", readonly=True)
+        Store(d / "x.db", readonly=True).close()  # a v4 store opens read only, as it is
         s = Store(d / "x.db")
         self.assertEqual(s.db.execute("SELECT COUNT(*) FROM timing_object").fetchone()[0], 0)
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
