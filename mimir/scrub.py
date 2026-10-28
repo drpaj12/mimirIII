@@ -5,11 +5,14 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from mimir import hostalias
+
 _HOME = re.compile(r"/home/[^/\s\"':,;()<>]+")
 
 
 class Scrubber:
-    """Replaces known roots by short labels (longest root first), then any other home path."""
+    """Replaces known roots by short labels (longest root first), then any other home path, then
+    a real host name of the private host map by its alias."""
 
     def __init__(self, roots: dict[str, Path | None]) -> None:
         pairs = [(str(p).rstrip("/"), label) for label, p in roots.items() if p is not None]
@@ -18,7 +21,7 @@ class Scrubber:
     def text(self, text: str) -> str:
         for root, label in self.pairs:
             text = text.replace(root, label)
-        return _HOME.sub("$HOME", text)
+        return hostalias.scrub_text(_HOME.sub("$HOME", text))
 
     def path(self, path: str) -> str:
         """A file path as a stable, machine-independent id (`odin3:tests/...`)."""
