@@ -383,3 +383,21 @@ licence_refs = []
 notes = "Not dataset: an Odin development intermediate (controller decision 2026-10-27). Private, never host."
 basis = "controller"
 drop = []
+
+[[archive]]
+archive = "mimir-snapshot-2026-10-28"
+verdict = "pending"
+sources = ["Mimir metrics and structure tables (own, MIT)", "design names and measured numbers of VTR micros, MCNC circuits and VTR big designs"]
+licence_refs = ["mimir/LICENSE (MIT)"]
+notes = "Two stores (structures, lane 3). The dump holds tables only (no HDL text), but the blobs it names hold design HDL, BLIF and VPR outputs of VTR and Norns designs: the hosting verdict per design licence is the controller's. Pending, not decided by the host-alias lane."
+basis = "derived"
+drop = []
+
+[[archive]]
+archive = "mimir-snapshot-2026-10-28-blobs"
+verdict = "pending"
+sources = ["Mimir blob store: design HDL, BLIF, VPR net/place/route, logs and timing of 83 flow runs"]
+licence_refs = ["mimir/LICENSE (MIT)"]
+notes = "815 blobs, scrubbed of the host name, user name and home paths (privacy-check 0 hits). The design sources keep their own licences (VTR micros and big designs); the verdict is the controller's. Pending, not decided by the host-alias lane."
+basis = "derived"
+drop = []

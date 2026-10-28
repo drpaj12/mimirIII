@@ -265,6 +265,50 @@ public_dropped = 0
 public_scrubbed = 0
 
 [[archive]]
+name = "mimir-snapshot-2026-10-28"
+date = "2026-10-28"
+file = "mimir-snapshot-2026-10-28"
+form = "dir"
+kind = "snapshot"
+source = "mimir snapshot dir of the Mimir host-alias lane"
+manifest = "manifests/mimir-snapshot-2026-10-28.tsv.xz"
+visibility = "public"
+licence = "pending"
+sha256 = ""
+size = 0
+members = 4
+urls = []
+public_file = "mimir-snapshot-2026-10-28"
+public_sha256 = ""
+public_size = 0
+public_manifest = "manifests/mimir-snapshot-2026-10-28.public.tsv.xz"
+public_members = 4
+public_dropped = 0
+public_scrubbed = 0
+
+[[archive]]
+name = "mimir-snapshot-2026-10-28-blobs"
+date = "2026-10-28"
+file = "mimir-snapshot-2026-10-28-blobs.tar.xz"
+form = "tar.xz"
+kind = "blobs"
+source = "mimir snapshot dir of the Mimir host-alias lane"
+manifest = "manifests/mimir-snapshot-2026-10-28-blobs.tsv.xz"
+visibility = "public"
+licence = "pending"
+sha256 = "2c6e94e394d746ef376096aeb298176ae380e55f5a1f64aa0a9b24d89a6df691"
+size = 15982516
+members = 815
+urls = []
+public_file = "mimir-snapshot-2026-10-28-blobs.tar.xz"
+public_sha256 = "2c6e94e394d746ef376096aeb298176ae380e55f5a1f64aa0a9b24d89a6df691"
+public_size = 15982516
+public_manifest = "manifests/mimir-snapshot-2026-10-28-blobs.public.tsv.xz"
+public_members = 815
+public_dropped = 0
+public_scrubbed = 0
+
+[[archive]]
 name = "norns-placers-d4-blob_merge"
 date = "2026-10-27"
 file = "norns-placers-d4-blob_merge.tar.xz"
