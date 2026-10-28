@@ -208,3 +208,15 @@ doi = "10.1145/1344671.1344694"
 role = "Routing-demand line for Mimir lane 2: the circuit inputs lambda and R (Sec. 4.1, p. 142 and Sec. 5.1, p. 145-146; spec 5.5)"
 aliases = ["Fang08predict"]
 checked = "2026-10-27, three records agree: the Crossref record of the DOI (lane 1, which found Fang and Rose, 2008), the title page of the local PDF fangfpga08.pdf (title, authors Wei Mark Fang and Jonathan Rose, Toronto), and its ACM copyright block (FPGA'08, February 24-26, 2008, Monterey, California; ISBN 978-1-59593-934-0/08/02). The PDF has 10 pages and the running page number 140 sits on its page 2, so the pages are 139 to 148, as in the Norns joined.bib entry Fang08predict (title, authors, year, pages and DOI agree)."
+
+[[item]]
+id = "wainberg2015relaxed"
+name = "Relaxed criticality"
+kind = "paper"
+authors = "M. Wainberg, V. Betz"
+year = 2015
+title = "Robust Optimization of Multiple Timing Constraints"
+venue = "IEEE Trans. CAD of Integrated Circuits and Systems 34(12), pp. 1942-1953"
+doi = "10.1109/TCAD.2015.2440316"
+role = "The criticality definition VPR 9 uses (relaxed per constraint)"
+checked = "2026-10-28, read from the comment above calc_relaxed_criticality in vpr/src/timing/timing_util.cpp of the VTR checkout at commit 3c9a4d23b2 (authors, title, journal, volume, pages, DOI as VPR's source gives them). Not checked against Crossref, full text not read."
