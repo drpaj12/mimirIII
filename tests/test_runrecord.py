@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 from typing import Any
 
-from mimir.flowcfg import config_coverage
+from mimir.flowcfg import config_coverage, import_runs
 from mimir.runrecord import check_record, coverage, import_runrecords, non_given, record_spec
 from mimir.store import Store
 
@@ -26,15 +26,17 @@ def make_record(seed: int = 1, arm: str = "vpr_sa") -> dict[str, Any]:
         "record_version": 1, "kind": "norns-run", "source": "norns-placers-t", "design": "d1",
         "arch": "arch1", "seed": seed, "arm": arm, "family": "annealing", "host": "host-1",
         "kernel": "6.0", "started_utc": "2026-10-28T00:00:00Z", "ok": True, "time_s": 2.5,
-        "peak_rss_mib": 70.0,
+        "peak_rss_mib": 70.0, "time_conf": "given",
         "steps": [{"name": "vpr", "argv": ["<vpr>", "<arch>", "<blif>", "--seed", str(seed)],
-                   "exit_code": 0, "time_s": 2.5, "peak_rss_mib": 70.0, "locked": True}],
+                   "exit_code": 0, "time_s": 2.5, "peak_rss_mib": 70.0, "time_conf": "given",
+                   "locked": True, "shared": False}],
         "tools": {"vpr": {"commit": COMMIT, "clean": False, "binary_sha256": SHA}},
         "params": {
             "run.seed": param(str(seed)),
             "run.seed_default": param("1", "default", "vtr-tree vpr/src/base/read_options.cpp:7-9"),
             "tool.vpr_commit": param(COMMIT, "given", "vpr --version"),
             "vpr.netlist_opts.x": param("true", "given", "vpr.out:7"),
+            "vpr.placer_opts.seed": param(str(seed), "given", "vpr.out:9"),  # VPR echoes the seed
         },
         "inputs": {"netlist": {"path": "<runs>/d1.blif", "sha256": SHA},
                    "arch": {"path": "<abs>/arch.xml", "sha256": "c" * 64}},
@@ -74,10 +76,85 @@ class CheckRecord(unittest.TestCase):
             (lambda r: r["inputs"]["arch"].update(path="/x/arch.xml"), "relative"),
             (lambda r: r["inputs"]["arch"].update(sha256="zz"), "64 hex"),
             (lambda r: r["steps"][0]["argv"].append("/ho" + "me/u/f"), "absolute"),
+            (lambda r: r["steps"][0]["argv"].append("--x=/tmp/y z"), "absolute"),
+            (lambda r: r["steps"][0]["argv"].append("a:/tmp/y"), "absolute"),
+            (lambda r: r["steps"][0]["argv"].append(3), "non-string"),
+            (lambda r: r["steps"][0].pop("locked"), "missing 'locked'"),
+            (lambda r: r.update(started_utc="2026-10-28"), "started_utc"),
+            (lambda r: r.update(host="host-unmapped"), "host must be"),
+            (lambda r: r["steps"][0].update(time_s=None), "time_s is null exactly"),
+            (lambda r: r.update(time_conf="guess"), "time_conf"),
         ]
         for mutate, fragment in cases:
             with self.subTest(fragment=fragment):
                 self.assert_refused(mutate, fragment)
+
+
+class HostMapContract(unittest.TestCase):
+    """The map format shared with the Norns writer (nornsIII scripts/runrecord.py `host_alias`)."""
+
+    NORNS_LINES = ('# Private map of real host names to aliases. Never commit this file.\n[hosts]\n'
+                   '"alpha" = "host-1"\n"we\\"ird\\\\name" = "host-2"\n')
+
+    def test_reads_lines_in_the_form_the_norns_writer_appends(self) -> None:
+        from mimir import hostalias
+        with tempfile.TemporaryDirectory() as d:
+            m = Path(d) / "hosts.toml"
+            m.write_text(self.NORNS_LINES, encoding="utf-8")
+            self.assertEqual(hostalias.load_map(m), {"alpha": "host-1", 'we"ird\\name': "host-2"})
+            self.assertEqual(hostalias.alias_of("ALPHA", m), "host-1")
+            self.assertEqual(hostalias.alias_of("gamma", m), "host-3")
+
+    def test_norns_writer_appends_to_a_map_mimir_wrote(self) -> None:
+        import importlib.util
+        import os
+
+        from mimir import hostalias
+        src = Path(os.environ.get("NORNS_SCRIPTS", Path.home() / "odin3-ws" / "norns" / "scripts"))
+        if not (src / "runrecord.py").is_file():
+            self.skipTest("nornsIII scripts not found (set NORNS_SCRIPTS)")
+        spec = importlib.util.spec_from_file_location("norns_runrecord", src / "runrecord.py")
+        assert spec is not None and spec.loader is not None
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        if not hasattr(mod, "host_table"):
+            self.skipTest("this nornsIII checkout predates the map-format writer")
+        with tempfile.TemporaryDirectory() as d:
+            m = Path(d) / "hosts.toml"
+            hostalias.init_map(m)
+            self.assertEqual(hostalias.alias_of("first", m), "host-1")
+            self.assertEqual(mod.host_alias("second", m), "host-2")
+            self.assertEqual(hostalias.alias_of("second", m), "host-2")
+            self.assertEqual(hostalias.alias_of("third", m), "host-3")
+
+
+class Messages(unittest.TestCase):
+    def test_refusal_names_the_key_not_the_value(self) -> None:
+        rec = make_record()
+        rec["params"]["a.b"] = param("/ab" + "solute/secretvalue")
+        errs = check_record(rec)
+        self.assertTrue(errs and all("secretvalue" not in e for e in errs), errs)
+        self.assertIn("record.params.a.b.value", errs[0])
+
+    def test_unknown_time_is_null_and_stored_null(self) -> None:
+        rec = make_record()
+        rec["time_s"], rec["time_conf"] = None, "unknown"
+        rec["peak_rss_mib"] = None
+        rec["steps"][0].update(time_s=None, time_conf="unknown", peak_rss_mib=None)
+        self.assertEqual(check_record(rec), [])
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", rec)
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            self.assertEqual(store.db.execute("SELECT time_s, peak_rss_mib FROM run").fetchone(),
+                             (None, None))
+
+    def test_allowed_strings_pass(self) -> None:
+        rec = make_record()
+        rec["steps"][0]["argv"] += ["--route_file", "/dev/null", "vpr/src/base/x.cpp:1-2", "a / b"]
+        rec["params"]["a.b"] = param("1/2 https://x.y/z", "given", "vpr.out:3")
+        self.assertEqual(check_record(rec), [])
 
 
 class Import(unittest.TestCase):
@@ -105,6 +182,79 @@ class Import(unittest.TestCase):
                                "vtr-tree vpr/src/base/read_options.cpp:7-9")])
             self.assertEqual(import_runrecords(store, root).refused, [])  # idempotent
             self.assertEqual(store.db.execute("SELECT COUNT(*) FROM run").fetchone()[0], 2)
+
+    def test_vpr_echoed_seed_does_not_split_the_config(self) -> None:
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            for seed in (1, 2):
+                write(root, f"s{seed}", make_record(seed=seed))
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            self.assertEqual(config_coverage(store), [("norns-placers-t", "full", 1, 2)])
+
+    def test_import_runs_keeps_record_time_and_rss(self) -> None:
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", make_record())
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            before = store.db.execute("SELECT run_id, time_s, peak_rss_mib FROM run").fetchall()
+            import_runs(store, None, None)
+            self.assertEqual(
+                store.db.execute("SELECT run_id, time_s, peak_rss_mib FROM run").fetchall(),
+                before)
+            self.assertEqual(before[0][1:], (2.5, 70.0))
+
+    def test_placer_tool_is_the_run_tool_commit(self) -> None:
+        rec = make_record(arm="ext_nextpnr_sa")
+        rec["tools"]["nextpnr"] = {"commit": "d" * 40, "clean": True, "binary_sha256": SHA}
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", rec)
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            commit, commits = store.db.execute(
+                "SELECT tool_commit, tool_commits FROM run").fetchone()
+            self.assertEqual(commit, "d" * 40)
+            self.assertEqual(commits, f"nextpnr={'d' * 40}; vpr={COMMIT}-dirty")
+
+    def test_clean_not_true_is_dirty(self) -> None:
+        rec = make_record()
+        rec["tools"]["vpr"]["clean"] = None
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", rec)
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            self.assertEqual(store.db.execute("SELECT tool_commits FROM run").fetchone()[0],
+                             f"vpr={COMMIT}-dirty")
+
+    def test_conflicting_reconstructed_config_refuses_the_record(self) -> None:
+        rec = make_record()
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", rec)
+            store = Store(root / "m.db")
+            h = record_spec(rec).config_hash()
+            store.db.execute("INSERT INTO flow_config VALUES (?, 'x', 'other text', "
+                             "'reconstructed', 'full', 'o')", (h,))
+            rep = import_runrecords(store, root)
+            self.assertEqual((len(rep.imported), len(rep.refused)), (0, 1))
+            self.assertIn("config:", rep.refused[0][1][0])
+            self.assertEqual(store.db.execute("SELECT config_text_reconstructed FROM flow_config"
+                                              ).fetchone()[0], "other text")
+
+    def test_source_filter_is_exact_and_root_must_be_a_dir(self) -> None:
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            write(root, "a", make_record())
+            store = Store(root / "m.db")
+            import_runrecords(store, root)
+            self.assertEqual(coverage(store, "norns-placers-t"), [("vpr_sa", "full", 1)])
+            self.assertEqual(coverage(store, "norns%"), [])
+            self.assertEqual(coverage(store, "norns-placers-"), [])
+            with self.assertRaises(NotADirectoryError):
+                import_runrecords(store, root / "nope")
 
     def test_unknown_param_makes_the_config_partial_and_is_named(self) -> None:
         rec = make_record()

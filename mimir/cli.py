@@ -153,7 +153,11 @@ def _cmd_import_runrecords(args: argparse.Namespace) -> int:
     from mimir.runrecord import conf_counts, coverage, import_runrecords, non_given
 
     store = Store(args.db)
-    rep = import_runrecords(store, Path(args.dir))
+    try:
+        rep = import_runrecords(store, Path(args.dir))
+    except NotADirectoryError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
     for rel, errs in rep.refused:
         print(f"refused {rel}")
         for err in errs:
@@ -336,7 +340,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("import-runrecords", help="runs and flow configs from run records")
     s.add_argument("db")
     s.add_argument("dir", help="directory searched for mimir-run.json files")
-    s.add_argument("--source", default="", help="report only sources with this prefix")
+    s.add_argument("--source", default="", help="report only the runs of this source (exact)")
     s.set_defaults(fn=_cmd_import_runrecords)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")

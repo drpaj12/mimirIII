@@ -29,8 +29,9 @@ from mimir.importers.loki import find_datasets
 from mimir.schema import UNKNOWN_CONF
 from mimir.store import Store
 
-__all__ = ["ARCH_REL", "ImportResult", "Spec", "SrcRoots", "UnknownArm", "config_coverage",
-           "import_runs", "loki_spec", "norns_spec", "run_id_of", "unknown_params"]
+__all__ = ["ARCH_REL", "ConfigConflict", "ImportResult", "Spec", "SrcRoots", "UnknownArm",
+           "config_coverage", "import_runs", "loki_spec", "norns_spec", "run_id_of",
+           "unknown_params"]
 
 LOKI_SRC = "meta.json script of the floor"
 _DESIGN_FILE = re.compile(r"(read_verilog[^;]*?)\s+\S+\.(sv|v)\b")
@@ -97,11 +98,27 @@ def loki_runs(loki_root: Path, roots: SrcRoots) -> list[tuple[str, str, str, Spe
 
 # ---------------------------------------------------------------- tables
 
+class ConfigConflict(Exception):
+    """A configuration with this hash is stored with a different text or text kind."""
+
+
+RECORD_ORIGIN = "mimir-run.json"  # run.origin of an imported run record starts with this
+
+
 def put_config(store: Store, spec: Spec) -> str:
+    """Store the configuration if its hash is absent; a stored one is never replaced. A stored
+    row with the same hash but another text or text kind (a reconstructed text against a
+    recorded one) raises ConfigConflict, so the caller can report it."""
     h = spec.config_hash()
-    store.db.execute("INSERT OR REPLACE INTO flow_config VALUES (?, ?, ?, ?, ?, ?)",
+    row = store.db.execute("SELECT config_text_reconstructed, text_kind FROM flow_config "
+                           "WHERE config_hash = ?", (h,)).fetchone()
+    if row is not None:
+        if (row[0], row[1]) != (spec.text, spec.text_kind):
+            raise ConfigConflict(f"a configuration with this hash is stored as {row[1]!r} "
+                                 f"with a different text (new: {spec.text_kind!r})")
+        return h
+    store.db.execute("INSERT INTO flow_config VALUES (?, ?, ?, ?, ?, ?)",
                      (h, spec.name, spec.text, spec.text_kind, spec.status(), spec.origin))
-    store.db.execute("DELETE FROM flow_param WHERE config_hash = ?", (h,))
     store.db.executemany("INSERT OR REPLACE INTO flow_param VALUES (?, ?, ?, ?, ?, ?)",
                          [(h, *p) for p in spec.params])
     return h
@@ -158,7 +175,8 @@ def _put_run(store: Store, key: tuple[str, str, str, int, str], family: str, con
 
 def _fill_time_rss(store: Store) -> int:
     """time_s and peak_rss_mib from the routed-level, bin-less VPR rows. A run with more than one
-    such row (the same run stored twice) is left NULL and counted: the value is ambiguous."""
+    such row (the same run stored twice) is left NULL and counted: the value is ambiguous.
+    Only reconstructed runs are filled: a run imported from a run record keeps its own values."""
     ambiguous = 0
     for col, metric in (("time_s", "vpr.flow_time"), ("peak_rss_mib", "vpr.max_rss")):
         rows = store.db.execute(
@@ -166,7 +184,8 @@ def _fill_time_rss(store: Store) -> int:
             "ON r.source = u.source AND r.design = u.design AND r.arch = u.arch "
             "AND r.seed = u.seed AND r.arm = u.arm AND r.tool_commit = u.tool_commit "
             "AND r.input_sha256 = u.input_sha256 AND r.metric = ? AND r.level = 'routed' "
-            "AND r.bin = '' GROUP BY u.run_id", (metric,)).fetchall()
+            "AND r.bin = '' WHERE u.origin NOT LIKE ? "
+            "GROUP BY u.run_id", (metric, RECORD_ORIGIN + ":%")).fetchall()
         updates = [(value if n == 1 else None, rid) for rid, n, value in rows]
         ambiguous += sum(1 for _, n, _ in rows if n > 1)
         store.db.executemany(f"UPDATE run SET {col} = ? WHERE run_id = ?", updates)

@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from mimir.flowcfg import _put_run, put_config, run_id_of
+from mimir.flowcfg import ConfigConflict, _put_run, put_config, run_id_of
 from mimir.flowspec import Spec
 from mimir.schema import FAMILIES, PARAM_CONF
 from mimir.store import Store
@@ -22,7 +22,11 @@ from mimir.store import Store
 RECORD_VERSION = 1
 KINDS = ("norns-run",)
 FILE_NAME = "mimir-run.json"
-_HOST = re.compile(r"host-(\d+|unmapped)")
+_HOST = re.compile(r"host-\d+")
+_UTC = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
+# an absolute path in a value: a slash that starts the string or follows a blank, `=`, `:`, a
+# quote or a bracket and is followed by a path character (spec section 6); /dev/null is allowed
+_ABS = re.compile(r"(?:^|[\s=,;:'\"(\[])/(?!dev/null(?![\w.-]))[\w.~-]")
 _SHA40 = re.compile(r"[0-9a-f]{40}")
 _SHA64 = re.compile(r"[0-9a-f]{64}")
 _CITE = re.compile(r":\d+(-\d+)?$")
@@ -31,9 +35,12 @@ _REQUIRED: dict[str, type | tuple[type, ...]] = {
     "source": str, "design": str, "arch": str, "seed": int, "arm": str, "family": str,
     "host": str, "kernel": str, "started_utc": str, "steps": list, "tools": dict,
     "params": dict, "inputs": dict, "artifacts": dict, "ok": bool,
-    "time_s": (int, float), "peak_rss_mib": (int, float)}
-_STEP = {"name": str, "argv": list, "exit_code": int, "time_s": (int, float),
-         "peak_rss_mib": (int, float)}
+    "time_s": (int, float, type(None)), "peak_rss_mib": (int, float, type(None)),
+    "time_conf": str}
+_STEP: dict[str, type | tuple[type, ...]] = {
+    "name": str, "argv": list, "exit_code": int, "time_s": (int, float, type(None)),
+    "peak_rss_mib": (int, float, type(None)), "time_conf": str, "locked": bool, "shared": bool}
+_TIME_CONF = ("given", "unknown")
 
 
 @dataclass
@@ -55,13 +62,14 @@ def _type_errors(obj: dict[str, Any], spec: dict[str, Any], where: str) -> list[
     return errs
 
 
-def _strings(obj: object) -> list[str]:
+def _strings(obj: object, where: str = "record") -> list[tuple[str, str]]:
+    """(location, string) of every string in `obj`; the location is a key path, never a value."""
     if isinstance(obj, str):
-        return [obj]
+        return [(where, obj)]
     if isinstance(obj, dict):
-        return [s for v in obj.values() for s in _strings(v)]
+        return [x for k, v in obj.items() for x in _strings(v, f"{where}.{k}")]
     if isinstance(obj, list):
-        return [s for v in obj for s in _strings(v)]
+        return [x for i, v in enumerate(obj) for x in _strings(v, f"{where}[{i}]")]
     return []
 
 
@@ -80,6 +88,16 @@ def _param_errors(params: dict[str, Any]) -> list[str]:
         elif p["conf"] == "default" and not _CITE.search(p["source"]):
             errs.append(f"param {key}: default without a file:line citation")
     return errs
+
+
+def _time_errors(obj: dict[str, Any], where: str) -> list[str]:
+    """`time_conf` is given for a number and unknown for a null: a missing time is never a 0."""
+    conf = obj.get("time_conf")
+    if conf not in _TIME_CONF:
+        return [f"{where}: time_conf must be one of {_TIME_CONF}"]
+    if (obj.get("time_s") is None) != (conf == "unknown"):
+        return [f"{where}: time_s is null exactly when time_conf is unknown"]
+    return []
 
 
 def _file_errors(table: str, files: dict[str, Any]) -> list[str]:
@@ -122,20 +140,26 @@ def check_record(rec: object) -> list[str]:
     if rec["family"] not in FAMILIES:
         errs.append(f"family {rec['family']!r} not in {FAMILIES}")
     if not _HOST.fullmatch(rec["host"]):
-        errs.append("host must be host-<n> or host-unmapped")
+        errs.append("host must be host-<n>")
+    errs += _time_errors(rec, "record")
+    if not _UTC.fullmatch(rec["started_utc"]):
+        errs.append("started_utc must be YYYY-MM-DDTHH:MM:SSZ")
     if not rec["steps"]:
         errs.append("steps: empty")
     for i, st in enumerate(rec["steps"]):
-        errs += (_type_errors(st, _STEP, f"steps[{i}]") if isinstance(st, dict)
-                 else [f"steps[{i}]: not an object"])
+        if not isinstance(st, dict):
+            errs.append(f"steps[{i}]: not an object")
+            continue
+        errs += _type_errors(st, _STEP, f"steps[{i}]") + _time_errors(st, f"steps[{i}]")
+        if isinstance(st.get("argv"), list) and not all(isinstance(a, str) for a in st["argv"]):
+            errs.append(f"steps[{i}]: argv holds a non-string item")
     errs += _tool_errors(rec["tools"]) + _param_errors(rec["params"])
     errs += _file_errors("inputs", rec["inputs"]) + _file_errors("artifacts", rec["artifacts"])
     if "netlist" not in rec["inputs"]:
         errs.append("inputs: the 'netlist' role is required")
-    for s in _strings(rec):
-        if "/home/" in s or "/Users/" in s or (s.startswith("/") and s != "/dev/null"
-                                               and " " not in s):
-            errs.append(f"an absolute path or home path in a string: {s[:40]!r}")
+    for where, text in _strings(rec):
+        if "/home/" in text or "/Users/" in text or _ABS.search(text):
+            errs.append(f"{where}: holds an absolute path or home path (spec section 6)")
             break
     return errs
 
@@ -159,21 +183,23 @@ def record_spec(rec: dict[str, Any]) -> Spec:
 
 
 def _tool_commit(rec: dict[str, Any]) -> str:
+    """The commit of the placer's tool: nextpnr for an external-placer arm, else VPR, else the
+    first tool by name. The other tools stay in `run.tool_commits`."""
     tools = rec["tools"]
-    first = "vpr" if "vpr" in tools else sorted(tools)[0]
-    return str(tools[first]["commit"])
+    names = [n for n in ("nextpnr", "vpr") if n in tools]
+    return str(tools[names[0] if names else sorted(tools)[0]]["commit"])
 
 
 def put_record(store: Store, rec: dict[str, Any], origin: str) -> str:
     """Store one valid record; returns the run's flow_config status."""
     spec = record_spec(rec)
-    h = put_config(store, spec)
+    h = put_config(store, spec)  # ConfigConflict: caught by the caller, the record is refused
     commit = _tool_commit(rec)
     sha = rec["inputs"]["netlist"]["sha256"]
     key = (rec["source"], rec["design"], rec["arch"], rec["seed"], rec["arm"])
     _put_run(store, key, rec["family"], h, commit, sha, origin)
     rid = run_id_of(*key, h, commit, sha)
-    commits = "; ".join(f"{n}={t['commit']}{'' if t['clean'] is not False else '-dirty'}"
+    commits = "; ".join(f"{n}={t['commit']}{'-dirty' if t.get('clean') is not True else ''}"
                         for n, t in sorted(rec["tools"].items()))
     store.db.execute(
         "UPDATE run SET tool_commits = ?, command_line = ?, time_s = ?, peak_rss_mib = ?, "
@@ -185,7 +211,11 @@ def put_record(store: Store, rec: dict[str, Any], origin: str) -> str:
 
 def import_runrecords(store: Store, root: Path) -> ImportReport:
     """Import every `mimir-run.json` under `root`; a record that fails the spec is refused."""
+    if not root.is_dir():
+        raise NotADirectoryError(f"{root.name}: not a directory")
     report = ImportReport()
+    if not store.db.in_transaction:
+        store.db.execute("BEGIN")  # so that RELEASE of a record's savepoint does not commit
     try:
         for path in sorted(root.rglob(FILE_NAME)):
             rel = path.relative_to(root).as_posix()
@@ -198,7 +228,15 @@ def import_runrecords(store: Store, root: Path) -> ImportReport:
             if errs:
                 report.refused.append((rel, errs))
                 continue
-            status = put_record(store, rec, f"{FILE_NAME}:{rel}")
+            try:
+                store.db.execute("SAVEPOINT rec")
+                status = put_record(store, rec, f"{FILE_NAME}:{rel}")
+                store.db.execute("RELEASE rec")
+            except ConfigConflict as exc:
+                store.db.execute("ROLLBACK TO rec")
+                store.db.execute("RELEASE rec")
+                report.refused.append((rel, [f"config: {exc}"]))
+                continue
             report.imported.append((rec["arm"], rec["design"], status))
         store.db.commit()
     except BaseException:
@@ -207,27 +245,35 @@ def import_runrecords(store: Store, root: Path) -> ImportReport:
     return report
 
 
-def coverage(store: Store, source_prefix: str = "") -> list[tuple[str, str, int]]:
-    """(arm, status, runs) of the imported runs whose source starts with `source_prefix`."""
+def _where(source: str) -> tuple[str, tuple[str, ...]]:
+    """The run filter for `source`: exactly that source, or every run when it is empty."""
+    return ("u.source = ?", (source,)) if source else ("1 = 1", ())
+
+
+def coverage(store: Store, source: str = "") -> list[tuple[str, str, int]]:
+    """(arm, status, runs) of the imported runs of `source` (all runs when empty)."""
+    cond, args = _where(source)
     rows = store.db.execute(
         "SELECT u.arm, c.status, COUNT(*) FROM run u JOIN flow_config c "
-        "ON c.config_hash = u.config_hash WHERE u.source LIKE ? GROUP BY 1, 2 ORDER BY 1, 2",
-        (source_prefix + "%",)).fetchall()
+        f"ON c.config_hash = u.config_hash WHERE {cond} GROUP BY 1, 2 ORDER BY 1, 2",
+        args).fetchall()
     return [(a, b, int(n)) for a, b, n in rows]
 
 
-def non_given(store: Store, source_prefix: str = "") -> list[tuple[str, str, str, str]]:
+def non_given(store: Store, source: str = "") -> list[tuple[str, str, str, str]]:
     """(arm, step.key, conf, source) of every non-given parameter of the imported runs."""
+    cond, args = _where(source)
     rows = store.db.execute(
         "SELECT DISTINCT u.arm, p.step || '.' || p.key, p.conf, p.source FROM run u "
-        "JOIN flow_param p ON p.config_hash = u.config_hash WHERE u.source LIKE ? "
-        "AND p.conf != 'given' ORDER BY 1, 2", (source_prefix + "%",)).fetchall()
+        f"JOIN flow_param p ON p.config_hash = u.config_hash WHERE {cond} "
+        "AND p.conf != 'given' ORDER BY 1, 2", args).fetchall()
     return [(a, b, c, d) for a, b, c, d in rows]
 
 
-def conf_counts(store: Store, source_prefix: str = "") -> Counter[str]:
+def conf_counts(store: Store, source: str = "") -> Counter[str]:
+    cond, args = _where(source)
     rows = store.db.execute(
-        "SELECT p.conf, COUNT(DISTINCT u.config_hash || p.step || p.key) FROM run u "
-        "JOIN flow_param p ON p.config_hash = u.config_hash WHERE u.source LIKE ? GROUP BY 1",
-        (source_prefix + "%",)).fetchall()
+        "SELECT p.conf, COUNT(DISTINCT u.config_hash || char(31) || p.step || char(31) || p.key) "
+        f"FROM run u JOIN flow_param p ON p.config_hash = u.config_hash WHERE {cond} GROUP BY 1",
+        args).fetchall()
     return Counter({c: int(n) for c, n in rows})
