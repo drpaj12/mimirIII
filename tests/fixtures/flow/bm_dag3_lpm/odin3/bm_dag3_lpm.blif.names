@@ -1,0 +1,199 @@
+# odin3-names 2 hash=sha256 width=10 prov=1 ast=refs
+O	bm_dag3_lpm	net	h2g7rxidjcc	bm_dag3_lpm/$n49@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	h2ky6ah6jhi	bm_dag3_lpm/$n35@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	h2vqsidr3pg	bm_dag3_lpm/$n46@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	h34zf64kasj	bm_dag3_lpm/$n64@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	h37wwmorszl	bm_dag3_lpm/$n24@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	h3lcyvngpul	bm_dag3_lpm/$n54@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	h5fta72uizv	bm_dag3_lpm/$n62@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	h5pckvqs4p2	bm_dag3_lpm/$n57@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	h5vn4kuvucx	bm_dag3_lpm/d[1]@tests/fixtures/flow/design/bm_dag3_lpm.v:23	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	23	r13	stmt
+O	bm_dag3_lpm	net	h63xgtwfagm	bm_dag3_lpm/$n66@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r14	gate
+O	bm_dag3_lpm	net	h7qxxs4tys5	bm_dag3_lpm/$n40@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	ha3vnyrovke	bm_dag3_lpm/$n41@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	hckuoxnzwpd	bm_dag3_lpm/$n33@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	hcub4e4dpgi	bm_dag3_lpm/c[1]@tests/fixtures/flow/design/bm_dag3_lpm.v:22	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	22	r17	stmt
+O	bm_dag3_lpm	net	hcxnwaokr7h	bm_dag3_lpm/b[1]@tests/fixtures/flow/design/bm_dag3_lpm.v:21	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	21	r18	stmt
+O	bm_dag3_lpm	net	hd2rkc4knt4	bm_dag3_lpm/$n28@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	hdmalay6fgi	bm_dag3_lpm/$n26@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	he6xne3cjfd	bm_dag3_lpm/$n21@tests/fixtures/flow/design/bm_dag3_lpm.v:4	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	4	r19	module
+O	bm_dag3_lpm	net	heat6i3xvrv	bm_dag3_lpm/$n18@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r9	expr
+O	bm_dag3_lpm	net	hetwqselb2p	bm_dag3_lpm/c[0]@tests/fixtures/flow/design/bm_dag3_lpm.v:22	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	22	r17	stmt
+O	bm_dag3_lpm	net	hg4etfszfua	bm_dag3_lpm/b[0]@tests/fixtures/flow/design/bm_dag3_lpm.v:21	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	21	r18	stmt
+O	bm_dag3_lpm	net	hgnncnqh67g	bm_dag3_lpm/a[1]@tests/fixtures/flow/design/bm_dag3_lpm.v:20	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	20	r20	stmt
+O	bm_dag3_lpm	net	hgqbcxo42ya	bm_dag3_lpm/$n30@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	hihwxct7n7q	bm_dag3_lpm/$n56@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	himfz35otpk	bm_dag3_lpm/d[0]@tests/fixtures/flow/design/bm_dag3_lpm.v:23	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	23	r13	stmt
+O	bm_dag3_lpm	net	hipynbzmxoc	bm_dag3_lpm/$n36@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	hisnbwrsw5l	bm_dag3_lpm/$n58@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	hiwm24cdrrt	bm_dag3_lpm/$n65@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	hjbg55dpyy2	bm_dag3_lpm/$n31@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	hjftscaxhp2	bm_dag3_lpm/$n59@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	hjnuqjom2rv	bm_dag3_lpm/$n17@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r9	expr
+O	bm_dag3_lpm	net	hjpd5h33xwj	bm_dag3_lpm/$n50@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	hjraz4sygo2	bm_dag3_lpm/$n55@tests/fixtures/flow/design/bm_dag3_lpm.v:29	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	29	r12	word
+O	bm_dag3_lpm	net	hkekn66ivro	bm_dag3_lpm/$n45@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	hkpxqljwqq5	bm_dag3_lpm/$n27@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	hliicxhzv3f	bm_dag3_lpm/$n39@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	hlkra34jsht	bm_dag3_lpm/$n48@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	hlq25ullgvs	bm_dag3_lpm/$n53@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	hlx63jtdrsj	bm_dag3_lpm/$n22@tests/fixtures/flow/design/bm_dag3_lpm.v:4	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	4	r19	module
+O	bm_dag3_lpm	net	hn6t4hswj3j	bm_dag3_lpm/$n34@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	hnikfrw4iog	bm_dag3_lpm/$n38@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	hof5whes3uf	bm_dag3_lpm/$n42@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	honv7csk4ze	bm_dag3_lpm/$n29@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	hqbqch3hwsi	bm_dag3_lpm/$n8@tests/fixtures/flow/design/bm_dag3_lpm.v:17	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	17	r21	stmt
+O	bm_dag3_lpm	net	hr4hbye7jgr	bm_dag3_lpm/$n52@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	hrh5v4y6tlc	bm_dag3_lpm/$n23@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	hri7qfir5qq	bm_dag3_lpm/$n60@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	hsvh6t57nhv	bm_dag3_lpm/$n47@tests/fixtures/flow/design/bm_dag3_lpm.v:4	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	4	r19	module
+O	bm_dag3_lpm	net	htcrihysw4o	bm_dag3_lpm/$n51@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r2	word
+O	bm_dag3_lpm	net	hu2jssmlss3	bm_dag3_lpm/$n32@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r16	word
+O	bm_dag3_lpm	net	huars6cbprb	bm_dag3_lpm/$n63@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	hueorq6nix6	bm_dag3_lpm/$n25@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r10	word
+O	bm_dag3_lpm	net	huyd6mafvzi	bm_dag3_lpm/a[0]@tests/fixtures/flow/design/bm_dag3_lpm.v:20	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	20	r20	stmt
+O	bm_dag3_lpm	net	hvxnlni6uci	bm_dag3_lpm/$n67@tests/fixtures/flow/design/bm_dag3_lpm.v:28	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	28	r22	gate
+O	bm_dag3_lpm	net	hxb6pqi4alt	bm_dag3_lpm/$n37@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r4	word
+O	bm_dag3_lpm	net	hxbyhi6xt7n	bm_dag3_lpm/$n43@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	hxomoxee6ge	bm_dag3_lpm/$n19@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r15	expr
+O	bm_dag3_lpm	net	hxqyzsyqlub	bm_dag3_lpm/$n44@tests/fixtures/flow/design/bm_dag3_lpm.v:27	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	27	r6	word
+O	bm_dag3_lpm	net	hyprgq3sbug	bm_dag3_lpm/$n7@tests/fixtures/flow/design/bm_dag3_lpm.v:17	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	17	r21	stmt
+O	bm_dag3_lpm	net	hyxzhtr4oxq	bm_dag3_lpm/$n61@tests/fixtures/flow/design/bm_dag3_lpm.v:30	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	30	r8	word
+O	bm_dag3_lpm	net	hz6ua4mfz4x	bm_dag3_lpm/$n20@tests/fixtures/flow/design/bm_dag3_lpm.v:26	bm_dag3_lpm	tests/fixtures/flow/design/bm_dag3_lpm.v	26	r15	expr
+N	bm_dag3_lpm	net	a_in[0]	r23	stmt
+N	bm_dag3_lpm	net	a_in[1]	r23	stmt
+N	bm_dag3_lpm	net	b_in[0]	r24	stmt
+N	bm_dag3_lpm	net	b_in[1]	r24	stmt
+N	bm_dag3_lpm	net	clock	r25	stmt
+N	bm_dag3_lpm	net	reset_n	r26	stmt
+R	r1	S	expr	origin	t1.1		f1:28.12-28.20	c4	hier=bm_dag3_lpm
+R	r2	D	word	rewrite:word	t2.5	r1			
+R	r3	S	expr	origin	t1.1		f1:26.14-26.27	c7	hier=bm_dag3_lpm
+R	r4	D	word	rewrite:word	t2.3	r3			
+R	r5	S	expr	origin	t1.1		f1:27.12-27.20	c10	hier=bm_dag3_lpm
+R	r6	D	word	rewrite:word	t2.4	r5			
+R	r7	S	expr	origin	t1.1		f1:30.12-30.20	c13	hier=bm_dag3_lpm
+R	r8	D	word	rewrite:word	t2.7	r7			
+R	r9	S	expr	origin	t1.1		f1:26.14-26.19	c15	hier=bm_dag3_lpm
+R	r10	D	word	rewrite:word	t2.1	r9			
+R	r11	S	expr	origin	t1.1		f1:29.12-29.23	c18	hier=bm_dag3_lpm
+R	r12	D	word	rewrite:word	t2.6	r11			
+R	r13	S	stmt	origin	t1.1		f1:23.21-23.22	c20	hier=bm_dag3_lpm
+R	r14	D	gate	refine:word	t3.1	r2			
+R	r15	S	expr	origin	t1.1		f1:26.14-26.23	c14	hier=bm_dag3_lpm
+R	r16	D	word	rewrite:word	t2.2	r15			
+R	r17	S	stmt	origin	t1.1		f1:22.21-22.22	c22	hier=bm_dag3_lpm
+R	r18	S	stmt	origin	t1.1		f1:21.21-21.22	c24	hier=bm_dag3_lpm
+R	r19	S	module	origin	t1.1		f1:4.1-32.10	c1	hier=bm_dag3_lpm
+R	r20	S	stmt	origin	t1.1		f1:20.21-20.22	c26	hier=bm_dag3_lpm
+R	r21	S	stmt	origin	t1.1		f1:17.1-17.24	c27	hier=bm_dag3_lpm
+R	r22	D	gate	refine:word	t3.2	r2			
+R	r23	S	stmt	origin	t1.1		f1:14.1-14.24	c28	hier=bm_dag3_lpm
+R	r24	S	stmt	origin	t1.1		f1:15.1-15.24	c29	hier=bm_dag3_lpm
+R	r25	S	stmt	origin	t1.1		f1:11.1-11.13	c30	hier=bm_dag3_lpm
+R	r26	S	stmt	origin	t1.1		f1:12.1-12.16	c31	hier=bm_dag3_lpm
+R	r27	D	ble	coarsen:lut	t4.1	r10			
+R	r28	D	ble	coarsen:lut	t4.1	r10,r2		c6,c3	join
+R	r29	D	ble	coarsen:lut	t4.1	r14,r2,r22			
+R	r30	D	clb	coarsen:ble	t4.2	r27,r28,r29			
+R	r31	D	site	rewrite:clb	t5.1	r30			x=3,y=3,sub=0,layer=0
+R	r32	D	ble	coarsen:lut	t4.1	r16			
+R	r33	D	ble	coarsen:lut	t4.1	r16			
+R	r34	D	clb	coarsen:ble	t4.2	r32,r33			
+R	r35	D	site	rewrite:clb	t5.1	r34			x=1,y=3,sub=0,layer=0
+R	r36	D	ble	coarsen:lut	t4.1	r4			
+R	r37	D	ble	coarsen:lut	t4.1	r4			
+R	r38	D	clb	coarsen:ble	t4.2	r36,r37			
+R	r39	D	site	rewrite:clb	t5.1	r38			x=1,y=1,sub=0,layer=0
+R	r40	D	ble	coarsen:lut	t4.1	r12			
+R	r41	D	ble	coarsen:lut	t4.1	r12			
+R	r42	D	clb	coarsen:ble	t4.2	r40,r41			
+R	r43	D	site	rewrite:clb	t5.1	r42			x=3,y=1,sub=0,layer=0
+R	r44	D	ble	coarsen:lut	t4.1	r6			
+R	r45	D	ble	coarsen:lut	t4.1	r6			
+R	r46	D	clb	coarsen:ble	t4.2	r44,r45			
+R	r47	D	site	rewrite:clb	t5.1	r46			x=3,y=2,sub=0,layer=0
+R	r48	D	ble	coarsen:lut	t4.1	r8			
+R	r49	D	ble	coarsen:lut	t4.1	r8			
+R	r50	D	clb	coarsen:ble	t4.2	r48,r49			
+R	r51	D	site	rewrite:clb	t5.1	r50			x=1,y=2,sub=0,layer=0
+R	r52	D	clb	coarsen:ble	t4.2				
+R	r53	D	site	rewrite:clb	t5.1	r52			x=0,y=1,sub=0,layer=0
+R	r54	D	clb	coarsen:ble	t4.2				
+R	r55	D	site	rewrite:clb	t5.1	r54			x=0,y=1,sub=1,layer=0
+R	r56	D	clb	coarsen:ble	t4.2	r23			
+R	r57	D	site	rewrite:clb	t5.1	r56			x=3,y=0,sub=0,layer=0
+R	r58	D	clb	coarsen:ble	t4.2	r23			
+R	r59	D	site	rewrite:clb	t5.1	r58			x=3,y=0,sub=5,layer=0
+R	r60	D	clb	coarsen:ble	t4.2	r24			
+R	r61	D	site	rewrite:clb	t5.1	r60			x=4,y=1,sub=6,layer=0
+R	r62	D	clb	coarsen:ble	t4.2	r24			
+R	r63	D	site	rewrite:clb	t5.1	r62			x=2,y=0,sub=4,layer=0
+C	c1	MODULE	module		f1	4.1-32.10	bm_dag3_lpm
+C	c2	CONT_ASSIGN	block	c1	f1	28.1-28.21	
+C	c3	NET_ASSIGN	block	c2	f1	28.8-28.20	
+C	c4	BINARY	expr	c3	f1	28.12-28.20	
+C	c5	CONT_ASSIGN	block	c1	f1	26.1-26.28	
+C	c6	NET_ASSIGN	block	c5	f1	26.8-26.27	
+C	c7	BINARY	expr	c6	f1	26.14-26.27	
+C	c8	CONT_ASSIGN	block	c1	f1	27.1-27.21	
+C	c9	NET_ASSIGN	block	c8	f1	27.8-27.20	
+C	c10	BINARY	expr	c9	f1	27.12-27.20	
+C	c11	CONT_ASSIGN	block	c1	f1	30.1-30.21	
+C	c12	NET_ASSIGN	block	c11	f1	30.8-30.20	
+C	c13	BINARY	expr	c12	f1	30.12-30.20	
+C	c14	BINARY	expr	c7	f1	26.14-26.23	
+C	c15	BINARY	expr	c14	f1	26.14-26.19	
+C	c16	CONT_ASSIGN	block	c1	f1	29.1-29.24	
+C	c17	NET_ASSIGN	block	c16	f1	29.8-29.23	
+C	c18	BINARY	expr	c17	f1	29.12-29.23	
+C	c19	NET_DECL	stmt	c1	f1	23.1-23.23	
+C	c20	DECLARATOR	stmt	c19	f1	23.21-23.22	d
+C	c21	NET_DECL	stmt	c1	f1	22.1-22.23	
+C	c22	DECLARATOR	stmt	c21	f1	22.21-22.22	c
+C	c23	NET_DECL	stmt	c1	f1	21.1-21.23	
+C	c24	DECLARATOR	stmt	c23	f1	21.21-21.22	b
+C	c25	NET_DECL	stmt	c1	f1	20.1-20.23	
+C	c26	DECLARATOR	stmt	c25	f1	20.21-20.22	a
+C	c27	PORT_DECL	stmt	c1	f1	17.1-17.24	
+C	c28	PORT_DECL	stmt	c1	f1	14.1-14.24	
+C	c29	PORT_DECL	stmt	c1	f1	15.1-15.24	
+C	c30	PORT_DECL	stmt	c1	f1	11.1-11.13	
+C	c31	PORT_DECL	stmt	c1	f1	12.1-12.16	
+F	f1	tests/fixtures/flow/design/bm_dag3_lpm.v
+T	t1	read_verilog	--nolatches --vtr-compat --prov-ast refs "tests/fixtures/flow/design/bm_dag3_lpm.v"	
+T	t2	hardmap		multiply=0 adder=28 chains=7 sp_slices=0 dp_slices=0 soft=0
+T	t3	lower		modules=1 cells=2 nodes=2
+T	t4	pack		clbs=12 bles=13 atoms=31 net=bm_dag3_lpm.net
+T	t5	place		sites=12 place=bm_dag3_lpm.place
+A	hrh5v4y6tlc	r27,r30,r31	-
+A	hueorq6nix6	r27,r30,r31	-
+A	hdmalay6fgi	r28,r30,r31	-
+A	hlkra34jsht	r28,r30,r31	-
+A	h63xgtwfagm	r29,r30,r31	-
+A	hjpd5h33xwj	r29,r30,r31	-
+A	hvxnlni6uci	r29,r30,r31	-
+A	htcrihysw4o	r29,r30,r31	-
+A	gnd	r30,r31	-
+A	vcc	r30,r31	-
+A	honv7csk4ze	r32,r34,r35	-
+A	hjbg55dpyy2	r32,r34,r35	-
+A	hu2jssmlss3	r33,r34,r35	-
+A	h2ky6ah6jhi	r36,r38,r39	-
+A	hxb6pqi4alt	r36,r38,r39	-
+A	hnikfrw4iog	r37,r38,r39	-
+A	h3lcyvngpul	r40,r42,r43	-
+A	hihwxct7n7q	r40,r42,r43	-
+A	h5pckvqs4p2	r41,r42,r43	-
+A	ha3vnyrovke	r44,r46,r47	-
+A	hxbyhi6xt7n	r44,r46,r47	-
+A	hxqyzsyqlub	r45,r46,r47	-
+A	hri7qfir5qq	r48,r50,r51	-
+A	h5fta72uizv	r48,r50,r51	-
+A	huars6cbprb	r49,r50,r51	-
+A	out:out[1]	r52,r53	-
+A	out:out[0]	r54,r55	-
+A	a_in[0]	r56,r57	-
+A	a_in[1]	r58,r59	-
+A	b_in[0]	r60,r61	-
+A	b_in[1]	r62,r63	-

@@ -1,0 +1,667 @@
+{
+ "schema_version": 1,
+ "design": {
+  "top": "bm_dag3_lpm",
+  "flow_dir": "/flow-out",
+  "report": "/flow-out/vpr/run/report_timing.setup.rpt",
+  "blif": "/flow-out/odin3/bm_dag3_lpm.blif",
+  "provenance_blif": "",
+  "netlist_json": "/flow-out/timing/netlist.odin3.json",
+  "name_map": "/flow-out/odin3/bm_dag3_lpm.blif.names"
+ },
+ "timing": {
+  "cpd_ns": 4.91291,
+  "fmax_mhz": 203.545,
+  "paths_requested": 100,
+  "paths_limit": 100,
+  "paths_in_report": 2,
+  "paths_kept": 2,
+  "paths_parsed": 2,
+  "paths_skipped": 0,
+  "paths_skipped_reasons": {},
+  "worst_slack_ns": -4.913,
+  "critical_data_delay_ns": 4.913
+ },
+ "coverage": {
+  "nodes": 15,
+  "matched": 11,
+  "port": 4,
+  "unmatched": 0,
+  "matched_share": 0.733333,
+  "port_share": 0.266667,
+  "unmatched_share": 0.0,
+  "matched_share_excl_port": 1.0,
+  "critical_matched_delay_share": 0.893548,
+  "critical_port_delay_share": 0.106452,
+  "critical_unmatched_delay_share": 0.0,
+  "unmatched_atoms": [],
+  "unmatched_atoms_total": 0,
+  "source_files": 1,
+  "source_files_unreadable": 0,
+  "source_files_unreadable_list": [],
+  "net_nodes": 11,
+  "span_nodes": 11,
+  "loc_nodes": 11,
+  "chain_nodes": 11,
+  "generated_nodes": 11,
+  "generated_word_nodes": 0,
+  "span_share": 1.0,
+  "loc_share": 1.0,
+  "chain_share": 1.0,
+  "generated_word_share": 0.0
+ },
+ "critical_path": {
+  "index": 1,
+  "slack_ns": -4.913,
+  "arrival_ns": 4.913,
+  "required_ns": 0.0,
+  "startpoint": "a_in[0].inpad[0] (.input clocked by virtual_io_clock)",
+  "endpoint": "out:out[1].outpad[0] (.output clocked by virtual_io_clock)",
+  "data_delay_ns": 4.913,
+  "spans": [
+   {
+    "span": null,
+    "kind": "port",
+    "module": "bm_dag3_lpm",
+    "file": null,
+    "line": null,
+    "words": [
+     "a_in"
+    ],
+    "words_via": {
+     "a_in": [
+      "pad"
+     ]
+    },
+    "cell_delay_ns": 0.0,
+    "net_delay_ns": 0.523,
+    "atoms": [
+     "a_in[0]"
+    ],
+    "loc": null,
+    "chain": [],
+    "chain_text": null,
+    "delay_ns": 0.523,
+    "share": 0.106452
+   },
+   {
+    "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+    "kind": "matched",
+    "module": "bm_dag3_lpm",
+    "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+    "line": 29,
+    "words": [],
+    "words_via": {},
+    "cell_delay_ns": 0.6,
+    "net_delay_ns": 0.585,
+    "atoms": [
+     "hihwxct7n7q",
+     "h5pckvqs4p2"
+    ],
+    "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:29.12-29.23",
+    "chain": [
+     {
+      "level": "expr",
+      "kind": "BINARY",
+      "name": "",
+      "span": "29.12-29.23"
+     },
+     {
+      "level": "block",
+      "kind": "NET_ASSIGN",
+      "name": "",
+      "span": "29.8-29.23"
+     },
+     {
+      "level": "block",
+      "kind": "CONT_ASSIGN",
+      "name": "",
+      "span": "29.1-29.24"
+     },
+     {
+      "level": "module",
+      "kind": "MODULE",
+      "name": "bm_dag3_lpm",
+      "span": "4.1-32.10"
+     }
+    ],
+    "chain_text": "expr BINARY 29.12-29.23 < block NET_ASSIGN 29.8-29.23 < block CONT_ASSIGN 29.1-29.24 < module MODULE bm_dag3_lpm 4.1-32.10",
+    "delay_ns": 1.185,
+    "share": 0.241197
+   },
+   {
+    "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:27",
+    "kind": "matched",
+    "module": "bm_dag3_lpm",
+    "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+    "line": 27,
+    "words": [],
+    "words_via": {},
+    "cell_delay_ns": 0.3,
+    "net_delay_ns": 0.561,
+    "atoms": [
+     "hxqyzsyqlub"
+    ],
+    "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:27.12-27.20",
+    "chain": [
+     {
+      "level": "expr",
+      "kind": "BINARY",
+      "name": "",
+      "span": "27.12-27.20"
+     },
+     {
+      "level": "block",
+      "kind": "NET_ASSIGN",
+      "name": "",
+      "span": "27.8-27.20"
+     },
+     {
+      "level": "block",
+      "kind": "CONT_ASSIGN",
+      "name": "",
+      "span": "27.1-27.21"
+     },
+     {
+      "level": "module",
+      "kind": "MODULE",
+      "name": "bm_dag3_lpm",
+      "span": "4.1-32.10"
+     }
+    ],
+    "chain_text": "expr BINARY 27.12-27.20 < block NET_ASSIGN 27.8-27.20 < block CONT_ASSIGN 27.1-27.21 < module MODULE bm_dag3_lpm 4.1-32.10",
+    "delay_ns": 0.861,
+    "share": 0.175249
+   },
+   {
+    "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+    "kind": "matched",
+    "module": "bm_dag3_lpm",
+    "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+    "line": 26,
+    "words": [],
+    "words_via": {},
+    "cell_delay_ns": 0.9,
+    "net_delay_ns": 1.444,
+    "atoms": [
+     "hdmalay6fgi",
+     "hu2jssmlss3",
+     "hnikfrw4iog"
+    ],
+    "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.19",
+    "chain": [
+     {
+      "level": "expr",
+      "kind": "BINARY",
+      "name": "",
+      "span": "26.14-26.19"
+     },
+     {
+      "level": "expr",
+      "kind": "BINARY",
+      "name": "",
+      "span": "26.14-26.23"
+     },
+     {
+      "level": "expr",
+      "kind": "BINARY",
+      "name": "",
+      "span": "26.14-26.27"
+     },
+     {
+      "level": "block",
+      "kind": "NET_ASSIGN",
+      "name": "",
+      "span": "26.8-26.27"
+     },
+     {
+      "level": "block",
+      "kind": "CONT_ASSIGN",
+      "name": "",
+      "span": "26.1-26.28"
+     },
+     {
+      "level": "module",
+      "kind": "MODULE",
+      "name": "bm_dag3_lpm",
+      "span": "4.1-32.10"
+     }
+    ],
+    "chain_text": "expr BINARY 26.14-26.19 < expr BINARY 26.14-26.23 < expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10",
+    "delay_ns": 2.344,
+    "share": 0.477102
+   },
+   {
+    "span": null,
+    "kind": "port",
+    "module": "bm_dag3_lpm",
+    "file": null,
+    "line": null,
+    "words": [
+     "out"
+    ],
+    "words_via": {
+     "out": [
+      "pad"
+     ]
+    },
+    "cell_delay_ns": 0.0,
+    "net_delay_ns": 0.0,
+    "atoms": [
+     "out:out[1]"
+    ],
+    "loc": null,
+    "chain": [],
+    "chain_text": null,
+    "delay_ns": 0.0,
+    "share": 0.0
+   }
+  ]
+ },
+ "spans": [
+  {
+   "id": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+   "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+   "line": 26,
+   "text": "assign out = a + b + c + d;",
+   "modules": [
+    "bm_dag3_lpm"
+   ],
+   "words": [],
+   "words_via": {},
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 6,
+   "critical_delay_ns": 2.344,
+   "critical_share": 0.477102,
+   "assigned_word": "out"
+  },
+  {
+   "id": "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+   "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+   "line": 29,
+   "text": "assign c = a_in + b_in;",
+   "modules": [
+    "bm_dag3_lpm"
+   ],
+   "words": [],
+   "words_via": {},
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 3,
+   "critical_delay_ns": 1.185,
+   "critical_share": 0.241197,
+   "assigned_word": "c"
+  },
+  {
+   "id": "tests/fixtures/flow/design/bm_dag3_lpm.v:27",
+   "file": "tests/fixtures/flow/design/bm_dag3_lpm.v",
+   "line": 27,
+   "text": "assign a = b_in + c;",
+   "modules": [
+    "bm_dag3_lpm"
+   ],
+   "words": [],
+   "words_via": {},
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 2,
+   "critical_delay_ns": 0.861,
+   "critical_share": 0.175249,
+   "assigned_word": "a"
+  }
+ ],
+ "modules": [
+  {
+   "module": "bm_dag3_lpm",
+   "words": [
+    "a_in",
+    "out"
+   ],
+   "port_nodes": 4,
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 15,
+   "critical_delay_ns": 4.913,
+   "critical_share": 1.0
+  }
+ ],
+ "words": [
+  {
+   "module": "bm_dag3_lpm",
+   "word": "a_in",
+   "port": true,
+   "bits": [
+    0
+   ],
+   "word_via": [
+    "pad"
+   ],
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 2,
+   "critical_delay_ns": 0.523,
+   "critical_share": 0.106452
+  },
+  {
+   "module": "bm_dag3_lpm",
+   "word": "out",
+   "port": true,
+   "bits": [
+    0,
+    1
+   ],
+   "word_via": [
+    "pad"
+   ],
+   "paths_through": 2,
+   "worst_slack_ns": -4.913,
+   "nodes": 2,
+   "critical_delay_ns": 0.0,
+   "critical_share": 0.0
+  }
+ ],
+ "paths": [
+  {
+   "index": 1,
+   "slack_ns": -4.913,
+   "arrival_ns": 4.913,
+   "required_ns": 0.0,
+   "startpoint": "a_in[0].inpad[0] (.input clocked by virtual_io_clock)",
+   "endpoint": "out:out[1].outpad[0] (.output clocked by virtual_io_clock)",
+   "nodes": [
+    {
+     "atom": "a_in[0]",
+     "block_type": ".input",
+     "pins": [
+      "inpad[0]"
+     ],
+     "cell_delay_ns": 0.0,
+     "net_delay_in_ns": 0.0,
+     "delay_ns": 0.523,
+     "category": "port",
+     "span": null,
+     "module": "bm_dag3_lpm",
+     "word": "a_in",
+     "bit": 0,
+     "word_via": "pad",
+     "loc": null,
+     "chain_text": null
+    },
+    {
+     "atom": "hihwxct7n7q",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "cout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.523,
+     "delay_ns": 0.3,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:29.12-29.23",
+     "chain_text": "expr BINARY 29.12-29.23 < block NET_ASSIGN 29.8-29.23 < block CONT_ASSIGN 29.1-29.24 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "h5pckvqs4p2",
+     "block_type": "adder",
+     "pins": [
+      "cin[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.0,
+     "delay_ns": 0.885,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:29.12-29.23",
+     "chain_text": "expr BINARY 29.12-29.23 < block NET_ASSIGN 29.8-29.23 < block CONT_ASSIGN 29.1-29.24 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hxqyzsyqlub",
+     "block_type": "adder",
+     "pins": [
+      "b[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.585,
+     "delay_ns": 0.861,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:27",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:27.12-27.20",
+     "chain_text": "expr BINARY 27.12-27.20 < block NET_ASSIGN 27.8-27.20 < block CONT_ASSIGN 27.1-27.21 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hdmalay6fgi",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.561,
+     "delay_ns": 0.86,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.19",
+     "chain_text": "expr BINARY 26.14-26.19 < expr BINARY 26.14-26.23 < expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hu2jssmlss3",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.56,
+     "delay_ns": 0.876,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.23",
+     "chain_text": "expr BINARY 26.14-26.23 < expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hnikfrw4iog",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.576,
+     "delay_ns": 0.608,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.27",
+     "chain_text": "expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "out:out[1]",
+     "block_type": ".output",
+     "pins": [
+      "outpad[0]"
+     ],
+     "cell_delay_ns": 0.0,
+     "net_delay_in_ns": 0.308,
+     "delay_ns": 0.0,
+     "category": "port",
+     "span": null,
+     "module": "bm_dag3_lpm",
+     "word": "out",
+     "bit": 1,
+     "word_via": "pad",
+     "loc": null,
+     "chain_text": null
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "slack_ns": -4.312,
+   "arrival_ns": 4.312,
+   "required_ns": 0.0,
+   "startpoint": "a_in[0].inpad[0] (.input clocked by virtual_io_clock)",
+   "endpoint": "out:out[0].outpad[0] (.output clocked by virtual_io_clock)",
+   "nodes": [
+    {
+     "atom": "a_in[0]",
+     "block_type": ".input",
+     "pins": [
+      "inpad[0]"
+     ],
+     "cell_delay_ns": 0.0,
+     "net_delay_in_ns": 0.0,
+     "delay_ns": 0.523,
+     "category": "port",
+     "span": null,
+     "module": "bm_dag3_lpm",
+     "word": "a_in",
+     "bit": 0,
+     "word_via": "pad",
+     "loc": null,
+     "chain_text": null
+    },
+    {
+     "atom": "hihwxct7n7q",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.523,
+     "delay_ns": 0.8,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:29",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:29.12-29.23",
+     "chain_text": "expr BINARY 29.12-29.23 < block NET_ASSIGN 29.8-29.23 < block CONT_ASSIGN 29.1-29.24 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hxbyhi6xt7n",
+     "block_type": "adder",
+     "pins": [
+      "b[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.5,
+     "delay_ns": 0.78,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:27",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:27.12-27.20",
+     "chain_text": "expr BINARY 27.12-27.20 < block NET_ASSIGN 27.8-27.20 < block CONT_ASSIGN 27.1-27.21 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hueorq6nix6",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.48,
+     "delay_ns": 0.859,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.19",
+     "chain_text": "expr BINARY 26.14-26.19 < expr BINARY 26.14-26.23 < expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hjbg55dpyy2",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.559,
+     "delay_ns": 0.861,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.23",
+     "chain_text": "expr BINARY 26.14-26.23 < expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "hxb6pqi4alt",
+     "block_type": "adder",
+     "pins": [
+      "a[0]",
+      "sumout[0]"
+     ],
+     "cell_delay_ns": 0.3,
+     "net_delay_in_ns": 0.561,
+     "delay_ns": 0.488,
+     "category": "matched",
+     "span": "tests/fixtures/flow/design/bm_dag3_lpm.v:26",
+     "module": "bm_dag3_lpm",
+     "word": null,
+     "bit": null,
+     "word_via": null,
+     "loc": "tests/fixtures/flow/design/bm_dag3_lpm.v:26.14-26.27",
+     "chain_text": "expr BINARY 26.14-26.27 < block NET_ASSIGN 26.8-26.27 < block CONT_ASSIGN 26.1-26.28 < module MODULE bm_dag3_lpm 4.1-32.10"
+    },
+    {
+     "atom": "out:out[0]",
+     "block_type": ".output",
+     "pins": [
+      "outpad[0]"
+     ],
+     "cell_delay_ns": 0.0,
+     "net_delay_in_ns": 0.188,
+     "delay_ns": 0.0,
+     "category": "port",
+     "span": null,
+     "module": "bm_dag3_lpm",
+     "word": "out",
+     "bit": 0,
+     "word_via": "pad",
+     "loc": null,
+     "chain_text": null
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,41 @@
+# Odin III 1.1.1 write_blif --vtr (K=6, names hash)
+# abc: script=builtin:lib/abc/vtr.abc sha256=0d0d27670d8c71d6ae62366f0588ef445008fa9e824dab79cb751d8f6edcab62 abc=a3001b72edc5de22442e942165487fddf150e3d0 K=6 exchange=blif depth=1
+
+.model bm_dag1_log_mod
+.inputs clock reset_n a_in[0] a_in[1] b_in[0] b_in[1] c_in d_in
+.outputs out0[0] out0[1] out1
+.names hqe6ok2bhxo hirgsuans75 out0[0]
+11 1
+.names hvjkmg4cgxv hlv2zsvmdem out0[1]
+11 1
+.names c_in d_in hbh25iafntr out1
+--1 1
+01- 1
+.names a_in[0] b_in[0] hrt647qkxud
+11 1
+.names a_in[1] b_in[1] hrpvcnbai5y
+11 1
+.names a_in[0] hwkzjcncldu hv4splp3dyf
+10 1
+01 1
+.names a_in[1] hq4bv3ehyfa hwcad5xcd76
+10 1
+01 1
+.names a_in[0] b_in[0] hs3rxs4p3l7
+00 0
+.names a_in[1] b_in[1] hhy2ge7w2je
+00 0
+.names d_in hxm3ub7j7j6 h7zkhdupbx7
+00 0
+.names c_in d_in hwzvad36uu7
+10 1
+01 1
+.latch hrt647qkxud hqe6ok2bhxo re clock 2
+.latch hrpvcnbai5y hvjkmg4cgxv re clock 2
+.latch hv4splp3dyf hirgsuans75 re clock 2
+.latch hwcad5xcd76 hlv2zsvmdem re clock 2
+.latch hs3rxs4p3l7 hwkzjcncldu re clock 2
+.latch hhy2ge7w2je hq4bv3ehyfa re clock 2
+.latch h7zkhdupbx7 hbh25iafntr re clock 2
+.latch hwzvad36uu7 hxm3ub7j7j6 re clock 2
+.end

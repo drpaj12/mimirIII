@@ -1,0 +1,53 @@
+# Odin III 1.1.1 write_blif --vtr (K=6, names hash)
+# abc: script=builtin:lib/abc/vtr.abc sha256=0d0d27670d8c71d6ae62366f0588ef445008fa9e824dab79cb751d8f6edcab62 abc=a3001b72edc5de22442e942165487fddf150e3d0 K=6 exchange=blif depth=1
+
+.model bm_dag3_lpm
+.inputs clock reset_n a_in[0] a_in[1] b_in[0] b_in[1]
+.outputs out[0] out[1]
+.names gnd
+.names vcc
+1
+.names unconn
+.subckt adder a=vcc b=gnd cin=gnd cout=hrh5v4y6tlc sumout=h37wwmorszl
+.subckt adder a=huyd6mafvzi b=hg4etfszfua cin=hrh5v4y6tlc cout=hueorq6nix6 sumout=hjnuqjom2rv
+.subckt adder a=hgnncnqh67g b=hcxnwaokr7h cin=hueorq6nix6 cout=hdmalay6fgi sumout=heat6i3xvrv
+.subckt adder a=gnd b=gnd cin=hdmalay6fgi cout=hkpxqljwqq5 sumout=hd2rkc4knt4
+.subckt adder a=vcc b=gnd cin=gnd cout=honv7csk4ze sumout=hgqbcxo42ya
+.subckt adder a=hjnuqjom2rv b=hetwqselb2p cin=honv7csk4ze cout=hjbg55dpyy2 sumout=hxomoxee6ge
+.subckt adder a=heat6i3xvrv b=hcub4e4dpgi cin=hjbg55dpyy2 cout=hu2jssmlss3 sumout=hz6ua4mfz4x
+.subckt adder a=gnd b=gnd cin=hu2jssmlss3 cout=hckuoxnzwpd sumout=hn6t4hswj3j
+.subckt adder a=vcc b=gnd cin=gnd cout=h2ky6ah6jhi sumout=hipynbzmxoc
+.subckt adder a=hxomoxee6ge b=himfz35otpk cin=h2ky6ah6jhi cout=hxb6pqi4alt sumout=hyprgq3sbug
+.subckt adder a=hz6ua4mfz4x b=h5vn4kuvucx cin=hxb6pqi4alt cout=hnikfrw4iog sumout=hqbqch3hwsi
+.subckt adder a=gnd b=gnd cin=hnikfrw4iog cout=hliicxhzv3f sumout=h7qxxs4tys5
+.subckt adder a=vcc b=gnd cin=gnd cout=ha3vnyrovke sumout=hof5whes3uf
+.subckt adder a=b_in[0] b=hetwqselb2p cin=ha3vnyrovke cout=hxbyhi6xt7n sumout=huyd6mafvzi
+.subckt adder a=b_in[1] b=hcub4e4dpgi cin=hxbyhi6xt7n cout=hxqyzsyqlub sumout=hgnncnqh67g
+.subckt adder a=gnd b=gnd cin=hxqyzsyqlub cout=hkekn66ivro sumout=h2vqsidr3pg
+.subckt adder a=vcc b=vcc cin=unconn cout=hlkra34jsht sumout=h2g7rxidjcc
+.subckt adder a=a_in[0] b=h63xgtwfagm cin=hlkra34jsht cout=hjpd5h33xwj sumout=hg4etfszfua
+.subckt adder a=a_in[1] b=hvxnlni6uci cin=hjpd5h33xwj cout=htcrihysw4o sumout=hcxnwaokr7h
+.subckt adder a=gnd b=vcc cin=htcrihysw4o cout=hr4hbye7jgr sumout=hlq25ullgvs
+.subckt adder a=vcc b=gnd cin=gnd cout=h3lcyvngpul sumout=hjraz4sygo2
+.subckt adder a=a_in[0] b=b_in[0] cin=h3lcyvngpul cout=hihwxct7n7q sumout=hetwqselb2p
+.subckt adder a=a_in[1] b=b_in[1] cin=hihwxct7n7q cout=h5pckvqs4p2 sumout=hcub4e4dpgi
+.subckt adder a=gnd b=gnd cin=h5pckvqs4p2 cout=hisnbwrsw5l sumout=hjftscaxhp2
+.subckt adder a=vcc b=gnd cin=gnd cout=hri7qfir5qq sumout=hyxzhtr4oxq
+.subckt adder a=hg4etfszfua b=b_in[0] cin=hri7qfir5qq cout=h5fta72uizv sumout=himfz35otpk
+.subckt adder a=hcxnwaokr7h b=b_in[1] cin=h5fta72uizv cout=huars6cbprb sumout=h5vn4kuvucx
+.subckt adder a=gnd b=gnd cin=huars6cbprb cout=h34zf64kasj sumout=hiwm24cdrrt
+.names hetwqselb2p h63xgtwfagm
+0 1
+.names hcub4e4dpgi hvxnlni6uci
+0 1
+.names hyprgq3sbug out[0]
+1 1
+.names hqbqch3hwsi out[1]
+1 1
+.end
+
+.model adder
+.inputs a b cin
+.outputs cout sumout
+.blackbox
+.end

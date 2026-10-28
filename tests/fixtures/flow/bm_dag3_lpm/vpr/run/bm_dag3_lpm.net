@@ -1,0 +1,1972 @@
+<?xml version="1.0"?>
+<block name="bm_dag3_lpm.net" instance="FPGA_packed_netlist[0]" architecture_id="SHA256:39dbe3da435e61ca01f33806edc6c3a33f4c96164e0393dd144da2e84405940f" atom_netlist_id="SHA256:7fb71d716a1c2cb4418115031fd1cd19d8f1013deb8b53e491d6b02275c3b18d">
+	<inputs>a_in[0] a_in[1] b_in[0] b_in[1]</inputs>
+	<outputs>out:out[0] out:out[1]</outputs>
+	<clocks></clocks>
+	<block name="hlkra34jsht" instance="clb[0]" mode="default">
+		<inputs>
+			<port name="I">huyd6mafvzi a_in[0] hgnncnqh67g hetwqselb2p open a_in[1] hcub4e4dpgi open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 fle[2].out[0]-&gt;clbouts1 open open open open open open fle[9].out[0]-&gt;clbouts1 fle[0].out[1]-&gt;clbouts2 open fle[2].out[1]-&gt;clbouts2 open open open open open open fle[9].out[1]-&gt;clbouts2</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="hrh5v4y6tlc" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">fle[2].out[0]-&gt;crossbar fle[9].out[1]-&gt;crossbar clb.I[0]-&gt;crossbar fle[9].out[0]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hrh5v4y6tlc" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hrh5v4y6tlc" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">open lut5inter.in[1]-&gt;direct1 open lut5inter.in[3]-&gt;direct1 open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hrh5v4y6tlc" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open ble5.in[1]-&gt;direct1 open ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in2</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hrh5v4y6tlc" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hrh5v4y6tlc</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hueorq6nix6" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct2 open lut5inter.in[2]-&gt;direct2 open open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hueorq6nix6" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 open ble5.in[2]-&gt;direct1 open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in1 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hueorq6nix6" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hueorq6nix6</port>
+								<port name="sumout">hjnuqjom2rv</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="hlkra34jsht" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[2]-&gt;crossbar open fle[9].out[1]-&gt;crossbar fle[2].out[1]-&gt;crossbar open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hlkra34jsht" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 open fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hdmalay6fgi" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 open open lut5inter.in[3]-&gt;direct1 open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hdmalay6fgi" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 open open ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in1 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in2</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hdmalay6fgi" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">heat6i3xvrv</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hlkra34jsht" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 open open</port>
+						<port name="cin">open</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hlkra34jsht" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 open</port>
+							<port name="cin">open</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in1 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hlkra34jsht" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">open</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hlkra34jsht</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="hjpd5h33xwj" instance="fle[2]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[3]-&gt;crossbar clb.I[5]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[6]-&gt;crossbar open open</port>
+				<port name="cin">fle[1].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hjpd5h33xwj" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hjpd5h33xwj" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 open lut5inter.in[2]-&gt;direct1 open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hjpd5h33xwj" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 open ble5.in[2]-&gt;direct1 open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in1 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="h63xgtwfagm" instance="lut4[1]" mode="lut4">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut[0].out[0]-&gt;direct:lut4</port>
+							</outputs>
+							<clocks />
+							<block name="h63xgtwfagm" instance="lut[0]">
+								<attributes />
+								<parameters />
+								<inputs>
+									<port name="in">lut4.in[0]-&gt;direct:lut4 open open open</port>
+									<port_rotation_map name="in">0 open open open</port_rotation_map>
+								</inputs>
+								<outputs>
+									<port name="out">h63xgtwfagm</port>
+								</outputs>
+								<clocks />
+							</block>
+						</block>
+						<block name="hjpd5h33xwj" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hjpd5h33xwj</port>
+								<port name="sumout">hg4etfszfua</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="htcrihysw4o" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open lut5inter.in[1]-&gt;direct2 open lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="htcrihysw4o" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open ble5.in[1]-&gt;direct1 open ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hvxnlni6uci" instance="lut4[1]" mode="lut4">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in2</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut[0].out[0]-&gt;direct:lut4</port>
+							</outputs>
+							<clocks />
+							<block name="hvxnlni6uci" instance="lut[0]">
+								<attributes />
+								<parameters />
+								<inputs>
+									<port name="in">open open open lut4.in[3]-&gt;direct:lut4</port>
+									<port_rotation_map name="in">open open open 0</port_rotation_map>
+								</inputs>
+								<outputs>
+									<port name="out">hvxnlni6uci</port>
+								</outputs>
+								<clocks />
+							</block>
+						</block>
+						<block name="htcrihysw4o" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">hcxnwaokr7h</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="vcc" instance="fle[9]" mode="n2_lut5">
+			<inputs>
+				<port name="in">open open open open open open</port>
+				<port name="cin">open</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="vcc" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">open open open open open</port>
+					<port name="cin">open</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="gnd" instance="ble5[0]" mode="blut5">
+					<inputs>
+						<port name="in">open open open open open</port>
+						<port name="cin">open</port>
+					</inputs>
+					<outputs>
+						<port name="out">flut5[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="gnd" instance="flut5[0]" mode="default">
+						<inputs>
+							<port name="in">open open open open open</port>
+						</inputs>
+						<outputs>
+							<port name="out">lut5[0].out[0]-&gt;mux1</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="gnd" instance="lut5[0]" mode="lut5">
+							<inputs>
+								<port name="in">open open open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut[0].out[0]-&gt;direct:lut5</port>
+							</outputs>
+							<clocks />
+							<block name="gnd" instance="lut[0]">
+								<attributes />
+								<parameters />
+								<inputs>
+									<port name="in">open open open open open</port>
+								</inputs>
+								<outputs>
+									<port name="out">gnd</port>
+								</outputs>
+								<clocks />
+							</block>
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="vcc" instance="ble5[1]" mode="blut5">
+					<inputs>
+						<port name="in">open open open open open</port>
+						<port name="cin">open</port>
+					</inputs>
+					<outputs>
+						<port name="out">flut5[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="vcc" instance="flut5[0]" mode="default">
+						<inputs>
+							<port name="in">open open open open open</port>
+						</inputs>
+						<outputs>
+							<port name="out">lut5[0].out[0]-&gt;mux1</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="vcc" instance="lut5[0]" mode="lut5">
+							<inputs>
+								<port name="in">open open open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut[0].out[0]-&gt;direct:lut5</port>
+							</outputs>
+							<clocks />
+							<block name="vcc" instance="lut[0]">
+								<attributes />
+								<parameters />
+								<inputs>
+									<port name="in">open open open open open</port>
+								</inputs>
+								<outputs>
+									<port name="out">vcc</port>
+								</outputs>
+								<clocks />
+							</block>
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+	</block>
+	<block name="honv7csk4ze" instance="clb[1]" mode="default">
+		<inputs>
+			<port name="I">gnd vcc hjnuqjom2rv hetwqselb2p heat6i3xvrv open hcub4e4dpgi open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 open open open open open open open open fle[0].out[1]-&gt;clbouts2 open open open open open open open open open</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="honv7csk4ze" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[0]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[3]-&gt;crossbar clb.I[2]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="honv7csk4ze" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="honv7csk4ze" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="honv7csk4ze" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="honv7csk4ze" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">honv7csk4ze</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hjbg55dpyy2" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hjbg55dpyy2" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in1</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hjbg55dpyy2" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hjbg55dpyy2</port>
+								<port name="sumout">hxomoxee6ge</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="hu2jssmlss3" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[6]-&gt;crossbar clb.I[4]-&gt;crossbar open open open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hu2jssmlss3" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 open open open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hu2jssmlss3" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hu2jssmlss3" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hu2jssmlss3" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">hz6ua4mfz4x</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="open" instance="ble5[1]" />
+			</block>
+		</block>
+		<block name="open" instance="fle[2]" />
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="open" instance="fle[9]" />
+	</block>
+	<block name="h2ky6ah6jhi" instance="clb[2]" mode="default">
+		<inputs>
+			<port name="I">gnd vcc hxomoxee6ge himfz35otpk hz6ua4mfz4x open h5vn4kuvucx open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 open open open open open open open open fle[0].out[1]-&gt;clbouts2 open open open open open open open open open</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="h2ky6ah6jhi" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[0]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[3]-&gt;crossbar clb.I[2]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="h2ky6ah6jhi" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="h2ky6ah6jhi" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="h2ky6ah6jhi" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="h2ky6ah6jhi" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">h2ky6ah6jhi</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hxb6pqi4alt" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hxb6pqi4alt" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in1</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hxb6pqi4alt" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hxb6pqi4alt</port>
+								<port name="sumout">out[0]</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="hnikfrw4iog" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[6]-&gt;crossbar clb.I[4]-&gt;crossbar open open open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hnikfrw4iog" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 open open open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hnikfrw4iog" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hnikfrw4iog" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hnikfrw4iog" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">out[1]</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="open" instance="ble5[1]" />
+			</block>
+		</block>
+		<block name="open" instance="fle[2]" />
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="open" instance="fle[9]" />
+	</block>
+	<block name="h3lcyvngpul" instance="clb[3]" mode="default">
+		<inputs>
+			<port name="I">gnd vcc a_in[0] b_in[0] a_in[1] open b_in[1] open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 open open open open open open open open fle[0].out[1]-&gt;clbouts2 open open open open open open open open open</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="h3lcyvngpul" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[0]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[3]-&gt;crossbar clb.I[2]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="h3lcyvngpul" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="h3lcyvngpul" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="h3lcyvngpul" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="h3lcyvngpul" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">h3lcyvngpul</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hihwxct7n7q" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hihwxct7n7q" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in1</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hihwxct7n7q" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hihwxct7n7q</port>
+								<port name="sumout">hetwqselb2p</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="h5pckvqs4p2" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[6]-&gt;crossbar clb.I[4]-&gt;crossbar open open open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="h5pckvqs4p2" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 open open open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="h5pckvqs4p2" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="h5pckvqs4p2" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="h5pckvqs4p2" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">hcub4e4dpgi</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="open" instance="ble5[1]" />
+			</block>
+		</block>
+		<block name="open" instance="fle[2]" />
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="open" instance="fle[9]" />
+	</block>
+	<block name="ha3vnyrovke" instance="clb[4]" mode="default">
+		<inputs>
+			<port name="I">gnd vcc b_in[0] hetwqselb2p b_in[1] open hcub4e4dpgi open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 open open open open open open open open fle[0].out[1]-&gt;clbouts2 open open open open open open open open open</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="ha3vnyrovke" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[0]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[3]-&gt;crossbar clb.I[2]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="ha3vnyrovke" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="ha3vnyrovke" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="ha3vnyrovke" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="ha3vnyrovke" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">ha3vnyrovke</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="hxbyhi6xt7n" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hxbyhi6xt7n" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in1</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hxbyhi6xt7n" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hxbyhi6xt7n</port>
+								<port name="sumout">huyd6mafvzi</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="hxqyzsyqlub" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[6]-&gt;crossbar clb.I[4]-&gt;crossbar open open open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hxqyzsyqlub" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 open open open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hxqyzsyqlub" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hxqyzsyqlub" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hxqyzsyqlub" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">hgnncnqh67g</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="open" instance="ble5[1]" />
+			</block>
+		</block>
+		<block name="open" instance="fle[2]" />
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="open" instance="fle[9]" />
+	</block>
+	<block name="hri7qfir5qq" instance="clb[5]" mode="default">
+		<inputs>
+			<port name="I">gnd vcc hg4etfszfua b_in[0] hcxnwaokr7h open b_in[1] open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open open</port>
+			<port name="cin">gnd</port>
+		</inputs>
+		<outputs>
+			<port name="O">open fle[1].out[0]-&gt;clbouts1 open open open open open open open open fle[0].out[1]-&gt;clbouts2 open open open open open open open open open</port>
+			<port name="cout">open</port>
+		</outputs>
+		<clocks>
+			<port name="clk">open</port>
+		</clocks>
+		<block name="hri7qfir5qq" instance="fle[0]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[0]-&gt;crossbar clb.I[1]-&gt;crossbar clb.I[3]-&gt;crossbar clb.I[2]-&gt;crossbar open open</port>
+				<port name="cin">clb.cin[0]-&gt;carry_in</port>
+			</inputs>
+			<outputs>
+				<port name="out">open lut5inter[0].out[1]-&gt;direct2</port>
+				<port name="cout">lut5inter[0].cout[0]-&gt;carry_out</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="hri7qfir5qq" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 fle.in[2]-&gt;direct1 fle.in[3]-&gt;direct1 open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">open ble5[1].out[0]-&gt;direct3</port>
+					<port name="cout">ble5[1].cout[0]-&gt;carry_out</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="hri7qfir5qq" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">open</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="hri7qfir5qq" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">open</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="hri7qfir5qq" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">hri7qfir5qq</port>
+								<port name="sumout">open</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="h5fta72uizv" instance="ble5[1]" mode="arithmetic">
+					<inputs>
+						<port name="in">open open lut5inter.in[2]-&gt;direct2 lut5inter.in[3]-&gt;direct2 open</port>
+						<port name="cin">ble5[0].cout[0]-&gt;carry_link</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">arithmetic[0].cout[0]-&gt;carry_out</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="h5fta72uizv" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">open open ble5.in[2]-&gt;direct1 ble5.in[3]-&gt;direct1</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">adder[0].cout[0]-&gt;carry_out</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open open arithmetic.in[3]-&gt;lut_in1</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[3]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open open arithmetic.in[2]-&gt;lut_in2 open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[2]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="h5fta72uizv" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">h5fta72uizv</port>
+								<port name="sumout">himfz35otpk</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+			</block>
+		</block>
+		<block name="huars6cbprb" instance="fle[1]" mode="n2_lut5">
+			<inputs>
+				<port name="in">clb.I[6]-&gt;crossbar clb.I[4]-&gt;crossbar open open open open</port>
+				<port name="cin">fle[0].cout[0]-&gt;carry_link</port>
+			</inputs>
+			<outputs>
+				<port name="out">lut5inter[0].out[0]-&gt;direct2 open</port>
+				<port name="cout">open</port>
+			</outputs>
+			<clocks>
+				<port name="clk">open</port>
+			</clocks>
+			<block name="huars6cbprb" instance="lut5inter[0]" mode="default">
+				<inputs>
+					<port name="in">fle.in[0]-&gt;direct1 fle.in[1]-&gt;direct1 open open open</port>
+					<port name="cin">fle.cin[0]-&gt;carry_in</port>
+				</inputs>
+				<outputs>
+					<port name="out">ble5[0].out[0]-&gt;direct3 open</port>
+					<port name="cout">open</port>
+				</outputs>
+				<clocks>
+					<port name="clk">open</port>
+				</clocks>
+				<block name="huars6cbprb" instance="ble5[0]" mode="arithmetic">
+					<inputs>
+						<port name="in">lut5inter.in[0]-&gt;direct1 lut5inter.in[1]-&gt;direct1 open open open</port>
+						<port name="cin">lut5inter.cin[0]-&gt;carry_in</port>
+					</inputs>
+					<outputs>
+						<port name="out">arithmetic[0].out[0]-&gt;direct3</port>
+						<port name="cout">open</port>
+					</outputs>
+					<clocks>
+						<port name="clk">open</port>
+					</clocks>
+					<block name="huars6cbprb" instance="arithmetic[0]" mode="default">
+						<inputs>
+							<port name="in">ble5.in[0]-&gt;direct1 ble5.in[1]-&gt;direct1 open open</port>
+							<port name="cin">ble5.cin[0]-&gt;carry_in</port>
+						</inputs>
+						<outputs>
+							<port name="out">adder[0].sumout[0]-&gt;sumout</port>
+							<port name="cout">open</port>
+						</outputs>
+						<clocks>
+							<port name="clk">open</port>
+						</clocks>
+						<block name="open" instance="lut4[0]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">open arithmetic.in[1]-&gt;lut_in1 open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[0].in[1]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="lut4[1]" mode="wire" pb_type_num_modes="2">
+							<inputs>
+								<port name="in">arithmetic.in[0]-&gt;lut_in2 open open open</port>
+							</inputs>
+							<outputs>
+								<port name="out">lut4[1].in[0]-&gt;complete:lut4</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="huars6cbprb" instance="adder[0]">
+							<attributes />
+							<parameters />
+							<inputs>
+								<port name="a">lut4[0].out[0]-&gt;lut_to_add1</port>
+								<port name="b">lut4[1].out[0]-&gt;lut_to_add2</port>
+								<port name="cin">arithmetic.cin[0]-&gt;carry_in</port>
+							</inputs>
+							<outputs>
+								<port name="cout">open</port>
+								<port name="sumout">h5vn4kuvucx</port>
+							</outputs>
+							<clocks />
+						</block>
+						<block name="open" instance="ff[0]" />
+					</block>
+				</block>
+				<block name="open" instance="ble5[1]" />
+			</block>
+		</block>
+		<block name="open" instance="fle[2]" />
+		<block name="open" instance="fle[3]" />
+		<block name="open" instance="fle[4]" />
+		<block name="open" instance="fle[5]" />
+		<block name="open" instance="fle[6]" />
+		<block name="open" instance="fle[7]" />
+		<block name="open" instance="fle[8]" />
+		<block name="open" instance="fle[9]" />
+	</block>
+	<block name="out:out[1]" instance="io[6]" mode="outpad">
+		<inputs>
+			<port name="outpad">out[1]</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">open</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="out:out[1]" instance="outpad[0]">
+			<attributes />
+			<parameters />
+			<inputs>
+				<port name="outpad">io.outpad[0]-&gt;outpad</port>
+			</inputs>
+			<outputs />
+			<clocks />
+		</block>
+	</block>
+	<block name="out:out[0]" instance="io[7]" mode="outpad">
+		<inputs>
+			<port name="outpad">out[0]</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">open</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="out:out[0]" instance="outpad[0]">
+			<attributes />
+			<parameters />
+			<inputs>
+				<port name="outpad">io.outpad[0]-&gt;outpad</port>
+			</inputs>
+			<outputs />
+			<clocks />
+		</block>
+	</block>
+	<block name="a_in[0]" instance="io[8]" mode="inpad">
+		<inputs>
+			<port name="outpad">open</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">inpad[0].inpad[0]-&gt;inpad</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="a_in[0]" instance="inpad[0]">
+			<attributes />
+			<parameters />
+			<inputs />
+			<outputs>
+				<port name="inpad">a_in[0]</port>
+			</outputs>
+			<clocks />
+		</block>
+	</block>
+	<block name="a_in[1]" instance="io[9]" mode="inpad">
+		<inputs>
+			<port name="outpad">open</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">inpad[0].inpad[0]-&gt;inpad</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="a_in[1]" instance="inpad[0]">
+			<attributes />
+			<parameters />
+			<inputs />
+			<outputs>
+				<port name="inpad">a_in[1]</port>
+			</outputs>
+			<clocks />
+		</block>
+	</block>
+	<block name="b_in[0]" instance="io[10]" mode="inpad">
+		<inputs>
+			<port name="outpad">open</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">inpad[0].inpad[0]-&gt;inpad</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="b_in[0]" instance="inpad[0]">
+			<attributes />
+			<parameters />
+			<inputs />
+			<outputs>
+				<port name="inpad">b_in[0]</port>
+			</outputs>
+			<clocks />
+		</block>
+	</block>
+	<block name="b_in[1]" instance="io[11]" mode="inpad">
+		<inputs>
+			<port name="outpad">open</port>
+		</inputs>
+		<outputs>
+			<port name="inpad">inpad[0].inpad[0]-&gt;inpad</port>
+		</outputs>
+		<clocks>
+			<port name="clock">open</port>
+		</clocks>
+		<block name="b_in[1]" instance="inpad[0]">
+			<attributes />
+			<parameters />
+			<inputs />
+			<outputs>
+				<port name="inpad">b_in[1]</port>
+			</outputs>
+			<clocks />
+		</block>
+	</block>
+</block>

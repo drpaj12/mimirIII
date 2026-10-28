@@ -1,0 +1,59 @@
+{
+ "arch": "",
+ "commands": [
+  [
+   "/odin3-tree/tools/flow/odin3-flow",
+   "tests/fixtures/flow/design/bm_dag3_lpm.v",
+   "--top",
+   "bm_dag3_lpm",
+   "--vpr",
+   "--prov",
+   "--keep-results",
+   "--odin3",
+   "/odin3-tree/build/release/odin3",
+   "--out",
+   "/flow-out",
+   "--timing-attr"
+  ],
+  [
+   "/odin3-tree/tools/flow/odin3-prov-post",
+   "/flow-out",
+   "--top",
+   "bm_dag3_lpm",
+   "--run-dir",
+   "/flow-out/vpr/run"
+  ]
+ ],
+ "design_files": [
+  "tests/fixtures/flow/design/bm_dag3_lpm.v"
+ ],
+ "design_sha256": "a97619c45625a39869a3dc6f1cd2092c4a902fc5b33d361917c4f1258edf09e5",
+ "exit_codes": [
+  0,
+  0
+ ],
+ "host": "fixture-host",
+ "kernel": "6.18.54.1-microsoft-standard-WSL2",
+ "odin3_binary_newer_than_commit": true,
+ "odin3_binary_sha256": "1d908bc39ad248773fa4e86bd0641eac2f023ce4a072a0b9117f87f8e8545e65",
+ "odin3_binary_version": "odin3 1.1.1 (ABI 7)\nSystemVerilog via slang (adapters/slang, third_party/slang)\nlinked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE)",
+ "odin3_built_from_tree": true,
+ "odin3_cmake_home_is_tree": true,
+ "odin3_commit": "997cb609b6fba90c8560bb1d5b13e4c52cbc1470",
+ "odin3_tree_clean": true,
+ "ok": true,
+ "peak_rss_mib": 63.0,
+ "run_dir": "vpr/run",
+ "source_sha256": {
+  "tests/fixtures/flow/design/bm_dag3_lpm.v": "a97619c45625a39869a3dc6f1cd2092c4a902fc5b33d361917c4f1258edf09e5"
+ },
+ "started_utc": "2026-10-27T20:02:45Z",
+ "step_time_s": [
+  0.492,
+  0.054
+ ],
+ "time_s": 0.546,
+ "timing_attr": true,
+ "top": "bm_dag3_lpm",
+ "vtr_commit": "3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b"
+}
