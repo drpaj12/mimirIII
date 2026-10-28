@@ -238,6 +238,31 @@ def _cmd_import_timing(args: argparse.Namespace) -> int:
     return 1 if any(s.startswith("error") for _, s in rows) else 0
 
 
+def _cmd_hdl_graph(args: argparse.Namespace) -> int:
+    import os
+
+    from mimir import blobs, hdlgraph
+    from mimir.scrub import Scrubber
+
+    tree = args.odin3_tree or os.environ.get("MIMIR_ODIN3_TREE")
+    if not tree:
+        print("error: give --odin3-tree or set MIMIR_ODIN3_TREE (an Odin III checkout)",
+              file=sys.stderr)
+        return 2
+    store = Store(args.db)
+    root = Path(args.blobs) if args.blobs else blobs.default_dir()
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        rows = hdlgraph.backfill(store, root, Scrubber({}), Path(tree), Path(tmp),
+                                 set(args.run) if args.run else None)
+    for run_id, status in rows:
+        print(f"{run_id}\t{status}")
+    bad = sum(1 for _, s in rows if not s.startswith("ok"))
+    print(f"runs {len(rows)}, built {len(rows) - bad}, errors {bad}")
+    return 1 if bad else 0
+
+
 def _cmd_timing_coverage(args: argparse.Namespace) -> int:
     from mimir import timing
 
@@ -262,7 +287,7 @@ def _cmd_migrate(args: argparse.Namespace) -> int:
     db.close()
     old = None if row is None else str(row[0])
     Store(args.db).close()
-    print(f"{args.db}: schema version {old} -> 6")
+    print(f"{args.db}: schema version {old} -> 7")
     return 0
 
 
@@ -466,6 +491,13 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--full-requested", type=int, help="--timing_report_npaths of --full-report "
                    "(the report must hold fewer paths)")
     s.set_defaults(fn=_cmd_import_timing)
+    s = sub.add_parser("hdl-graph", help="line-level HDL graph of runs from their stored blif and "
+                       "map blobs (schema 7); idempotent. Back the store up first")
+    s.add_argument("db")
+    s.add_argument("--odin3-tree", help="Odin III checkout (default $MIMIR_ODIN3_TREE)")
+    s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
+    s.add_argument("--run", action="append", help="only this run id (repeatable)")
+    s.set_defaults(fn=_cmd_hdl_graph)
     s = sub.add_parser("timing-coverage", help="timing runs by max_req basis and truncation "
                        "(read only; reports 'no timing tables' on a version 4 store)")
     s.add_argument("db")

@@ -76,7 +76,7 @@ class MigrationTests(unittest.TestCase):
         s = Store(d / "v1.db")
         s.export_csv(d / "after.csv")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "6")
+        self.assertEqual(v, "7")
         self.assertEqual(s.db.execute("SELECT * FROM records ORDER BY rowid").fetchall(),
                          rows_before)
         s.close()
@@ -99,7 +99,7 @@ class MigrationTests(unittest.TestCase):
             Store(d / "x.db", readonly=True)
         s = Store(d / "x.db")
         self.assertEqual(s.db.execute("SELECT value FROM meta WHERE key='schema_version'")
-                         .fetchone()[0], "6")
+                         .fetchone()[0], "7")
         self.assertEqual(s.db.execute("SELECT COUNT(*) FROM blob_scrub").fetchone()[0], 0)
         s.close()
         Store(d / "x.db", readonly=True).close()  # a v4 store opens read only, untouched

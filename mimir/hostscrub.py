@@ -29,6 +29,9 @@ TEXT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("timing_object", "object_key"), ("timing_path", "startpoint"), ("timing_path", "endpoint"),
     ("timing_path_node", "atom"), ("timing_path_node", "pins"), ("timing_path_node", "span"),
     ("timing_path_node", "loc"), ("timing_path_node", "module"), ("timing_path_node", "word"),
+    ("hdl_edge", "src_span"), ("hdl_edge", "src_module"), ("hdl_edge", "src_word"),
+    ("hdl_edge", "dst_span"), ("hdl_edge", "dst_module"), ("hdl_edge", "dst_word"),
+    ("hdl_port", "span"), ("hdl_port", "module"), ("hdl_port", "word"), ("hdl_port", "port"),
 )
 EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("analysis_result", "analysis_id"), ("analysis_result", "algorithm"),
@@ -66,7 +69,9 @@ EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("timing_object", "run_id"), ("timing_object", "kind"), ("timing_object", "via"),
     ("timing_path", "run_id"), ("timing_path_node", "run_id"),
     ("timing_path_node", "block_type"), ("timing_path_node", "word_via"),
-    ("timing_path_node", "category"),
+    ("timing_path_node", "category"), ("hdl_graph_run", "run_id"),
+    ("hdl_graph_run", "blif_sha256"), ("hdl_graph_run", "map_sha256"), ("hdl_edge", "run_id"),
+    ("hdl_port", "run_id"), ("hdl_port", "kind"),
 )  # run.host has its own rule (`alias_host_value`)
 # The blob columns and how a blob_scrub row names the artifact row that holds the column.
 BLOB_KEYS = {"run_artifact": "run_id || ':' || kind", "partition": "partition_id",
