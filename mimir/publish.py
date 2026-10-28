@@ -543,7 +543,9 @@ def run_stage(stage: Path, master_dir: Path, plans: list[Plan], idx: Path, store
     for a in allarch.values():
         _put(index_out / a.manifest, (idx / a.manifest).read_bytes())
     _put(stage / "README.txt", readme_text(plans, base).encode())
-    report.append(f"SHA256SUMS lines: {write_sums(stage, plans[0].archive.date) if plans else 0}")
+    dates = sorted({p.archive.date for p in plans})
+    counts = ", ".join(f"{d} {write_sums(stage, d)}" for d in dates)
+    report.append(f"SHA256SUMS lines: {counts or 0}")
     if record:
         for pub in updated.values():
             _put(idx / pub.public_manifest, (stage / "index" / pub.public_manifest).read_bytes())
