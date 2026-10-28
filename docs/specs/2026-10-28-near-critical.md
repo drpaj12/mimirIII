@@ -214,3 +214,22 @@ exhaustive report, truncation unknown, structure `via`, path-based join, one-tra
 No test compares crit with a criticality printed by VPR: VPR 9 prints none (the net timing report
 holds slack only). The check is the formula against the source (`calc_relaxed_criticality`, 2.1) and
 hand-computed cases.
+
+## 7. Observed in lane3-structures.db (79 runs, fix round 2026-10-28)
+
+Before the fix `max_req` came from the reported paths only. Spread of the required times of the
+reported paths: 41 runs 0, 34 runs 0.024 ns (clock uncertainty), 4 runs 0.467 ns (ch_intrinsics,
+mkDelayWorker32B, boundtop, or1200). The review counted 40, 35 and 0.44-0.47 ns; the numbers here
+are recomputed from the stored attributions. Equal spread inside the report does not show that the
+unseen required times are equal, so the earlier claim of agreement was not supported.
+
+After: 57 runs are `exhaustive` (their own report holds fewer than N paths) and the other 22
+(19 at N = 100, 3 at N = 1000) are `full-report`: a second `vpr --analysis` over the stored routing
+with N = 500000 gave a report with 125 to 15,742 paths in every case (always fewer than N), so VPR's
+`max_req` and worst slack per clock domain pair are exact in all 79 runs. No run is a `report`
+lower bound. Some designs have several clock domain pairs (stereovision, mkSMAdapter4B,
+mkDelayWorker32B). The reruns reproduce the stored worst slack of every run. Effect: endpoints at
+crit >= 0.90 / 0.95 / 0.99 summed over runs went 1742 / 749 / 159 to 1765 / 760 / 162, five runs
+changed, and stereovision3 became truncated at 0.90 at N = 100 and was re-analysed at N = 1000
+(then untruncated). Final: 0 truncated, 0 unknown. Worked example mkPktMerge: `max_req` -0.467
+became 0.0; `fi1__D_OUT` bit 134 stays at crit 1.0, bit 132 moved from 0.994 to 0.995.
