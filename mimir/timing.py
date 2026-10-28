@@ -38,6 +38,12 @@ class Node:
     bit: int
     via: str
     delay: float
+    atom: str = ""
+    block_type: str = ""
+    pins: tuple[str, ...] = ()
+    category: str = ""
+    cell_delay: float = 0.0
+    net_delay_in: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -48,6 +54,7 @@ class PathRow:
     slack: float
     required: float
     nodes: tuple[Node, ...]
+    arrival: float | None = None
 
 
 @dataclass(frozen=True)
@@ -110,6 +117,7 @@ class Result:
     hist: dict[int, int]
     objects: dict[tuple[str, str, int], Acc]
     delay_total090: float
+    crit: dict[int, float] = field(default_factory=dict)
 
 
 def _node(raw: Mapping[str, Any]) -> Node:
@@ -117,7 +125,10 @@ def _node(raw: Mapping[str, Any]) -> Node:
     return Node(str(raw.get("module") or ""), str(raw.get("span") or ""),
                 str(raw.get("loc") or ""), str(raw.get("word") or ""),
                 bit if isinstance(bit, int) else -1, str(raw.get("word_via") or ""),
-                float(raw.get("delay_ns") or 0.0))
+                float(raw.get("delay_ns") or 0.0), str(raw.get("atom") or ""),
+                str(raw.get("block_type") or ""), tuple(str(x) for x in raw.get("pins") or ()),
+                str(raw.get("category") or ""), float(raw.get("cell_delay_ns") or 0.0),
+                float(raw.get("net_delay_in_ns") or 0.0))
 
 
 def parse_attribution(data: Mapping[str, Any], sha256: str) -> TimingInput:
@@ -128,7 +139,8 @@ def parse_attribution(data: Mapping[str, Any], sha256: str) -> TimingInput:
     rows = tuple(
         PathRow(int(p["index"]), str(p.get("startpoint", "")), str(p.get("endpoint", "")),
                 float(p["slack_ns"]), float(p["required_ns"]),
-                tuple(_node(n) for n in p.get("nodes", [])))
+                tuple(_node(n) for n in p.get("nodes", [])),
+                float(p["arrival_ns"]) if isinstance(p.get("arrival_ns"), int | float) else None)
         for p in data.get("paths", []))
     req = t.get("paths_requested")
     inrep = t.get("paths_in_report")
@@ -370,7 +382,7 @@ def analyse(inp: TimingInput, structs: Iterable[tuple[str, str]] = (),
                      cr.spread, _dmax_source(inp), cr.pairs, cr.skipped, cr.last, trunc,
                      (counts[0], counts[1], counts[2]),
                      (len(ends[0]), len(ends[1]), len(ends[2])))
-    return Result(stats, dict(sorted(hist.items())), dict(objs), total090)
+    return Result(stats, dict(sorted(hist.items())), dict(objs), total090, dict(crit))
 
 
 def _add_path(p: PathRow, c: float, objs: dict[tuple[str, str, int], Acc],
@@ -428,6 +440,45 @@ def write_result(store: Store, run_id: str, inp: TimingInput, res: Result,
     return len(rows)
 
 
+PATH_TABLES = ("timing_path", "timing_path_node")
+_PATH_NODE_SQL = "INSERT INTO timing_path_node VALUES (" + ", ".join("?" * 16) + ")"
+
+
+def _node_row(run_id: str, index: int, step: int, n: Node, scrub: Scrubber) -> tuple[Any, ...]:
+    t = scrub.text
+    pins = json.dumps(list(n.pins), separators=(",", ":"))
+    return (run_id, index, step, t(n.atom), n.block_type, pins, t(n.span), t(n.loc),
+            t(n.module), t(n.word), n.bit, n.via, n.category, n.cell_delay, n.net_delay_in, n.delay)
+
+
+def write_paths(store: Store, run_id: str, inp: TimingInput, crit: Mapping[int, float],
+                scrub: Scrubber) -> int:
+    """Replace the run's rows in timing_path and timing_path_node. Does not commit. `crit` is the
+    path criticality by index (the same numbers as the histogram); a path of a skipped clock domain
+    pair has none (NULL). Returns the node rows."""
+    db = store.db
+    for table in PATH_TABLES:
+        db.execute(f"DELETE FROM {table} WHERE run_id = ?", (run_id,))
+    prows, nrows = [], []
+    for p in inp.paths:
+        t = scrub.text
+        c = crit.get(p.index)
+        prows.append((run_id, p.index, p.slack, p.arrival, p.required,
+                      None if c is None else _round(c), t(p.start), t(p.end), len(p.nodes)))
+        nrows += [_node_row(run_id, p.index, i, n, scrub) for i, n in enumerate(p.nodes, 1)]
+    db.executemany("INSERT INTO timing_path VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", prows)
+    db.executemany(_PATH_NODE_SQL, nrows)
+    return len(nrows)
+
+
+def check_path_texts(store: Store, run_id: str) -> bool:
+    """True when no stored path text holds a /home path (privacy gate)."""
+    q = ("SELECT startpoint || endpoint FROM timing_path WHERE run_id = ? UNION ALL "
+         "SELECT COALESCE(atom,'') || COALESCE(span,'') || COALESCE(loc,'') || COALESCE(module,'')"
+         " || COALESCE(word,'') FROM timing_path_node WHERE run_id = ?")
+    return all(check_clean(r[0]) for r in store.db.execute(q, (run_id, run_id)))
+
+
 def records_of(store: Store, run_id: str, inp: TimingInput, res: Result) -> list[Record]:
     """The per-run scalars as records, identity columns from the run row. Truncation unknown
     (-1) gives no `timing.truncated_090` record."""
@@ -476,8 +527,9 @@ def import_run(store: Store, run_id: str, inp: TimingInput, scrub: Scrubber,
     try:
         db.execute("BEGIN")
         n = write_result(store, run_id, inp, res, analysis_n)
-        if not check_keys(store, run_id):
-            raise ValueError(f"run {run_id}: an object key holds a /home path")
+        write_paths(store, run_id, inp, res.crit, scrub)
+        if not (check_keys(store, run_id) and check_path_texts(store, run_id)):
+            raise ValueError(f"run {run_id}: a stored text holds a /home path")
         db.execute("DELETE FROM records WHERE source = ? AND design = ? AND measurer = ? "
                    "AND tool_commit = ? AND input_sha256 = ? AND arch = ? AND seed = ? "
                    "AND arm = ? AND metric LIKE 'timing.%'",
@@ -505,6 +557,13 @@ def has_tables(store: Store) -> bool:
     found = {r[0] for r in store.db.execute(
         "SELECT name FROM sqlite_master WHERE type='table'")}
     return all(t in found for t in TIMING_TABLES)
+
+
+def has_path_tables(store: Store) -> bool:
+    """True when the store has the v6 per-path tables (a v4 or v5 read-only store has none)."""
+    found = {r[0] for r in store.db.execute(
+        "SELECT name FROM sqlite_master WHERE type='table'")}
+    return all(t in found for t in PATH_TABLES)
 
 
 def coverage(store: Store) -> list[tuple[str, int, int, int, int]]:
@@ -545,6 +604,69 @@ def _full_extent(full_dir: Path, run_id: str, requested: int) -> tuple[
                                           requested))
 
 
+def _stored_input(blobs_dir: Path, run_id: str, sha: str, attr_dir: Path | None,
+                  full_dir: Path | None, full_requested: int) -> tuple[TimingInput, bool]:
+    """The run's TimingInput from its stored blob (sha256 checked by blobs.get_bytes), or from
+    `attr_dir/<run_id>.attribution.json` when that file exists. The bool is True then."""
+    from mimir import blobs
+
+    over = attr_dir / f"{run_id}.attribution.json" if attr_dir else None
+    use = over is not None and over.is_file()
+    data = over.read_bytes() if over is not None and use else blobs.get_bytes(blobs_dir, sha)
+    inp = load_attribution_bytes(data)
+    if full_dir is not None:
+        inp = dataclasses.replace(inp, full=_full_extent(full_dir, run_id, full_requested))
+    return inp, use
+
+
+def backfill_paths(store: Store, blobs_dir: Path, scrub: Scrubber,
+                   only: set[str] | None = None, attr_dir: Path | None = None,
+                   full_dir: Path | None = None,
+                   full_requested: int = 500000) -> list[tuple[str, str]]:
+    """Fill timing_path and timing_path_node of every run that has a timing_run row and no path
+    rows, from its stored `timing` artifact. Idempotent: a run with path rows is left alone.
+    Only those two tables are written. A run is skipped (status `skipped: ...`) when the input's
+    sha256 is not the `source_sha256` of its timing_run row, or when the recomputed number of used
+    paths or max_req differs from that row: the paths would not match the stored statistics.
+    Returns (run_id, status) rows; status `ok` or `skipped: ...` or `error: ...`."""
+    out = []
+    todo = store.db.execute(
+        "SELECT a.run_id, a.blob_sha256, t.source_sha256, t.paths_used, t.max_req_ns "
+        "FROM run_artifact a JOIN timing_run t ON t.run_id = a.run_id "
+        "WHERE a.kind = 'timing' AND NOT EXISTS "
+        "(SELECT 1 FROM timing_path p WHERE p.run_id = a.run_id) ORDER BY a.run_id").fetchall()
+    for run_id, sha, src_sha, used, max_req in todo:
+        if only is not None and run_id not in only:
+            continue
+        try:
+            inp, _ = _stored_input(blobs_dir, run_id, sha, attr_dir, full_dir, full_requested)
+            out.append((run_id, _backfill_one(store, run_id, inp, scrub, src_sha, used, max_req)))
+        except (ValueError, KeyError, OSError) as exc:
+            store.db.rollback()
+            out.append((run_id, f"error: {exc}"))
+    return out
+
+
+def _backfill_one(store: Store, run_id: str, inp: TimingInput, scrub: Scrubber, src_sha: str,
+                  used: int, max_req: float | None) -> str:
+    if inp.sha256 != src_sha:
+        return "skipped: input differs from the imported source (give --attr-dir)"
+    cr = criticalities(inp.paths, inp.full)
+    if len(cr.crit) != used or _round(cr.max_req) != _round(max_req):
+        return "skipped: recomputed criticality differs from timing_run (give --full-dir)"
+    db = store.db
+    try:
+        db.execute("BEGIN")
+        write_paths(store, run_id, inp, cr.crit, scrub)
+        if not check_path_texts(store, run_id):
+            raise ValueError("a stored path text holds a /home path")
+        db.commit()
+    except BaseException:
+        db.rollback()
+        raise
+    return "ok"
+
+
 def import_from_blobs(store: Store, blobs_dir: Path, scrub: Scrubber,
                       only: set[str] | None = None, attr_dir: Path | None = None,
                       full_dir: Path | None = None,
@@ -554,8 +676,6 @@ def import_from_blobs(store: Store, blobs_dir: Path, scrub: Scrubber,
     `attr_dir/<run_id>.attribution.json` replaces the stored artifact of that run (a re-run with a
     larger N; `analysis_n` is then its paths_requested). `full_dir/<run_id>.rpt.xz` is an
     exhaustive report of the run (N = `full_requested`) that gives the exact max_req."""
-    from mimir import blobs
-
     out = []
     arts = store.db.execute(
         "SELECT run_id, blob_sha256 FROM run_artifact WHERE kind='timing' ORDER BY run_id"
@@ -564,12 +684,8 @@ def import_from_blobs(store: Store, blobs_dir: Path, scrub: Scrubber,
         if only is not None and run_id not in only:
             continue
         try:
-            over = attr_dir / f"{run_id}.attribution.json" if attr_dir else None
-            data = over.read_bytes() if over and over.is_file() else blobs.get_bytes(blobs_dir, sha)
-            inp = load_attribution_bytes(data)
-            if full_dir is not None:
-                inp = dataclasses.replace(inp, full=_full_extent(full_dir, run_id, full_requested))
-            an = inp.requested if over and over.is_file() else None
+            inp, over = _stored_input(blobs_dir, run_id, sha, attr_dir, full_dir, full_requested)
+            an = inp.requested if over else None
             res, _ = import_run(store, run_id, inp, scrub, an)
         except (ValueError, KeyError, OSError) as exc:
             out.append((run_id, f"error: {exc}"))

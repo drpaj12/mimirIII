@@ -196,6 +196,17 @@ def _cmd_import_timing(args: argparse.Namespace) -> int:
 
     store = Store(args.db)
     scrub = Scrubber({})
+    if args.paths_from_blobs:
+        root = Path(args.blobs) if args.blobs else blobs.default_dir()
+        rows = timing.backfill_paths(
+            store, root, scrub, attr_dir=Path(args.attr_dir) if args.attr_dir else None,
+            full_dir=Path(args.full_dir) if args.full_dir else None,
+            full_requested=args.full_requested or 500000)
+        for run_id, status in rows:
+            print(f"{run_id}\t{status}")
+        bad = sum(1 for _, st in rows if st != "ok")
+        print(f"runs {len(rows)}, filled {len(rows) - bad}, not filled {bad}")
+        return 1 if any(st.startswith("error") for _, st in rows) else 0
     if args.from_blobs:
         root = Path(args.blobs) if args.blobs else blobs.default_dir()
         rows = timing.import_from_blobs(
@@ -251,7 +262,7 @@ def _cmd_migrate(args: argparse.Namespace) -> int:
     db.close()
     old = None if row is None else str(row[0])
     Store(args.db).close()
-    print(f"{args.db}: schema version {old} -> 5")
+    print(f"{args.db}: schema version {old} -> 6")
     return 0
 
 
@@ -432,7 +443,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("dir", help="directory searched for mimir-run.json files")
     s.add_argument("--source", default="", help="report only the runs of this source (exact)")
     s.set_defaults(fn=_cmd_import_runrecords)
-    s = sub.add_parser("import-timing", help="near-critical timing data of runs (schema 5)")
+    s = sub.add_parser("import-timing", help="near-critical timing data and per-path rows "
+                       "(schema 6)")
     s.add_argument("db")
     s.add_argument("file", nargs="?", help="attribution.json, or a VPR report with --report")
     s.add_argument("--run-id", help="the run the file belongs to")
@@ -440,6 +452,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--requested", type=int, help="--timing_report_npaths of a report")
     s.add_argument("--analysis-n", type=int, help="npaths of a timing-only re-run")
     s.add_argument("--from-blobs", action="store_true", help="every stored `timing` artifact")
+    s.add_argument("--paths-from-blobs", action="store_true",
+                   help="fill timing_path and timing_path_node (schema 6) of every run that has "
+                   "a timing_run row and no path rows, from its stored `timing` artifact (sha256 "
+                   "checked); idempotent; writes only those two tables. Back the store up first")
     s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
     s.add_argument("--attr-dir", help="with --from-blobs: DIR/<run_id>.attribution.json replaces "
                    "that run's stored artifact (a re-run with a larger N)")

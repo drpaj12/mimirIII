@@ -84,7 +84,7 @@ class V4ReadOnly(unittest.TestCase):
         db = sqlite3.connect(path)
         self.assertEqual(db.execute("SELECT * FROM records ORDER BY 1").fetchall(), before)
         self.assertEqual(db.execute("SELECT value FROM meta WHERE key='schema_version'"
-                                    ).fetchone()[0], "5")
+                                    ).fetchone()[0], "6")
         self.assertEqual(db.execute("SELECT COUNT(*) FROM timing_run").fetchone()[0], 0)
 
     def test_v5_store_without_spread_column_gets_it(self) -> None:

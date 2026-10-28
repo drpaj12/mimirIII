@@ -5,7 +5,7 @@ Mimir III: the circuit knowledge base of Yggdrasil III. Holds the characteristic
 per placer family) in one tidy table, so that circuits can be classified over time.
 
 Spec: `docs/specs/2026-10-27-mimir-foundation-design.md`. Plan: `docs/plans/2026-10-27-mimir-foundation-plan.md`.
-Near-critical timing (schema v5, `mimir import-timing`): `docs/specs/2026-10-28-near-critical.md`. Schema v2 spec: `docs/specs/2026-10-27-mimir-schema-v2.md`. Structures and their mapping (schema v3): `docs/specs/2026-10-27-mimir-structures.md`. Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
+Near-critical timing (schema v5, `mimir import-timing`): `docs/specs/2026-10-28-near-critical.md`. Per-path tables (schema v6, `mimir import-timing --paths-from-blobs`): `docs/specs/2026-10-28-timing-paths.md`. Schema v2 spec: `docs/specs/2026-10-27-mimir-schema-v2.md`. Structures and their mapping (schema v3): `docs/specs/2026-10-27-mimir-structures.md`. Research questions (draft for the hub): `docs/purpose-draft.md`. Citations: `citations.toml` and `docs/CITATIONS.md`.
 
 ## Setup
 
