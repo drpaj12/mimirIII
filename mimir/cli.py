@@ -67,6 +67,18 @@ def _cmd_import(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_import_e10(args: argparse.Namespace) -> int:
+    from mimir.importers.e10 import import_e10
+
+    store = Store(args.db)
+    report = Report()
+    recs = list(import_e10(store, Path(args.data), args.label, Path(args.netlists) if args.netlists else None, report))
+    store.replace_origins(recs)
+    print("\n".join(report.lines()))
+    print(f"records in store: {store.count()}")
+    return 0
+
+
 def _cmd_measure_set(args: argparse.Namespace) -> int:
     build, var = SETS[args.set]
     store = Store(args.db)
@@ -308,6 +320,12 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
     s.add_argument("--loki", help="directory holding the loki-* data dirs (default $MIMIR_LOKI)")
     s.set_defaults(fn=_cmd_import)
+    s = sub.add_parser("import-e10", help="E10 placer-sweep metrics from <data>/placers/*.json into records, joined to the run rows")
+    s.add_argument("db")
+    s.add_argument("data", help="the run root's data directory (holds placers/)")
+    s.add_argument("--label", default="e10")
+    s.add_argument("--netlists", help="the run root's netlists directory (adds the LUT count as struct.n_comb)")
+    s.set_defaults(fn=_cmd_import_e10)
     s = sub.add_parser("measure-set", help="measure a netlist set: mcnc, norns or loki")
     s.add_argument("db")
     s.add_argument("set", choices=sorted(SETS))
