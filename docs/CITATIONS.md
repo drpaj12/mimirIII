@@ -22,6 +22,7 @@ Source of truth: `citations.toml`; regenerate with `mimir citations`.
 | rose2012vtr | paper | Cited for the MCNC BLIFs and the imported VPR data | J. Rose, J. Luu, C. W. Yu, O. Densmore, J. Goeders, A. Somerville, K. B. Kent, P. Jamieson, J. Anderson (2012). The VTR project: architecture and CAD for FPGAs from Verilog to routing. Proc. ACM/SIGDA Int. Symp. on FPGAs (FPGA '12), pp. 77-86. | https://doi.org/10.1145/2145694.2145708 |  |
 | stroobandt2000synth | paper | Generator line for Mi Q3 (Rent-based synthetic circuits) | D. Stroobandt, P. Verplaetse, J. van Campenhout (2000). Generating synthetic benchmark circuits for evaluating CAD tools. IEEE Trans. CAD of Integrated Circuits and Systems 19(9), pp. 1011-1022. | https://doi.org/10.1109/43.863641 |  |
 | vtr-mcnc | project | The MCNC LGSynth93 circuits, optimised with SIS script.rugged and script.algebraic and mapped to 4-input LUTs and flip flops by Flowmap, per the benchmark README | vtr_flow/benchmarks/blif in the VTR checkout. VTR commit 3c9a4d23b2. | https://github.com/verilog-to-routing/vtr-verilog-to-routing | VTR LICENSE.md (MIT-style) |
+| wainberg2015relaxed | paper | The criticality definition VPR 9 uses (relaxed per constraint) | M. Wainberg, V. Betz (2015). Robust Optimization of Multiple Timing Constraints. IEEE Trans. CAD of Integrated Circuits and Systems 34(12), pp. 1942-1953. | https://doi.org/10.1109/TCAD.2015.2440316 |  |
 
 ## Checked
 
@@ -42,3 +43,4 @@ Source of truth: `citations.toml`; regenerate with `mimir citations`.
 - `rose2012vtr`: 2026-10-27, Crossref record of the DOI (authors Rose, Luu, Yu, Densmore, Goeders, Somerville, Kent, Jamieson, Anderson; FPGA 2012; pp. 77-86); given names from the Norns joined.bib entry, which matches.
 - `stroobandt2000synth`: 2026-10-27, Crossref record of the DOI (title, authors D. Stroobandt, P. Verplaetse and J. van Campenhout, IEEE TCAD vol 19 issue 9, 2000, pp. 1011-1022). Full text not read.
 - `vtr-mcnc`: 2026-10-27, the README and circuits.txt in vtr_flow/benchmarks/blif of the local checkout at commit 3c9a4d23b2. No primary reference for the original MCNC set was checked, so none is cited.
+- `wainberg2015relaxed`: 2026-10-28, Crossref (DOI 10.1109/TCAD.2015.2440316): authors Wainberg and Betz, IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems, vol 34 issue 12, pp. 1942-1953, 2015, title as given; the same fields as the comment above calc_relaxed_criticality in vpr/src/timing/timing_util.cpp of the VTR checkout at commit 3c9a4d23b2. The full text was not read.

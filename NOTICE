@@ -5,3 +5,5 @@ VTR commit 3c9a4d23b2, MIT-style licence in VTR's LICENSE.md). Each source keeps
 Optional extra `partition` uses pymetis (MIT) wrapping METIS (Apache-2.0). Optional extra `parquet` uses
 pyarrow (Apache-2.0). Optional extra `analysis` uses numpy (BSD-3-Clause). Packages are installed by the
 user, not vendored.
+
+tests/fixtures/timing/bm_DL_BCD_adder.attribution.json is a copy of tests/tools/data/timing_attr_v1/bm_DL_BCD_adder.attribution.json of Odin III (MIT, same author), taken from a real VPR 9 run.
