@@ -38,7 +38,7 @@ whose routing or report still exists), and the number of runs whose near-critica
 
 VPR's criticality of a connection is the "relaxed per constraint" criticality of Wainberg and Betz
 (IEEE TCAD 34(12), 2015, doi 10.1109/TCAD.2015.2440316; `wainberg2015relaxed` in `citations.toml`,
-named in VPR's source comment, full text not read). VPR 9 computes it in
+named in VPR's source comment, record checked against Crossref 2026-10-28, full text not read). VPR 9 computes it in
 `vpr/src/timing/timing_util.cpp` (`calc_relaxed_criticality`, lines 874-945 at VTR commit
 3c9a4d23b2, the commit of `rose2012vtr` and `elgammal2025vtr9` data in this store):
 
@@ -52,16 +52,41 @@ brief is the case `worst_slack >= 0` of this formula, with `max_req` as D_max; M
 so that its numbers equal what the placer sees.
 
 **Path criticality.** The criticality of a reported path is the formula above with the path's slack,
-and `worst_slack` and `max_req` taken over the paths of the report that share its (launch clock,
-capture clock) pair. The pair is read from the `clocked by` text of the path's start and end point.
+and `worst_slack` and `max_req` taken over the endpoints of its (launch clock, capture clock)
+pair: exact when the run is `exhaustive` or `full-report`, else over the paths of the report
+(2.1). The pair is read from the `clocked by` text of the path's start and end point.
 The criticality of an object (a statement, word, bit, module, structure) is the maximum criticality of
 the paths through it, as VPR takes the worst criticality over the connections through a pin.
 
-**Approximation, stated.** VPR takes `max_req` over all endpoints; the report holds only the N worst
-paths. When all required times of a pair are equal up to the clock uncertainty (one clock, no input or
-output delay, which is every run in this store) the two agree to within that spread. Mimir records
-`dmax_source = 'report'` and `max_req_ns` so a reader can see the basis. `crit` of a path is
-undefined when `max_req + shift <= 0`; such a pair is skipped and counted (`pairs_skipped`).
+**max_req: exact or a lower bound.** VPR takes `max_req` and the worst slack over all endpoints
+(`SetupSlackCrit::recompute_max_req_and_worst_slack`, `vpr/src/timing/slack_evaluation.cpp:295-330`:
+every logical output, every DATA_REQUIRED and slack tag). VPR prints no per-pair `max_req`: not in
+the log, not in `--write_timing_summary` (cpd, fmax, sWNS, sTNS only) and not in
+`--generate_net_timing_report` (slack only). What VPR does give is the full endpoint list: the
+report collector (`libtatum .../report/TimingPathCollector.cpp`, `collect_worst_timing_paths`)
+writes one path per (endpoint, clock domain pair) in ascending slack order and stops at
+`--timing_report_npaths` N, and the VPR doc says the report holds fewer than N paths when the
+circuit has fewer. So a report with fewer than N paths holds every endpoint and its `max_req` and
+worst slack are VPR's. Mimir records which case a run is in, in `timing_run.dmax_source`:
+
+- `exhaustive`: the run's own report holds fewer paths than N (`paths_in_report < paths_requested`,
+  N = 100 when the attribution does not say). `max_req` and crit are VPR's.
+- `full-report`: the run's report is cut at N, and a second `vpr --analysis` over the same stored
+  routing with N above the endpoint count (`scripts/timing_rerun.py --report-only`, then
+  `mimir import-timing --full-report`) gave the exact `max_req` and worst slack per pair.
+  `max_req` and crit are VPR's; the near-critical set is still limited to the N paths of the run's
+  own report (see truncation, 2.3).
+- `report`: neither. `max_req` is the largest over the reported paths, no larger than VPR's, so the
+  denominator is too small and **crit and every near-critical count are lower bounds**. The run
+  stores `req_spread_ns`, the largest `max_req - min_req` over the reported paths of a pair: an
+  upper bound on how far the denominator can move only when the unseen required times lie within
+  the reported range, which is not known.
+
+`req_spread_ns` is stored for every run. `crit` of a path is undefined when `max_req + shift <= 0`;
+such a pair is skipped and counted (`pairs_skipped`). Crit is rounded to 9 decimals before it is
+compared with theta or put in a bin, so a value that float arithmetic gives as 0.8999999999 is 0.9.
+
+Observed in `lane3-structures.db` (79 runs, all one clock `clk`): see section 7.
 
 ### 2.2 Near-critical
 
@@ -81,9 +106,14 @@ The placer's cost is `delay * crit` (`PlacerCriticalities.h:70-76`).
   CPD). Stored as `timing_path_hist(run_id, bin, n)`; empty bins are not stored.
 - **Counts** of paths with crit >= theta, and of distinct endpoints among them, for the three thetas.
 - **N and truncation.** `paths_requested` (N asked of VPR; null when the stored attribution does
-  not say), `paths_in_report`, `paths_used`. The set is truncated at theta when the report is full
-  (`paths_in_report >= paths_requested`, or `paths_in_report >= 100` when N is not known: VPR's
-  default) and the last path still has crit >= theta; the last path's crit is stored as `last_crit`.
+  not say), `paths_in_report`, `paths_used`. The report is cut when it holds N paths or more
+  (`paths_in_report >= paths_requested`, or `>= 100` when N is not known: VPR's default), or when
+  the parser dropped a path (fewer paths parsed than `paths_in_report`: a last path cut off
+  in the file; this second disjunct is conservative, it can flag a report that N did not cut).
+  A cut report is truncated at theta when the last path of some clock domain pair still has
+  crit >= theta; `last_crit` stores the largest such last-path crit over the pairs. A cut report
+  with no usable last path (every pair skipped) is **unknown**: `trunc_*` = -1, and no
+  `timing.truncated_090` record is written (an unknown is never stored as 0). An uncut report is 0.
   A run with a truncated 0.90 set is named in every report and gets the analysis re-run (section 4).
   The counts of a truncated run are lower bounds.
 - **CPD and worst slack** as in the report.
@@ -100,7 +130,12 @@ path carries `module`, `span` (`file:line`), `loc` (full span `file:L.C-EL.EC`, 
 | `span` | `file:line` | nodes with that `span` |
 | `word` | `module/word` | nodes with that module and word; `bit = -1` |
 | `word` | `module/word` | the same, one row per declared `bit` where the node has one; `bit >= 0` |
-| `structure` | `structure_id` | nodes whose `loc` lies inside the structure's `hdl_span` (same file base name); line range when a node has no `loc`. Lane 3 spans are whole lines (`file:L-L`), so two operators on one line share their nodes |
+| `structure` | `structure_id` | nodes whose `loc` lies inside the structure's `hdl_span`; line range when a node has no `loc`. `via` = `span` for a `line.col` span and `line` for the lane 3 whole-line form (`file:L-L`), where two operators on one line share their nodes |
+
+The file of a node and of a structure are compared as paths: equal, or one a whole-component
+suffix of the other (a design-relative path against one with the root placeholder in front), never
+by base name alone. When two structure files of the same base name both match a node's path, the
+name is ambiguous and the node joins no structure.
 
 Per object and run: `crit_max`, `n_paths` (all paths through it), `n_paths_090/095/099` (paths through
 it with crit >= theta, each path counted once), and `delay_share_090` = the delay of the object's nodes
@@ -121,19 +156,24 @@ to join. Counted in the import report.
 
 ## 3. Storage (schema version 5)
 
-Migration 4 to 5 is additive: three tables, one version number. A version 4 store is migrated on open
-(not with `readonly=True`); a version 5 store opens as before. A version 4 reader refuses a version 5
-store, as a version 3 reader refused version 4.
+Migration 4 to 5 is additive: three tables, one version number. A version 4 store is migrated on a write open
+or by `mimir migrate DB` (back the file up first: copy and compare sha256); a read-only open
+(`Store(readonly=True)`) of a version 4 store works as it is, changes no byte and no mtime, and has
+no timing tables (`mimir timing-coverage` then says "no timing tables"). A version 5 store written
+before `req_spread_ns` existed gets the column on its next write open. A version 4 reader refuses a
+version 5 store, as a version 3 reader refused version 4.
 
     timing_run(run_id PK, cpd_ns, worst_slack_ns, paths_requested, paths_in_report, paths_used,
                max_req_ns, dmax_source, pairs, pairs_skipped, last_crit,
                trunc_090, trunc_095, trunc_099, n_endpoints_090, n_endpoints_095,
-               n_endpoints_099, source_kind, source_sha256, analysis_n)
+               n_endpoints_099, source_kind, source_sha256, analysis_n, req_spread_ns)
     timing_path_hist(run_id, bin, n,  PK (run_id, bin))
     timing_object(run_id, kind, object_key, bit, via, crit_max, n_paths, n_paths_090, n_paths_095,
                   n_paths_099, delay_share_090,  PK (run_id, kind, object_key, bit))
 
-`source_kind` is `attribution` (an odin3 `attribution.json`: has objects) or `report` (a VPR
+`dmax_source` is `exhaustive`, `full-report` or `report` (2.1); `trunc_*` is 1, 0 or -1
+(unknown, 2.3); `req_spread_ns` is the largest `max_req - min_req` over the reported paths of a
+pair. `source_kind` is `attribution` (an odin3 `attribution.json`: has objects) or `report` (a VPR
 `report_timing.setup.rpt`: path-level only, no HDL link); `source_sha256` the sha256 of that input;
 `analysis_n` the `--timing_report_npaths` of a re-run, null for the original.
 
@@ -147,11 +187,13 @@ Idempotent: a re-import of a run replaces its rows in all three tables and its r
 
 ## 4. Where the paths come from
 
-The importer takes either an attribution JSON (`--attribution FILE --run-id ID`), the `timing` blobs
+The importer takes either an attribution JSON (`FILE --run-id ID`), the `timing` blobs
 already in a store (`--from-blobs`: every `run_artifact` of kind `timing`), or a VPR report
 (`--report FILE --run-id ID`). The sources per store, measured in Step 1, are in the lane report.
 A run with no input is left without a `timing_run` row; it is counted as `cannot` with the reason.
-A truncated run is re-analysed only on its stored routing (VPR `--analysis`, same architecture and
+`--full-report FILE --full-requested N` adds an exhaustive report of the same run (2.1). A run
+whose id is not in the store is refused before any write; one import is one transaction (all
+three tables and the records, or none). A truncated run is re-analysed only on its stored routing (VPR `--analysis`, same architecture and
 options, never re-place or re-route) under the Norns VPR lock.
 
 ## 5. Privacy
@@ -165,4 +207,10 @@ every store after writing.
 On a small committed attribution fixture (`tests/fixtures/timing/`, a reduced copy of an odin3
 fixture, MIT, same author, with a NOTICE line) and synthetic path lists with known answers: crit of
 a hand-computed set, histogram bins, truncation, bit rows, idempotence, migration 4 to 5, old store
-readable, privacy.
+readable, privacy, v4 read-only open (bytes and mtime), `mimir migrate`, exact max_req from an
+exhaustive report, truncation unknown, structure `via`, path-based join, one-transaction import,
+`timing_rerun` argument building (no VPR run).
+
+No test compares crit with a criticality printed by VPR: VPR 9 prints none (the net timing report
+holds slack only). The check is the formula against the source (`calc_relaxed_criticality`, 2.1) and
+hand-computed cases.
