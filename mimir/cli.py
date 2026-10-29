@@ -66,7 +66,31 @@ def _cmd_import(args: argparse.Namespace) -> int:
         report.merge(rep)
     print("\n".join(report.lines()))
     print(f"records in store: {store.count()}")
+    if args.what == "norns" and args.runs:
+        return _import_kept(store, args)
     return 0
+
+
+def _import_kept(store: Store, args: argparse.Namespace) -> int:
+    """`import norns --runs DIR`: run records, then their kept timing evidence."""
+    import os
+
+    from mimir import blobs
+    from mimir.importers.nornskept import import_kept
+    from mimir.runrecord import import_runrecords
+
+    runs = Path(args.runs)
+    rep = import_runrecords(store, runs)
+    tree = args.odin3_tree or os.environ.get("MIMIR_ODIN3_TREE")
+    keep = args.keep_store or os.environ.get("NORNS_KEEP_STORE")
+    got = import_kept(store, runs, Path(args.blobs) if args.blobs else blobs.default_dir(),
+                      Path(keep) if keep else None, Path(tree) if tree else None)
+    for rel, status in got.rows:
+        if status != "skipped: no kept timing":
+            print(f"{rel}\t{status}")
+    print(f"run records {len(rep.imported)}, refused {len(rep.refused)}; kept timing: "
+          + ", ".join(f"{k} {n}" for k, n in sorted(got.count().items())))
+    return 1 if rep.refused or got.count().get("error") else 0
 
 
 def _cmd_import_e10(args: argparse.Namespace) -> int:
@@ -423,6 +447,13 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("what", choices=("norns", "loki", "all"))
     s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
     s.add_argument("--loki", help="directory holding the loki-* data dirs (default $MIMIR_LOKI)")
+    s.add_argument("--runs", help="norns: also import the run records under DIR and the timing "
+                   "evidence they kept (timing, blif, map blobs; schema 5-7 tables)")
+    s.add_argument("--blobs", help="with --runs: blob directory (default $MIMIR_BLOBS)")
+    s.add_argument("--odin3-tree", help="with --runs: Odin III checkout for the HDL graph "
+                   "(default $MIMIR_ODIN3_TREE)")
+    s.add_argument("--keep-store", help="with --runs: Norns keep store (default "
+                   "$NORNS_KEEP_STORE, else DIR/_keep-inputs)")
     s.set_defaults(fn=_cmd_import)
     s = sub.add_parser(
         "import-e10",
