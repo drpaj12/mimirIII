@@ -11,6 +11,7 @@ Purpose: hub RQ W Q3.3 (speed = critical + near-critical paths).
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 import lzma
@@ -98,7 +99,8 @@ def import_kept(store: Store, runs_dir: Path, blobs_dir: Path, keep_store: Path 
     """Store and import the kept timing evidence of every run record under `runs_dir`.
 
     The run rows must exist (`import_runrecords`). A record whose attribution file is absent is
-    left alone (status `skipped: no kept timing`). Idempotent: blobs are content addressed and a
+    imported from its kept report alone when it has one (`_report_only`), else left alone (status
+    `skipped: no kept timing`). Idempotent: blobs are content addressed and a
     run whose artifacts are unchanged and already imported is not imported again. Without
     `odin3_tree` the HDL graph is not built (status says so)."""
     keep_store = keep_store or runs_dir / "_keep-inputs"
@@ -117,7 +119,7 @@ def import_kept(store: Store, runs_dir: Path, blobs_dir: Path, keep_store: Path 
                 continue
             att = _run_dir_file(rec, "timing_attribution", run_dir)
             if att is None:
-                report.rows.append((rel, "skipped: no kept timing"))
+                report.rows.append((rel, _report_only(store, rec, run_dir, blobs_dir, scrub)))
                 continue
             art = rec["artifacts"]["timing_attribution"]
             data = att.read_bytes()
@@ -153,6 +155,41 @@ def import_kept(store: Store, runs_dir: Path, blobs_dir: Path, keep_store: Path 
     return report
 
 
+def _report_only(store: Store, rec: dict[str, Any], run_dir: Path, blobs_dir: Path,
+                 scrub: Scrubber) -> str:
+    """A run with a kept report but no attribution: store the report (artifact `timing_report`)
+    and fill timing_run and timing_path_hist from it (`timing.parse_report`, `timing.import_run`).
+    Status `ok (report only: no attribution)`, `skipped: no kept timing`, or `error: ...`."""
+    rpt = _run_dir_file(rec, "timing_report_gz", run_dir)
+    if rpt is None:
+        return "skipped: no kept timing"
+    try:
+        art = rec["artifacts"]["timing_report_gz"]
+        if _sha(rpt.read_bytes()) != art["sha256"]:
+            raise ValueError("report sha256 differs from the run record")
+        rid = _run_id(store, rec)
+        if rid is None:
+            raise ValueError("no unique run row (import the run records first)")
+        data = _blob_text(gzip.decompress(rpt.read_bytes()), scrub, "report")
+        sha = blobs.put_bytes(blobs_dir, data)
+        kt_file = _run_dir_file(rec, "keep_timing", run_dir) or run_dir / "keep-timing.json"
+        requested = None
+        if kt_file.is_file():
+            requested = json.loads(kt_file.read_text(encoding="utf-8")).get("paths_requested")
+        store.db.execute("INSERT OR REPLACE INTO run_artifact (run_id, kind, blob_sha256) "
+                         "VALUES (?, 'timing_report', ?)", (rid, sha))
+        store.db.commit()
+        done = store.db.execute("SELECT 1 FROM timing_run WHERE run_id = ? AND source_sha256 = ?",
+                                (rid, _sha(data))).fetchone()
+        if done is None:
+            inp = timing.parse_report(data.decode("utf-8"), _sha(data), requested)
+            timing.import_run(store, rid, inp, scrub)
+    except (ValueError, KeyError, OSError, EOFError, gzip.BadGzipFile) as exc:
+        store.db.rollback()
+        return f"error: {exc}"
+    return "ok (report only: no attribution)"
+
+
 def _fill(store: Store, report: KeptReport, todo: list[str], kept: list[str], stale: list[str],
           blobs_dir: Path, scrub: Scrubber, odin3_tree: Path | None) -> None:
     """Timing (v5, v6) and HDL graph (v7) of the runs in `todo`; a failure marks the run row."""
@@ -174,5 +211,9 @@ def _fill(store: Store, report: KeptReport, todo: list[str], kept: list[str], st
                 if status.startswith("error"):
                     bad[rid] = status
     ok = "ok" if odin3_tree is not None else "ok (HDL graph not built: no --odin3-tree)"
-    report.rows[:] = [(r, bad.get(s[3:], ok) if s.startswith("ok ") else s)
-                      for r, s in report.rows]
+    report.rows[:] = [(r, bad.get(s[3:], ok) if _is_att_ok(s) else s) for r, s in report.rows]
+
+
+def _is_att_ok(status: str) -> bool:
+    """`ok <run_id>` of an attribution run (a report-only run says `ok (report only: ...)`)."""
+    return status.startswith("ok ") and not status.startswith("ok (")
