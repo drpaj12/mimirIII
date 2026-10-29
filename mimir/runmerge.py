@@ -79,36 +79,55 @@ def _new_runs(db: sqlite3.Connection) -> tuple[list[str], list[str]]:
     return todo, bad
 
 
-def _copy_table(db: sqlite3.Connection, table: str, ids: str) -> int:
+IDS = "(SELECT run_id FROM temp.merge_ids)"  # the run_ids to copy, bound through a temp table
+
+
+def _shared_cols(db: sqlite3.Connection, table: str) -> str:
+    """Column list for `table`: the target's columns (in its order) that the source also has.
+
+    ValueError when the target has a NOT NULL column without a default that the source lacks (the
+    copy could not fill it), or when the table is missing from either store."""
+    tgt = db.execute(f"PRAGMA main.table_info({table})").fetchall()
+    src = {str(r[1]) for r in db.execute(f"PRAGMA src.table_info({table})")}
+    if not tgt or not src:
+        raise ValueError(f"table {table} is missing from the target or the source")
+    lacking = [str(r[1]) for r in tgt if str(r[1]) not in src and r[3] and r[4] is None]
+    if lacking:
+        raise ValueError(f"source {table} lacks NOT NULL column(s) without a default in the "
+                         f"target: {', '.join(lacking)}")
+    return ", ".join(str(r[1]) for r in tgt if str(r[1]) in src)
+
+
+def _insert(db: sqlite3.Connection, verb: str, table: str, where: str) -> int:
+    cols = _shared_cols(db, table)
     before = db.total_changes
-    db.execute(f"INSERT OR IGNORE INTO main.{table} SELECT * FROM src.{table} "
-               f"WHERE run_id IN ({ids})")
+    db.execute(f"{verb} INTO main.{table} ({cols}) SELECT {cols} FROM src.{table} WHERE {where}")
     return db.total_changes - before
 
 
-def _copy_records(db: sqlite3.Connection, ids: str) -> int:
+def _copy_table(db: sqlite3.Connection, table: str) -> int:
+    return _insert(db, "INSERT OR IGNORE", table, f"run_id IN {IDS}")
+
+
+def _copy_records(db: sqlite3.Connection) -> int:
     key = " AND ".join(f"u.{c} = r.{c}" for c in _REC_KEY)
     cols = ", ".join(f"r.{c}" for c in COLUMNS)
     before = db.total_changes
     db.execute(f"INSERT OR IGNORE INTO main.records SELECT {cols} FROM src.records r "
-               f"JOIN src.run u ON {key} WHERE u.run_id IN ({ids})")
+               f"JOIN src.run u ON {key} WHERE u.run_id IN {IDS}")
     return db.total_changes - before
 
 
-def _copy_configs(db: sqlite3.Connection, ids: str) -> int:
-    sel = f"SELECT config_hash FROM src.run WHERE run_id IN ({ids})"
-    before = db.total_changes
-    db.execute(f"INSERT OR IGNORE INTO main.flow_config SELECT * FROM src.flow_config "
-               f"WHERE config_hash IN ({sel})")
-    n = db.total_changes - before
-    db.execute(f"INSERT OR IGNORE INTO main.flow_param SELECT * FROM src.flow_param "
-               f"WHERE config_hash IN ({sel})")
+def _copy_configs(db: sqlite3.Connection) -> int:
+    sel = f"SELECT config_hash FROM src.run WHERE run_id IN {IDS}"
+    n = _insert(db, "INSERT OR IGNORE", "flow_config", f"config_hash IN ({sel})")
+    _insert(db, "INSERT OR IGNORE", "flow_param", f"config_hash IN ({sel})")
     return n
 
 
-def _blob_refs(db: sqlite3.Connection, ids: str) -> list[str]:
+def _blob_refs(db: sqlite3.Connection) -> list[str]:
     refs = {r[0] for r in db.execute(
-        f"SELECT blob_sha256 FROM src.run_artifact WHERE run_id IN ({ids})")}
+        f"SELECT blob_sha256 FROM src.run_artifact WHERE run_id IN {IDS}")}
     return sorted(refs)
 
 
@@ -142,20 +161,23 @@ def merge_runs(target: str | Path, source: str | Path, blobs_from: Path | None =
         todo, res.conflicts = _new_runs(db)
         res.runs = len(todo)
         if todo:
-            ids = ", ".join(repr(r) for r in todo)
+            db.execute("CREATE TEMP TABLE merge_ids (run_id TEXT PRIMARY KEY)")
+            db.executemany("INSERT INTO temp.merge_ids VALUES (?)", [(r,) for r in todo])
+            db.commit()
             if blobs_from is not None and blobs_to is not None and blobs_from != blobs_to:
-                _copy_blobs(_blob_refs(db, ids), blobs_from, blobs_to, res)  # before the rows
+                _copy_blobs(_blob_refs(db), blobs_from, blobs_to, res)  # before the rows
             db.execute("BEGIN")
-            db.execute(f"INSERT INTO main.run SELECT * FROM src.run WHERE run_id IN ({ids})")
-            res.configs = _copy_configs(db, ids)
+            _insert(db, "INSERT", "run", f"run_id IN {IDS}")
+            res.configs = _copy_configs(db)
             for table in RUN_TABLES:
-                res.rows[table] = _copy_table(db, table, ids)
-            res.records = _copy_records(db, ids)
+                res.rows[table] = _copy_table(db, table)
+            res.records = _copy_records(db)
             db.commit()
     except BaseException:
         db.rollback()
         raise
     finally:
+        db.execute("DROP TABLE IF EXISTS temp.merge_ids")
         db.execute("DETACH DATABASE src")
         store.close()
     return res

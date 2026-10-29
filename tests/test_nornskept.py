@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import contextlib
 import copy
+import gzip
 import io
 import json
 import lzma
@@ -150,6 +151,80 @@ class Cli(unittest.TestCase):
         db = sqlite3.connect(root / "t.db")
         self.assertEqual(db.execute("SELECT COUNT(*) FROM timing_path").fetchone()[0], 2)
         self.assertGreater(db.execute("SELECT COUNT(*) FROM hdl_edge").fetchone()[0], 0)
+
+
+REPORT = """#Timing report of worst 2 path(s)
+
+#Path 1
+Startpoint: a.inpad[0] (.input clocked by virtual_io_clock)
+Endpoint  : out:z.outpad[0] (.output clocked by virtual_io_clock)
+Path Type : setup
+
+data required time                                                         9.000
+data arrival time                                                         -6.000
+--------------------------------------------------------------------------------
+slack (MET)                                                                3.000
+
+#Path 2
+Startpoint: b.inpad[0] (.input clocked by virtual_io_clock)
+Endpoint  : out:y.outpad[0] (.output clocked by virtual_io_clock)
+Path Type : setup
+
+data required time                                                         9.000
+data arrival time                                                         -5.000
+--------------------------------------------------------------------------------
+slack (MET)                                                                4.000
+"""
+
+
+def make_report_run(root: Path, name: str, seed: int = 3) -> None:
+    """A report-only run: kept report and keep-timing.json, no attribution, no name map."""
+    rec = copy.deepcopy(make_record(seed=seed))
+    run = root / name
+    run.mkdir(parents=True)
+    gz = gzip.compress(REPORT.encode())
+    (run / "report_timing.setup.rpt.gz").write_bytes(gz)
+    (run / "keep-timing.json").write_text(json.dumps({"attribution": False, "map_sha256": None,
+                                                      "paths_requested": 1000}), encoding="utf-8")
+    rec["artifacts"]["timing_report_gz"] = {"path": "<run>/report_timing.setup.rpt.gz",
+                                            "sha256": sha(gz)}
+    rec["artifacts"]["keep_timing"] = {"path": "<run>/keep-timing.json",
+                                       "sha256": sha((run / "keep-timing.json").read_bytes())}
+    (run / "mimir-run.json").write_text(json.dumps(rec), encoding="utf-8")
+
+
+class ReportOnly(unittest.TestCase):
+    def setUp(self) -> None:
+        self.root = Path(tmpdir())
+        make_report_run(self.root, "r")
+        self.store = Store(self.root / "t.db")
+        import_runrecords(self.store, self.root)
+        self.blobs = self.root / "blobs"
+
+    def run_import(self) -> list[tuple[str, str]]:
+        return import_kept(self.store, self.root, self.blobs).rows
+
+    def test_fills_timing_from_report(self) -> None:
+        self.assertEqual(self.run_import(), [("r", "ok (report only: no attribution)")])
+        row = self.store.db.execute("SELECT source_kind, paths_in_report, paths_requested, "
+                                    "worst_slack_ns FROM timing_run").fetchone()
+        self.assertEqual(tuple(row), ("report", 2, 1000, 3.0))
+        self.assertGreater(count(self.store, "timing_path_hist"), 0)
+        kinds = [r[0] for r in self.store.db.execute("SELECT kind FROM run_artifact")]
+        self.assertEqual(kinds, ["timing_report"])
+        self.assertEqual(count(self.store, "hdl_graph_run"), 0)
+
+    def test_idempotent(self) -> None:
+        self.run_import()
+        tables = ("timing_run", "timing_path_hist", "timing_object", "run_artifact", "records")
+        before = [count(self.store, t) for t in tables]
+        self.assertEqual(self.run_import(), [("r", "ok (report only: no attribution)")])
+        self.assertEqual(before, [count(self.store, t) for t in tables])
+
+    def test_sha_mismatch_is_an_error(self) -> None:
+        (self.root / "r" / "report_timing.setup.rpt.gz").write_bytes(gzip.compress(b"x"))
+        self.assertTrue(self.run_import()[0][1].startswith("error: report sha256"))
+        self.assertEqual(count(self.store, "timing_run"), 0)
 
 
 if __name__ == "__main__":
