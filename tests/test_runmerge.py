@@ -160,6 +160,57 @@ class MergeRunsTests(unittest.TestCase):
         self.assertIn(f"needs {SCHEMA_VERSION}", str(ctx.exception))
         self.assertEqual(count(a, "run"), 1)
 
+    def test_source_with_other_column_order(self) -> None:
+        tmp = Path(tmpdir())
+        a = make(tmp / "a.db", ["a1"])
+        b = make(tmp / "b.db", ["b1"])
+        c = sqlite3.connect(b)
+        c.execute("PRAGMA legacy_alter_table=ON")  # views name these tables
+        for table in ("run", "timing_run", "run_artifact"):
+            cols = list(c.execute(f"PRAGMA table_info({table})"))[::-1]
+            names = ", ".join(str(r[1]) for r in cols)
+            decl = ", ".join(f"{r[1]} {r[2]}" for r in cols)
+            c.execute(f"ALTER TABLE {table} RENAME TO old_{table}")
+            c.execute(f"CREATE TABLE {table} ({decl})")
+            c.execute(f"INSERT INTO {table} ({names}) SELECT {names} FROM old_{table}")
+            c.execute(f"DROP TABLE old_{table}")
+        c.commit()
+        want = c.execute("SELECT cpd_ns, worst_slack_ns, paths_used, source_sha256 "
+                         "FROM timing_run").fetchone()
+        c.close()
+        r = runmerge.merge_runs(a, b)
+        self.assertEqual(r.runs, 1)
+        d = sqlite3.connect(a)
+        got = d.execute("SELECT cpd_ns, worst_slack_ns, paths_used, source_sha256 "
+                        "FROM timing_run WHERE run_id = 'b1'").fetchone()
+        run = d.execute("SELECT design, seed, config_hash FROM run WHERE run_id = 'b1'").fetchone()
+        art = d.execute("SELECT kind FROM run_artifact WHERE run_id = 'b1'").fetchone()
+        d.close()
+        self.assertEqual(got, want)
+        self.assertEqual(run, ("db1", 1, "cfg-b"))
+        self.assertEqual(art, ("run_artifact.kind.b1",))
+
+    def test_source_lacking_required_column_is_refused(self) -> None:
+        tmp = Path(tmpdir())
+        a = make(tmp / "a.db", ["a1"])
+        b = make(tmp / "b.db", ["b1"])
+        c = sqlite3.connect(b)
+        c.execute("DROP VIEW record_run")
+        c.execute("ALTER TABLE run DROP COLUMN slug")
+        c.commit()
+        c.close()
+        with self.assertRaises(ValueError) as ctx:
+            runmerge.merge_runs(a, b)
+        self.assertIn("slug", str(ctx.exception))
+        self.assertEqual(count(a, "run"), 1)
+
+    def test_many_runs_use_bound_ids(self) -> None:
+        tmp = Path(tmpdir())
+        a = make(tmp / "a.db", ["a0"])
+        b = make(tmp / "b.db", [f"q{i}'x" for i in range(1200)])
+        self.assertEqual(runmerge.merge_runs(a, b).runs, 1200)
+        self.assertEqual(count(a, "run"), 1201)
+
     def test_cli(self) -> None:
         from mimir.cli import main
 
