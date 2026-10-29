@@ -378,7 +378,37 @@ def _cmd_partition_example(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_merge_runs(args: argparse.Namespace) -> int:
+    from mimir import runmerge
+
+    print(runmerge.BACKUP_ADVICE)
+    bf = Path(args.blobs_from) if args.blobs_from else None
+    bt = Path(args.blobs_to) if args.blobs_to else None
+    bad = 0
+    try:
+        for other in args.other:
+            r = runmerge.merge_runs(args.db, other, bf, bt)
+            print(f"{other}: runs copied {r.runs}, records {r.records}, flow_config {r.configs}, "
+                  f"blobs copied {r.blobs_copied} (already there {r.blobs_present})")
+            for table, n in r.rows.items():
+                print(f"  {table}: {n}")
+            for line in (*r.conflicts, *r.blobs_missing):
+                print(f"  problem: {line}")
+            bad += len(r.conflicts) + len(r.blobs_missing)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    check = runmerge.integrity(args.db)
+    print(f"integrity_check: {check}")
+    return 0 if check == "ok" and not bad else 1
+
+
 def _cmd_merge(args: argparse.Namespace) -> int:
+    if args.runs:
+        return _cmd_merge_runs(args)
+    if args.blobs_from or args.blobs_to:
+        print("error: --blobs-from/--blobs-to need --runs", file=sys.stderr)
+        return 2
     store = Store(args.db)
     for other in args.other:
         print(f"{other}: {store.merge(other)} rows")
@@ -562,9 +592,17 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
     s.add_argument("--blobs", help="blob directory (default $MIMIR_BLOBS)")
     s.set_defaults(fn=_cmd_partition_example)
-    s = sub.add_parser("merge", help="copy the rows of other databases into this one")
+    s = sub.add_parser("merge", help="copy the records of other databases into this one; "
+                   "--runs copies whole runs (and structures, timing, HDL graph, blobs)")
     s.add_argument("db")
     s.add_argument("other", nargs="+")
+    s.add_argument("--runs", action="store_true",
+                   help="copy every run the target lacks (by run_id) with all its run-keyed rows "
+                   "and records; flow_config/flow_param insert-or-ignore; idempotent; both "
+                   "stores must be at the current schema; BACK UP the target first")
+    s.add_argument("--blobs-from", help="with --runs: source blob dir of the run artifacts")
+    s.add_argument("--blobs-to", help="with --runs: target blob dir (sha256 checked copy); "
+                   "give both or neither")
     s.set_defaults(fn=_cmd_merge)
     s = sub.add_parser("export", help="write CSV and/or Parquet in identity order")
     s.add_argument("db")

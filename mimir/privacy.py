@@ -265,9 +265,24 @@ def scan_tree(root: Path, strings: list[str]) -> list[str]:
     return out
 
 
-def scan_blobs(root: Path, strings: list[str], index: Path | None = None) -> tuple[int, list[str]]:
-    """(blobs scanned, hits). With an index dir only the blobs it marks `public` are scanned."""
-    shas = blobs.all_hashes(root)
+def scrubbed_originals(dbs: list[Path]) -> set[str]:
+    """The `blob_scrub.scrubbed_from` shas of the stores: pre-scrub copies kept on purpose."""
+    found: set[str] = set()
+    for path in dbs:
+        db = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='blob_scrub'").fetchone():
+                found.update(str(r[0]) for r in db.execute("SELECT scrubbed_from FROM blob_scrub"))
+        finally:
+            db.close()
+    return found
+
+
+def scan_blobs(root: Path, strings: list[str], index: Path | None = None,
+               withheld: set[str] | frozenset[str] = frozenset()) -> tuple[int, list[str]]:
+    """(blobs scanned, hits). With an index dir only the blobs it marks `public` are scanned.
+    Blobs named in `withheld` (scrubbed originals) are neither scanned nor counted."""
+    shas = [s for s in blobs.all_hashes(root) if s not in withheld]
     if index is not None:
         ref = remote.load_blob_index(index)
         shas = [s for s in shas if s in ref and ref[s].visibility == "public"]

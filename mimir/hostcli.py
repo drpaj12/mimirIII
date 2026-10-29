@@ -7,7 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from mimir import hostalias, hostscrub, privacy
+from mimir import blobs, hostalias, hostscrub, privacy
 from mimir.store import Store
 
 
@@ -85,12 +85,19 @@ def _cmd_privacy_check(args: argparse.Namespace) -> int:
     for path in args.path:
         p = Path(path)
         hits += privacy.scan_tree(p, strings) if p.is_dir() else privacy.scan_file(p, strings)
-    n_blobs = 0
+    n_blobs, n_withheld = 0, 0
     if args.blobs:
+        held = set()
+        if args.db:
+            held = privacy.scrubbed_originals([Path(d) for d in args.db])
+            held &= set(blobs.all_hashes(Path(args.blobs)))
+        n_withheld = len(held)
         n_blobs, found = privacy.scan_blobs(Path(args.blobs), strings,
-                                            Path(args.index) if args.index else None)
+                                            Path(args.index) if args.index else None, held)
         hits += found
     print(f"scanned: stores {len(args.db)}, paths {len(args.path)}, blobs {n_blobs}")
+    if n_withheld:
+        print(f"withheld (scrubbed original, expected): {n_withheld}")
     print(f"private strings checked: {len(strings)}")
     for h in hits[:args.max_list]:
         print(f"hit\t{h}")
@@ -116,7 +123,9 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     c.add_argument("--db", action="append", default=[], help="a store (repeatable)")
     c.add_argument("--path", action="append", default=[],
                    help="a file, directory (CSV export, snapshot) or .tar.xz (repeatable)")
-    c.add_argument("--blobs", help="blob directory")
+    c.add_argument("--blobs", help="blob directory; with --db, blobs listed as blob_scrub."
+                   "scrubbed_from in any given store are counted as withheld (scrubbed "
+                   "original, expected), not scanned, not hits")
     c.add_argument("--index", help="remote index dir: scan only the blobs marked public")
     c.add_argument("--map")
     c.add_argument("--max-list", type=int, default=50)

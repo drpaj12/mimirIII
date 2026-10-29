@@ -67,6 +67,10 @@ refuses a version 4 store.
   xz, gz or zip) is a hit `undecodable`; a Parquet file is read with pyarrow, and without pyarrow is a
   hit `not scanned`, never clean. The report names places and string numbers only, never a string.
   Exit 1 on a hit, 2 when the map is missing.
+  With `--db` and `--blobs` together, a blob named in any given store's `blob_scrub.scrubbed_from` is a
+  scrubbed original (kept on purpose, never hosted, referenced by no `run_artifact`): it is not scanned
+  and not a hit, and is reported on its own line `withheld (scrubbed original, expected): N`. The exit
+  status stays 0 when those are the only findings. Without `--db` every blob is scanned as before.
 
 ## Result of the fix round (2026-10-28)
 
