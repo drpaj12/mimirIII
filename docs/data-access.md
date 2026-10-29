@@ -42,3 +42,18 @@ holds the per-archive hosting verdicts; the per-design licence of a benchmark is
 (`data/meta/licences.toml`). Public archives on the web are repacks of the private masters: links,
 virtual envs, caches, pickles, databases, locks and shell scripts are removed and home paths are
 replaced by `$WS`/`$HOME`; their manifests are `<archive>.public.tsv.xz`.
+
+## Merging stores
+
+`mimir merge DB OTHER...` copies the `records` rows of the other stores into `DB` (insert or replace).
+`mimir merge --runs DB OTHER...` copies whole runs: every run of OTHER whose `run_id` is not in `DB`,
+with its `run_artifact`, `structure`, `structure_mapping` and `structure_member` rows, its timing tables
+(`timing_run`, `timing_path_hist`, `timing_object`, `timing_path`, `timing_path_node`), its HDL graph
+tables (`hdl_graph_run`, `hdl_edge`, `hdl_port`), the records it measured (matched on the run key, as
+the `record_run` view does), and the `flow_config` / `flow_param` rows it references (insert or ignore).
+`--blobs-from DIR --blobs-to DIR` also copies the blobs the run artifacts name, sha256 checked on read
+and on write; a blob missing in the source is reported and the exit status is 1. A run with the same
+run key as a different `run_id` already in `DB` is reported and skipped. Both stores must be at the
+current schema version (`mimir migrate` first), otherwise the command refuses. It backs nothing up:
+copy `DB` and compare sha256 first. A second run copies 0. `PRAGMA integrity_check` runs at the end. A
+test fails when a table with a `run_id` column is added to the schema and not handled.
