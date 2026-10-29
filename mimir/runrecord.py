@@ -1,4 +1,4 @@
-"""Import the run records Norns runners write (`mimir-run.json`, record_version 1).
+"""Import the run records the runners write (`mimir-run.json`): Norns, odin3-flow, Loki.
 
 A record is checked against docs/specs/2026-10-28-mimir-run-record.md; a record that fails is
 refused with every reason. A valid one becomes a `flow_config` (parameters with the conf as
@@ -20,7 +20,11 @@ from mimir.schema import FAMILIES, PARAM_CONF
 from mimir.store import Store
 
 RECORD_VERSION = 1
-KINDS = ("norns-run",)
+KINDS = ("norns-run", "odin3-flow-run", "loki-run")
+# kinds written by tools that may run without the private host map: host `unknown` is accepted
+HOST_UNKNOWN_KINDS = ("odin3-flow-run", "loki-run")
+# the tool whose commit is the run's `tool_commit`, when the kind names one (else nextpnr, vpr)
+MAIN_TOOL = {"odin3-flow-run": "odin3", "loki-run": "loki"}
 FILE_NAME = "mimir-run.json"
 _HOST = re.compile(r"host-\d+")
 _UTC = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
@@ -139,7 +143,8 @@ def check_record(rec: object) -> list[str]:
         errs.append(f"kind {rec.get('kind')!r} not in {KINDS}")
     if rec["family"] not in FAMILIES:
         errs.append(f"family {rec['family']!r} not in {FAMILIES}")
-    if not _HOST.fullmatch(rec["host"]):
+    unknown_ok = rec["host"] == "unknown" and rec.get("kind") in HOST_UNKNOWN_KINDS
+    if not _HOST.fullmatch(rec["host"]) and not unknown_ok:
         errs.append("host must be host-<n>")
     errs += _time_errors(rec, "record")
     if not _UTC.fullmatch(rec["started_utc"]):
@@ -183,10 +188,12 @@ def record_spec(rec: dict[str, Any]) -> Spec:
 
 
 def _tool_commit(rec: dict[str, Any]) -> str:
-    """The commit of the placer's tool: nextpnr for an external-placer arm, else VPR, else the
-    first tool by name. The other tools stay in `run.tool_commits`."""
+    """The commit of the run's main tool: the one the kind names (odin3 for `odin3-flow-run`,
+    loki for `loki-run`), else nextpnr for an external-placer arm, else VPR, else the first tool
+    by name. The other tools stay in `run.tool_commits`."""
     tools = rec["tools"]
-    names = [n for n in ("nextpnr", "vpr") if n in tools]
+    main = MAIN_TOOL.get(str(rec["kind"]), "")
+    names = [n for n in (main, "nextpnr", "vpr") if n in tools and n]
     return str(tools[names[0] if names else sorted(tools)[0]]["commit"])
 
 

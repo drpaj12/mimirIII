@@ -213,3 +213,49 @@ non-given parameter and its reason (the lane report).
 3. The grid size a nextpnr run was given (`nextpnr.vopt.width`, `height`) is a parameter, so two
    designs of different size have two configurations.
 4. Input and artifact hashes stay in the record; the store does not hold them yet.
+
+## 9. Amendment 2026-10-29: odin3-flow and Loki records
+
+Lane: loki-odin3flow-runrecords (branches `feat/run-records` in odin3 and loki, `feat/run-records-2`
+in mimirIII). Purpose, questions and measures as section 1 (Mi Q2.3; the share of new odin3-flow and
+Loki runs imported as `full`, or each `partial` run with the missing parameter named; 0 reconstructed
+parameters). The writers are `tools/flow/runrecord.py` and `flow_record.py` of Odin III (`odin3-flow`)
+and `loki/runrecord.py` and `loki/re/record.py` of Loki (`loki re`); both stdlib only, neither imports
+Mimir. Each follows sections 2 to 6, with these additions:
+
+1. **Kinds and sources.** `kind` is `odin3-flow-run` (source `odin3-flow`) or `loki-run` (source
+   `loki`), besides `norns-run`. `family` is `` (the schema's placer family does not apply).
+2. **Host.** Sections 5 and 6 stay for `norns-run`. These two writers do not stop without the map: no
+   map, a missing file or an unreadable map gives the host `unknown`, which the importer accepts for
+   these two kinds only; the real name is never written. With a map they number and append exactly as
+   section 5 says.
+3. **Main tool.** The `run.tool_commit` is the commit of `odin3` for `odin3-flow-run` and of `loki` for
+   `loki-run`; `run.tool_commits` still lists every tool.
+4. **Steps.** A step whose time is contained in another step of the record (the two `vpr` commands
+   `run_vtr_flow.py` ran, read from the first line of VPR's own logs) is marked `shared: true`, so the
+   record's `time_s` does not count it twice; `shared` therefore also means "contained in another
+   step". A `loki re` run is one step `loki-re`. `peak_rss_mib` of a step is the child's
+   `ru_maxrss` from `wait4` (odin3-flow) or of the process and the children it waited for (Loki).
+5. **Placeholders.** Besides section 3.1: `<out>` (the run's output directory), `<designs>`, `<share>`
+   (the Odin III data root), `<odin3>` (the binary), `<top>` (the top module as a whole argument or
+   file stem), `<netlist>`, `<design>`, `<loki>`. A command text that holds a design's own name would
+   make one setup several texts, which the importer refuses (section 4), so these placeholders stand
+   in for it.
+6. **Parameters.** `odin3-flow`: `tool.odin3_*`, `tool.vpr_*`, `tool.abc_commit` (the ABC commit the Odin
+   III binary states in `--version`, `given`), `odin3.cmd.<flag>`, `odin3.<pass>.<option>` (every pass
+   option in the `-p` script, `given`; a repeated pass is `<pass>#<n>`), `odin3.<pass>.unset_options`
+   (`default`, cited `file:line` of the line in the Odin III source, as committed at the tree's HEAD,
+   that initialises the pass's options), `flow.<flag>`, `vpr.<option>` (VPR's echo in `vpr.out`),
+   `vpr_flow.cmd.<flag>`, `vpr_final.cmd.<flag>` (the final route's command line without
+   `--route_chan_width`, which is a result of the minimum-width search) and `run.seed` (`default`, VPR's
+   seed from `read_options.cpp`, or `none` when VPR does not run). `loki`: `tool.loki_*`, `tool.odin3_*`,
+   `re.<option>` (every `loki re` option: `given` on the command line, else `default` cited
+   `loki/re/main.py:<line>` of the `add_argument`), `re.floor_resolved`, `re.calib_sha256`,
+   `re.odin3-root` and `env.odin3_lib` (from the environment) and `run.seed`.
+7. **Commit conf.** A tool run as a script from its tree (`loki`) has a `given` commit when its tree
+   is clean at record time. A binary whose version text names no commit (Odin III 1.1.1 `--version`
+   gives the ABC commit but not its own) has an `unknown` commit, so those configurations are
+   `partial` with `tool.odin3_commit` named, until the binary states its commit.
+8. **Inputs.** `odin3-flow-run`: `netlist` is the design file (several files: the sha256 over their
+   bytes in command-line order, with the parameter `inputs.netlist_files`), plus `design_<n>`, `arch`.
+   `loki-run`: `netlist` is the BLIF read.

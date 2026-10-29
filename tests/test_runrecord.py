@@ -49,6 +49,39 @@ def write(root: Path, name: str, rec: object) -> None:
     (root / name / "mimir-run.json").write_text(json.dumps(rec), encoding="utf-8")
 
 
+def make_other(kind: str, source: str, tool: str) -> dict[str, Any]:
+    """A record of the two new writers: host `unknown`, no placer family."""
+    rec = make_record()
+    rec.update(kind=kind, source=source, arm="vtr+vpr", family="", host="unknown")
+    rec["tools"] = {tool: {"commit": COMMIT, "clean": True, "binary_sha256": ""},
+                    "abc": {"commit": "c" * 40, "clean": None, "binary_sha256": ""}}
+    return rec
+
+
+class NewKinds(unittest.TestCase):
+    def test_both_kinds_pass_with_host_unknown(self) -> None:
+        for kind, source, tool in (("odin3-flow-run", "odin3-flow", "odin3"),
+                                   ("loki-run", "loki", "loki")):
+            self.assertEqual(check_record(make_other(kind, source, tool)), [])
+
+    def test_norns_still_needs_a_host_alias(self) -> None:
+        rec = make_record()
+        rec["host"] = "unknown"
+        self.assertTrue(any("host must be" in e for e in check_record(rec)))
+
+    def test_import_uses_the_main_tool_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            rec = make_other("odin3-flow-run", "odin3-flow", "odin3")
+            rec["tools"]["abc"]["commit"] = "d" * 40
+            write(root, "a", rec)
+            store = Store(root / "m.db")
+            report = import_runrecords(store, root)
+            self.assertEqual(report.refused, [])
+            row = store.db.execute("SELECT tool_commit, host, source FROM run").fetchone()
+            self.assertEqual(tuple(row), (COMMIT, "unknown", "odin3-flow"))
+
+
 class CheckRecord(unittest.TestCase):
     def test_valid_record_passes(self) -> None:
         self.assertEqual(check_record(make_record()), [])
