@@ -28,6 +28,23 @@ v1 store migrates when opened.
     .venv/bin/mimir snapshot mimir.db DIR --verify   # xz SQL dump + manifest, restore compared byte for byte,
                                                      # schema and blob references checked ($MIMIR_BLOBS or --blobs)
 
+Benchmarks: Mimir is the home of the generic (third-party) benchmark suites and the netlists compiled from them; the registry is
+committed under `data/benchmarks/` (suites with upstream URL, commit and licence; flows with tool commit and script; designs with source
+hash and licence rule; netlists keyed by sha256 in the blob store). Sources are referenced under `$MIMIR_EXTERNAL` (default
+`<workspace>/external`), never copied. A benchmark is named `suite:design@flow`:
+
+    .venv/bin/mimir bench list [--suite S [--netlists]]    # suites, designs, or suite:design@flow lines
+    .venv/bin/mimir bench show vtr-verilog:sha@odin3-1.2.0-k6-verilog
+    .venv/bin/mimir bench fetch mcnc20:alu4@odin3-1.2.0-k6-blif --out alu4.blif   # --kind map|flow|source
+    .venv/bin/mimir bench build vtr-verilog:sha --flow odin3-1.2.0-k6-verilog --odin3 BIN --arch-dir DIR
+    .venv/bin/mimir bench register SUITE...                 # rebuild designs.tsv rows from the checkout
+    .venv/bin/mimir bench import DIR --suite S --flow F     # import the netlists of a flow layout
+    .venv/bin/mimir bench check [--local --verify]          # index consistent; blobs present and intact
+
+Made-up designs (Norns synthetic and known-optimum sets, Loki round 4 families, Leman Russ Seeker releases) are not Mimir's. The `norns`
+set of `measure-set` reads the 35 registered base netlists; the old directory read is `norns-runs`. Spec:
+`docs/specs/2026-10-31-benchmarks-design.md`.
+
 Measurers: the structural characterisation of Hutton (thesis and TCAD 2002) and Rent's rule by recursive bisection (METIS through
 pymetis). A third, opt-in measurer, `graphlet` (`mimir measure-set ... --graphlet`), runs the Odin III `graphlets` pass through the
 `odin3` package (undirected size 5 and directed size 4, global signals excluded) and stores per-orbit design totals (`graphlet_orbit_count`, bin
