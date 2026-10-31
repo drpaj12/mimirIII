@@ -114,7 +114,11 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
     notes: Counter[str] = Counter()
     gnotes: Counter[str] = Counter()
     done = 0
-    for job in build(_root(args.root, var)):
+    from mimir import blobs
+
+    default = blobs.default_dir() if var == "MIMIR_BLOBS" else None
+    root = Path(args.root or os.environ.get(var) or default or _root(None, var))
+    for job in build(root):
         out = measure_job(job, seeds=seeds, rent=not args.no_rent,
                           rent_max_nodes=args.rent_max_nodes, graphlet=args.graphlet)
         if out.error:
@@ -502,10 +506,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--netlists",
         help="the run root's netlists directory (adds struct.n_comb, the Odin III netlist LUTs)")
     s.set_defaults(fn=_cmd_import_e10)
-    s = sub.add_parser("measure-set", help="measure a netlist set: mcnc, norns or loki")
+    s = sub.add_parser("measure-set", help="measure a netlist set: mcnc, mcnc-k2/k4, norns, "
+                       "norns-runs or loki")
     s.add_argument("db")
     s.add_argument("set", choices=sorted(SETS))
-    s.add_argument("--root", help="set root (default $VTR_ROOT, $MIMIR_NORNS or $MIMIR_LOKI)")
+    s.add_argument("--root", help="set root (default $VTR_ROOT, $MIMIR_BLOBS, $MIMIR_NORNS "
+                   "or $MIMIR_LOKI)")
     s.add_argument("--no-rent", action="store_true")
     s.add_argument("--graphlet", action="store_true",
                    help="also run the Odin III graphlets pass (needs the odin3 package)")
@@ -633,6 +639,9 @@ def build_parser() -> argparse.ArgumentParser:
     from mimir.remotecli import add_parsers
 
     add_parsers(sub)
+    from mimir.benchcli import add_parsers as add_bench_parsers
+
+    add_bench_parsers(sub)
     from mimir.hostcli import add_parsers as add_host_parsers
 
     add_host_parsers(sub)

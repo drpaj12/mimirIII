@@ -57,3 +57,10 @@ run key as a different `run_id` already in `DB` is reported and skipped. Both st
 current schema version (`mimir migrate` first), otherwise the command refuses. It backs nothing up:
 copy `DB` and compare sha256 first. A second run copies 0. `PRAGMA integrity_check` runs at the end. A
 test fails when a table with a `run_id` column is added to the schema and not handled.
+
+## Benchmarks
+
+`mimir bench fetch suite:design@flow` writes one registered netlist (or its name map, flow record or checked source).
+The registry `data/benchmarks/` has its own `blobs.tsv.xz` in the format above (archive `-`; `private` for a
+`local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The blobs are
+not uploaded yet (hosting is Peter's call). Spec: `docs/specs/2026-10-31-benchmarks-design.md`.

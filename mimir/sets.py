@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -65,6 +66,29 @@ def norns_jobs(norns_root: Path) -> list[Job]:
     return _smallest_first(jobs)
 
 
+NORNS_SUITES = ("vtr-verilog", "mcnc20")
+NORNS_FLOW_PREFIX = "odin3-1.2.0-k6-"
+
+
+def norns_registry_jobs(blob_root: Path) -> list[Job]:
+    """The Odin III netlists of the 35 Norns base designs (15 VTR Verilog, 20 MCNC), read from
+    the benchmark registry (`data/benchmarks`): each blob is fetched (local store `blob_root`
+    first) into the cache, hash checked, and measured from there."""
+    from mimir import bench, remote
+
+    idx = bench.index_dir()
+    loc = dataclasses.replace(remote.Locations.from_env(), blobs=blob_root)
+    cache = loc.cache / "bench"
+    jobs = []
+    for n in bench.load_netlists(idx):
+        if n.suite in NORNS_SUITES and n.flow.startswith(NORNS_FLOW_PREFIX):
+            ref = f"{n.suite}:{n.design}@{n.flow}"
+            path = bench.materialise(ref, cache / f"{n.sha256}.blif", idx=idx, loc=loc)
+            jobs.append(Job(path, n.design, "norns-netlist", "lut", f"bench:{ref}",
+                            arch=NORNS_ARCH))
+    return _smallest_first(jobs)
+
+
 def loki_jobs(loki_root: Path) -> list[Job]:
     """The per-floor netlists of every Loki floor-layout dataset."""
     jobs = []
@@ -85,6 +109,7 @@ SETS: dict[str, tuple[Callable[[Path], list[Job]], str]] = {
     "mcnc": (mcnc_jobs, "VTR_ROOT"),
     "mcnc-k2": (mcnc_k2_jobs, "VTR_ROOT"),
     "mcnc-k4": (mcnc_k4_jobs, "VTR_ROOT"),
-    "norns": (norns_jobs, "MIMIR_NORNS"),
+    "norns": (norns_registry_jobs, "MIMIR_BLOBS"),
+    "norns-runs": (norns_jobs, "MIMIR_NORNS"),
     "loki": (loki_jobs, "MIMIR_LOKI"),
 }
