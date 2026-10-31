@@ -1635,3 +1635,63 @@ defined_in = "docs/specs/2026-10-28-near-critical.md, sections 2.1 to 2.3"
 citations = ["wainberg2015relaxed", "elgammal2025vtr9"]
 named_after = []
 validation = "Counted from the paths of a VPR setup timing report (or the odin3 attribution of it); criticality is VPR 9 calc_relaxed_criticality applied to the reported paths. Known-answer tests in tests/test_timing.py."
+
+[[metric]]
+key = "graphlet_orbit_count"
+description = "Graphlet orbit total over all nodes of the design (bin = mode/orbit id, e.g. undirected-5/3; undirected orbits 0..72 after Przulj 2007, directed orbits 0..128 are Odin III's own numbering); divide by the orbit size in nodes for a graphlet count. Global signals excluded"
+unit = "count"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "graphlet"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
+
+[[metric]]
+key = "graphlet_nodes"
+description = "Nodes of the graph counted (cells and ports; constants are not nodes), bin = mode"
+unit = "nodes"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "graphlet"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
+
+[[metric]]
+key = "graphlet_edges"
+description = "Edges of the counted simple graph after collapsing parallel edges and excluding global nets, bin = mode"
+unit = "edges"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "graphlet"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
+
+[[metric]]
+key = "graphlet_self_loops"
+description = "Self-loops dropped from the counted graph, bin = mode"
+unit = "edges"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "graphlet"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
+
+[[metric]]
+key = "graphlet_global_nets"
+description = "Nets left out as global (reach a clock pin or have 16 or more readers), bin = mode"
+unit = "nets"
+levels = ["gate", "lut"]
+kind = "measured"
+measurer = "graphlet"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
