@@ -63,4 +63,9 @@ test fails when a table with a `run_id` column is added to the schema and not ha
 `mimir bench fetch suite:design@flow` writes one registered netlist (or its name map, flow record or checked source).
 The registry `data/benchmarks/` has its own `blobs.tsv.xz` in the format above (archive `-`; `private` for a
 `local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The blobs are
-not uploaded yet (hosting is Peter's call). Spec: `docs/specs/2026-10-31-benchmarks-design.md`.
+staged 2026-10-31, upload by Peter: 253 blobs (6,871,580 bytes) under `blobs/<ab>/<sha>.xz` of the same base URL, with the
+registry index in `index/bench/`. `mimir bench publish-plan --stage DIR --date YYYY-MM-DD` writes that tree (only blobs of
+a `hosting = "public"` suite; a `local-only` or `unchecked` suite is never staged; every blob is checked against its
+index row). The blob index has no published flag, so there is nothing to `--record`. Suites withheld: `vtr-blif-k2` and
+`vtr-blif-k4` (`unchecked`: licence not read, no blobs). `itc99` and `brisc-v` are hostable but hold no netlist blobs
+(sources are checked out, not stored). Spec: `docs/specs/2026-10-31-benchmarks-design.md`.

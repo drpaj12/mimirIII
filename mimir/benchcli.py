@@ -7,7 +7,7 @@ import os
 from collections import Counter
 from pathlib import Path
 
-from mimir import bench, benchreg, blobs
+from mimir import bench, benchpub, benchreg, blobs
 from mimir.meta import load_licence_rules
 
 
@@ -126,6 +126,18 @@ def _cmd_import(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_publish_plan(args: argparse.Namespace) -> int:
+    idx, store = _idx(args), _store(args)
+    meta = Path(__file__).resolve().parents[1] / "data/meta/licences.toml"
+    try:
+        for line in benchpub.run_stage(idx, store, Path(args.stage), meta, args.date):
+            print(line)
+    except (benchpub.BenchPubError, bench.BenchError, OSError) as exc:
+        print(f"error: {exc}")
+        return 1
+    return 0
+
+
 def _cmd_check(args: argparse.Namespace) -> int:
     store = _store(args) if args.local else None
     probs = bench.check(_idx(args), store, args.verify)
@@ -182,6 +194,11 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--flow", required=True)
     p.add_argument("--workspace", help="root replaced by $WS in stored text")
     p.set_defaults(fn=_cmd_import)
+    p = bs.add_parser("publish-plan", help="stage the public netlist blobs for the web host")
+    common(p)
+    p.add_argument("--stage", required=True, help="directory to write the upload tree to")
+    p.add_argument("--date", required=True, help="staging date for the notice (YYYY-MM-DD)")
+    p.set_defaults(fn=_cmd_publish_plan)
     p = bs.add_parser("check", help="the index is consistent; with --local the blobs are present")
     common(p)
     p.add_argument("--local", action="store_true")
