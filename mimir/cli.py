@@ -112,10 +112,11 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
     seeds = [int(s) for s in args.seeds.split(",")]
     errors: Counter[str] = Counter()
     notes: Counter[str] = Counter()
+    gnotes: Counter[str] = Counter()
     done = 0
     for job in build(_root(args.root, var)):
         out = measure_job(job, seeds=seeds, rent=not args.no_rent,
-                          rent_max_nodes=args.rent_max_nodes)
+                          rent_max_nodes=args.rent_max_nodes, graphlet=args.graphlet)
         if out.error:
             errors[out.error[:90]] += 1
             continue
@@ -123,11 +124,15 @@ def _cmd_measure_set(args: argparse.Namespace) -> int:
         done += 1
         if out.rent_note:
             notes[out.rent_note] += 1
+        if out.graphlet_note:
+            gnotes[out.graphlet_note[:120]] += 1
     print(f"set {args.set}: measured {done} netlists")
     for msg, n in sorted(errors.items()):
         print(f"  skipped {n}: {msg}")
     for msg, n in sorted(notes.items()):
         print(f"  rent note {n}: {msg}")
+    for msg, n in sorted(gnotes.items()):
+        print(f"  graphlet skipped {n}: {msg}")
     return 0
 
 
@@ -430,16 +435,18 @@ SELECT source, level,
        COUNT(DISTINCT design || '|' || arch) AS designs,
        COUNT(DISTINCT CASE WHEN metric = 'struct.depth' THEN design || '|' || arch END)
            AS with_struct,
-       COUNT(DISTINCT CASE WHEN metric = 'rent.p' THEN design || '|' || arch END) AS with_rent
+       COUNT(DISTINCT CASE WHEN metric = 'rent.p' THEN design || '|' || arch END) AS with_rent,
+       COUNT(DISTINCT CASE WHEN metric = 'graphlet_nodes' THEN design || '|' || arch END)
+           AS with_graphlet
 FROM records
-WHERE measurer IN ('struct', 'rent')
+WHERE measurer IN ('struct', 'rent', 'graphlet')
 GROUP BY source, level ORDER BY source, level
 """
 
 
 def _cmd_coverage(args: argparse.Namespace) -> int:
     store = Store(args.db, readonly=True)
-    print("source\tlevel\tdesigns\twith_struct\twith_rent")
+    print("source\tlevel\tdesigns\twith_struct\twith_rent\twith_graphlet")
     for row in store.db.execute(COVERAGE_SQL):
         print("\t".join(str(x) for x in row))
     return 0
@@ -500,6 +507,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("set", choices=sorted(SETS))
     s.add_argument("--root", help="set root (default $VTR_ROOT, $MIMIR_NORNS or $MIMIR_LOKI)")
     s.add_argument("--no-rent", action="store_true")
+    s.add_argument("--graphlet", action="store_true",
+                   help="also run the Odin III graphlets pass (needs the odin3 package)")
     s.add_argument("--seeds", default="1,2,3")
     s.add_argument("--rent-max-nodes", type=int, default=RENT_MAX_NODES)
     s.set_defaults(fn=_cmd_measure_set)
