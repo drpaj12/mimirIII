@@ -6,6 +6,29 @@ Mímir III is part of **Yggdrasil III**, the suite of Odin III (<https://github.
 
 Its data is hosted at <https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data>. The repository holds an index of it; fetch a file with `mimir fetch ARCHIVE:MEMBER`, or add `--online` to read it from that URL (see [`docs/data-access.md`](docs/data-access.md)).
 
+## Features
+
+Status: **works** = a `mimir` command with tests on `main`; **opt-in** = needs an extra or an external tool; **hosting** = depends on files uploaded to the web host.
+
+| Feature | Status | Where |
+|---|---|---|
+| Circuit knowledge base: one tidy `records` table (design, version, level, arch, seed, placer arm and family, metric, value, unit, measurer) in SQLite, with CSV and Parquet export | works | `mimir init`, `export`; `docs/specs/2026-10-27-mimir-foundation-design.md` |
+| Schema v7 with design, meta, lineage, flow config, run, partition, timing, per-path timing, HDL graph and structure tables; older stores migrate when opened | works | `mimir migrate`; `docs/specs/2026-10-27-mimir-schema-v2.md` and the later specs in `docs/specs/` |
+| Importers for Norns runs, Loki runs and Odin III flow output, and run records from Odin III flow and Loki (`loki re` writes one) | works | `mimir import`, `import-runs`, `import-flow`, `import-runrecords`, `import-meta` |
+| Measurers: Hutton-style structural characterisation, Rent's rule (METIS via pymetis), and the graphlet measurer (Odin III `graphlets` pass, per-orbit totals) | works; Rent needs the `partition` extra, graphlet is opt-in (`--graphlet`) | `mimir measure`, `measure-set`; `docs/specs/` |
+| Near-critical timing and per-path timing tables, imported from stored runs | works | `mimir import-timing`; `docs/specs/2026-10-28-near-critical.md`, `2026-10-28-timing-paths.md` |
+| Line-level HDL graph of runs (links netlist objects to source lines) | works | `mimir hdl-graph`; `docs/specs/2026-10-28-hdl-graph.md` |
+| Structures and their mapping (Loki detectors run on stored BLIFs, precision and recall report) | works | `mimir detect`, `detect-mcnc`, `report`; `docs/specs/2026-10-27-mimir-structures.md` |
+| Benchmark registry: generic suites, designs and the netlists compiled from them, keyed `suite:design@flow`, with upstream URL, commit and licence per suite, sources referenced and never copied | works | `mimir bench list\|show\|fetch\|build\|register\|import\|check`; `data/benchmarks/`; `docs/specs/2026-10-31-benchmarks-design.md` |
+| Blob store: content-addressed xz blobs by sha256, with snapshot (xz SQL dump, restore compared byte for byte) | works | `mimir blob`, `mimir snapshot` |
+| `mimir fetch`: one archive member, blob or every artifact of a run, looked up in the local blob store, then the archive dir, then the cache, then the URL; archive and member sha256 verified, size bounded, private archives never downloaded | works; the URL step needs the hosted files | `mimir fetch`, `mimir remote check\|index\|publish-plan`; `docs/data-access.md` |
+| Online data at <https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data> (public repacks of the archives; the benchmark registry index was put online on 2026-11-02; `--online` reads from it) | hosting | `docs/data-access.md` |
+| Privacy tools: host aliases, scrubbing and `mimir privacy-check` over stores, CSV, blobs and snapshots | works | `mimir host-alias`, `privacy-check`; `docs/specs/2026-10-28-mimir-host-alias.md` |
+| Merging stores and run coverage reports | works | `mimir merge [--runs]`, `meta-coverage`, `run-coverage`, `timing-coverage` |
+| Metric registry and citations (every metric and source has an entry) | works | `mimir registry`, `mimir citations`; `docs/CITATIONS.md` |
+
+Made-up benchmarks (Norns synthetic and known-optimum sets, Loki round 4 families, Leman Russ Seeker releases) are not Mimir's. Mimir has no manual index page yet; the specs in `docs/specs/` are the reference.
+
 One tidy table of records (the `records` table, from schema 1): design, version, level, arch, seed, placer arm and family, metric,
 value, unit and the measurer that computed it. Storage is SQLite with CSV and Parquet export.
 
