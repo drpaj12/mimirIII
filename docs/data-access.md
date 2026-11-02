@@ -67,10 +67,31 @@ test fails when a table with a `run_id` column is added to the schema and not ha
 
 `mimir bench fetch suite:design@flow` writes one registered netlist (or its name map, flow record or checked source).
 The registry `data/benchmarks/` has its own `blobs.tsv.xz` in the format above (archive `-`; `private` for a
-`local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The blobs are
-staged 2026-10-31, upload by Peter: 253 blobs (6,871,580 bytes) under `blobs/<ab>/<sha>.xz` of the same base URL, with the
+`local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The bench index and its 253 public blobs
+(6,871,580 bytes) are online since 2026-11-02, under `blobs/<ab>/<sha>.xz` of the same base URL, with the
 registry index in `index/bench/`. `mimir bench publish-plan --stage DIR --date YYYY-MM-DD` writes that tree (only blobs of
 a `hosting = "public"` suite; a `local-only` or `unchecked` suite is never staged; every blob is checked against its
 index row). The blob index has no published flag, so there is nothing to `--record`. Suites withheld: `vtr-blif-k2` and
 `vtr-blif-k4` (`unchecked`: licence not read, no blobs). `itc99` and `brisc-v` are hostable but hold no netlist blobs
 (sources are checked out, not stored). Spec: `docs/specs/2026-10-31-benchmarks-design.md`.
+
+## Rate limit, backoff and the bulk archive
+
+The static host rate-limits: after about 28 quick GETs it answers HTTP 429 (Too Many Requests) and stays
+throttled for a long time, even at one request per few seconds. The host is not changed; `mimir fetch` (and
+`mimir bench fetch`) handle it in `mimir/netfetch.py`:
+
+- Minimum spacing between two http(s) requests: 2 s by default (`MIMIR_FETCH_MIN_SPACING`, `--min-spacing`).
+- On 429 or 503 the wait is the `Retry-After` header when present (at most the cap), else exponential
+  backoff with jitter: 5 s doubling (`MIMIR_FETCH_BACKOFF_START`), at most 300 s (`MIMIR_FETCH_BACKOFF_CAP`),
+  each wait multiplied by a random 0.5 to 1. A message on stderr says the status, the wait and the retry number.
+- At most 6 retries per request (`MIMIR_FETCH_RETRIES`, `--retries`); then the fetch fails with the HTTP error.
+  Other errors (404 and so on) are not retried. `file:` URLs are not throttled.
+
+To avoid hundreds of requests, `mimir bench publish-plan` also writes one archive of all public bench blobs and the
+`index/bench/` files, `bulk/mimir-bench-all.tar.xz` (deterministic tar.xz), and `index/bench/bulk.toml` with its
+sha256 and size. The registry commits that record as `data/benchmarks/bulk.toml`; it is the trust root.
+`mimir fetch --bench-all [--online]` downloads the one file (the cache, then `MIMIR_ARCHIVE`, then the URL),
+checks its sha256 and size, and unpacks each blob into `$MIMIR_CACHE/blobs/<ab>/<sha>.xz` after checking it
+against the committed blob index (public, xz size, decompressed size, sha256 of the content). Other members are
+refused. Afterwards `mimir bench fetch` finds every blob in the cache without a request. A second run unpacks 0.

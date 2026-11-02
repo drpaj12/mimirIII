@@ -20,7 +20,7 @@ from dataclasses import dataclass, fields, replace
 from pathlib import Path, PurePosixPath
 from typing import IO, Any, NamedTuple
 
-from mimir import blobs
+from mimir import blobs, netfetch
 
 DEFAULT_BASE = "https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data"
 SCHEMES = ("http", "https", "file")
@@ -347,9 +347,9 @@ def download(url: str, dest: Path, sha: str, limit: int) -> None:
         raise FetchError(f"refused URL scheme {scheme!r}")
     part = dest.with_name(dest.name + ".part")
     try:
-        with urllib.request.urlopen(url, timeout=60) as resp:
+        with netfetch.open_url(url) as resp:
             _copy_checked(resp, part, dest, sha, None, limit)
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         raise FetchError(f"download failed: {url}: {exc}") from exc
 
 
@@ -562,9 +562,9 @@ def download_blob(base: str, ref: BlobRef, cached: Path) -> None:
     if scheme not in SCHEMES:
         raise FetchError(f"refused URL scheme {scheme!r}")
     try:
-        with urllib.request.urlopen(url, timeout=60) as resp:
+        with netfetch.open_url(url) as resp:
             data = resp.read(ref.xz_bytes + 1)
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         raise FetchError(f"download failed: {url}: {exc}") from exc
     if len(data) > ref.xz_bytes:
         raise FetchError(f"blob {ref.sha}: longer than the indexed {ref.xz_bytes} bytes, stopped")
