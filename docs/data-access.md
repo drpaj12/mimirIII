@@ -18,6 +18,11 @@ are read only from `MIMIR_ARCHIVE`. The committed index holds only a row for eac
 size, kind, `visibility = "private"`); their member manifests are local files in
 `$MIMIR_PRIVATE_INDEX/manifests/` (default `mimir-data/remote-private/`), never committed.
 
+A private archive can also be listed only locally: `$MIMIR_PRIVATE_INDEX/archives.toml` (same row format as the
+committed one) is merged over the committed index by `mimir fetch` (never by index, publish-plan or any command that
+writes `data/remote/`). Its rows are forced private, take no URL, and may not reuse a committed name. The member
+manifest is `$MIMIR_PRIVATE_INDEX/manifests/<name>.tsv.xz`. A `form = "dir"` row names a directory under `MIMIR_ARCHIVE`.
+
 ## Commands
 
     mimir fetch ARCHIVE:MEMBER [--out FILE]     # one file of an archive; see data/remote/manifests/
