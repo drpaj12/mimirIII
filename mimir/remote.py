@@ -16,7 +16,7 @@ import tomllib
 import urllib.parse
 import urllib.request
 from collections.abc import Iterable
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, replace
 from pathlib import Path, PurePosixPath
 from typing import IO, Any, NamedTuple
 
@@ -150,6 +150,25 @@ def load_archives(idx: Path | None = None) -> dict[str, Archive]:
         arch = _archive_from(row)
         if arch.name in out:
             raise ValueError(f"duplicate archive {arch.name}")
+        out[arch.name] = arch
+    return out
+
+
+def load_archives_merged(idx: Path | None = None, priv: Path | None = None
+                         ) -> dict[str, Archive]:
+    """The committed archives plus the local-only `archives.toml` of the private index dir
+    (`$MIMIR_PRIVATE_INDEX`), when that file exists. Overlay entries are private by force, may
+    not reuse a committed name, and are never written back (publish and index use
+    `load_archives`)."""
+    out = load_archives(idx)
+    base = priv if priv is not None else private_dir()
+    path = base / "archives.toml" if base is not None else None
+    if path is None or not path.is_file():
+        return out
+    for row in tomllib.loads(path.read_text(encoding="utf-8")).get("archive", []):
+        arch = replace(_archive_from(row), visibility="private", urls=())
+        if arch.name in out:
+            raise ValueError(f"private archive {arch.name} reuses a committed name")
         out[arch.name] = arch
     return out
 
@@ -418,7 +437,7 @@ def fetch_member(idx: Path, loc: Locations, name: str, member: str, out: Path | 
                  ) -> Path:
     """Fetch one member of an archive; returns the path written. Order: MIMIR_ARCHIVE, the
     cache, the URL (never for a private archive, which also needs its local manifest)."""
-    archives = load_archives(idx)
+    archives = load_archives_merged(idx, loc.private_index)
     if name not in archives:
         raise FetchError(f"unknown archive {name!r}")
     arch = archives[name]
@@ -565,7 +584,7 @@ def find_by_sha(idx: Path, sha: str, priv: Path | None = None) -> list[tuple[str
     """Every (archive, entry) of the manifests whose file has this sha256 (a private archive's
     manifest counts only when it is present locally)."""
     hits = []
-    for name, arch in sorted(load_archives(idx).items()):
+    for name, arch in sorted(load_archives_merged(idx, priv).items()):
         path = manifest_file(idx, arch, priv)
         if path is None or not path.exists():
             continue
