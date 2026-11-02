@@ -2,6 +2,16 @@
 
 Mímir III: the circuit knowledge base of Yggdrasil III (design characteristics, Rent, provenance relationships, QoR).
 
+What it is today: a SQLite knowledge base (one tidy `records` table plus design, meta, lineage, flow, run, partition, timing,
+per-path timing and HDL-graph tables, schema v7) and a benchmark registry with content-addressed blobs, so that circuits can be
+characterised, compared and mined over time. Stages: **import** (Norns runs, Loki runs, Odin III flow output and run records),
+**measure** (Hutton-style structure, Rent's rule, opt-in graphlet orbit totals), **register** (third-party suites and the
+netlists compiled from them, keyed `suite:design@flow`, sources referenced and never copied), **fetch** (a local blob store, then
+archives, then the hosted URL, sha256 verified) and **report** (coverage, Loki detector precision and recall, privacy checks).
+Mímir III holds the data; it reports no research finding of its own and has no paper. The papers that use its data are those of
+[Loki III](https://github.com/drpaj12/loki/tree/main/docs/paper), [The Norns III](https://github.com/drpaj12/nornsIII/tree/main/docs/paper)
+and [Odin III](https://github.com/drpaj12/odin3/tree/main/docs/paper). The hub is <https://github.com/drpaj12/YggdrasilIII>.
+
 Mímir III is part of **Yggdrasil III**, the suite of Odin III (<https://github.com/drpaj12/odin3>, the trunk), Wyrd III (<https://github.com/drpaj12/wyrd>, the canopy, with Bifrost III and Midgard III), Loki III (<https://github.com/drpaj12/loki>), The Norns III (<https://github.com/drpaj12/nornsIII>) and Verdandi III (<https://github.com/drpaj12/verdandiIII>) on side branches, and Mímir III (<https://github.com/drpaj12/mimirIII>, the fruit). Mímir III is the fruit of the tree: the dataset harvested from the runs of the trunk and the branches (Odin III, VTR, The Norns III, Loki III). Version 0.1.0 (`pyproject.toml`). The hub is <https://github.com/drpaj12/YggdrasilIII> (documentation: <https://drpaj12.github.io/YggdrasilIII/>, versions of every piece: <https://drpaj12.github.io/YggdrasilIII/versions.html>) and its picture of the tree is <https://github.com/drpaj12/YggdrasilIII/blob/main/images/yggdrasil-tree.png>.
 
 Its data is hosted at <https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data>. The repository holds an index of it; fetch a file with `mimir fetch ARCHIVE:MEMBER`, or add `--online` to read it from that URL (see [`docs/data-access.md`](docs/data-access.md)).
