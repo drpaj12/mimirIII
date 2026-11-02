@@ -7,7 +7,7 @@ import os
 import sqlite3
 from pathlib import Path
 
-from mimir import blobs, publish, remote
+from mimir import bench, benchbulk, blobs, netfetch, publish, remote
 from mimir.licscan import load_table
 from mimir.meta import load_licence_rules
 
@@ -23,7 +23,13 @@ def _cmd_fetch(args: argparse.Namespace) -> int:
         loc = remote.Locations(loc.blobs, loc.archive_dir, args.url, loc.cache)
     out = Path(args.out) if args.out else None
     try:
-        if args.run:
+        netfetch.set_policy(args.retries, args.min_spacing)
+        netfetch.policy()
+        if args.bench_all:
+            written, have = benchbulk.fetch_all(bench.index_dir(), loc)
+            print(f"bench blobs: {written} unpacked into {loc.cache / 'blobs'}, "
+                  f"{have} already there")
+        elif args.run:
             if not args.db:
                 raise remote.FetchError("--run needs --db")
             db = sqlite3.connect(f"file:{args.db}?mode=ro", uri=True)
@@ -36,7 +42,7 @@ def _cmd_fetch(args: argparse.Namespace) -> int:
             print(remote.fetch_member(idx, loc, name, member, out))
         else:
             raise remote.FetchError("give ARCHIVE:MEMBER, --sha SHA or --run RUN_ID")
-    except remote.FetchError as exc:
+    except (remote.FetchError, ValueError) as exc:
         print(f"error: {exc}")
         return 1
     return 0
@@ -112,6 +118,11 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     s.add_argument("--url", help="base URL (overrides MIMIR_DATA_URL and the index)")
     s.add_argument("--online", action="store_true", help="use the default Hostinger base URL")
     s.add_argument("--index", help="index dir (default: the repo's data/remote)")
+    s.add_argument("--bench-all", action="store_true",
+                   help="download the one archive of all public bench blobs into the cache")
+    s.add_argument("--retries", type=int, help="retries on HTTP 429/503 (env MIMIR_FETCH_RETRIES)")
+    s.add_argument("--min-spacing", type=float,
+                   help="seconds between requests (env MIMIR_FETCH_MIN_SPACING, default 2)")
     s.set_defaults(fn=_cmd_fetch)
     r = sub.add_parser("remote", help="index, check and publish-plan for the remote data")
     rs = r.add_subparsers(dest="rcmd", required=True)

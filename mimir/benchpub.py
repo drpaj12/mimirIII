@@ -13,7 +13,7 @@ import lzma
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from mimir import bench, blobs, remote
+from mimir import bench, benchbulk, blobs, remote
 from mimir.meta import Rule, load_licence_rules
 from mimir.publish import _put, process_bytes
 
@@ -132,10 +132,19 @@ def run_stage(idx: Path, store: Path, stage: Path, meta_licences: Path, date: st
         _put(stage / "index" / "bench" / name, (idx / name).read_bytes())
     _put(stage / "index" / "bench" / "NOTICE.txt",
          notice_text(idx, load_licence_rules(meta_licences), date).encode())
+    bulk = benchbulk.build(stage)
+    _put(stage / "index" / "bench" / benchbulk.RECORD, benchbulk.record_text(bulk).encode())
     n_sums = write_sums(stage)
     suites = bench.load_suites(idx)
     ver = verdicts(suites)
     report = [f"blobs staged: {res.count}; xz bytes: {res.xz_bytes}; "
               f"withheld (home path): {len(res.withheld)}; SHA256SUMS lines: {n_sums}"]
     report += [f"suite\t{i}\t{ver[i]}\tblobs {res.by_suite.get(i, 0)}" for i in suites]
+    report.append(f"bulk archive: {bulk.file}; sha256 {bulk.sha256}; {bulk.size} bytes; "
+                  f"{bulk.blobs} blobs")
+    recorded = idx / benchbulk.RECORD
+    want = benchbulk.record_text(bulk)
+    if not recorded.is_file() or recorded.read_text(encoding="utf-8") != want:
+        report.append(f"note: copy {stage / 'index' / 'bench' / benchbulk.RECORD} to "
+                      f"{recorded.name} in the registry (it differs or is missing)")
     return report
