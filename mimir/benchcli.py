@@ -153,6 +153,24 @@ def _cmd_check(args: argparse.Namespace) -> int:
     return 1 if probs else 0
 
 
+def _cmd_report(args: argparse.Namespace) -> int:
+    from datetime import date
+
+    from mimir import benchhtml, benchreport
+
+    db = Path(args.db) if args.db else None
+    if db is not None and not db.is_file():
+        print(f"error: no store at {db}")
+        return 1
+    rep = benchreport.collect(_idx(args), db, args.date or date.today().isoformat(), args.commit)
+    out = Path(args.html)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(benchhtml.render(rep), encoding="utf-8", newline="\n")
+    print(f"{out}\t{out.stat().st_size} bytes\t{len(rep.rows)} designs\t"
+          f"joined {sum(rep.joins[k] for k in rep.joins if k != '-')}")
+    return 0
+
+
 def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     b = sub.add_parser("bench", help="the benchmark registry: suites, designs, netlists")
     bs = b.add_subparsers(dest="bcmd", required=True)
@@ -204,3 +222,10 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--local", action="store_true")
     p.add_argument("--verify", action="store_true", help="with --local: hash every blob")
     p.set_defaults(fn=_cmd_check)
+    p = bs.add_parser("report", help="one self-contained HTML page: suites, sizes, store metrics")
+    common(p)
+    p.add_argument("--html", required=True, help="output file")
+    p.add_argument("--db", help="Mimir store (opened read only) for the metrics; optional")
+    p.add_argument("--date", help="date shown (default today, YYYY-MM-DD)")
+    p.add_argument("--commit", help="registry commit shown (default: git HEAD of the index)")
+    p.set_defaults(fn=_cmd_report)
