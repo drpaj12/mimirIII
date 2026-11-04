@@ -1,0 +1,11 @@
+--- a/cordic.v
++++ b/cordic.v
+@@ -175,7 +175,7 @@
+   integer j;
+   always @ * begin
+     Q = D;
+-    for(j=0;j<i;j=j+1) Q = (Q >> 1) | (D[`XY_BITS] << `XY_BITS);
++    for(j=0;j<(1<<`ITERATION_BITS);j=j+1) if (j < i) Q = (Q >> 1) | (D[`XY_BITS] << `XY_BITS);
+   end
+ endmodule
+ /*  Rotator
