@@ -1,0 +1,13 @@
+# tb_origin: upstream-fixed. Patch against bench/verilog/test_bench_top.v of OpenCores vga_lcd (upstream licence applies: the notice in the upstream file header).
+# Reason: run time (see tests.v.patch): pd2_test is not called; reg_test, tim_test, pd1_test and ur_test are.
+--- a/bench/verilog/test_bench_top.v
++++ b/bench/verilog/test_bench_top.v
+@@ -220,7 +220,7 @@
+ `ifdef VGA_12BIT_DVI
+ `else
+ 	pd1_test;
+-	pd2_test;
++	// pd2_test;  (scenario subset, see README)
+ `endif
+ 
+ 	ur_test;
