@@ -691,17 +691,46 @@ opencores	ethmac	licence	LGPL-2.1+ per file header	rtl/verilog/eth_top.v:24-27 o
 opencores	ethmac	oc_design_done	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
 opencores	ethmac	oc_fpga_proven	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
 opencores	ethmac	oc_stage	stable	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
+opencores	ethmac	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/ethmac)
+opencores	ethmac	sim_iverilog_msg	vvp cap reached (1800 s) without an end summary; last line seen: TEST 5: RANDOM RECEIVE AND TRANSMIT FRAMES AT ONE TX AND ONE RX BD ( 100Mbps ); no unexpected error line before it	iverilog+vvp (project testbench, run in work/opencores-runs/ethmac)
+opencores	ethmac	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	ethmac	sim_odin_msg	sim_tb takes one testbench file with one module; this project's testbench is several files (testbench + models)	odin3 1.2.0 sim_tb usage message: sim_tb: expects [--top <module>] [--max-time N] [--seed N] [--out <file>] [--vcd
 opencores	ethmac	src_rev	github.com/freecores/ethmac git dd26899086ed	https://opencores.org/projects/ethmac; tree hash = sha256 of sorted 'relpath sha256' lines of the 27 RTL files read
 opencores	ethmac	tb	ethmac/bench/verilog/tb_ethernet.v ethmac/bench/verilog/eth_host.v ethmac/bench/verilog/eth_memory.v ethmac/bench/verilog/eth_phy.v ethmac/bench/verilog/wb_bus_mon.v ethmac/bench/verilog/wb_master32.v ethmac/bench/verilog/wb_master_behavioral.v ethmac/bench/verilog/wb_slave_behavioral.v	file scan of the project (bench/testbench files)
+opencores	ethmac	tb_origin	upstream	testbench provenance
 opencores	ethmac	vec	0	not scanned
+opencores	ethmac	vtr_blocks	1172	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	ethmac	vtr_cpd	7.71791	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_cw	62	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_ffs	10543	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_luts	16463	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_maxrss_kb	395048	/usr/bin/time over the run steps
+opencores	ethmac	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_pins	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	i2c	desc	I2C core, Wishbone master	https://opencores.org/projects/i2c
 opencores	i2c	licence	none named (permissive no-restriction notice with disclaimer, Richard Herveille 2001)	rtl/verilog/i2c_master_top.v:17-20 of github.com/freecores/i2c git 3b067f00ccced
 opencores	i2c	oc_design_done	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)
 opencores	i2c	oc_fpga_proven	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)
 opencores	i2c	oc_stage	stable	https://opencores.org/projects/i2c (page data, read 2026-11-04)
+opencores	i2c	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/i2c); judged by: Testbench done
+opencores	i2c	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	i2c	sim_odin_msg	sim_tb takes one testbench file with one module; this project's testbench is several files (testbench + models)	odin3 1.2.0 sim_tb usage message: sim_tb: expects [--top <module>] [--max-time N] [--seed N] [--out <file>] [--vcd
 opencores	i2c	src_rev	github.com/freecores/i2c git 3b067f00ccced	https://opencores.org/projects/i2c; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
 opencores	i2c	tb	i2c/bench/verilog/tst_bench_top.v i2c/bench/verilog/wb_master_model.v i2c/bench/verilog/i2c_slave_model.v	file scan of the project (bench/testbench files)
+opencores	i2c	tb_origin	upstream	testbench provenance
 opencores	i2c	vec	0	not scanned
+opencores	i2c	vtr_blocks	31	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	i2c	vtr_cpd	2.80648	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_cw	36	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_ffs	200	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_luts	316	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_maxrss_kb	73380	/usr/bin/time over the run steps
+opencores	i2c	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_pins	22	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	i2cslave	desc	I2C Slave	https://opencores.org/projects/i2cslave
 opencores	i2cslave	licence	LGPL-2.1+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/i2cSlave.v:27-30 of github.com/freecores/i2cslave git ffe84e97cf28
 opencores	i2cslave	oc_design_done	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
@@ -795,17 +824,45 @@ opencores	sha3_high	licence	Apache-2.0	LICENSE:1-3; high_throughput_core/rtl/kec
 opencores	sha3_high	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_high	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_high	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_high	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/sha3_high); judged by: Good!
+opencores	sha3_high	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	sha3_high	sim_odin_msg	test_keccak.v:18: unsupported: compiler directive	odin3 1.2.0 sim_tb
 opencores	sha3_high	src_rev	github.com/freecores/sha3 git c25a5befc75e	https://opencores.org/projects/sha3_high; tree hash = sha256 of sorted 'relpath sha256' lines of the 6 RTL files read
 opencores	sha3_high	tb	sha3/high_throughput_core/testbench/test_keccak.v	file scan of the project (bench/testbench files)
+opencores	sha3_high	tb_origin	upstream	testbench provenance
 opencores	sha3_high	vec	0	not scanned
+opencores	sha3_high	vtr_blocks	763	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	sha3_high	vtr_cpd	9.22457	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_cw	148	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_ffs	2211	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_luts	7824	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_maxrss_kb	312300	/usr/bin/time over the run steps
+opencores	sha3_high	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_pins	585	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sha3_low	desc	SHA-3 (Keccak) low-throughput core	https://opencores.org/projects/sha3_low
 opencores	sha3_low	licence	Apache-2.0	LICENSE:1-3; low_throughput_core/rtl/keccak.v:4-6 of github.com/freecores/sha3 git c25a5befc75e
 opencores	sha3_low	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_low	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_low	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_low	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/sha3_low); judged by: Good!
+opencores	sha3_low	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	sha3_low	sim_odin_msg	test_keccak.v:18: unsupported: compiler directive	odin3 1.2.0 sim_tb
 opencores	sha3_low	src_rev	github.com/freecores/sha3 git c25a5befc75e	https://opencores.org/projects/sha3_low; tree hash = sha256 of sorted 'relpath sha256' lines of the 6 RTL files read
 opencores	sha3_low	tb	sha3/low_throughput_core/testbench/test_keccak.v	file scan of the project (bench/testbench files)
+opencores	sha3_low	tb_origin	upstream	testbench provenance
 opencores	sha3_low	vec	0	not scanned
+opencores	sha3_low	vtr_blocks	463	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	sha3_low	vtr_cpd	4.44096	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_cw	114	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_ffs	2244	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_luts	5035	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_maxrss_kb	215612	/usr/bin/time over the run steps
+opencores	sha3_low	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_pins	552	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	simple_spi	desc	SPI core	https://opencores.org/projects/simple_spi
 opencores	simple_spi	licence	none stated (OpenCores page has no licence; file header is a permissive no-name copyright notice)	rtl/verilog/simple_spi_top.v:11-20 of github.com/freecores/simple_spi git 61c39a5f79fd
 opencores	simple_spi	oc_design_done	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
@@ -833,9 +890,23 @@ opencores	spi	licence	LGPL-2.1+ per file header	rtl/verilog/spi_top.v:24-26 of g
 opencores	spi	oc_design_done	False	https://opencores.org/projects/spi (page data, read 2026-11-04)
 opencores	spi	oc_fpga_proven	True	https://opencores.org/projects/spi (page data, read 2026-11-04)
 opencores	spi	oc_stage	stable	https://opencores.org/projects/spi (page data, read 2026-11-04)
+opencores	spi	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/spi); judged by: Testbench done
+opencores	spi	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	spi	sim_odin_msg	sim_tb takes one testbench file with one module; this project's testbench is several files (testbench + models)	odin3 1.2.0 sim_tb usage message: sim_tb: expects [--top <module>] [--max-time N] [--seed N] [--out <file>] [--vcd
 opencores	spi	src_rev	github.com/freecores/spi git 1b8aa4c54bd7	https://opencores.org/projects/spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
 opencores	spi	tb	spi/bench/verilog/tb_spi_top.v spi/bench/verilog/wb_master_model.v spi/bench/verilog/spi_slave_model.v	file scan of the project (bench/testbench files)
+opencores	spi	tb_origin	upstream	testbench provenance
 opencores	spi	vec	0	not scanned
+opencores	spi	vtr_blocks	61	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	spi	vtr_cpd	6.56467	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_cw	46	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_ffs	229	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_luts	612	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_maxrss_kb	78720	/usr/bin/time over the run steps
+opencores	spi	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_pins	71	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	tiny_aes	desc	AES	https://opencores.org/projects/tiny_aes
 opencores	tiny_aes	licence	Apache-2.0 (OpenCores page: Others)	LICENSE:1-3; rtl/aes_128.v:4-6 of github.com/freecores/tiny_aes git faf2afb2bcb6
 opencores	tiny_aes	oc_design_done	True	https://opencores.org/projects/tiny_aes (page data, read 2026-11-04)
