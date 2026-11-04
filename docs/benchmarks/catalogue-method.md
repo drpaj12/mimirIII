@@ -1,0 +1,38 @@
+# Catalogue method
+
+Table: `docs/benchmarks/catalogue.md` (also `data/benchmarks/catalogue.tsv`). Generator: `mimir bench catalogue`.
+Inputs: the registry plus `data/benchmarks/measures.tsv` (`suite design key value source`, one row per
+value, the source says where it came from). Collectors: `mimir bench measure vtr|silicon|testbench`; Odin III
+runs are added by `mimir bench measure odin` (Phase 2, below). Empty cell `-` = not run, `n/a` = does not
+apply, `fail: <reason>` = the tool failed. No value is estimated.
+
+Rows: 428 = one per design of `designs.tsv`, except that `vtr-blif-k2` and `vtr-blif-k4` hold the same
+circuits and are one section, one row per circuit name present in either (rule: equal design name; 199
+names; format column says `blif (k2,k4)`). Values for a joined row are looked up in k4 first, then k2.
+
+## Columns and sources
+
+- LOC: `lines` of `designs.tsv` (Verilog); `-` for BLIF.
+- testbench: path (relative to `external/`) of a `tb_*`/`*_tb*`/`*_test*` file named for the design in the
+  suite directory, else a cross (searched only the suite directory; VTR and ITC'99 ship none). VerilogEval:
+  `<problem>_test.sv`. BRISC-V: `tb_single_cycle_BRAM_top_gcd.v` in the project dir.
+- vectors: tick when that testbench compares against a reference module (VerilogEval: the testbench
+  instantiates the reference `RefModule` and drives stimulus) or reads a stimulus/expected file
+  (`$readmemh`, `$readmemb`, `$fscanf`); else cross. BLIF circuits ship none.
+- VTR path (one sample): the Norns run record `norns-placers-e10-base`, arm `vpr_sa`, seed 1, architecture
+  `k6_frac_N10_frac_chain_mem32K_40nm`, VTR commit `3c9a4d23b2` (VTR 9, Peter co-author of the 2012 VTR paper;
+  both cited in `citations.toml` where the project cites VTR). LUTs = `struct.n_comb`, blocks =
+  `vpr.blocks` (all blocks: CLBs, I/O, hard blocks), cpd = `vpr.cpd` (ns), chan w = `vpr.chan_width`.
+  FFs, pins (BLIF `.inputs` + `.outputs` bits of the top model), mult/mem hard blocks (`multiply`;
+  `single_port_ram` + `dual_port_ram` `.subckt`) are counted from the mapped BLIF blob of the same
+  design and flow (`odin3-1.2.0-k6-verilog` or `-blif`). Only the 35 designs of that run are filled.
+- Silicon path: run root of Q-L13 (44 designs: 40 VerilogEval problems and 4 processor modules; the 4
+  modules are not registered designs and are not in the table). stage = last step with status ok of
+  read, elab, map, netlist, equiv, place, route, gds, extract, lvs. LVS = `match` when the lvs step is
+  ok, `mismatch` when it failed with a netlist mismatch, else `out of scope: stopped at <step>
+  (<reason>)`. cells = instances at the end of detailed route (`census.json` step `s10_detail_route`,
+  including tap cells and CTS buffers, without fill). core um2 = OpenROAD `CoreArea` (GPL-0016) / 1e6
+  (DBU 1000). Not run here; no design outside Q-L13 has a silicon row.
+- property checks and gates / 4-LUT / 6-LUT: Odin III (Phase 2).
+
+Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts.

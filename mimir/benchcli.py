@@ -7,7 +7,7 @@ import os
 from collections import Counter
 from pathlib import Path
 
-from mimir import bench, benchpub, benchreg, blobs
+from mimir import bench, benchcat, benchmeasure, benchpub, benchreg, blobs
 from mimir.meta import load_licence_rules
 
 
@@ -171,6 +171,37 @@ def _cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+LEGEND = (
+    "One row per registered design, grouped by suite (where it is from). `\u2713` yes, `\u2717` no "
+    "(both measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value "
+    "is in `data/benchmarks/measures.tsv` with its source; the rules are in "
+    "`docs/benchmarks/catalogue-method.md`. The `vtr-blif-k2` and `vtr-blif-k4` suites hold the "
+    "same circuits: they are one section, one row per circuit name present in either."
+)
+
+
+def _cmd_measure(args: argparse.Namespace) -> int:
+    idx = _idx(args)
+    if args.kind == "vtr":
+        rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
+    elif args.kind == "silicon":
+        rows = benchmeasure.collect_silicon(idx, Path(args.root), args.label)
+    else:
+        rows = benchmeasure.collect_testbench(idx, Path(args.root))
+    total = benchcat.upsert_measures(idx, rows)
+    print(f"{args.kind}: {len(rows)} rows, measures.tsv {total} rows")
+    return 0
+
+
+def _cmd_catalogue(args: argparse.Namespace) -> int:
+    idx = _idx(args)
+    rows = benchcat.generate(idx, Path(args.out), LEGEND)
+    print(f"{args.out}\t{len(rows)} rows")
+    for key, (have, tot) in benchcat.fill_counts(rows).items():
+        print(f"  {key}\t{have}/{tot}")
+    return 0
+
+
 def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     b = sub.add_parser("bench", help="the benchmark registry: suites, designs, netlists")
     bs = b.add_subparsers(dest="bcmd", required=True)
@@ -222,6 +253,17 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--local", action="store_true")
     p.add_argument("--verify", action="store_true", help="with --local: hash every blob")
     p.set_defaults(fn=_cmd_check)
+    p = bs.add_parser("measure", help="collect existing data into measures.tsv")
+    common(p)
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench"))
+    p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
+    p.add_argument("--root", help="silicon: run root; testbench: external dir")
+    p.add_argument("--label", default="silicon-run", help="silicon: run name for the source field")
+    p.set_defaults(fn=_cmd_measure)
+    p = bs.add_parser("catalogue", help="write the catalogue table (markdown + tsv)")
+    common(p)
+    p.add_argument("--out", default="docs/benchmarks/catalogue.md")
+    p.set_defaults(fn=_cmd_catalogue)
     p = bs.add_parser("report", help="one self-contained HTML page: suites, sizes, store metrics")
     common(p)
     p.add_argument("--html", required=True, help="output file")
