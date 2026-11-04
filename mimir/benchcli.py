@@ -172,11 +172,12 @@ def _cmd_report(args: argparse.Namespace) -> int:
 
 
 LEGEND = (
-    "One row per registered design, grouped by suite (where it is from). `\u2713` yes, `\u2717` no "
-    "(both measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value "
-    "is in `data/benchmarks/measures.tsv` with its source; the rules are in "
+    "One row per registered design, in tiers: best first (HDL with testbench and the whole flow), "
+    "down to BLIF netlists only; each tier states its rule. `\u2713` yes, `\u2717` no (both "
+    "measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value is in "
+    "`data/benchmarks/measures.tsv` with its source; the rules are in "
     "`docs/benchmarks/catalogue-method.md`. The `vtr-blif-k2` and `vtr-blif-k4` suites hold the "
-    "same circuits: they are one section, one row per circuit name present in either."
+    "same circuits: one row per circuit name present in either."
 )
 
 
@@ -198,7 +199,9 @@ def _cmd_measure(args: argparse.Namespace) -> int:
     idx = _idx(args)
     if args.kind == "odin":
         return _measure_odin(args, idx)
-    if args.kind == "store":
+    if args.kind == "desc":
+        rows = benchmeasure.collect_desc(idx, Path(args.root), Path(args.meta))
+    elif args.kind == "store":
         rows = benchmeasure.collect_store_extra(idx, Path(args.db))
     elif args.kind == "vtr":
         rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
@@ -274,7 +277,8 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.set_defaults(fn=_cmd_check)
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
-    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store"))
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc"))
+    p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
     p.add_argument("--suite", help="odin: suite id")

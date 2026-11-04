@@ -7,6 +7,7 @@ import json
 import re
 import sqlite3
 import subprocess
+import tomllib
 from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
@@ -113,6 +114,56 @@ def collect_store_extra(idx: Path, db: Path) -> list[Row]:
                     rows.append([suite, design, keys[metric], _num(value), src])
     finally:
         con.close()
+    return rows
+
+
+# ---- what a design does -----------------------------------------------------------------------
+
+PROMPT_RE = re.compile(r"[Tt]he module should implement (.*?)\.(?:\s|$)")
+VTR_DOC = "doc/src/vtr/benchmarks.rst"
+DESC_MAX = 80
+
+
+def _clean(text: str) -> str:
+    text = " ".join(text.replace("|", "/").split())
+    return text if len(text) <= DESC_MAX else text[: DESC_MAX - 3].rstrip() + "..."
+
+
+def vtr_domains(rst: str) -> dict[str, str]:
+    """name -> domain from the `table_vtr_benchmarks` table of the VTR documentation."""
+    out: dict[str, str] = {}
+    body = rst.split("table_vtr_benchmarks", 1)[-1]
+    for line in body.splitlines()[:40]:
+        m = re.match(r"\s{4}(\S+)\s{2,}(\S.*?)\s*$", line)
+        if m and not set(m.group(1)) <= {"="} and m.group(1) != "Benchmark":
+            out[m.group(1)] = m.group(2)
+    return out
+
+
+def collect_desc(idx: Path, ext_root: Path, meta_toml: Path) -> list[Row]:
+    """One phrase per design from the suite's own text; no phrase where the source says none.
+    VerilogEval: the prompt sentence `The module should implement ...`; VTR Verilog: the Domain
+    column of the VTR documentation table; MCNC circuits: the `intent` of data/meta/mcnc.toml
+    up to its first parenthesis; BRISC-V: the suite title."""
+    suites = bench.load_suites(idx)
+    domains = vtr_domains((ext_root / "vtr-verilog-to-routing" / VTR_DOC).read_text("utf-8"))
+    mcnc = tomllib.loads(meta_toml.read_text("utf-8")).get("circuit", {})
+    rows: list[Row] = []
+    for d in bench.load_designs(idx):
+        su, got = suites[d.suite], None
+        if d.suite == "verilogeval":
+            f = ext_root / su.external / su.subdir / f"{d.design}_prompt.txt"
+            m = PROMPT_RE.search(" ".join(f.read_text("utf-8").split())) if f.is_file() else None
+            got = (m.group(1), f"{su.external}/{su.subdir}/{d.design}_prompt.txt") if m else None
+        elif d.suite == "vtr-verilog" and d.design in domains:
+            got = (domains[d.design], f"VTR 7.0 benchmarks table, {VTR_DOC}")
+        elif d.suite == "brisc-v":
+            got = ("BRISC-V microcontroller (Arduino-on-RISC-V)", "suites.toml brisc-v title")
+        elif d.design in mcnc and d.suite in ("mcnc20", "vtr-blif-k4", "vtr-blif-k2"):
+            intent = str(mcnc[d.design].get("intent", "")).split(" (")[0].strip()
+            got = (intent, f"data/meta/mcnc.toml circuit.{d.design}.intent") if intent else None
+        if got:
+            rows.append([d.suite, d.design, "desc", _clean(got[0]), got[1]])
     return rows
 
 

@@ -72,6 +72,7 @@ class CatalogueTest(unittest.TestCase):
         rows = benchcat.build_rows(bench.load_designs(idx), benchcat.load_measures(idx))
         self.assertEqual([(r.section, r.design) for r in rows],
                          [("s1", "a"), ("vtr-blif", "c")])
+        self.assertEqual([r.tier for r in rows], [3, 4])
         self.assertEqual(rows[1].format, "blif (k2,k4)")
         self.assertEqual(rows[1].vals["g_gates"], "5")
         self.assertEqual(rows[0].loc, "7")
@@ -83,7 +84,7 @@ class CatalogueTest(unittest.TestCase):
         first = (out.read_text(), (idx / "catalogue.tsv").read_text())
         benchcat.generate(idx, out, "legend")
         self.assertEqual(first, (out.read_text(), (idx / "catalogue.tsv").read_text()))
-        self.assertIn("| a | verilog | a | 7 | ✓ |", first[0])
+        self.assertIn("| a | [s1](#sources) | - | verilog | a | 7 | ✓ |", first[0])
         self.assertIn("| 12 |", first[0])
         self.assertNotIn("/home", first[0])
 
@@ -95,7 +96,8 @@ class CatalogueTest(unittest.TestCase):
         once = readme.read_text()
         self.assertTrue(once.startswith("intro\n\n") and once.endswith("\n\ntail\n"))
         self.assertNotIn("old", once)
-        self.assertIn("<details><summary>s1 (1 designs)</summary>\n\n", once)
+        self.assertIn("<details><summary>T3 HDL, no testbench (1 designs)</summary>\n\nRule:", once)
+        self.assertIn("### Sources", once)
         benchcat.generate(idx, idx / "c.md", "legend", readme)
         self.assertEqual(once, readme.read_text())
         readme.write_text("no markers\n")
@@ -142,6 +144,50 @@ odin3: info: partial_map: 1 multiply, 8 adder in 1 chains, 0 single_port_ram + 0
 odin3: info: stats: design: modules 1, top t
 odin3: info: stats: module t: cell adder 8
 """
+
+
+def mk(design: str, loc: str, fmt: str = "verilog", **vals: str) -> benchcat.Row:
+    return benchcat.Row(0, 0, "s", design, fmt, "t", loc, ["s"], dict(vals))
+
+
+class TierTest(unittest.TestCase):
+    def test_tier_rules(self) -> None:
+        full = {"tb": "x/tb.v", "sim_iverilog": "1", "sim_odin": "1", "vtr_stage": "route"}
+        cases = [
+            (mk("a", "-", "blif (k4)"), 4),
+            (mk("b", "500"), 3),
+            (mk("c", "50", tb="x.sv"), 2),
+            (mk("d", "500", tb="x.v"), 1),
+            (mk("e", "500", **full), 0),
+            (mk("f", "500", **{**full, "sim_odin": "0"}), 1),
+            (mk("g", "500", **{**full, "vtr_stage": "place"}), 1),
+            (mk("h", "50", **full), 2),
+            (mk("i", "199", tb="x.v"), 2),
+            (mk("j", "200", tb="x.v"), 1),
+        ]
+        for row, want in cases:
+            self.assertEqual(benchcat.tier_of(row), want, row.design)
+
+    def test_order_within_tier(self) -> None:
+        rows = [mk("z", "300", tb="t", l6_luts="10"), mk("a", "900", tb="t"),
+                mk("m", "300", tb="t", l6_luts="50"), mk("b", "300", tb="t", l6_luts="10"),
+                mk("n", "400", tb="t")]
+        got = [r.design for r in benchcat.rank_rows(rows)]
+        self.assertEqual(got, ["m", "b", "z", "a", "n"])
+        self.assertEqual([r.rank for r in benchcat.rank_rows(rows)], [1, 2, 3, 4, 5])
+        self.assertEqual(got, [r.design for r in benchcat.rank_rows(list(reversed(rows)))])
+
+
+class DescTest(unittest.TestCase):
+    def test_vtr_domains_and_prompt(self) -> None:
+        rst = ("x\n.. _table_vtr_benchmarks:\n\n.. table:: T\n\n    ====  ====\n"
+               "    Benchmark           Domain\n    ====  ====\n"
+               "    sha                 Cryptography\n    LU8PEEng            Math\n"
+               "    ====  ====\n")
+        want = {"sha": "Cryptography", "LU8PEEng": "Math"}
+        self.assertEqual(benchmeasure.vtr_domains(rst), want)
+        m = benchmeasure.PROMPT_RE.search("a. The module should implement a 4-bit adder. More")
+        self.assertEqual(m.group(1) if m else "", "a 4-bit adder")
 
 
 class OdinParseTest(unittest.TestCase):

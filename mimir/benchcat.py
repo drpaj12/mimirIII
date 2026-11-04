@@ -26,17 +26,33 @@ CHECKS = ["seq", "mem", "mul", "add", "fsm", "lat", "hier", "bbx"]
 CHECK_HEAD = ["seq", "mem", "mul", "add", "fsm", "latch", "hier", "bbox"]
 KEYS = (
     [f"chk_{c}" for c in CHECKS]
-    + ["tb", "vec"]
+    + ["tb", "vec", "sim_iverilog", "sim_odin", "vtr_stage", "desc"]
     + ["vtr_luts", "vtr_blocks", "vtr_ffs", "vtr_pins", "vtr_mult", "vtr_mem", "vtr_cpd", "vtr_cw"]
     + ["g_gates", "g_depth", "l4_luts", "l4_depth", "l6_luts", "l6_depth"]
     + ["si_cells", "si_area", "si_lvs", "si_stage"]
 )
-CHECK_KEYS = {f"chk_{c}" for c in CHECKS} | {"vec"}
-TSV_HEAD = ["section", "design", "format", "top", "loc", "members"] + KEYS
+CHECK_KEYS = {f"chk_{c}" for c in CHECKS} | {"vec", "sim_iverilog", "sim_odin"}
+TSV_HEAD = ["tier", "rank", "section", "design", "format", "top", "loc", "members"] + KEYS
+
+# Tiers (rule uses measured columns only, never the suite name).
+LOC_BIG = 200  # Verilog lines at or above which a design counts as larger
+STAGE_DONE = "route"  # deepest VTR stage the T0 rule needs (routed, timing analysed)
+TIERS = {
+    0: ("T0 whole flow", f"HDL with its own testbench, {LOC_BIG}+ Verilog lines, the testbench "
+        f"passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and "
+        f"the VTR flow reaches `{STAGE_DONE}` with timing (`vtr_stage`)"),
+    1: ("T1 HDL + testbench, larger", f"HDL with a testbench and {LOC_BIG}+ Verilog lines "
+        "(and not T0)"),
+    2: ("T2 HDL + testbench, small", f"HDL with a testbench and under {LOC_BIG} Verilog lines"),
+    3: ("T3 HDL, no testbench", "HDL (Verilog) with no testbench file"),
+    4: ("T4 netlist only", "BLIF netlist, no HDL"),
+}
 
 
 @dataclass
 class Row:
+    tier: int
+    rank: int
     section: str
     design: str
     format: str
@@ -105,7 +121,53 @@ def build_rows(designs: list[bench.Design],
         else:
             fmt = lead.format
             loc = str(lead.lines) if lead.format != "blif" else "-"
-        rows.append(Row(section, name, fmt, lead.top, loc, sorted(members), vals))
+        rows.append(Row(0, 0, section, name, fmt, lead.top, loc, sorted(members), vals))
+    return rank_rows(rows)
+
+
+def _num(v: str | None) -> float | None:
+    try:
+        return float(v) if v is not None else None
+    except ValueError:
+        return None
+
+
+def tier_of(row: Row) -> int:
+    """Tier from measured columns: format, testbench, size, simulation and VTR stage."""
+    if row.format.startswith("blif"):
+        return 4
+    tb = row.vals.get("tb", "0")
+    if tb in ("0", "-", ""):
+        return 3
+    loc = _num(row.loc)
+    if loc is None or loc < LOC_BIG:
+        return 2
+    whole = (row.vals.get("sim_iverilog") == "1" and row.vals.get("sim_odin") == "1"
+             and row.vals.get("vtr_stage") == STAGE_DONE)
+    return 0 if whole else 1
+
+
+def _lut_count(row: Row) -> float | None:
+    for k in ("l6_luts", "vtr_luts", "l4_luts"):
+        v = _num(row.vals.get(k))
+        if v is not None:
+            return v
+    return None
+
+
+def rank_rows(rows: list[Row]) -> list[Row]:
+    """Set tier and rank and return the rows in table order: tier, testbench first, designs with a
+    LUT count (largest first) before those with only LOC (largest first), then name."""
+    def key(r: Row) -> tuple[int, int, int, float, str]:
+        lut, loc = _lut_count(r), _num(r.loc) or 0.0
+        has_tb = r.vals.get("tb", "0") not in ("0", "-", "")
+        return (r.tier, 0 if has_tb else 1, 0 if lut is not None else 1,
+                -(lut if lut is not None else loc), r.design)
+    for r in rows:
+        r.tier = tier_of(r)
+    rows = sorted(rows, key=lambda r: (key(r), r.section))
+    for i, r in enumerate(rows):
+        r.rank = i + 1
     return rows
 
 
@@ -124,9 +186,11 @@ def _pair(a: str, b: str) -> str:
 
 def _md_cells(row: Row) -> list[str]:
     g = {k: _cell(k, row) for k in KEYS}
-    cells = [row.design, row.format, row.top, row.loc]
+    suite = f"[{row.section}](#sources)"
+    cells = [row.design, suite, row.vals.get("desc", "-"), row.format, row.top, row.loc]
     cells += [g[f"chk_{c}"] for c in CHECKS]
     cells += [g["tb"], g["vec"]]
+    cells += [g["sim_iverilog"], g["sim_odin"], g["vtr_stage"]]
     cells += [g["vtr_luts"], g["vtr_blocks"], g["vtr_ffs"], g["vtr_pins"],
               _pair(g["vtr_mult"], g["vtr_mem"]), g["vtr_cpd"], g["vtr_cw"]]
     cells += [_pair(g["g_gates"], g["g_depth"]), _pair(g["l4_luts"], g["l4_depth"]),
@@ -135,7 +199,8 @@ def _md_cells(row: Row) -> list[str]:
     return [c.replace("|", "/") for c in cells]
 
 
-MD_HEAD = (["design", "format", "top", "LOC"] + CHECK_HEAD + ["testbench", "vectors"]
+MD_HEAD = (["design", "suite", "what it does", "format", "top", "LOC"] + CHECK_HEAD
+           + ["testbench", "vectors", "iverilog", "Odin sim", "VTR stage"]
            + ["LUTs", "blocks", "FFs", "pins", "mult/mem", "cpd ns", "chan w"]
            + ["gates/depth", "4-LUT/depth", "6-LUT/depth"]
            + ["cells", "core um2", "LVS", "stage"])
@@ -150,17 +215,23 @@ def _origin(suites: dict[str, bench.Suite], section: str) -> str:
     return (f"{title}. Upstream {su.upstream} at {su.commit}. Licence: {lic}.")
 
 
-def _by_section(rows: list[Row]) -> dict[str, list[Row]]:
-    by: dict[str, list[Row]] = defaultdict(list)
+def _by_tier(rows: list[Row]) -> dict[int, list[Row]]:
+    by: dict[int, list[Row]] = defaultdict(list)
     for r in rows:
-        by[r.section].append(r)
+        by[r.tier].append(r)
     return by
 
 
-def _summary(by: dict[str, list[Row]], total: int) -> list[str]:
-    out = ["| suite | rows |", "|---|---|"]
-    out += [f"| {sec} | {len(by[sec])} |" for sec in sorted(by)]
-    return out + [f"| total | {total} |"]
+def _summary(rows: list[Row]) -> list[str]:
+    by = _by_tier(rows)
+    out = ["| tier | rule | designs |", "|---|---|---|"]
+    out += [f"| {TIERS[t][0]} | {TIERS[t][1]} | {len(by.get(t, []))} |" for t in sorted(TIERS)]
+    suites: dict[str, int] = defaultdict(int)
+    for r in rows:
+        suites[r.section] += 1
+    out += ["", "| suite | designs |", "|---|---|"]
+    out += [f"| {s} | {n} |" for s, n in sorted(suites.items())]
+    return out + [f"| total | {len(rows)} |"]
 
 
 def _table(rows: list[Row]) -> list[str]:
@@ -168,11 +239,31 @@ def _table(rows: list[Row]) -> list[str]:
     return out + ["| " + " | ".join(_md_cells(r)) + " |" for r in rows]
 
 
+def _sources(suites: dict[str, bench.Suite], rows: list[Row]) -> list[str]:
+    out = ['<a id="sources"></a>', "", "### Sources", ""]
+    for sec in sorted({r.section for r in rows}):
+        out.append(f"- **{sec}**: {_origin(suites, sec)}")
+    return out
+
+
+def _tier_blocks(rows: list[Row], fold: bool) -> list[str]:
+    by = _by_tier(rows)
+    out: list[str] = []
+    for t in sorted(TIERS):
+        if t not in by:
+            continue
+        name, rule = TIERS[t]
+        if fold:
+            out += ["", f"<details><summary>{name} ({len(by[t])} designs)</summary>", "",
+                    f"Rule: {rule}.", ""] + _table(by[t]) + ["", "</details>"]
+        else:
+            out += ["", f"## {name}", "", f"Rule: {rule}.", ""] + _table(by[t])
+    return out
+
+
 def render_md(suites: dict[str, bench.Suite], rows: list[Row], legend: str) -> str:
-    by = _by_section(rows)
-    out = ["# Mimir benchmark catalogue", "", legend, ""] + _summary(by, len(rows))
-    for sec in sorted(by):
-        out += ["", f"## {sec}", "", _origin(suites, sec), ""] + _table(by[sec])
+    out = ["# Mimir benchmark catalogue", "", legend, ""] + _summary(rows)
+    out += _tier_blocks(rows, False) + [""] + _sources(suites, rows)
     return "\n".join(out) + "\n"
 
 
@@ -181,12 +272,9 @@ README_END = "<!-- catalogue:end -->"
 
 
 def render_readme_section(suites: dict[str, bench.Suite], rows: list[Row], legend: str) -> str:
-    """The README block: legend, rows per suite, then each suite table in a <details> fold."""
-    by = _by_section(rows)
-    out = [README_START, "## Benchmark catalogue", "", legend, ""] + _summary(by, len(rows))
-    for sec in sorted(by):
-        out += ["", f"<details><summary>{sec} ({len(by[sec])} designs)</summary>", "",
-                _origin(suites, sec), ""] + _table(by[sec]) + ["", "</details>"]
+    """The README block: legend, tier and suite counts, each tier table in a <details> fold."""
+    out = [README_START, "## Benchmark catalogue", "", legend, ""] + _summary(rows)
+    out += _tier_blocks(rows, True) + [""] + _sources(suites, rows)
     out += ["", "Same table: [docs/benchmarks/catalogue.md](docs/benchmarks/catalogue.md); method: "
             "[docs/benchmarks/catalogue-method.md](docs/benchmarks/catalogue-method.md).",
             README_END]
@@ -202,7 +290,8 @@ def replace_section(text: str, section: str) -> str:
 
 
 def render_tsv_rows(rows: list[Row]) -> list[list[str]]:
-    return [[r.section, r.design, r.format, r.top, r.loc, ",".join(r.members)]
+    return [[str(r.tier), f"{r.rank:05d}", r.section, r.design, r.format, r.top, r.loc,
+             ",".join(r.members)]
             + [r.vals.get(k, "-") for k in KEYS] for r in rows]
 
 
