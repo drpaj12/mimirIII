@@ -172,17 +172,21 @@ def _cmd_report(args: argparse.Namespace) -> int:
 
 
 LEGEND = (
-    "One row per registered design, grouped by suite (where it is from). `\u2713` yes, `\u2717` no "
-    "(both measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value "
-    "is in `data/benchmarks/measures.tsv` with its source; the rules are in "
+    "One row per registered design, in tiers: best first (HDL with testbench and the whole flow), "
+    "down to BLIF netlists only; each tier states its rule. `\u2713` yes, `\u2717` no (both "
+    "measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value is in "
+    "`data/benchmarks/measures.tsv` with its source; the rules are in "
     "`docs/benchmarks/catalogue-method.md`. The `vtr-blif-k2` and `vtr-blif-k4` suites hold the "
-    "same circuits: they are one section, one row per circuit name present in either."
+    "same circuits: one row per circuit name present in either."
 )
 
 
 def _measure_odin(args: argparse.Namespace, idx: Path) -> int:
-    done = {(r[0], r[1]) for r in bench.read_tsv(benchcat.measures_path(idx), 5)
-            if r[2] == "chk_seq" and not args.force}
+    rows = bench.read_tsv(benchcat.measures_path(idx), 5)
+    bad = {(r[0], r[1]) for r in rows if r[3].startswith("fail")}
+    done = {(r[0], r[1]) for r in rows if r[2] == "chk_seq" and not args.force}
+    if args.retry_failed:
+        done -= bad
     def sink(rows: list[list[str]]) -> None:
         have = {(r[0], r[1], r[2]) for r in bench.read_tsv(benchcat.measures_path(idx), 5)
                 if r[4].startswith("store ")}
@@ -198,7 +202,9 @@ def _cmd_measure(args: argparse.Namespace) -> int:
     idx = _idx(args)
     if args.kind == "odin":
         return _measure_odin(args, idx)
-    if args.kind == "store":
+    if args.kind == "desc":
+        rows = benchmeasure.collect_desc(idx, Path(args.root), Path(args.meta))
+    elif args.kind == "store":
         rows = benchmeasure.collect_store_extra(idx, Path(args.db))
     elif args.kind == "vtr":
         rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
@@ -274,11 +280,13 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.set_defaults(fn=_cmd_check)
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
-    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store"))
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc"))
+    p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
     p.add_argument("--suite", help="odin: suite id")
     p.add_argument("--limit", type=int, help="odin: at most N designs")
+    p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
     p.add_argument("--root", help="silicon: run root; testbench: external dir")
