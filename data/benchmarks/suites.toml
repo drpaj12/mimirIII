@@ -118,7 +118,7 @@ note = "top from TOP_LEVEL_ENTITY of single_cycle_BRAM_top.qsf; the 32 .v files 
 
 [[suite]]
 id = "opencores"
-title = "OpenCores stable, FPGA-proven Verilog projects (Peter's 2026-11-04 list, 15 projects plus DES)"
+title = "OpenCores stable Verilog projects (24 designs: Peter's 2026-11-04 list without gng, DES, survey additions, verilog_cordic_core, mips_16)"
 format = "verilog-project"
 upstream = "https://opencores.org/projects"
 commit = "none"
