@@ -230,3 +230,13 @@ class OdinParseTest(unittest.TestCase):
                 "odin3: info: stats: design: modules 1, top t\n"
                 "odin3: info: stats: module t: cell $lut 7\n")
         self.assertEqual(benchmeasure.lut_result(text), (7, 3))
+
+
+class TimeoutTest(unittest.TestCase):
+    def test_too_big_reason(self) -> None:
+        tag = benchmeasure.TIMEOUT_TAG
+        text = tag + "odin3: info: pass proc: 1 ms\nodin3: info: pass fsm: 2 ms\n"
+        got = benchmeasure._fail_reason(124, text)
+        self.assertIn("too big for now", got)
+        self.assertIn("last finished pass fsm", got)
+        self.assertIn("before the first pass", benchmeasure._fail_reason(124, tag))

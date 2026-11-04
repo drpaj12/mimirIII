@@ -282,18 +282,30 @@ KNOWN_HARD = {"adder", "multiply", "single_port_ram", "dual_port_ram"}
 TIMEOUT_S = 900
 
 
+def _text(data: str | bytes | None) -> str:
+    if data is None:
+        return ""
+    return data if isinstance(data, str) else data.decode("utf-8", "replace")
+
+
 def run_odin(binary: Path, top: str, script: str, timeout: int = TIMEOUT_S) -> tuple[int, str]:
     cmd = [str(binary)] + (["--top", top] if top and top != "-" else []) + ["-p", script]
     try:
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, check=False)
-    except subprocess.TimeoutExpired:
-        return 124, "timeout"
+    except subprocess.TimeoutExpired as exc:
+        out, err = _text(exc.stdout), _text(exc.stderr)
+        return 124, TIMEOUT_TAG + (out + err)
     return res.returncode, res.stdout + res.stderr
 
 
+TIMEOUT_TAG = "\x00timeout\x00"
+
+
 def _fail_reason(rc: int, text: str) -> str:
-    if text == "timeout":
-        return f"fail: timeout {TIMEOUT_S} s"
+    if text.startswith(TIMEOUT_TAG):
+        done = re.findall(r"pass (\w+):", text)
+        where = f"last finished pass {done[-1]}" if done else "before the first pass finished"
+        return f"fail: too big for now (timeout {TIMEOUT_S} s, {where})"
     errs = [ln for ln in text.splitlines() if "error" in ln.lower()]
     first = errs[0].split("error:", 1)[-1].strip() if errs else f"exit {rc}"
     first = re.sub(r"(?:/[^\s:'\"]+)+/([^/\s:'\"]+)", r"\1", first)  # no absolute paths

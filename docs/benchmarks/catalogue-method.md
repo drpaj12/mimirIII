@@ -105,3 +105,10 @@ are `-` until rerun with longer limits.
   `/docs`; `docs/.nojekyll` keeps Jekyll from processing the markdown there).
 - link = the `link` measure if present, else the suite's upstream URL; licence = the `licence` measure, else
   the licence name at the head of the suite's `licence` text in `suites.toml`.
+
+## Run order and limits
+
+Every pass runs smaller designs first (source bytes, ascending) and suites from small to large; BRISC-V
+(4349 lines) goes after the small suites. One Odin III run is limited to 900 s (and the heavy-run slice
+memory cap). A design that hits a limit is recorded as `fail: too big for now (timeout 900 s, last finished
+pass <name>)` and the pass goes on with the next design.
