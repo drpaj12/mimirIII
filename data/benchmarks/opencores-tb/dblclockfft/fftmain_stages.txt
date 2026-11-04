@@ -1,0 +1,30 @@
+// Extract of rtl/fftmain.v of OpenCores dblclockfft (GPL-3, Gisselquist Technology): the width localparams and the
+// fftstage instances that name the twiddle files. gen_fft_vectors.py reads the widths from this text.
+	localparam	IWIDTH=15, OWIDTH=21, LGWIDTH=11;
+	fftstage	#(IWIDTH,IWIDTH+4,16,10,0,
+			0, 1, "cmem_2048.hex")
+		stage_2048
+	fftstage	#(16,20,17,9,0,
+			0, 1, "cmem_1024.hex")
+		stage_1024
+	fftstage	#(17,21,17,8,0,
+			0, 1, "cmem_512.hex")
+		stage_512
+	fftstage	#(17,21,18,7,0,
+			0, 1, "cmem_256.hex")
+		stage_256
+	fftstage	#(18,22,18,6,0,
+			0, 1, "cmem_128.hex")
+		stage_128
+	fftstage	#(18,22,19,5,0,
+			0, 1, "cmem_64.hex")
+		stage_64
+	fftstage	#(19,23,19,4,0,
+			0, 1, "cmem_32.hex")
+		stage_32
+	fftstage	#(19,23,20,3,0,
+			0, 1, "cmem_16.hex")
+		stage_16
+	fftstage	#(20,24,20,2,0,
+			0, 1, "cmem_8.hex")
+		stage_8
