@@ -577,6 +577,86 @@ mcnc20	tseng	vtr_luts	407	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	tseng	vtr_mem	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_mult	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_pins	174	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
+opencores	a-z80	desc	A-Z80 CPU	https://opencores.org/projects/a-z80
+opencores	a-z80	licence	GPL-2.0 in license.txt; several files carry an Altera header; OpenCores page says LGPL: mismatch, flagged	license.txt:1-2; cpu/alu/alu.v:1-10 of opencores.org/ocsvn/a-z80/a-z80/trunk svn r22
+opencores	a-z80	src_rev	opencores.org/ocsvn/a-z80/a-z80/trunk svn r22	https://opencores.org/projects/a-z80; tree hash = sha256 of sorted 'relpath sha256' lines of the 39 RTL files read
+opencores	a-z80	tb	0	file scan of the project (bench/testbench files)
+opencores	a-z80	vec	0	not scanned
+opencores	amber	desc	Amber ARM-compatible core	https://opencores.org/projects/amber
+opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_core.v:24-28 of github.com/freecores/amber git 9b995cc298ec
+opencores	amber	src_rev	github.com/freecores/amber git 9b995cc298ec	https://opencores.org/projects/amber; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	amber	tb	0	file scan of the project (bench/testbench files)
+opencores	amber	vec	0	not scanned
+opencores	attiny_atmega_xmega_core	desc	Attiny Atmega Xmega core	https://opencores.org/projects/attiny_atmega_xmega_core
+opencores	attiny_atmega_xmega_core	licence	custom BSD-style one-condition notice (OpenCores page says LGPL: mismatch, flagged)	rtl/mega_core_opt.v:5-17 of opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15
+opencores	attiny_atmega_xmega_core	src_rev	opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15	https://opencores.org/projects/attiny_atmega_xmega_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
+opencores	attiny_atmega_xmega_core	tb	0	file scan of the project (bench/testbench files)
+opencores	attiny_atmega_xmega_core	vec	0	not scanned
+opencores	ca_prng	desc	Cellular Automata PRNG	https://opencores.org/projects/ca_prng
+opencores	ca_prng	licence	BSD-3-Clause style (InformAsic AB; OpenCores page: BSD)	COPYING.txt:1-5; src/rtl/ca_prng.v:16-19 of github.com/freecores/ca_prng git dd3bcbe138fc
+opencores	ca_prng	src_rev	github.com/freecores/ca_prng git dd3bcbe138fc	https://opencores.org/projects/ca_prng; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
+opencores	ca_prng	tb	ca_prng/src/testbench/tb_ca_prng.v	file scan of the project (bench/testbench files)
+opencores	ca_prng	vec	0	not scanned
+opencores	dblclockfft	desc	Double Clocked FFT Core	https://opencores.org/projects/dblclockfft
+opencores	dblclockfft	licence	LGPL-3.0+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/fftmain.v:51-54 of opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43
+opencores	dblclockfft	src_rev	opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43	https://opencores.org/projects/dblclockfft; tree hash = sha256 of sorted 'relpath sha256' lines of the 10 RTL files read
+opencores	dblclockfft	tb	0	file scan of the project (bench/testbench files)
+opencores	dblclockfft	vec	0	not scanned
+opencores	des	desc	DES/Triple DES IP Cores	https://opencores.org/projects/des
+opencores	des	licence	none stated (OpenCores page has no licence; file header is a permissive no-name notice)	rtl/verilog/perf_opt/des.v:11-20 of github.com/freecores/des git 6f7865564a0c
+opencores	des	src_rev	github.com/freecores/des git 6f7865564a0c	https://opencores.org/projects/des; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	des	tb	des/bench/verilog/des_test_po.v	file scan of the project (bench/testbench files)
+opencores	des	vec	0	not scanned
+opencores	gng	desc	Gaussian Noise Generator	https://opencores.org/projects/gng
+opencores	gng	licence	LGPL-2.1+ (OpenCores page: LGPL)	rtl/gng.v:19-21 of opencores.org/ocsvn/gng/gng/trunk svn r17
+opencores	gng	src_rev	opencores.org/ocsvn/gng/gng/trunk svn r17	https://opencores.org/projects/gng; tree hash = sha256 of sorted 'relpath sha256' lines of the 5 RTL files read
+opencores	gng	tb	gng/tb/tb_gng.sv	file scan of the project (bench/testbench files)
+opencores	gng	vec	0	not scanned
+opencores	i2cslave	desc	I2C Slave	https://opencores.org/projects/i2cslave
+opencores	i2cslave	licence	LGPL-2.1+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/i2cSlave.v:27-30 of github.com/freecores/i2cslave git ffe84e97cf28
+opencores	i2cslave	src_rev	github.com/freecores/i2cslave git ffe84e97cf28	https://opencores.org/projects/i2cslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 4 RTL files read
+opencores	i2cslave	tb	i2cslave/bench/testHarness.v i2cslave/model/wb_master_model.v i2cslave/model/i2c_master_top.v i2cslave/model/i2c_master_bit_ctrl.v i2cslave/model/i2c_master_byte_ctrl.v	file scan of the project (bench/testbench files)
+opencores	i2cslave	vec	0	not scanned
+opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
+opencores	mmuart	licence	GPL-3.0 (OpenCores page: GPL)	rtl/uart.v:6-7 of github.com/freecores/mmuart git 20c32acaf590
+opencores	mmuart	src_rev	github.com/freecores/mmuart git 20c32acaf590	https://opencores.org/projects/mmuart; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
+opencores	mmuart	tb	0	file scan of the project (bench/testbench files)
+opencores	mmuart	vec	0	not scanned
+opencores	reed_solomon_decoder	desc	Reed Solomon Decoder (204,188)	https://opencores.org/projects/reed_solomon_decoder
+opencores	reed_solomon_decoder	licence	GPL-3.0+ (OpenCores page: GPL)	rtl/RS_dec.v:1-4 of github.com/freecores/reed_solomon_decoder git 2d581673ad7d
+opencores	reed_solomon_decoder	src_rev	github.com/freecores/reed_solomon_decoder git 2d581673ad7d	https://opencores.org/projects/reed_solomon_decoder; tree hash = sha256 of sorted 'relpath sha256' lines of the 12 RTL files read
+opencores	reed_solomon_decoder	tb	reed_solomon_decoder/simulation/RS_dec_tb.v	file scan of the project (bench/testbench files)
+opencores	reed_solomon_decoder	vec	0	not scanned
+opencores	sdram_16bit	desc	16-bit SDRAM Controller	https://opencores.org/projects/sdram_16bit
+opencores	sdram_16bit	licence	GPL-2.0+ (OpenCores page: GPL)	rtl/sdram.v:9,15-17 of opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2
+opencores	sdram_16bit	src_rev	opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2	https://opencores.org/projects/sdram_16bit; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
+opencores	sdram_16bit	tb	sdram_16bit/testbench/top_tb.sv sdram_16bit/testbench/wb_master.sv sdram_16bit/testbench/MT48LC8M16A2.v	file scan of the project (bench/testbench files)
+opencores	sdram_16bit	vec	0	not scanned
+opencores	simple_spi	desc	SPI core	https://opencores.org/projects/simple_spi
+opencores	simple_spi	licence	none stated (OpenCores page has no licence; file header is a permissive no-name copyright notice)	rtl/verilog/simple_spi_top.v:11-20 of github.com/freecores/simple_spi git 61c39a5f79fd
+opencores	simple_spi	src_rev	github.com/freecores/simple_spi git 61c39a5f79fd	https://opencores.org/projects/simple_spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
+opencores	simple_spi	tb	simple_spi/bench/verilog/tst_bench_top.v simple_spi/bench/verilog/wb_master_model.v simple_spi/bench/verilog/spi_slave_model.v	file scan of the project (bench/testbench files)
+opencores	simple_spi	vec	0	not scanned
+opencores	tiny_aes	desc	AES	https://opencores.org/projects/tiny_aes
+opencores	tiny_aes	licence	Apache-2.0 (OpenCores page: Others)	LICENSE:1-3; rtl/aes_128.v:4-6 of github.com/freecores/tiny_aes git faf2afb2bcb6
+opencores	tiny_aes	src_rev	github.com/freecores/tiny_aes git faf2afb2bcb6	https://opencores.org/projects/tiny_aes; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
+opencores	tiny_aes	tb	tiny_aes/testbench/test_aes_128.v	file scan of the project (bench/testbench files)
+opencores	tiny_aes	vec	0	not scanned
+opencores	usbhostslave	desc	USB 1.1 Host and Function IP core	https://opencores.org/projects/usbhostslave
+opencores	usbhostslave	licence	LGPL-2.1+ (OpenCores page: LGPL)	RTL/wrapper/usbHostSlave.v:26-30 of github.com/freecores/usbhostslave git 3508a22f1c3d
+opencores	usbhostslave	src_rev	github.com/freecores/usbhostslave git 3508a22f1c3d	https://opencores.org/projects/usbhostslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 45 RTL files read
+opencores	usbhostslave	tb	0	file scan of the project (bench/testbench files)
+opencores	usbhostslave	vec	0	not scanned
+opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
+opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
+opencores	vga_lcd	src_rev	github.com/freecores/vga_lcd git 6baa0f08e50e	https://opencores.org/projects/vga_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 15 RTL files read
+opencores	vga_lcd	tb	vga_lcd/bench/verilog/test_bench_top.v vga_lcd/bench/verilog/wb_mast_model.v vga_lcd/bench/verilog/wb_slv_model.v vga_lcd/bench/verilog/sync_check.v vga_lcd/bench/verilog/wb_b3_check.v	file scan of the project (bench/testbench files)
+opencores	vga_lcd	vec	0	not scanned
+opencores	wb_lcd	desc	WB LCD Character Display Controller	https://opencores.org/projects/wb_lcd
+opencores	wb_lcd	licence	LGPL-3.0+ per file header (OpenCores page: LGPL)	verilog/wb_lcd/rtl/wb_lcd.v:27-30 of github.com/freecores/wb_lcd git 671c784ed1a2
+opencores	wb_lcd	src_rev	github.com/freecores/wb_lcd git 671c784ed1a2	https://opencores.org/projects/wb_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
+opencores	wb_lcd	tb	0	file scan of the project (bench/testbench files)
+opencores	wb_lcd	vec	0	not scanned
 verilogeval	Prob001_zero	l6_luts	0	store loki:loki-veval-exp/dataset f2 loki.luts (Odin version not recorded)
 verilogeval	Prob001_zero	si_lvs	out of scope: stopped at place (openroad failed (rc 1); see openroad.log)	ql13-out/Prob001_zero/status.json
 verilogeval	Prob001_zero	si_stage	equiv	ql13-out/Prob001_zero/status.json
