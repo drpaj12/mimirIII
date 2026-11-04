@@ -42,7 +42,7 @@ mcnc20	seq	mcnc20/seq	seq.blif	blif	-	83391	4725	d3a76e9e83510aa0ecafc53eabcd638
 mcnc20	spla	mcnc20/spla	spla.blif	blif	-	208891	13445	f92d5b5cbd7c9daefefddbf6488ea97d5ce9c018d542f9c7c2c54bd2b478d9f1	mcnc
 mcnc20	tseng	mcnc20/tseng	tseng.blif	blif	-	72462	3696	1943b838df8ad3a1aa45fd0b201d0a21764870e57034c5c4f924f23a7c91523c	mcnc
 opencores	a-z80	-	a-z80	verilog-project	z80_top_direct_n	157895	5649	9521bf4c33068fb5d50011c2dfce95cc66f2e45df7bef5f635ab1c9bfa070fae	-
-opencores	amber	-	amber	verilog-project	a23_core	243262	5251	b3a0f81e7bf687268f8456eb07df32ce0ce508288beb558f91617b33a6956928	-
+opencores	amber	-	amber	verilog-project	a23_core	251046	5419	91361a5dc618e56ec9608b4fd1676d15ac4620e8524750801439f281f922a7aa	-
 opencores	attiny_atmega_xmega_core	-	attiny_atmega_xmega_core	verilog-project	mega_core	101940	3352	7331b1871ed0a510c230a24cb7e69b78028d656300a3d10b9cfc4b7b9fe152f4	-
 opencores	ca_prng	-	ca_prng	verilog-project	ca_prng	32917	1311	40b6fb6f9a793ade48dc75ff86a9cf9e1e8458f1675957c361d080b6332fdb64	-
 opencores	dblclockfft	-	dblclockfft	verilog-project	fftmain	110164	3790	101c2eca25704d696ad0d376d0338436f72981bfe375abf6ef4a3b294fefc5fd	-

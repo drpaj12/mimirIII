@@ -607,9 +607,15 @@ opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_cor
 opencores	amber	oc_design_done	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
 opencores	amber	oc_fpga_proven	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
 opencores	amber	oc_stage	stable	https://opencores.org/projects/amber (page data, read 2026-11-04)
-opencores	amber	src_rev	github.com/freecores/amber git 9b995cc298ec	https://opencores.org/projects/amber; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	amber	sim_iverilog	none	no testbench shipped by the project
+opencores	amber	sim_odin	none	no testbench
+opencores	amber	src_rev	github.com/freecores/amber git 9b995cc298ec	https://opencores.org/projects/amber; tree hash = sha256 of sorted 'relpath sha256' lines of the 13 RTL files read
 opencores	amber	tb	0	file scan of the project (bench/testbench files)
+opencores	amber	tb_origin	none	testbench provenance
 opencores	amber	vec	0	not scanned
+opencores	amber	vtr_maxrss_kb	21304	/usr/bin/time over the run steps
+opencores	amber	vtr_msg	a23_cache.v:525:9: error: unresolved_module: module 'generic_sram_line_en' is not defined	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	amber	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	attiny_atmega_xmega_core	desc	Attiny Atmega Xmega core	https://opencores.org/projects/attiny_atmega_xmega_core
 opencores	attiny_atmega_xmega_core	licence	custom BSD-style one-condition notice (OpenCores page says LGPL: mismatch, flagged)	rtl/mega_core_opt.v:5-17 of opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15
 opencores	attiny_atmega_xmega_core	oc_design_done	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
@@ -809,9 +815,16 @@ opencores	pipelined_fft_256	licence	none named (Unicore Systems notice: may be u
 opencores	pipelined_fft_256	oc_design_done	False	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
 opencores	pipelined_fft_256	oc_fpga_proven	False	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
 opencores	pipelined_fft_256	oc_stage	stable	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
+opencores	pipelined_fft_256	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/pipelined_fft_256); judged by: rms error is\s+[012] lsb
+opencores	pipelined_fft_256	sim_odin	fail	odin3 1.2.0 sim_tb
+opencores	pipelined_fft_256	sim_odin_msg	odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer	odin3 1.2.0 sim_tb
 opencores	pipelined_fft_256	src_rev	github.com/freecores/pipelined_fft_256 git cd8cafa8c3d8	https://opencores.org/projects/pipelined_fft_256; tree hash = sha256 of sorted 'relpath sha256' lines of the 12 RTL files read
 opencores	pipelined_fft_256	tb	pipelined_fft_256/TB/FFT256_TB.v pipelined_fft_256/TB/Wave_ROM256.v ../../work/opencores-runs/inc/pipelined_fft_256/stopper.v	file scan of the project (bench/testbench files)
+opencores	pipelined_fft_256	tb_origin	upstream-fixed	testbench provenance; external 40 us $finish stopper module added because the upstream tb has no $finish
 opencores	pipelined_fft_256	vec	0	not scanned
+opencores	pipelined_fft_256	vtr_maxrss_kb	21552	/usr/bin/time over the run steps
+opencores	pipelined_fft_256	vtr_msg	odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	pipelined_fft_256	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	reed_solomon_decoder	desc	Reed Solomon Decoder (204,188)	https://opencores.org/projects/reed_solomon_decoder
 opencores	reed_solomon_decoder	licence	GPL-3.0+ (OpenCores page: GPL)	rtl/RS_dec.v:1-4 of github.com/freecores/reed_solomon_decoder git 2d581673ad7d
 opencores	reed_solomon_decoder	oc_design_done	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
@@ -840,9 +853,16 @@ opencores	sdr_ctrl	licence	LGPL-2.1+ per file header	rtl/top/sdrc_top.v:44-46 of
 opencores	sdr_ctrl	oc_design_done	True	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
 opencores	sdr_ctrl	oc_fpga_proven	False	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
 opencores	sdr_ctrl	oc_stage	stable	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
+opencores	sdr_ctrl	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/sdr_ctrl); judged by: TEST PASSED
+opencores	sdr_ctrl	sim_odin	fail	odin3 1.2.0 sim_tb
+opencores	sdr_ctrl	sim_odin_msg	sdrc_top.v:202:10: error: 'sdr_dq' has two drivers (also driven at sdrc_top.v:159:21)	odin3 1.2.0 sim_tb
 opencores	sdr_ctrl	src_rev	github.com/freecores/sdr_ctrl git 4f3f0b4e0000	https://opencores.org/projects/sdr_ctrl; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
 opencores	sdr_ctrl	tb	sdr_ctrl/verif/tb/tb_top.sv sdr_ctrl/verif/model/mt48lc2m32b2.v	file scan of the project (bench/testbench files)
+opencores	sdr_ctrl	tb_origin	upstream	testbench provenance
 opencores	sdr_ctrl	vec	0	not scanned
+opencores	sdr_ctrl	vtr_maxrss_kb	21228	/usr/bin/time over the run steps
+opencores	sdr_ctrl	vtr_msg	sdrc_top.v:202:10: error: 'sdr_dq' has two drivers (also driven at sdrc_top.v:159:21)	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	sdr_ctrl	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	sdram_16bit	desc	16-bit SDRAM Controller	https://opencores.org/projects/sdram_16bit
 opencores	sdram_16bit	licence	GPL-2.0+ (OpenCores page: GPL)	rtl/sdram.v:9,15-17 of opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2
 opencores	sdram_16bit	oc_design_done	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
@@ -974,6 +994,16 @@ opencores	usbhostslave	src_rev	github.com/freecores/usbhostslave git 3508a22f1c3
 opencores	usbhostslave	tb	data/benchmarks/opencores-tb/usbhostslave	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	usbhostslave	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	usbhostslave	vec	0	not scanned
+opencores	usbhostslave	vtr_blocks	877	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1; vtr_blocks = CLB count
+opencores	usbhostslave	vtr_cpd	5.49712	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_cw	50	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_ffs	7079	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_luts	10498	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_maxrss_kb	295508	/usr/bin/time over the run steps
+opencores	usbhostslave	vtr_mem	0	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_mult	0	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_pins	51	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	vtr_stage	timing	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	verilog_cordic_core	desc	configurable CORDIC core in Verilog (first quadrant)	https://opencores.org/projects/verilog_cordic_core
 opencores	verilog_cordic_core	licence	none stated (no licence text in cordic.v or the project; OpenCores page has none)	cordic.v:1-12 of github.com/freecores/verilog_cordic_core git c1e99960d63a
 opencores	verilog_cordic_core	oc_design_done	True	https://opencores.org/projects/verilog_cordic_core (page data, read 2026-11-04)
