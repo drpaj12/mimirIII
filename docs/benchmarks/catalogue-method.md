@@ -48,3 +48,19 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
   black-box stub `pll_clock_bb.v` (it redefines `pll_clock`), with `read_verilog --auto-blackbox` so the
   vendor `altpll` primitive becomes a black box (a `bbox` tick); no other design is read with that flag.
 - Absolute paths in an Odin III error text are cut to the file name before they are stored.
+
+## Store data used (`mimir bench measure store`, source `store ...` in measures.tsv)
+
+- VTR path, 15 `vtr-verilog` and 20 `mcnc20` designs: the Norns e10-base run (seed 1, arm `vpr_sa`), see
+  above. The same 15 Verilog designs are also in the store under `norns-r1r2`, `norns-r3` (arm
+  `stock/seed`) and `norns-r4`; one sample is shown per design, and the e10-base one is the rule because it
+  is the only run with all 35 designs, one flow and one architecture. The 16 other `vtr-verilog` designs
+  have no VPR record in the store (`-` until a VPR run).
+- 6-LUT count of the 150 VerilogEval designs with a Loki record: Loki floor `f2` (`lower; abc --lut 6`
+  after the same front passes as the 6-LUT run here, store source `loki:loki-veval-exp/dataset`, metric
+  `loki.luts`). The Odin III version of that run is not recorded. A fresh Odin III 6-LUT run never
+  overwrites a store-sourced value.
+- 4-LUT count and logic depth of `vtr-blif` (k4) and `mcnc20` circuits: the shipped 4-LUT mapped BLIF as
+  Mimir measured it (`struct.n_comb`, `struct.depth`, sources `mcnc-k4` and `mcnc`), not an `abc --lut 4`
+  remap. `blif/2` (k2) is not measured separately: a row with a k4 circuit takes k4 values.
+- For BLIF circuits "gates" are the `.names` nodes as shipped (`$sop` cells that `read_blif` creates).

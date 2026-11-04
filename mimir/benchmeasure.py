@@ -76,6 +76,46 @@ def collect_vtr(idx: Path, store_db: Path, blob_dir: Path) -> list[Row]:
     return rows
 
 
+# ---- other Mimir store records --------------------------------------------------------------
+
+LOKI_SOURCE = "loki:loki-veval-exp/dataset"
+LOKI_FLOOR = "f2"  # `lower; abc --lut 6` after the common front: the 6-LUT run of this catalogue
+BLIF_STRUCT = {"vtr-blif-k4": "mcnc-k4", "mcnc20": "mcnc"}
+
+
+def _ro(db: Path) -> sqlite3.Connection:
+    return sqlite3.connect(f"file:{quote(str(db))}?mode=ro", uri=True)
+
+
+def collect_store_extra(idx: Path, db: Path) -> list[Row]:
+    """6-LUT counts of the VerilogEval designs (Loki floor f2, same passes as the 6-LUT run here,
+    Odin III version not recorded in the store) and the 4-LUT count and logic depth of the
+    shipped 4-LUT BLIF circuits (store sources mcnc-k4 and mcnc, `struct.n_comb`, `struct.depth`).
+    Each source field names the store source, floor or metric."""
+    reg = {(d.suite, d.design) for d in bench.load_designs(idx)}
+    rows: list[Row] = []
+    con = _ro(db)
+    try:
+        q = ("SELECT design, value FROM records WHERE source = ? AND arch = ? "
+             "AND metric = 'loki.luts'")
+        for design, value in con.execute(q, (LOKI_SOURCE, LOKI_FLOOR)):
+            name = design[3:] if design.startswith("ve_") else design
+            if ("verilogeval", name) in reg:
+                src = f"store {LOKI_SOURCE} {LOKI_FLOOR} loki.luts (Odin version not recorded)"
+                rows.append(["verilogeval", name, "l6_luts", _num(value), src])
+        for suite, source in BLIF_STRUCT.items():
+            q = ("SELECT design, metric, value FROM records WHERE source = ? AND level = 'lut' "
+                 "AND metric IN ('struct.n_comb', 'struct.depth')")
+            keys = {"struct.n_comb": "l4_luts", "struct.depth": "l4_depth"}
+            for design, metric, value in con.execute(q, (source,)):
+                if (suite, design) in reg:
+                    src = f"store {source} {metric} (shipped 4-LUT BLIF, no remap)"
+                    rows.append([suite, design, keys[metric], _num(value), src])
+    finally:
+        con.close()
+    return rows
+
+
 # ---- silicon path -------------------------------------------------------------------------
 
 STAGES = ["read", "elab", "map", "netlist", "equiv", "place", "route", "gds", "extract", "lvs"]
@@ -322,6 +362,8 @@ def _soft_runs(binary: Path, d: bench.Design, read: str, src: str) -> list[Row]:
         rows += [_row(d, "l6_luts", luts, src), _row(d, "l6_depth", depth, src)]
     except (ValueError, IndexError):
         rows += _fail_rows(d, keys6, _fail_reason(rc, text), src)
+    if d.format == "blif":  # the shipped circuits are 4-LUT mapped: l4 comes from the store
+        return rows
     run_b = run_a.replace("--lut 6", "--lut 4")
     rc, text = run_odin(binary, d.top, run_b)
     try:
