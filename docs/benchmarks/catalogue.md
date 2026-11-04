@@ -107,6 +107,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob094_gatesv | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob106_always_nolatches | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob130_circuit5 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob133_2014_q3fsm | a finite state machine with inputs s and w | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
 | Prob139_2013_q2bfsm | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
@@ -156,6 +157,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2,... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
 | Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2'... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
@@ -202,6 +204,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
+| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
 | Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
 | Prob003_step_one | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
@@ -212,6 +215,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) int... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
 | Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob032_vector0 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
 | Prob034_dff8 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob042_vector4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
@@ -220,10 +224,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
 | Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
-| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -268,6 +268,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | - | - | - | - | - | - | - | - | - | - |
 | Prob094_gatesv | - | - | - | - | - | - | - | - | - | - |
 | Prob106_always_nolatches | - | - | - | - | - | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - | - | - | - | - | - |
 | Prob130_circuit5 | - | - | - | - | - | - | - | - | - | - |
 | Prob133_2014_q3fsm | - | - | - | - | - | - | - | - | - | - |
 | Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - | - | - |
@@ -317,6 +318,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - | - | - |
 | Prob075_counter_2bc | - | - | - | - | - | - | - | - | - | - |
 | Prob077_wire_decl | - | - | - | - | - | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - | - | - | - | - | - |
 | Prob081_7458 | - | - | - | - | - | - | - | - | - | - |
 | Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - | - | - |
 | Prob091_2012_q2b | - | - | - | - | - | - | - | - | - | - |
@@ -363,6 +365,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | - | - | - | - | - | - | - | - | - |
 | Prob132_always_if2 | - | - | - | - | - | - | - | - | - | - |
 | Prob135_m2014_q6b | - | - | - | - | - | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - | - | - | - | - | - |
 | Prob001_zero | - | - | - | - | - | - | - | - | - | - |
 | Prob002_m2014_q4i | - | - | - | - | - | - | - | - | - | - |
 | Prob003_step_one | - | - | - | - | - | - | - | - | - | - |
@@ -373,6 +376,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | - | - | - | - | - | - | - | - | - | - |
 | Prob023_vector100r | - | - | - | - | - | - | - | - | - | - |
 | Prob028_m2014_q4a | - | - | - | - | - | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - | - | - | - | - | - |
 | Prob032_vector0 | - | - | - | - | - | - | - | - | - | - |
 | Prob034_dff8 | - | - | - | - | - | - | - | - | - | - |
 | Prob042_vector4 | - | - | - | - | - | - | - | - | - | - |
@@ -381,10 +385,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | - | - | - | - | - | - | - | - | - | - |
 | Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - | - | - |
 | Prob151_review2015_fsm | - | - | - | - | - | - | - | - | - | - |
-| Prob078_dualedge | - | - | - | - | - | - | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - | - | - | - | - | - | - |
-| Prob046_dff8p | - | - | - | - | - | - | - | - | - | - |
-| Prob031_dff | - | - | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -392,162 +392,162 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
-| Prob144_conwaylife | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1966/fail: read_verilog: --... |
-| Prob030_popcount255 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1369/fail: read_verilog: --... |
-| Prob153_gshare | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 647/fail: read_verilog: --v... |
-| Prob108_rule90 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 512/fail: read_verilog: --v... |
-| Prob124_rule110 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 512/fail: read_verilog: --v... |
-| Prob021_mux256to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 390/fail: read_verilog: --v... |
-| Prob092_gatesv100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 298/fail: read_verilog: --v... |
-| Prob105_rotate100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 201/fail: read_verilog: --v... |
-| Prob115_shift18 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 130/fail: read_verilog: --v... |
-| Prob018_mux256to1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 105/fail: read_verilog: --v... |
-| Prob017_mux2to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 100/fail: read_verilog: --v... |
-| Prob097_mux9to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 95/fail: read_verilog: --vt... |
-| Prob052_gates100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 88/fail: read_verilog: --vt... |
-| Prob055_conditional | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 56/fail: read_verilog: --vt... |
-| Prob141_count_clock | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 41/fail: read_verilog: --vt... |
-| Prob066_edgecapture | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 32/fail: read_verilog: --vt... |
-| Prob082_lfsr32 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 32/fail: read_verilog: --vt... |
-| Prob118_history_shift | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 32/fail: read_verilog: --vt... |
-| Prob154_fsm_ps2data | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 28/fail: read_verilog: --vt... |
-| Prob068_countbcd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 22/fail: read_verilog: --vt... |
-| Prob123_bugs_addsubz | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 22/fail: read_verilog: --vt... |
-| Prob043_vector5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 20/fail: read_verilog: --vt... |
-| Prob146_fsm_serialdata | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 20/fail: read_verilog: --vt... |
-| Prob080_timer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 17/fail: read_verilog: --vt... |
-| Prob155_lemmings4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 17/fail: read_verilog: --vt... |
-| Prob073_dff16e | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 16/fail: read_verilog: --vt... |
-| Prob126_circuit6 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 16/fail: read_verilog: --vt... |
-| Prob037_review2015_count1k | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 14/fail: read_verilog: --vt... |
-| Prob033_ece241_2014_q1c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 13/fail: read_verilog: --vt... |
-| Prob114_bugs_case | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 13/fail: read_verilog: --vt... |
-| Prob143_fsm_onehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 13/fail: read_verilog: --vt... |
-| Prob076_always_case | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 12/fail: read_verilog: --vt... |
-| Prob137_fsm_serial | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 12/fail: read_verilog: --vt... |
-| Prob084_ece241_2013_q12 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 11/fail: read_verilog: --vt... |
-| Prob140_fsm_hdlc | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 11/fail: read_verilog: --vt... |
-| Prob149_ece241_2013_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 11/fail: read_verilog: --vt... |
-| Prob044_vectorgates | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 10/fail: read_verilog: --vt... |
-| Prob094_gatesv | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 10/fail: read_verilog: --vt... |
-| Prob106_always_nolatches | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 10/fail: read_verilog: --vt... |
-| Prob130_circuit5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 9/fail: read_verilog: --vtr... |
-| Prob133_2014_q3fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 9/fail: read_verilog: --vtr... |
-| Prob139_2013_q2bfsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 9/fail: read_verilog: --vtr... |
-| Prob041_dff8r | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 8/fail: read_verilog: --vtr... |
-| Prob045_edgedetect2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 8/fail: read_verilog: --vtr... |
-| Prob047_dff8ar | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 8/fail: read_verilog: --vtr... |
-| Prob054_edgedetect | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 8/fail: read_verilog: --vtr... |
-| Prob062_bugs_mux2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 8/fail: read_verilog: --vtr... |
-| Prob087_gates | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 7/fail: read_verilog: --vtr... |
-| Prob136_m2014_q6 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 7/fail: read_verilog: --vtr... |
-| Prob138_2012_q2fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 7/fail: read_verilog: --vtr... |
-| Prob016_m2014_q4j | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 6/fail: read_verilog: --vtr... |
-| Prob121_2014_q3bfsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 6/fail: read_verilog: --vtr... |
-| Prob152_lemmings3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 6/fail: read_verilog: --vtr... |
-| Prob086_lfsr5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 5/fail: read_verilog: --vtr... |
-| Prob096_review2015_fsmseq | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 5/fail: read_verilog: --vtr... |
-| Prob148_2013_q2afsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 5/fail: read_verilog: --vtr... |
-| Prob150_review2015_fsmonehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 5/fail: read_verilog: --vtr... |
-| Prob035_count1to10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob038_count15 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob040_count10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob060_m2014_q4k | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob063_review2015_shiftcount | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob067_countslow | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob079_fsm3onehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob085_shift4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob095_review2015_fsmshift | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob120_fsm3s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob128_fsm_ps2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob142_lemmings2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 4/fail: read_verilog: --vtr... |
-| Prob051_gates4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob072_thermostat | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob074_ece241_2014_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob089_ece241_2014_q5a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob093_ece241_2014_q3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob100_fsm3comb | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob117_circuit9 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob119_fsm3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob129_ece241_2013_q8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 3/fail: read_verilog: --vtr... |
-| Prob009_popcount3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob024_hadd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob025_reduction | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob027_fadd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob036_ringer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob058_alwaysblock2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob065_7420 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob070_ece241_2013_q2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob075_counter_2bc | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob077_wire_decl | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob081_7458 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob088_ece241_2014_q5b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob091_2012_q2b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob099_m2014_q6c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob112_always_case2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob127_lemmings1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob134_2014_q3c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob147_circuit10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 2/fail: read_verilog: --vtr... |
-| Prob005_notgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob010_mt2015_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob011_norgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob012_xnorgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob013_m2014_q4e | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob014_andgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob019_m2014_q4f | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob020_mt2015_eq2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob022_mux2to1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob026_alwaysblock1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob029_m2014_q4g | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob039_always_if | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob048_m2014_q4c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob049_m2014_q4b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob050_kmap1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob053_m2014_q4d | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob056_ece241_2013_q7 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob057_kmap2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob061_2014_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob069_truthtable1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob083_mt2015_q4b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob090_circuit1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob098_circuit7 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob101_circuit4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob102_circuit3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob103_circuit2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob104_mt2015_muxdff | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob107_fsm1s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob109_fsm1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob110_fsm2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob111_fsm2s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob113_2012_q1g | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob116_m2014_q3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob122_kmap4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob125_kmap3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob131_mt2015_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob132_always_if2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob135_m2014_q6b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 1/fail: read_verilog: --vtr... |
-| Prob001_zero | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob002_m2014_q4i | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob003_step_one | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob004_vector2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob006_vectorr | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob007_wire | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob008_m2014_q4h | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob015_vector1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob023_vector100r | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob028_m2014_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob032_vector0 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob034_dff8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob042_vector4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob059_wire4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob064_vector3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob071_always_casez | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | 0/fail: read_verilog: --vtr... |
-| Prob156_review2015_fancytimer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob151_review2015_fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob078_dualedge | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob145_circuit8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob046_dff8p | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob031_dff | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
+| Prob144_conwaylife | 30976/22 | 3280/5 | 1966/3 |
+| Prob030_popcount255 | 14806/527 | 1822/130 | 1369/67 |
+| Prob153_gshare | 6984/31 | 930/10 | 647/7 |
+| Prob108_rule90 | 1022/2 | 512/1 | 512/1 |
+| Prob124_rule110 | 6643/7 | 1022/2 | 512/1 |
+| Prob021_mux256to1v | 90112/11 | 887/7 | 390/5 |
+| Prob092_gatesv100 | 298/1 | 298/1 | 298/1 |
+| Prob105_rotate100 | 310/6 | 300/2 | 201/2 |
+| Prob115_shift18 | 539/9 | 356/3 | 130/2 |
+| Prob018_mux256to1 | 2048/8 | 223/7 | 105/5 |
+| Prob017_mux2to1v | 100/1 | 100/1 | 100/1 |
+| Prob097_mux9to1v | 364/10 | 123/4 | 95/2 |
+| Prob052_gates100 | 297/7 | 102/4 | 88/3 |
+| Prob055_conditional | 231/40 | 60/12 | 56/9 |
+| Prob141_count_clock | 468/12 | 60/5 | 41/4 |
+| Prob066_edgecapture | 128/4 | 32/1 | 32/1 |
+| Prob082_lfsr32 | 35/2 | 32/1 | 32/1 |
+| Prob118_history_shift | 97/3 | 65/2 | 32/1 |
+| Prob154_fsm_ps2data | 37/4 | 28/1 | 28/1 |
+| Prob068_countbcd | 211/10 | 32/5 | 22/3 |
+| Prob123_bugs_addsubz | 150/24 | 30/7 | 22/4 |
+| Prob043_vector5 | 30/2 | 20/1 | 20/1 |
+| Prob146_fsm_serialdata | 32/5 | 21/2 | 20/1 |
+| Prob080_timer | 124/15 | 22/4 | 17/3 |
+| Prob155_lemmings4 | 220/22 | 21/3 | 17/2 |
+| Prob073_dff16e | 32/2 | 16/1 | 16/1 |
+| Prob126_circuit6 | 272/9 | 16/1 | 16/1 |
+| Prob037_review2015_count1k | 105/13 | 18/3 | 14/3 |
+| Prob033_ece241_2014_q1c | 63/14 | 17/5 | 13/3 |
+| Prob114_bugs_case | 249/11 | 18/4 | 13/3 |
+| Prob143_fsm_onehot | 23/7 | 15/2 | 13/2 |
+| Prob076_always_case | 86/9 | 25/3 | 12/2 |
+| Prob137_fsm_serial | 24/5 | 13/2 | 12/1 |
+| Prob084_ece241_2013_q12 | 32/3 | 14/3 | 11/2 |
+| Prob140_fsm_hdlc | 29/5 | 14/2 | 11/2 |
+| Prob149_ece241_2013_q4 | 101/6 | 17/2 | 11/2 |
+| Prob044_vectorgates | 14/3 | 10/2 | 10/1 |
+| Prob094_gatesv | 10/1 | 10/1 | 10/1 |
+| Prob106_always_nolatches | 128/6 | 12/3 | 10/2 |
+| Prob046_dff8p | 9/1 | 9/1 | 9/1 |
+| Prob130_circuit5 | 63/8 | 16/3 | 9/2 |
+| Prob133_2014_q3fsm | 33/6 | 10/2 | 9/2 |
+| Prob139_2013_q2bfsm | 37/5 | 10/2 | 9/1 |
+| Prob041_dff8r | 8/1 | 8/1 | 8/1 |
+| Prob045_edgedetect2 | 8/1 | 8/1 | 8/1 |
+| Prob047_dff8ar | 8/1 | 8/1 | 8/1 |
+| Prob054_edgedetect | 16/2 | 8/1 | 8/1 |
+| Prob062_bugs_mux2 | 8/1 | 8/1 | 8/1 |
+| Prob087_gates | 8/2 | 7/1 | 7/1 |
+| Prob136_m2014_q6 | 22/5 | 8/2 | 7/1 |
+| Prob138_2012_q2fsm | 22/4 | 8/2 | 7/1 |
+| Prob016_m2014_q4j | 32/9 | 7/3 | 6/2 |
+| Prob121_2014_q3bfsm | 22/5 | 8/2 | 6/1 |
+| Prob152_lemmings3 | 86/10 | 8/3 | 6/2 |
+| Prob086_lfsr5 | 6/2 | 5/1 | 5/1 |
+| Prob096_review2015_fsmseq | 18/5 | 6/2 | 5/1 |
+| Prob148_2013_q2afsm | 62/7 | 8/2 | 5/2 |
+| Prob150_review2015_fsmonehot | 19/5 | 6/2 | 5/1 |
+| Prob035_count1to10 | 39/9 | 7/2 | 4/1 |
+| Prob038_count15 | 30/9 | 5/2 | 4/1 |
+| Prob040_count10 | 39/9 | 7/2 | 4/1 |
+| Prob060_m2014_q4k | 4/1 | 4/1 | 4/1 |
+| Prob063_review2015_shiftcount | 39/11 | 5/2 | 4/1 |
+| Prob067_countslow | 46/11 | 7/3 | 4/1 |
+| Prob079_fsm3onehot | 9/3 | 4/1 | 4/1 |
+| Prob085_shift4 | 13/3 | 9/2 | 4/1 |
+| Prob095_review2015_fsmshift | 9/3 | 4/1 | 4/1 |
+| Prob120_fsm3s | 15/4 | 5/2 | 4/1 |
+| Prob128_fsm_ps2 | 13/4 | 4/1 | 4/1 |
+| Prob142_lemmings2 | 37/8 | 6/2 | 4/1 |
+| Prob051_gates4 | 9/2 | 3/1 | 3/1 |
+| Prob072_thermostat | 5/2 | 3/1 | 3/1 |
+| Prob074_ece241_2014_q4 | 8/3 | 3/1 | 3/1 |
+| Prob089_ece241_2014_q5a | 10/4 | 4/2 | 3/1 |
+| Prob093_ece241_2014_q3 | 3/1 | 3/1 | 3/1 |
+| Prob100_fsm3comb | 24/7 | 3/1 | 3/1 |
+| Prob117_circuit9 | 30/8 | 3/1 | 3/1 |
+| Prob119_fsm3 | 26/8 | 3/1 | 3/1 |
+| Prob129_ece241_2013_q8 | 30/8 | 3/1 | 3/1 |
+| Prob009_popcount3 | 22/7 | 2/1 | 2/1 |
+| Prob024_hadd | 11/5 | 2/1 | 2/1 |
+| Prob025_reduction | 7/3 | 3/2 | 2/2 |
+| Prob027_fadd | 22/7 | 2/1 | 2/1 |
+| Prob036_ringer | 3/2 | 2/1 | 2/1 |
+| Prob058_alwaysblock2 | 1/1 | 2/1 | 2/1 |
+| Prob065_7420 | 8/3 | 2/1 | 2/1 |
+| Prob070_ece241_2013_q2 | 15/7 | 2/1 | 2/1 |
+| Prob075_counter_2bc | 62/14 | 4/2 | 2/1 |
+| Prob077_wire_decl | 4/3 | 2/1 | 2/1 |
+| Prob078_dualedge | 2/1 | 2/1 | 2/1 |
+| Prob081_7458 | 8/3 | 3/2 | 2/1 |
+| Prob088_ece241_2014_q5b | 7/3 | 2/1 | 2/1 |
+| Prob091_2012_q2b | 6/4 | 3/2 | 2/1 |
+| Prob099_m2014_q6c | 6/4 | 3/2 | 2/1 |
+| Prob112_always_case2 | 142/12 | 2/1 | 2/1 |
+| Prob127_lemmings1 | 4/3 | 2/1 | 2/1 |
+| Prob134_2014_q3c | 59/8 | 2/1 | 2/1 |
+| Prob147_circuit10 | 7/3 | 2/1 | 2/1 |
+| Prob005_notgate | 1/1 | 1/1 | 1/1 |
+| Prob010_mt2015_q4a | 2/2 | 1/1 | 1/1 |
+| Prob011_norgate | 2/2 | 1/1 | 1/1 |
+| Prob012_xnorgate | 2/2 | 1/1 | 1/1 |
+| Prob013_m2014_q4e | 2/2 | 1/1 | 1/1 |
+| Prob014_andgate | 1/1 | 1/1 | 1/1 |
+| Prob019_m2014_q4f | 2/2 | 1/1 | 1/1 |
+| Prob020_mt2015_eq2 | 4/3 | 1/1 | 1/1 |
+| Prob022_mux2to1 | 1/1 | 1/1 | 1/1 |
+| Prob026_alwaysblock1 | 1/1 | 1/1 | 1/1 |
+| Prob029_m2014_q4g | 3/3 | 1/1 | 1/1 |
+| Prob039_always_if | 2/2 | 1/1 | 1/1 |
+| Prob048_m2014_q4c | 1/1 | 1/1 | 1/1 |
+| Prob049_m2014_q4b | 1/1 | 1/1 | 1/1 |
+| Prob050_kmap1 | 2/2 | 1/1 | 1/1 |
+| Prob053_m2014_q4d | 1/1 | 1/1 | 1/1 |
+| Prob056_ece241_2013_q7 | 5/3 | 1/1 | 1/1 |
+| Prob057_kmap2 | 13/5 | 1/1 | 1/1 |
+| Prob061_2014_q4a | 3/2 | 2/2 | 1/1 |
+| Prob069_truthtable1 | 13/6 | 1/1 | 1/1 |
+| Prob083_mt2015_q4b | 2/2 | 1/1 | 1/1 |
+| Prob090_circuit1 | 1/1 | 1/1 | 1/1 |
+| Prob098_circuit7 | 1/1 | 1/1 | 1/1 |
+| Prob101_circuit4 | 1/1 | 1/1 | 1/1 |
+| Prob102_circuit3 | 3/2 | 1/1 | 1/1 |
+| Prob103_circuit2 | 4/4 | 1/1 | 1/1 |
+| Prob104_mt2015_muxdff | 1/1 | 1/1 | 1/1 |
+| Prob107_fsm1s | 3/3 | 1/1 | 1/1 |
+| Prob109_fsm1 | 3/3 | 1/1 | 1/1 |
+| Prob110_fsm2 | 3/3 | 1/1 | 1/1 |
+| Prob111_fsm2s | 3/3 | 1/1 | 1/1 |
+| Prob113_2012_q1g | 67/7 | 1/1 | 1/1 |
+| Prob116_m2014_q3 | 103/8 | 1/1 | 1/1 |
+| Prob122_kmap4 | 68/8 | 1/1 | 1/1 |
+| Prob125_kmap3 | 98/8 | 1/1 | 1/1 |
+| Prob131_mt2015_q4 | 2/2 | 1/1 | 1/1 |
+| Prob132_always_if2 | 2/2 | 1/1 | 1/1 |
+| Prob135_m2014_q6b | 50/8 | 1/1 | 1/1 |
+| Prob145_circuit8 | 1/1 | 1/1 | 1/1 |
+| Prob001_zero | 0/0 | 0/0 | 0/0 |
+| Prob002_m2014_q4i | 0/0 | 0/0 | 0/0 |
+| Prob003_step_one | 0/0 | 0/0 | 0/0 |
+| Prob004_vector2 | 0/0 | 0/0 | 0/0 |
+| Prob006_vectorr | 0/0 | 0/0 | 0/0 |
+| Prob007_wire | 0/0 | 0/0 | 0/0 |
+| Prob008_m2014_q4h | 0/0 | 0/0 | 0/0 |
+| Prob015_vector1 | 0/0 | 0/0 | 0/0 |
+| Prob023_vector100r | 0/0 | 0/0 | 0/0 |
+| Prob028_m2014_q4a | 0/0 | 0/0 | 0/0 |
+| Prob031_dff | 0/0 | 0/0 | 0/0 |
+| Prob032_vector0 | 0/0 | 0/0 | 0/0 |
+| Prob034_dff8 | 0/0 | 0/0 | 0/0 |
+| Prob042_vector4 | 0/0 | 0/0 | 0/0 |
+| Prob059_wire4 | 0/0 | 0/0 | 0/0 |
+| Prob064_vector3 | 0/0 | 0/0 | 0/0 |
+| Prob071_always_casez | 0/0 | 0/0 | 0/0 |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
 
 </details>
 
@@ -555,162 +555,162 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
-| Prob144_conwaylife | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob030_popcount255 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob153_gshare | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob108_rule90 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob124_rule110 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob021_mux256to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob092_gatesv100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob105_rotate100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob115_shift18 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob018_mux256to1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob017_mux2to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob097_mux9to1v | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob052_gates100 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob055_conditional | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob141_count_clock | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob066_edgecapture | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob082_lfsr32 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob118_history_shift | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob154_fsm_ps2data | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob068_countbcd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob123_bugs_addsubz | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob043_vector5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob146_fsm_serialdata | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob080_timer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob155_lemmings4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob073_dff16e | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob126_circuit6 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob037_review2015_count1k | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob033_ece241_2014_q1c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob114_bugs_case | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob143_fsm_onehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob076_always_case | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob137_fsm_serial | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob084_ece241_2013_q12 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob140_fsm_hdlc | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob149_ece241_2013_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob044_vectorgates | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob094_gatesv | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob106_always_nolatches | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob130_circuit5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob133_2014_q3fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob139_2013_q2bfsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob041_dff8r | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob045_edgedetect2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob047_dff8ar | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob054_edgedetect | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob062_bugs_mux2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob087_gates | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob136_m2014_q6 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob138_2012_q2fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob016_m2014_q4j | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob121_2014_q3bfsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob152_lemmings3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob086_lfsr5 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob096_review2015_fsmseq | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob148_2013_q2afsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob150_review2015_fsmonehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob035_count1to10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob038_count15 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob040_count10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob060_m2014_q4k | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob063_review2015_shiftcount | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob067_countslow | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob079_fsm3onehot | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob085_shift4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob095_review2015_fsmshift | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob120_fsm3s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob128_fsm_ps2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob142_lemmings2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob051_gates4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob072_thermostat | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob074_ece241_2014_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob089_ece241_2014_q5a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob093_ece241_2014_q3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob100_fsm3comb | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob117_circuit9 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob119_fsm3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob129_ece241_2013_q8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob009_popcount3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob024_hadd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob025_reduction | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob027_fadd | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob036_ringer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob058_alwaysblock2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob065_7420 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob070_ece241_2013_q2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob075_counter_2bc | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob077_wire_decl | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob081_7458 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob088_ece241_2014_q5b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob091_2012_q2b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob099_m2014_q6c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob112_always_case2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob127_lemmings1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob134_2014_q3c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob147_circuit10 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob005_notgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob010_mt2015_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob011_norgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob012_xnorgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob013_m2014_q4e | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob014_andgate | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob019_m2014_q4f | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob020_mt2015_eq2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob022_mux2to1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob026_alwaysblock1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob029_m2014_q4g | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob039_always_if | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob048_m2014_q4c | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob049_m2014_q4b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob050_kmap1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob053_m2014_q4d | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob056_ece241_2013_q7 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob057_kmap2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob061_2014_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob069_truthtable1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob083_mt2015_q4b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob090_circuit1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob098_circuit7 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob101_circuit4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob102_circuit3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob103_circuit2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob104_mt2015_muxdff | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob107_fsm1s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob109_fsm1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob110_fsm2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob111_fsm2s | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob113_2012_q1g | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob116_m2014_q3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob122_kmap4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob125_kmap3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob131_mt2015_q4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob132_always_if2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob135_m2014_q6b | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob001_zero | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob002_m2014_q4i | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob003_step_one | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob004_vector2 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob006_vectorr | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob007_wire | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob008_m2014_q4h | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob015_vector1 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob023_vector100r | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob028_m2014_q4a | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob032_vector0 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob034_dff8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob042_vector4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob059_wire4 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob064_vector3 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob071_always_casez | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob156_review2015_fancytimer | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob151_review2015_fsm | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob078_dualedge | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob145_circuit8 | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob046_dff8p | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
-| Prob031_dff | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... | fail: read_verilog: --vtr-c... |
+| Prob144_conwaylife | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob030_popcount255 | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob153_gshare | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob108_rule90 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob124_rule110 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob021_mux256to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob092_gatesv100 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob105_rotate100 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob115_shift18 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob018_mux256to1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob017_mux2to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob097_mux9to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob052_gates100 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob055_conditional | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob141_count_clock | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob066_edgecapture | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob082_lfsr32 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob118_history_shift | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob154_fsm_ps2data | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob068_countbcd | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob123_bugs_addsubz | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob043_vector5 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob146_fsm_serialdata | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob080_timer | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob155_lemmings4 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob073_dff16e | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob126_circuit6 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob037_review2015_count1k | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob033_ece241_2014_q1c | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob114_bugs_case | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob143_fsm_onehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob076_always_case | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob137_fsm_serial | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob084_ece241_2013_q12 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob140_fsm_hdlc | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob149_ece241_2013_q4 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob044_vectorgates | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob094_gatesv | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob106_always_nolatches | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob046_dff8p | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob130_circuit5 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob133_2014_q3fsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob139_2013_q2bfsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob041_dff8r | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob045_edgedetect2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob047_dff8ar | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob054_edgedetect | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob062_bugs_mux2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob087_gates | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob136_m2014_q6 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob138_2012_q2fsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob016_m2014_q4j | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob121_2014_q3bfsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob152_lemmings3 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob086_lfsr5 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob096_review2015_fsmseq | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob148_2013_q2afsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob150_review2015_fsmonehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob035_count1to10 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob038_count15 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob040_count10 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob060_m2014_q4k | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob063_review2015_shiftcount | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob067_countslow | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob079_fsm3onehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob085_shift4 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob095_review2015_fsmshift | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob120_fsm3s | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob128_fsm_ps2 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob142_lemmings2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob051_gates4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob072_thermostat | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob074_ece241_2014_q4 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob089_ece241_2014_q5a | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob093_ece241_2014_q3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob100_fsm3comb | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob117_circuit9 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob119_fsm3 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob129_ece241_2013_q8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob009_popcount3 | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob024_hadd | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob025_reduction | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob027_fadd | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob036_ringer | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob058_alwaysblock2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob065_7420 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob070_ece241_2013_q2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob075_counter_2bc | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob077_wire_decl | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob078_dualedge | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob081_7458 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob088_ece241_2014_q5b | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob091_2012_q2b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob099_m2014_q6c | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob112_always_case2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob127_lemmings1 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob134_2014_q3c | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob147_circuit10 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob005_notgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob010_mt2015_q4a | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob011_norgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob012_xnorgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob013_m2014_q4e | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob014_andgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob019_m2014_q4f | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob020_mt2015_eq2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob022_mux2to1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob026_alwaysblock1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob029_m2014_q4g | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob039_always_if | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob048_m2014_q4c | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob049_m2014_q4b | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob050_kmap1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob053_m2014_q4d | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob056_ece241_2013_q7 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob057_kmap2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob061_2014_q4a | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob069_truthtable1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob083_mt2015_q4b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob090_circuit1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob098_circuit7 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob101_circuit4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob102_circuit3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob103_circuit2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob104_mt2015_muxdff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob107_fsm1s | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob109_fsm1 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob110_fsm2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob111_fsm2s | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob113_2012_q1g | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob116_m2014_q3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob122_kmap4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob125_kmap3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob131_mt2015_q4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob132_always_if2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob135_m2014_q6b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob145_circuit8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob001_zero | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob002_m2014_q4i | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob003_step_one | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob004_vector2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob006_vectorr | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob007_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob008_m2014_q4h | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob015_vector1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob023_vector100r | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob028_m2014_q4a | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob031_dff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob032_vector0 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob034_dff8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob042_vector4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob059_wire4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob064_vector3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob071_always_casez | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
 
 </details>
 
@@ -757,6 +757,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | 12 | 145.1 | mismatch | extract |
 | Prob094_gatesv | - | - | - | - |
 | Prob106_always_nolatches | - | - | - | - |
+| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
 | Prob130_circuit5 | - | - | - | - |
 | Prob133_2014_q3fsm | - | - | - | - |
 | Prob139_2013_q2bfsm | - | - | - | - |
@@ -806,6 +807,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | - | - | - | - |
 | Prob075_counter_2bc | - | - | - | - |
 | Prob077_wire_decl | - | - | - | - |
+| Prob078_dualedge | - | - | - | - |
 | Prob081_7458 | 4 | 47.5 | mismatch | extract |
 | Prob088_ece241_2014_q5b | - | - | - | - |
 | Prob091_2012_q2b | - | 40.0 | out of scope: stopped at pl... | equiv |
@@ -852,6 +854,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | - | - | - |
 | Prob132_always_if2 | - | - | - | - |
 | Prob135_m2014_q6b | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - |
 | Prob001_zero | - | - | out of scope: stopped at pl... | equiv |
 | Prob002_m2014_q4i | - | - | out of scope: stopped at pl... | equiv |
 | Prob003_step_one | - | - | out of scope: stopped at pl... | equiv |
@@ -862,6 +865,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | - | - | out of scope: stopped at pl... | equiv |
 | Prob023_vector100r | - | - | out of scope: stopped at pl... | equiv |
 | Prob028_m2014_q4a | - | - | - | - |
+| Prob031_dff | - | - | - | - |
 | Prob032_vector0 | - | - | out of scope: stopped at pl... | equiv |
 | Prob034_dff8 | - | 788.3 | out of scope: stopped at pl... | equiv |
 | Prob042_vector4 | - | - | out of scope: stopped at pl... | equiv |
@@ -870,10 +874,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | - | - | - | - |
 | Prob156_review2015_fancytimer | - | - | - | - |
 | Prob151_review2015_fsm | - | - | - | - |
-| Prob078_dualedge | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - |
-| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
-| Prob031_dff | - | - | - | - |
 
 </details>
 
