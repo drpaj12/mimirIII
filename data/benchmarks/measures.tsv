@@ -593,9 +593,15 @@ opencores	a-z80	licence	GPL-2.0 in license.txt; several files carry an Altera he
 opencores	a-z80	oc_design_done	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80	oc_fpga_proven	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80	oc_stage	stable	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80	sim_iverilog	none	no testbench shipped by the project
+opencores	a-z80	sim_odin	none	no testbench
 opencores	a-z80	src_rev	opencores.org/ocsvn/a-z80/a-z80/trunk svn r22	https://opencores.org/projects/a-z80; tree hash = sha256 of sorted 'relpath sha256' lines of the 39 RTL files read
 opencores	a-z80	tb	0	file scan of the project (bench/testbench files)
+opencores	a-z80	tb_origin	none	testbench provenance
 opencores	a-z80	vec	0	not scanned
+opencores	a-z80	vtr_maxrss_kb	40000	/usr/bin/time over the run steps
+opencores	a-z80	vtr_msg	coremodules.vh:404:10: error: net 'db1[0]' is driven by inout port 'db' of instance 'alu_flags_' and by logic at coremodules.vh:325:10; internal tri-state nets are not supported (D3)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	a-z80	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	amber	desc	Amber ARM-compatible core	https://opencores.org/projects/amber
 opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_core.v:24-28 of github.com/freecores/amber git 9b995cc298ec
 opencores	amber	oc_design_done	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
@@ -609,9 +615,22 @@ opencores	attiny_atmega_xmega_core	licence	custom BSD-style one-condition notice
 opencores	attiny_atmega_xmega_core	oc_design_done	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
 opencores	attiny_atmega_xmega_core	oc_fpga_proven	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
 opencores	attiny_atmega_xmega_core	oc_stage	stable	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
+opencores	attiny_atmega_xmega_core	sim_iverilog	none	no testbench shipped by the project
+opencores	attiny_atmega_xmega_core	sim_odin	none	no testbench
 opencores	attiny_atmega_xmega_core	src_rev	opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15	https://opencores.org/projects/attiny_atmega_xmega_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
 opencores	attiny_atmega_xmega_core	tb	0	file scan of the project (bench/testbench files)
+opencores	attiny_atmega_xmega_core	tb_origin	none	testbench provenance
 opencores	attiny_atmega_xmega_core	vec	0	not scanned
+opencores	attiny_atmega_xmega_core	vtr_blocks	186	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	attiny_atmega_xmega_core	vtr_cpd	14.924	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_cw	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_ffs	373	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_luts	1973	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_maxrss_kb	106124	/usr/bin/time over the run steps
+opencores	attiny_atmega_xmega_core	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_mult	1	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_pins	2	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ca_prng	desc	Cellular Automata PRNG	https://opencores.org/projects/ca_prng
 opencores	ca_prng	licence	BSD-3-Clause style (InformAsic AB; OpenCores page: BSD)	COPYING.txt:1-5; src/rtl/ca_prng.v:16-19 of github.com/freecores/ca_prng git dd3bcbe138fc
 opencores	ca_prng	oc_design_done	True	https://opencores.org/projects/ca_prng (page data, read 2026-11-04)
@@ -622,6 +641,7 @@ opencores	ca_prng	sim_odin	refused	odin3 1.2.0 sim_tb
 opencores	ca_prng	sim_odin_msg	tb_ca_prng.v:147: unsupported: task	odin3 1.2.0 sim_tb
 opencores	ca_prng	src_rev	github.com/freecores/ca_prng git dd3bcbe138fc	https://opencores.org/projects/ca_prng; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
 opencores	ca_prng	tb	ca_prng/src/testbench/tb_ca_prng.v	file scan of the project (bench/testbench files)
+opencores	ca_prng	tb_origin	upstream	testbench provenance
 opencores	ca_prng	vec	0	not scanned
 opencores	ca_prng	vtr_blocks	16	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
 opencores	ca_prng	vtr_cpd	2.38342	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
@@ -650,9 +670,22 @@ opencores	des	licence	none stated (OpenCores page has no licence; file header is
 opencores	des	oc_design_done	False	https://opencores.org/projects/des (page data, read 2026-11-04)
 opencores	des	oc_fpga_proven	False	https://opencores.org/projects/des (page data, read 2026-11-04)
 opencores	des	oc_stage	stable	https://opencores.org/projects/des (page data, read 2026-11-04)
+opencores	des	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/des); judged by: DES Test done
+opencores	des	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	des	sim_odin_msg	des_test_po.v:66: unsupported: compiler directive	odin3 1.2.0 sim_tb
 opencores	des	src_rev	github.com/freecores/des git 6f7865564a0c	https://opencores.org/projects/des; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
 opencores	des	tb	des/bench/verilog/des_test_po.v	file scan of the project (bench/testbench files)
+opencores	des	tb_origin	upstream	testbench provenance
 opencores	des	vec	0	not scanned
+opencores	des	vtr_blocks	222	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	des	vtr_cpd	3.70378	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_cw	54	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_ffs	1984	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_luts	1877	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_maxrss_kb	154184	/usr/bin/time over the run steps
+opencores	des	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ethmac	desc	Ethernet MAC 10/100	https://opencores.org/projects/ethmac
 opencores	ethmac	licence	LGPL-2.1+ per file header	rtl/verilog/eth_top.v:24-27 of github.com/freecores/ethmac git dd26899086ed
 opencores	ethmac	oc_design_done	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
@@ -688,9 +721,17 @@ opencores	i2cslave	licence	LGPL-2.1+ per file header (OpenCores page says GPL: m
 opencores	i2cslave	oc_design_done	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
 opencores	i2cslave	oc_fpga_proven	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
 opencores	i2cslave	oc_stage	stable	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
+opencores	i2cslave	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/i2cslave)
+opencores	i2cslave	sim_iverilog_msg	timeout (vvp cap reached) without end summary	iverilog+vvp (project testbench, run in work/opencores-runs/i2cslave)
+opencores	i2cslave	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	i2cslave	sim_odin_msg	i2cSlave.v:97:8: error: tri-state driver on 'sda' of an inout port of a module below the top is not supported (D3)	odin3 1.2.0 sim_tb
 opencores	i2cslave	src_rev	github.com/freecores/i2cslave git ffe84e97cf28	https://opencores.org/projects/i2cslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 4 RTL files read
 opencores	i2cslave	tb	i2cslave/bench/testHarness.v i2cslave/model/wb_master_model.v i2cslave/model/i2c_master_top.v i2cslave/model/i2c_master_bit_ctrl.v i2cslave/model/i2c_master_byte_ctrl.v	file scan of the project (bench/testbench files)
+opencores	i2cslave	tb_origin	upstream	testbench provenance
 opencores	i2cslave	vec	0	not scanned
+opencores	i2cslave	vtr_maxrss_kb	23596	/usr/bin/time over the run steps
+opencores	i2cslave	vtr_msg	i2cSlave.v:97:8: error: tri-state driver on 'sda' of an inout port of a module below the top is not supported (D3)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2cslave	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mips_16	desc	Educational 16-bit MIPS Processor	https://opencores.org/projects/mips_16
 opencores	mips_16	licence	none stated in the source or docs (OpenCores page says LGPL: mismatch, flagged)	rtl/*.v headers, doc/ read of github.com/freecores/mips_16 git 5dc3eec81faa
 opencores	mips_16	oc_design_done	True	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
@@ -760,9 +801,9 @@ opencores	sdram_16bit	src_rev	opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk 
 opencores	sdram_16bit	tb	data/benchmarks/opencores-tb/sdram_16bit	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	vec	0	not scanned
-opencores	sdram_16bit	vtr_maxrss_kb	23476	/usr/bin/time over the run steps
-opencores	sdram_16bit	vtr_msg	sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	sdram_16bit	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sdram_16bit	vtr_maxrss_kb	45916	/usr/bin/time over the run steps
+opencores	sdram_16bit	vtr_msg	write_blif: --vtr: sdram: port 'sdram_data_io': inout port; VPR has no bidirectional pins	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	sdram_16bit	vtr_stage	map	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	sha3_high	desc	SHA-3 (Keccak) high-throughput core, two rounds per cycle	https://opencores.org/projects/sha3_high
 opencores	sha3_high	licence	Apache-2.0	LICENSE:1-3; high_throughput_core/rtl/keccak.v of github.com/freecores/sha3 git c25a5befc75e
 opencores	sha3_high	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
@@ -861,6 +902,16 @@ opencores	vga_lcd	src_rev	github.com/freecores/vga_lcd git 6baa0f08e50e	https://
 opencores	vga_lcd	tb	data/benchmarks/opencores-tb/vga_lcd	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	vga_lcd	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	vga_lcd	vec	0	not scanned
+opencores	vga_lcd	vtr_blocks	2023	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	vga_lcd	vtr_cpd	8.47413	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_cw	58	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_ffs	16529	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_luts	24862	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_maxrss_kb	767868	/usr/bin/time over the run steps
+opencores	vga_lcd	vtr_mem	32	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_pins	4	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	wb_lcd	desc	WB LCD Character Display Controller	https://opencores.org/projects/wb_lcd
 opencores	wb_lcd	licence	LGPL-3.0+ per file header (OpenCores page: LGPL)	verilog/wb_lcd/rtl/wb_lcd.v:27-30 of github.com/freecores/wb_lcd git 671c784ed1a2
 opencores	wb_lcd	oc_design_done	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
@@ -872,6 +923,16 @@ opencores	wb_lcd	src_rev	github.com/freecores/wb_lcd git 671c784ed1a2	https://op
 opencores	wb_lcd	tb	data/benchmarks/opencores-tb/wb_lcd	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	wb_lcd	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	wb_lcd	vec	0	not scanned
+opencores	wb_lcd	vtr_blocks	77	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	wb_lcd	vtr_cpd	4.29499	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_cw	48	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_ffs	636	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_luts	1049	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_maxrss_kb	88544	/usr/bin/time over the run steps
+opencores	wb_lcd	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_pins	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 verilogeval	Prob001_zero	l6_luts	0	store loki:loki-veval-exp/dataset f2 loki.luts (Odin version not recorded)
 verilogeval	Prob001_zero	si_lvs	out of scope: stopped at place (openroad failed (rc 1); see openroad.log)	ql13-out/Prob001_zero/status.json
 verilogeval	Prob001_zero	si_stage	equiv	ql13-out/Prob001_zero/status.json
