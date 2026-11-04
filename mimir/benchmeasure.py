@@ -409,6 +409,7 @@ def _fail_rows(d: bench.Design, keys: list[str], reason: str, src: str) -> list[
 
 
 def _soft_runs(binary: Path, d: bench.Design, read: str, src: str) -> list[Row]:
+    # `read` holds read_arch for Verilog, so hard-block instances (RAM models) resolve
     rows: list[Row] = []
     run_a = f"{read}; {FRONT}; lower; stats; levelize; abc --lut 6; stats"
     if d.format == "blif":
@@ -465,13 +466,14 @@ def measure_design(binary: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
     files = " ".join(str(f) for f in _verilog_files(suite, d))
     flags = "--auto-blackbox " if d.format == "verilog-project" else ""
     read = f"read_verilog --nolatches --vtr-compat {flags}{files}"
+    soft_read = f"read_arch {arch}; {read}"
     prop = f"read_arch {arch}; {read}; stats; {FRONT}; stats; hardmap; stats"
     rc, text = run_odin(binary, d.top, prop)
     try:
         rows = [_row(d, k, v, src) for k, v in properties(text).items()]
     except ValueError:
         rows = _fail_rows(d, [f"chk_{c}" for c in benchcat.CHECKS], _fail_reason(rc, text), src)
-    return rows + _soft_runs(binary, d, read, src)
+    return rows + _soft_runs(binary, d, soft_read, src)
 
 
 def _blif_props(d: bench.Design, blk: dict[str, int], modules: int, src: str) -> list[Row]:

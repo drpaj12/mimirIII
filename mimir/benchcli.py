@@ -182,8 +182,11 @@ LEGEND = (
 
 
 def _measure_odin(args: argparse.Namespace, idx: Path) -> int:
-    done = {(r[0], r[1]) for r in bench.read_tsv(benchcat.measures_path(idx), 5)
-            if r[2] == "chk_seq" and not args.force}
+    rows = bench.read_tsv(benchcat.measures_path(idx), 5)
+    bad = {(r[0], r[1]) for r in rows if r[3].startswith("fail")}
+    done = {(r[0], r[1]) for r in rows if r[2] == "chk_seq" and not args.force}
+    if args.retry_failed:
+        done -= bad
     def sink(rows: list[list[str]]) -> None:
         have = {(r[0], r[1], r[2]) for r in bench.read_tsv(benchcat.measures_path(idx), 5)
                 if r[4].startswith("store ")}
@@ -283,6 +286,7 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
     p.add_argument("--suite", help="odin: suite id")
     p.add_argument("--limit", type=int, help="odin: at most N designs")
+    p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
     p.add_argument("--root", help="silicon: run root; testbench: external dir")
