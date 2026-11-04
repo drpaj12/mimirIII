@@ -579,81 +579,247 @@ mcnc20	tseng	vtr_mult	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_pins	174	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 opencores	a-z80	desc	A-Z80 CPU	https://opencores.org/projects/a-z80
 opencores	a-z80	licence	GPL-2.0 in license.txt; several files carry an Altera header; OpenCores page says LGPL: mismatch, flagged	license.txt:1-2; cpu/alu/alu.v:1-10 of opencores.org/ocsvn/a-z80/a-z80/trunk svn r22
+opencores	a-z80	oc_design_done	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80	oc_fpga_proven	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80	oc_stage	stable	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80	src_rev	opencores.org/ocsvn/a-z80/a-z80/trunk svn r22	https://opencores.org/projects/a-z80; tree hash = sha256 of sorted 'relpath sha256' lines of the 39 RTL files read
 opencores	a-z80	tb	0	file scan of the project (bench/testbench files)
 opencores	a-z80	vec	0	not scanned
 opencores	amber	desc	Amber ARM-compatible core	https://opencores.org/projects/amber
 opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_core.v:24-28 of github.com/freecores/amber git 9b995cc298ec
+opencores	amber	oc_design_done	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
+opencores	amber	oc_fpga_proven	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
+opencores	amber	oc_stage	stable	https://opencores.org/projects/amber (page data, read 2026-11-04)
 opencores	amber	src_rev	github.com/freecores/amber git 9b995cc298ec	https://opencores.org/projects/amber; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
 opencores	amber	tb	0	file scan of the project (bench/testbench files)
 opencores	amber	vec	0	not scanned
 opencores	attiny_atmega_xmega_core	desc	Attiny Atmega Xmega core	https://opencores.org/projects/attiny_atmega_xmega_core
 opencores	attiny_atmega_xmega_core	licence	custom BSD-style one-condition notice (OpenCores page says LGPL: mismatch, flagged)	rtl/mega_core_opt.v:5-17 of opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15
+opencores	attiny_atmega_xmega_core	oc_design_done	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
+opencores	attiny_atmega_xmega_core	oc_fpga_proven	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
+opencores	attiny_atmega_xmega_core	oc_stage	stable	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
 opencores	attiny_atmega_xmega_core	src_rev	opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15	https://opencores.org/projects/attiny_atmega_xmega_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
 opencores	attiny_atmega_xmega_core	tb	0	file scan of the project (bench/testbench files)
 opencores	attiny_atmega_xmega_core	vec	0	not scanned
 opencores	ca_prng	desc	Cellular Automata PRNG	https://opencores.org/projects/ca_prng
 opencores	ca_prng	licence	BSD-3-Clause style (InformAsic AB; OpenCores page: BSD)	COPYING.txt:1-5; src/rtl/ca_prng.v:16-19 of github.com/freecores/ca_prng git dd3bcbe138fc
+opencores	ca_prng	oc_design_done	True	https://opencores.org/projects/ca_prng (page data, read 2026-11-04)
+opencores	ca_prng	oc_fpga_proven	True	https://opencores.org/projects/ca_prng (page data, read 2026-11-04)
+opencores	ca_prng	oc_stage	stable	https://opencores.org/projects/ca_prng (page data, read 2026-11-04)
+opencores	ca_prng	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/ca_prng); judged by: Simulation completed ok
+opencores	ca_prng	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	ca_prng	sim_odin_msg	tb_ca_prng.v:147: unsupported: task	odin3 1.2.0 sim_tb
 opencores	ca_prng	src_rev	github.com/freecores/ca_prng git dd3bcbe138fc	https://opencores.org/projects/ca_prng; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
 opencores	ca_prng	tb	ca_prng/src/testbench/tb_ca_prng.v	file scan of the project (bench/testbench files)
 opencores	ca_prng	vec	0	not scanned
+opencores	ca_prng	vtr_blocks	16	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	ca_prng	vtr_cpd	2.38342	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_cw	34	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_ffs	40	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_luts	158	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_maxrss_kb	67908	/usr/bin/time over the run steps
+opencores	ca_prng	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_pins	77	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	dblclockfft	desc	Double Clocked FFT Core	https://opencores.org/projects/dblclockfft
 opencores	dblclockfft	licence	LGPL-3.0+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/fftmain.v:51-54 of opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43
+opencores	dblclockfft	oc_design_done	True	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
+opencores	dblclockfft	oc_fpga_proven	True	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
+opencores	dblclockfft	oc_stage	stable	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
 opencores	dblclockfft	src_rev	opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43	https://opencores.org/projects/dblclockfft; tree hash = sha256 of sorted 'relpath sha256' lines of the 10 RTL files read
 opencores	dblclockfft	tb	0	file scan of the project (bench/testbench files)
 opencores	dblclockfft	vec	0	not scanned
 opencores	des	desc	DES/Triple DES IP Cores	https://opencores.org/projects/des
 opencores	des	licence	none stated (OpenCores page has no licence; file header is a permissive no-name notice)	rtl/verilog/perf_opt/des.v:11-20 of github.com/freecores/des git 6f7865564a0c
+opencores	des	oc_design_done	False	https://opencores.org/projects/des (page data, read 2026-11-04)
+opencores	des	oc_fpga_proven	False	https://opencores.org/projects/des (page data, read 2026-11-04)
+opencores	des	oc_stage	stable	https://opencores.org/projects/des (page data, read 2026-11-04)
 opencores	des	src_rev	github.com/freecores/des git 6f7865564a0c	https://opencores.org/projects/des; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
 opencores	des	tb	des/bench/verilog/des_test_po.v	file scan of the project (bench/testbench files)
 opencores	des	vec	0	not scanned
+opencores	ethmac	desc	Ethernet MAC 10/100	https://opencores.org/projects/ethmac
+opencores	ethmac	licence	LGPL-2.1+ per file header	rtl/verilog/eth_top.v:24-27 of github.com/freecores/ethmac git dd26899086ed
+opencores	ethmac	oc_design_done	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
+opencores	ethmac	oc_fpga_proven	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
+opencores	ethmac	oc_stage	stable	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
+opencores	ethmac	src_rev	github.com/freecores/ethmac git dd26899086ed	https://opencores.org/projects/ethmac; tree hash = sha256 of sorted 'relpath sha256' lines of the 27 RTL files read
+opencores	ethmac	tb	ethmac/bench/verilog/tb_ethernet.v ethmac/bench/verilog/eth_host.v ethmac/bench/verilog/eth_memory.v ethmac/bench/verilog/eth_phy.v ethmac/bench/verilog/wb_bus_mon.v ethmac/bench/verilog/wb_master32.v ethmac/bench/verilog/wb_master_behavioral.v ethmac/bench/verilog/wb_slave_behavioral.v	file scan of the project (bench/testbench files)
+opencores	ethmac	vec	0	not scanned
 opencores	gng	desc	Gaussian Noise Generator	https://opencores.org/projects/gng
 opencores	gng	licence	LGPL-2.1+ (OpenCores page: LGPL)	rtl/gng.v:19-21 of opencores.org/ocsvn/gng/gng/trunk svn r17
+opencores	gng	oc_design_done	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
+opencores	gng	oc_fpga_proven	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
+opencores	gng	oc_stage	stable	https://opencores.org/projects/gng (page data, read 2026-11-04)
+opencores	gng	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/gng)
+opencores	gng	sim_iverilog_msg	gng_interp.v:126: error: Unknown module type: gng_coef	iverilog+vvp (project testbench, run in work/opencores-runs/gng)
+opencores	gng	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	gng	sim_odin_msg	tb_gng.sv:43: unsupported: real number	odin3 1.2.0 sim_tb
 opencores	gng	src_rev	opencores.org/ocsvn/gng/gng/trunk svn r17	https://opencores.org/projects/gng; tree hash = sha256 of sorted 'relpath sha256' lines of the 5 RTL files read
 opencores	gng	tb	gng/tb/tb_gng.sv	file scan of the project (bench/testbench files)
 opencores	gng	vec	0	not scanned
+opencores	gng	vtr_maxrss_kb	21088	/usr/bin/time over the run steps
+opencores	gng	vtr_msg	gng_interp.v:126:10: error: partial_map: instance 'u_gng_interp.u_gng_coef' of 'gng_coef': 'gng_coef' is not a model of architecture 'k6_frac_N10_frac_chain_mem32K_40nm' (VPR would reject the netlist)	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	gng	vtr_stage	elab	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	i2c	desc	I2C core, Wishbone master	https://opencores.org/projects/i2c
+opencores	i2c	licence	none named (permissive no-restriction notice with disclaimer, Richard Herveille 2001)	rtl/verilog/i2c_master_top.v:17-20 of github.com/freecores/i2c git 3b067f00ccced
+opencores	i2c	oc_design_done	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)
+opencores	i2c	oc_fpga_proven	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)
+opencores	i2c	oc_stage	stable	https://opencores.org/projects/i2c (page data, read 2026-11-04)
+opencores	i2c	src_rev	github.com/freecores/i2c git 3b067f00ccced	https://opencores.org/projects/i2c; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
+opencores	i2c	tb	i2c/bench/verilog/tst_bench_top.v i2c/bench/verilog/wb_master_model.v i2c/bench/verilog/i2c_slave_model.v	file scan of the project (bench/testbench files)
+opencores	i2c	vec	0	not scanned
 opencores	i2cslave	desc	I2C Slave	https://opencores.org/projects/i2cslave
 opencores	i2cslave	licence	LGPL-2.1+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/i2cSlave.v:27-30 of github.com/freecores/i2cslave git ffe84e97cf28
+opencores	i2cslave	oc_design_done	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
+opencores	i2cslave	oc_fpga_proven	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
+opencores	i2cslave	oc_stage	stable	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
 opencores	i2cslave	src_rev	github.com/freecores/i2cslave git ffe84e97cf28	https://opencores.org/projects/i2cslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 4 RTL files read
 opencores	i2cslave	tb	i2cslave/bench/testHarness.v i2cslave/model/wb_master_model.v i2cslave/model/i2c_master_top.v i2cslave/model/i2c_master_bit_ctrl.v i2cslave/model/i2c_master_byte_ctrl.v	file scan of the project (bench/testbench files)
 opencores	i2cslave	vec	0	not scanned
 opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
 opencores	mmuart	licence	GPL-3.0 (OpenCores page: GPL)	rtl/uart.v:6-7 of github.com/freecores/mmuart git 20c32acaf590
+opencores	mmuart	oc_design_done	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
+opencores	mmuart	oc_fpga_proven	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
+opencores	mmuart	oc_stage	stable	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
+opencores	mmuart	sim_iverilog	none	no testbench shipped by the project
+opencores	mmuart	sim_odin	none	no testbench
 opencores	mmuart	src_rev	github.com/freecores/mmuart git 20c32acaf590	https://opencores.org/projects/mmuart; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
 opencores	mmuart	tb	0	file scan of the project (bench/testbench files)
 opencores	mmuart	vec	0	not scanned
+opencores	mmuart	vtr_blocks	14	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	mmuart	vtr_cpd	2.31268	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_cw	36	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_ffs	96	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_luts	126	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_maxrss_kb	69824	/usr/bin/time over the run steps
+opencores	mmuart	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_pins	83	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	pipelined_fft_256	desc	256-point pipelined FFT/IFFT	https://opencores.org/projects/pipelined_fft_256
+opencores	pipelined_fft_256	licence	none named (Unicore Systems notice: may be used and distributed without restriction, with disclaimer)	SRC/fft256.v header of github.com/freecores/pipelined_fft_256 git cd8cafa8c3d8
+opencores	pipelined_fft_256	oc_design_done	False	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
+opencores	pipelined_fft_256	oc_fpga_proven	False	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
+opencores	pipelined_fft_256	oc_stage	stable	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
+opencores	pipelined_fft_256	src_rev	github.com/freecores/pipelined_fft_256 git cd8cafa8c3d8	https://opencores.org/projects/pipelined_fft_256; tree hash = sha256 of sorted 'relpath sha256' lines of the 12 RTL files read
+opencores	pipelined_fft_256	tb	pipelined_fft_256/TB/FFT256_TB.v pipelined_fft_256/TB/Wave_ROM256.v ../../work/opencores-runs/inc/pipelined_fft_256/stopper.v	file scan of the project (bench/testbench files)
+opencores	pipelined_fft_256	vec	0	not scanned
 opencores	reed_solomon_decoder	desc	Reed Solomon Decoder (204,188)	https://opencores.org/projects/reed_solomon_decoder
 opencores	reed_solomon_decoder	licence	GPL-3.0+ (OpenCores page: GPL)	rtl/RS_dec.v:1-4 of github.com/freecores/reed_solomon_decoder git 2d581673ad7d
+opencores	reed_solomon_decoder	oc_design_done	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
+opencores	reed_solomon_decoder	oc_fpga_proven	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
+opencores	reed_solomon_decoder	oc_stage	stable	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
 opencores	reed_solomon_decoder	src_rev	github.com/freecores/reed_solomon_decoder git 2d581673ad7d	https://opencores.org/projects/reed_solomon_decoder; tree hash = sha256 of sorted 'relpath sha256' lines of the 12 RTL files read
 opencores	reed_solomon_decoder	tb	reed_solomon_decoder/simulation/RS_dec_tb.v	file scan of the project (bench/testbench files)
 opencores	reed_solomon_decoder	vec	0	not scanned
+opencores	sdr_ctrl	desc	SDRAM controller (32-bit configuration read)	https://opencores.org/projects/sdr_ctrl
+opencores	sdr_ctrl	licence	LGPL-2.1+ per file header	rtl/top/sdrc_top.v:44-46 of github.com/freecores/sdr_ctrl git 4f3f0b4e0000
+opencores	sdr_ctrl	oc_design_done	True	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
+opencores	sdr_ctrl	oc_fpga_proven	False	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
+opencores	sdr_ctrl	oc_stage	stable	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
+opencores	sdr_ctrl	src_rev	github.com/freecores/sdr_ctrl git 4f3f0b4e0000	https://opencores.org/projects/sdr_ctrl; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	sdr_ctrl	tb	sdr_ctrl/verif/tb/tb_top.sv sdr_ctrl/verif/model/mt48lc2m32b2.v	file scan of the project (bench/testbench files)
+opencores	sdr_ctrl	vec	0	not scanned
 opencores	sdram_16bit	desc	16-bit SDRAM Controller	https://opencores.org/projects/sdram_16bit
 opencores	sdram_16bit	licence	GPL-2.0+ (OpenCores page: GPL)	rtl/sdram.v:9,15-17 of opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2
+opencores	sdram_16bit	oc_design_done	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
+opencores	sdram_16bit	oc_fpga_proven	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
+opencores	sdram_16bit	oc_stage	stable	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
+opencores	sdram_16bit	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/sdram_16bit)
+opencores	sdram_16bit	sim_iverilog_msg	simulation.svh:1: error: timescale directive cannot be inside a module definition.	iverilog+vvp (project testbench, run in work/opencores-runs/sdram_16bit)
+opencores	sdram_16bit	sim_odin	fail	odin3 1.2.0 sim_tb
+opencores	sdram_16bit	sim_odin_msg	sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined	odin3 1.2.0 sim_tb
 opencores	sdram_16bit	src_rev	opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2	https://opencores.org/projects/sdram_16bit; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
-opencores	sdram_16bit	tb	sdram_16bit/testbench/top_tb.sv sdram_16bit/testbench/wb_master.sv sdram_16bit/testbench/MT48LC8M16A2.v	file scan of the project (bench/testbench files)
+opencores	sdram_16bit	tb	sdram_16bit/testbench/top_tb.sv sdram_16bit/testbench/wb_master.sv sdram_16bit/testbench/IS42VM16400K.v sdram_16bit/testbench/MT48LC8M16A2.v	file scan of the project (bench/testbench files)
 opencores	sdram_16bit	vec	0	not scanned
+opencores	sdram_16bit	vtr_maxrss_kb	23476	/usr/bin/time over the run steps
+opencores	sdram_16bit	vtr_msg	sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sdram_16bit	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	desc	SHA-3 (Keccak) high-throughput core, two rounds per cycle	https://opencores.org/projects/sha3_high
+opencores	sha3_high	licence	Apache-2.0	LICENSE:1-3; high_throughput_core/rtl/keccak.v of github.com/freecores/sha3 git c25a5befc75e
+opencores	sha3_high	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_high	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_high	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_high	src_rev	github.com/freecores/sha3 git c25a5befc75e	https://opencores.org/projects/sha3_high; tree hash = sha256 of sorted 'relpath sha256' lines of the 6 RTL files read
+opencores	sha3_high	tb	sha3/high_throughput_core/testbench/test_keccak.v	file scan of the project (bench/testbench files)
+opencores	sha3_high	vec	0	not scanned
+opencores	sha3_low	desc	SHA-3 (Keccak) low-throughput core	https://opencores.org/projects/sha3_low
+opencores	sha3_low	licence	Apache-2.0	LICENSE:1-3; low_throughput_core/rtl/keccak.v:4-6 of github.com/freecores/sha3 git c25a5befc75e
+opencores	sha3_low	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_low	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_low	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
+opencores	sha3_low	src_rev	github.com/freecores/sha3 git c25a5befc75e	https://opencores.org/projects/sha3_low; tree hash = sha256 of sorted 'relpath sha256' lines of the 6 RTL files read
+opencores	sha3_low	tb	sha3/low_throughput_core/testbench/test_keccak.v	file scan of the project (bench/testbench files)
+opencores	sha3_low	vec	0	not scanned
 opencores	simple_spi	desc	SPI core	https://opencores.org/projects/simple_spi
 opencores	simple_spi	licence	none stated (OpenCores page has no licence; file header is a permissive no-name copyright notice)	rtl/verilog/simple_spi_top.v:11-20 of github.com/freecores/simple_spi git 61c39a5f79fd
+opencores	simple_spi	oc_design_done	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
+opencores	simple_spi	oc_fpga_proven	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
+opencores	simple_spi	oc_stage	stable	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
+opencores	simple_spi	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/simple_spi)
+opencores	simple_spi	sim_iverilog_msg	spi_slave_model.v:57: error: ';' is an invalid port declaration separator.	iverilog+vvp (project testbench, run in work/opencores-runs/simple_spi)
+opencores	simple_spi	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	simple_spi	sim_odin_msg	sim_tb takes one testbench file with one module; this project's testbench is several files (testbench + models)	odin3 1.2.0 sim_tb usage message: sim_tb: expects [--top <module>] [--max-time N] [--seed N] [--out <file>] [--vcd
 opencores	simple_spi	src_rev	github.com/freecores/simple_spi git 61c39a5f79fd	https://opencores.org/projects/simple_spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
 opencores	simple_spi	tb	simple_spi/bench/verilog/tst_bench_top.v simple_spi/bench/verilog/wb_master_model.v simple_spi/bench/verilog/spi_slave_model.v	file scan of the project (bench/testbench files)
+opencores	simple_spi	tb_origin	upstream	testbench provenance
 opencores	simple_spi	vec	0	not scanned
+opencores	simple_spi	vtr_blocks	19	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	simple_spi	vtr_cpd	2.37109	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_cw	30	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_ffs	131	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_luts	189	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_maxrss_kb	70052	/usr/bin/time over the run steps
+opencores	simple_spi	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_pins	27	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	desc	SPI core, Wishbone master	https://opencores.org/projects/spi
+opencores	spi	licence	LGPL-2.1+ per file header	rtl/verilog/spi_top.v:24-26 of github.com/freecores/spi git 1b8aa4c54bd7
+opencores	spi	oc_design_done	False	https://opencores.org/projects/spi (page data, read 2026-11-04)
+opencores	spi	oc_fpga_proven	True	https://opencores.org/projects/spi (page data, read 2026-11-04)
+opencores	spi	oc_stage	stable	https://opencores.org/projects/spi (page data, read 2026-11-04)
+opencores	spi	src_rev	github.com/freecores/spi git 1b8aa4c54bd7	https://opencores.org/projects/spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
+opencores	spi	tb	spi/bench/verilog/tb_spi_top.v spi/bench/verilog/wb_master_model.v spi/bench/verilog/spi_slave_model.v	file scan of the project (bench/testbench files)
+opencores	spi	vec	0	not scanned
 opencores	tiny_aes	desc	AES	https://opencores.org/projects/tiny_aes
 opencores	tiny_aes	licence	Apache-2.0 (OpenCores page: Others)	LICENSE:1-3; rtl/aes_128.v:4-6 of github.com/freecores/tiny_aes git faf2afb2bcb6
+opencores	tiny_aes	oc_design_done	True	https://opencores.org/projects/tiny_aes (page data, read 2026-11-04)
+opencores	tiny_aes	oc_fpga_proven	True	https://opencores.org/projects/tiny_aes (page data, read 2026-11-04)
+opencores	tiny_aes	oc_stage	stable	https://opencores.org/projects/tiny_aes (page data, read 2026-11-04)
+opencores	tiny_aes	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/tiny_aes); judged by: ^Good\.
+opencores	tiny_aes	sim_odin	refused	odin3 1.2.0 sim_tb
+opencores	tiny_aes	sim_odin_msg	test_aes_128.v:23: unsupported: signal wider than 64 bits	odin3 1.2.0 sim_tb
 opencores	tiny_aes	src_rev	github.com/freecores/tiny_aes git faf2afb2bcb6	https://opencores.org/projects/tiny_aes; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
 opencores	tiny_aes	tb	tiny_aes/testbench/test_aes_128.v	file scan of the project (bench/testbench files)
+opencores	tiny_aes	tb_origin	upstream	testbench provenance
+opencores	tiny_aes	too_big	yes: abc stops, needs more than 6 GB (design budget 6442450944 bytes)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	tiny_aes	vec	0	not scanned
+opencores	tiny_aes	vtr_maxrss_kb	917460	/usr/bin/time over the run steps
+opencores	tiny_aes	vtr_msg	abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical memory and the cgroup's memory.max)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	tiny_aes	vtr_stage	elab	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	usbhostslave	desc	USB 1.1 Host and Function IP core	https://opencores.org/projects/usbhostslave
 opencores	usbhostslave	licence	LGPL-2.1+ (OpenCores page: LGPL)	RTL/wrapper/usbHostSlave.v:26-30 of github.com/freecores/usbhostslave git 3508a22f1c3d
+opencores	usbhostslave	oc_design_done	True	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
+opencores	usbhostslave	oc_fpga_proven	True	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
+opencores	usbhostslave	oc_stage	stable	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
 opencores	usbhostslave	src_rev	github.com/freecores/usbhostslave git 3508a22f1c3d	https://opencores.org/projects/usbhostslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 45 RTL files read
 opencores	usbhostslave	tb	0	file scan of the project (bench/testbench files)
 opencores	usbhostslave	vec	0	not scanned
 opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
 opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
+opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
+opencores	vga_lcd	oc_fpga_proven	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
+opencores	vga_lcd	oc_stage	stable	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
 opencores	vga_lcd	src_rev	github.com/freecores/vga_lcd git 6baa0f08e50e	https://opencores.org/projects/vga_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 15 RTL files read
 opencores	vga_lcd	tb	vga_lcd/bench/verilog/test_bench_top.v vga_lcd/bench/verilog/wb_mast_model.v vga_lcd/bench/verilog/wb_slv_model.v vga_lcd/bench/verilog/sync_check.v vga_lcd/bench/verilog/wb_b3_check.v	file scan of the project (bench/testbench files)
 opencores	vga_lcd	vec	0	not scanned
 opencores	wb_lcd	desc	WB LCD Character Display Controller	https://opencores.org/projects/wb_lcd
 opencores	wb_lcd	licence	LGPL-3.0+ per file header (OpenCores page: LGPL)	verilog/wb_lcd/rtl/wb_lcd.v:27-30 of github.com/freecores/wb_lcd git 671c784ed1a2
+opencores	wb_lcd	oc_design_done	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
+opencores	wb_lcd	oc_fpga_proven	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
+opencores	wb_lcd	oc_stage	stable	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
 opencores	wb_lcd	src_rev	github.com/freecores/wb_lcd git 671c784ed1a2	https://opencores.org/projects/wb_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
 opencores	wb_lcd	tb	0	file scan of the project (bench/testbench files)
 opencores	wb_lcd	vec	0	not scanned
