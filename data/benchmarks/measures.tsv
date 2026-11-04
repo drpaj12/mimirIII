@@ -638,8 +638,12 @@ opencores	dblclockfft	licence	LGPL-3.0+ per file header (OpenCores page says GPL
 opencores	dblclockfft	oc_design_done	True	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
 opencores	dblclockfft	oc_fpga_proven	True	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
 opencores	dblclockfft	oc_stage	stable	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
+opencores	dblclockfft	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	dblclockfft	sim_odin	fail	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	dblclockfft	sim_odin_msg	parses and elaborates, did not finish within the 590 s limit	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	dblclockfft	src_rev	opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43	https://opencores.org/projects/dblclockfft; tree hash = sha256 of sorted 'relpath sha256' lines of the 10 RTL files read
-opencores	dblclockfft	tb	0	file scan of the project (bench/testbench files)
+opencores	dblclockfft	tb	data/benchmarks/opencores-tb/dblclockfft	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	dblclockfft	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	dblclockfft	vec	0	not scanned
 opencores	des	desc	DES/Triple DES IP Cores	https://opencores.org/projects/des
 opencores	des	licence	none stated (OpenCores page has no licence; file header is a permissive no-name notice)	rtl/verilog/perf_opt/des.v:11-20 of github.com/freecores/des git 6f7865564a0c
@@ -662,12 +666,11 @@ opencores	gng	licence	LGPL-2.1+ (OpenCores page: LGPL)	rtl/gng.v:19-21 of openco
 opencores	gng	oc_design_done	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
 opencores	gng	oc_fpga_proven	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
 opencores	gng	oc_stage	stable	https://opencores.org/projects/gng (page data, read 2026-11-04)
-opencores	gng	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/gng)
-opencores	gng	sim_iverilog_msg	gng_interp.v:126: error: Unknown module type: gng_coef	iverilog+vvp (project testbench, run in work/opencores-runs/gng)
-opencores	gng	sim_odin	refused	odin3 1.2.0 sim_tb
-opencores	gng	sim_odin_msg	tb_gng.sv:43: unsupported: real number	odin3 1.2.0 sim_tb
+opencores	gng	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	gng	sim_odin	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	gng	src_rev	opencores.org/ocsvn/gng/gng/trunk svn r17	https://opencores.org/projects/gng; tree hash = sha256 of sorted 'relpath sha256' lines of the 5 RTL files read
-opencores	gng	tb	gng/tb/tb_gng.sv	file scan of the project (bench/testbench files)
+opencores	gng	tb	data/benchmarks/opencores-tb/gng	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	gng	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	gng	vec	0	not scanned
 opencores	gng	vtr_maxrss_kb	21088	/usr/bin/time over the run steps
 opencores	gng	vtr_msg	gng_interp.v:126:10: error: partial_map: instance 'u_gng_interp.u_gng_coef' of 'gng_coef': 'gng_coef' is not a model of architecture 'k6_frac_N10_frac_chain_mem32K_40nm' (VPR would reject the netlist)	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
@@ -688,15 +691,28 @@ opencores	i2cslave	oc_stage	stable	https://opencores.org/projects/i2cslave (page
 opencores	i2cslave	src_rev	github.com/freecores/i2cslave git ffe84e97cf28	https://opencores.org/projects/i2cslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 4 RTL files read
 opencores	i2cslave	tb	i2cslave/bench/testHarness.v i2cslave/model/wb_master_model.v i2cslave/model/i2c_master_top.v i2cslave/model/i2c_master_bit_ctrl.v i2cslave/model/i2c_master_byte_ctrl.v	file scan of the project (bench/testbench files)
 opencores	i2cslave	vec	0	not scanned
+opencores	mips_16	desc	Educational 16-bit MIPS Processor	https://opencores.org/projects/mips_16
+opencores	mips_16	licence	none stated in the source or docs (OpenCores page says LGPL: mismatch, flagged)	rtl/*.v headers, doc/ read of github.com/freecores/mips_16 git 5dc3eec81faa
+opencores	mips_16	oc_design_done	True	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16	oc_fpga_proven	False	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16	oc_stage	stable	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16	sim_odin_msg	tb_mips_16.v:15: unsupported: compiler directive	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16	src_rev	github.com/freecores/mips_16 git 5dc3eec81faa	https://opencores.org/projects/mips_16; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	mips_16	tb	data/benchmarks/opencores-tb/mips_16	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16	vec	0	not scanned
 opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
 opencores	mmuart	licence	GPL-3.0 (OpenCores page: GPL)	rtl/uart.v:6-7 of github.com/freecores/mmuart git 20c32acaf590
 opencores	mmuart	oc_design_done	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
 opencores	mmuart	oc_fpga_proven	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
 opencores	mmuart	oc_stage	stable	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
-opencores	mmuart	sim_iverilog	none	no testbench shipped by the project
-opencores	mmuart	sim_odin	none	no testbench
+opencores	mmuart	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mmuart	sim_odin	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mmuart	src_rev	github.com/freecores/mmuart git 20c32acaf590	https://opencores.org/projects/mmuart; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
-opencores	mmuart	tb	0	file scan of the project (bench/testbench files)
+opencores	mmuart	tb	data/benchmarks/opencores-tb/mmuart	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mmuart	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mmuart	vec	0	not scanned
 opencores	mmuart	vtr_blocks	14	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
 opencores	mmuart	vtr_cpd	2.31268	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
@@ -737,12 +753,12 @@ opencores	sdram_16bit	licence	GPL-2.0+ (OpenCores page: GPL)	rtl/sdram.v:9,15-17
 opencores	sdram_16bit	oc_design_done	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
 opencores	sdram_16bit	oc_fpga_proven	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
 opencores	sdram_16bit	oc_stage	stable	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
-opencores	sdram_16bit	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/sdram_16bit)
-opencores	sdram_16bit	sim_iverilog_msg	simulation.svh:1: error: timescale directive cannot be inside a module definition.	iverilog+vvp (project testbench, run in work/opencores-runs/sdram_16bit)
-opencores	sdram_16bit	sim_odin	fail	odin3 1.2.0 sim_tb
-opencores	sdram_16bit	sim_odin_msg	sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined	odin3 1.2.0 sim_tb
+opencores	sdram_16bit	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	sdram_16bit	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	sdram_16bit	sim_odin_msg	sdram.v:689:5: unresolved_module: module 'ODDR2' is not defined (DUT); bench refused at top_tb.v:58: unsupported: compiler directive	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	src_rev	opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2	https://opencores.org/projects/sdram_16bit; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
-opencores	sdram_16bit	tb	sdram_16bit/testbench/top_tb.sv sdram_16bit/testbench/wb_master.sv sdram_16bit/testbench/IS42VM16400K.v sdram_16bit/testbench/MT48LC8M16A2.v	file scan of the project (bench/testbench files)
+opencores	sdram_16bit	tb	data/benchmarks/opencores-tb/sdram_16bit	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	sdram_16bit	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	vec	0	not scanned
 opencores	sdram_16bit	vtr_maxrss_kb	23476	/usr/bin/time over the run steps
 opencores	sdram_16bit	vtr_msg	sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
@@ -768,13 +784,12 @@ opencores	simple_spi	licence	none stated (OpenCores page has no licence; file he
 opencores	simple_spi	oc_design_done	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
 opencores	simple_spi	oc_fpga_proven	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
 opencores	simple_spi	oc_stage	stable	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
-opencores	simple_spi	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/simple_spi)
-opencores	simple_spi	sim_iverilog_msg	spi_slave_model.v:57: error: ';' is an invalid port declaration separator.	iverilog+vvp (project testbench, run in work/opencores-runs/simple_spi)
-opencores	simple_spi	sim_odin	refused	odin3 1.2.0 sim_tb
-opencores	simple_spi	sim_odin_msg	sim_tb takes one testbench file with one module; this project's testbench is several files (testbench + models)	odin3 1.2.0 sim_tb usage message: sim_tb: expects [--top <module>] [--max-time N] [--seed N] [--out <file>] [--vcd
+opencores	simple_spi	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	simple_spi	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	simple_spi	sim_odin_msg	tst_bench_top.v:50: unsupported: compiler directive	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	simple_spi	src_rev	github.com/freecores/simple_spi git 61c39a5f79fd	https://opencores.org/projects/simple_spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 2 RTL files read
-opencores	simple_spi	tb	simple_spi/bench/verilog/tst_bench_top.v simple_spi/bench/verilog/wb_master_model.v simple_spi/bench/verilog/spi_slave_model.v	file scan of the project (bench/testbench files)
-opencores	simple_spi	tb_origin	upstream	testbench provenance
+opencores	simple_spi	tb	data/benchmarks/opencores-tb/simple_spi	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	simple_spi	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	simple_spi	vec	0	not scanned
 opencores	simple_spi	vtr_blocks	19	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
 opencores	simple_spi	vtr_cpd	2.37109	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
@@ -815,24 +830,47 @@ opencores	usbhostslave	licence	LGPL-2.1+ (OpenCores page: LGPL)	RTL/wrapper/usbH
 opencores	usbhostslave	oc_design_done	True	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
 opencores	usbhostslave	oc_fpga_proven	True	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
 opencores	usbhostslave	oc_stage	stable	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
+opencores	usbhostslave	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	usbhostslave	sim_odin	fail	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	usbhostslave	sim_odin_msg	include_not_found: 'timescale.v' without include directories; bench outside the subset	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	usbhostslave	src_rev	github.com/freecores/usbhostslave git 3508a22f1c3d	https://opencores.org/projects/usbhostslave; tree hash = sha256 of sorted 'relpath sha256' lines of the 45 RTL files read
-opencores	usbhostslave	tb	0	file scan of the project (bench/testbench files)
+opencores	usbhostslave	tb	data/benchmarks/opencores-tb/usbhostslave	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	usbhostslave	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	usbhostslave	vec	0	not scanned
+opencores	verilog_cordic_core	desc	configurable CORDIC core in Verilog (first quadrant)	https://opencores.org/projects/verilog_cordic_core
+opencores	verilog_cordic_core	licence	none stated (no licence text in cordic.v or the project; OpenCores page has none)	cordic.v:1-12 of github.com/freecores/verilog_cordic_core git c1e99960d63a
+opencores	verilog_cordic_core	oc_design_done	True	https://opencores.org/projects/verilog_cordic_core (page data, read 2026-11-04)
+opencores	verilog_cordic_core	oc_fpga_proven	True	https://opencores.org/projects/verilog_cordic_core (page data, read 2026-11-04)
+opencores	verilog_cordic_core	oc_stage	unknown	https://opencores.org/projects/verilog_cordic_core (page data, read 2026-11-04)
+opencores	verilog_cordic_core	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	verilog_cordic_core	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	verilog_cordic_core	sim_odin_msg	cordic.v:178:5: error: for-loop condition is not constant (it reads 'i')	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	verilog_cordic_core	src_rev	github.com/freecores/verilog_cordic_core git c1e99960d63a	https://opencores.org/projects/verilog_cordic_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
+opencores	verilog_cordic_core	tb	data/benchmarks/opencores-tb/verilog_cordic_core	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	verilog_cordic_core	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	verilog_cordic_core	vec	0	not scanned
 opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
 opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
 opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
 opencores	vga_lcd	oc_fpga_proven	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
 opencores	vga_lcd	oc_stage	stable	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
+opencores	vga_lcd	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	vga_lcd	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	vga_lcd	sim_odin_msg	test_bench_top.v:116: unsupported: compiler directive	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	vga_lcd	src_rev	github.com/freecores/vga_lcd git 6baa0f08e50e	https://opencores.org/projects/vga_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 15 RTL files read
-opencores	vga_lcd	tb	vga_lcd/bench/verilog/test_bench_top.v vga_lcd/bench/verilog/wb_mast_model.v vga_lcd/bench/verilog/wb_slv_model.v vga_lcd/bench/verilog/sync_check.v vga_lcd/bench/verilog/wb_b3_check.v	file scan of the project (bench/testbench files)
+opencores	vga_lcd	tb	data/benchmarks/opencores-tb/vga_lcd	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	vga_lcd	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	vga_lcd	vec	0	not scanned
 opencores	wb_lcd	desc	WB LCD Character Display Controller	https://opencores.org/projects/wb_lcd
 opencores	wb_lcd	licence	LGPL-3.0+ per file header (OpenCores page: LGPL)	verilog/wb_lcd/rtl/wb_lcd.v:27-30 of github.com/freecores/wb_lcd git 671c784ed1a2
 opencores	wb_lcd	oc_design_done	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
 opencores	wb_lcd	oc_fpga_proven	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
 opencores	wb_lcd	oc_stage	stable	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
+opencores	wb_lcd	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	wb_lcd	sim_odin	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	wb_lcd	src_rev	github.com/freecores/wb_lcd git 671c784ed1a2	https://opencores.org/projects/wb_lcd; tree hash = sha256 of sorted 'relpath sha256' lines of the 3 RTL files read
-opencores	wb_lcd	tb	0	file scan of the project (bench/testbench files)
+opencores	wb_lcd	tb	data/benchmarks/opencores-tb/wb_lcd	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	wb_lcd	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	wb_lcd	vec	0	not scanned
 verilogeval	Prob001_zero	l6_luts	0	store loki:loki-veval-exp/dataset f2 loki.luts (Odin version not recorded)
 verilogeval	Prob001_zero	si_lvs	out of scope: stopped at place (openroad failed (rc 1); see openroad.log)	ql13-out/Prob001_zero/status.json
