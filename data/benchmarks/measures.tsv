@@ -707,6 +707,7 @@ opencores	ethmac	vtr_luts	16463	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_ch
 opencores	ethmac	vtr_maxrss_kb	395048	/usr/bin/time over the run steps
 opencores	ethmac	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ethmac	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	vtr_note	iverilog testbench run capped at 1800 s (see sim_iverilog_msg); VTR flow ran to completion	run inspection: summary.txt
 opencores	ethmac	vtr_pins	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ethmac	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	i2c	desc	I2C core, Wishbone master	https://opencores.org/projects/i2c
@@ -759,6 +760,17 @@ opencores	mips_16	src_rev	github.com/freecores/mips_16 git 5dc3eec81faa	https://
 opencores	mips_16	tb	data/benchmarks/opencores-tb/mips_16	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	vec	0	not scanned
+opencores	mips_16	vtr_blocks	1	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	mips_16	vtr_cpd	1.5	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_cw	50	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_ffs	8	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_luts	8	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_maxrss_kb	80192	/usr/bin/time over the run steps
+opencores	mips_16	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_note	degenerate result: the instruction ROM is loaded by the testbench ($readmemb), so the synthesised core has no program and reduces to the PC counter (8 LUTs, output pc only); not representative of the core	run inspection: map.log, instruction_mem.v:15-23
+opencores	mips_16	vtr_pins	10	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
 opencores	mmuart	licence	GPL-3.0 (OpenCores page: GPL)	rtl/uart.v:6-7 of github.com/freecores/mmuart git 20c32acaf590
 opencores	mmuart	oc_design_done	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
@@ -947,6 +959,9 @@ opencores	verilog_cordic_core	src_rev	github.com/freecores/verilog_cordic_core g
 opencores	verilog_cordic_core	tb	data/benchmarks/opencores-tb/verilog_cordic_core	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	vec	0	not scanned
+opencores	verilog_cordic_core	vtr_maxrss_kb	23876	/usr/bin/time over the run steps
+opencores	verilog_cordic_core	vtr_msg	cordic.v:178:5: error: for-loop condition is not constant (it reads 'i')	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
 opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
 opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
