@@ -1,0 +1,26 @@
+# tb_origin: upstream-fixed. Patch against bench/verilog/tests.v of OpenCores vga_lcd (upstream licence applies: the notice in the upstream file header).
+# Reason: run time: the full quick regression (tim_test 6 modes, pd1_test 96 frames, pd2_test, ur_test) did not finish in iverilog within the 600 s limit (the full run was still in tim_test mode 3 when it was stopped; the subset takes 466 s); this keeps every test task and every check but limits tim_test to modes 0-1 (320x240 frames) and pd1_test to delay 0, vbl 0 (modes 0-3). See README.
+--- a/bench/verilog/tests.v
++++ b/bench/verilog/tests.v
+@@ -189,7 +189,7 @@
+ 	m0.wb_wr1( `VBARB, 4'hf, 0 );
+ 
+ mode = 2;
+-for(mode=0;mode<6;mode=mode+1)
++for(mode=0;mode<2;mode=mode+1)
+    begin
+ 	
+ 	// reset core
+@@ -452,10 +452,10 @@
+ vbl   = 1;
+ delay = 1;
+ 
+-for(delay=0;delay<6;delay=delay+1)
++for(delay=0;delay<1;delay=delay+1)
+    begin
+ 	s0.set_delay(delay);
+-for(vbl=0;vbl<4;vbl=vbl+1)
++for(vbl=0;vbl<1;vbl=vbl+1)
+ for(mode=0;mode<4;mode=mode+1)
+    begin
+ 	// -------------------------------

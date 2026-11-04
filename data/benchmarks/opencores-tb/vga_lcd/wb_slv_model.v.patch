@@ -1,0 +1,15 @@
+# tb_origin: upstream-fixed. Patch against bench/verilog/wb_slv_model.v of OpenCores vga_lcd (upstream licence applies: the notice in the upstream file header).
+# Reason: task set_delay declares the scalar port dly (input dly;) and then a 6-bit reg dly, which iverilog rejects (Scalar port dly has a vectored net declaration); the fix declares input [5:0] dly. Same behaviour.
+--- a/bench/verilog/wb_slv_model.v
++++ b/bench/verilog/wb_slv_model.v
+@@ -156,9 +156,8 @@
+ endtask
+ 
+ task set_delay;
+-input dly;
++input [5:0] dly;
+ 
+-reg [5:0] dly;
+ begin
+     delay = dly;
+     $display("\n INFO: WISHBONE MEMORY MODEL (%M)");
