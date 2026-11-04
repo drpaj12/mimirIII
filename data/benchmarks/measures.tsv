@@ -694,20 +694,6 @@ opencores	ethmac	oc_stage	stable	https://opencores.org/projects/ethmac (page dat
 opencores	ethmac	src_rev	github.com/freecores/ethmac git dd26899086ed	https://opencores.org/projects/ethmac; tree hash = sha256 of sorted 'relpath sha256' lines of the 27 RTL files read
 opencores	ethmac	tb	ethmac/bench/verilog/tb_ethernet.v ethmac/bench/verilog/eth_host.v ethmac/bench/verilog/eth_memory.v ethmac/bench/verilog/eth_phy.v ethmac/bench/verilog/wb_bus_mon.v ethmac/bench/verilog/wb_master32.v ethmac/bench/verilog/wb_master_behavioral.v ethmac/bench/verilog/wb_slave_behavioral.v	file scan of the project (bench/testbench files)
 opencores	ethmac	vec	0	not scanned
-opencores	gng	desc	Gaussian Noise Generator	https://opencores.org/projects/gng
-opencores	gng	licence	LGPL-2.1+ (OpenCores page: LGPL)	rtl/gng.v:19-21 of opencores.org/ocsvn/gng/gng/trunk svn r17
-opencores	gng	oc_design_done	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
-opencores	gng	oc_fpga_proven	True	https://opencores.org/projects/gng (page data, read 2026-11-04)
-opencores	gng	oc_stage	stable	https://opencores.org/projects/gng (page data, read 2026-11-04)
-opencores	gng	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
-opencores	gng	sim_odin	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
-opencores	gng	src_rev	opencores.org/ocsvn/gng/gng/trunk svn r17	https://opencores.org/projects/gng; tree hash = sha256 of sorted 'relpath sha256' lines of the 5 RTL files read
-opencores	gng	tb	data/benchmarks/opencores-tb/gng	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
-opencores	gng	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
-opencores	gng	vec	0	not scanned
-opencores	gng	vtr_maxrss_kb	21088	/usr/bin/time over the run steps
-opencores	gng	vtr_msg	gng_interp.v:126:10: error: partial_map: instance 'u_gng_interp.u_gng_coef' of 'gng_coef': 'gng_coef' is not a model of architecture 'k6_frac_N10_frac_chain_mem32K_40nm' (VPR would reject the netlist)	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
-opencores	gng	vtr_stage	elab	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	i2c	desc	I2C core, Wishbone master	https://opencores.org/projects/i2c
 opencores	i2c	licence	none named (permissive no-restriction notice with disclaimer, Richard Herveille 2001)	rtl/verilog/i2c_master_top.v:17-20 of github.com/freecores/i2c git 3b067f00ccced
 opencores	i2c	oc_design_done	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)

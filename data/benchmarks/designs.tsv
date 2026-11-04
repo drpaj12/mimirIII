@@ -48,7 +48,6 @@ opencores	ca_prng	-	ca_prng	verilog-project	ca_prng	32917	1311	40b6fb6f9a793ade4
 opencores	dblclockfft	-	dblclockfft	verilog-project	fftmain	110164	3790	101c2eca25704d696ad0d376d0338436f72981bfe375abf6ef4a3b294fefc5fd	-
 opencores	des	-	des	verilog-project	des	83204	2061	065d5127cb0ae5e153b037322e1a09b12514b22ef24f6c9fd8e81cb2d332a24c	-
 opencores	ethmac	-	ethmac	verilog-project	eth_top	393294	12270	af1d499299918e4af252a59669bee8c9da580c39fe61d9985743d5c077252194	-
-opencores	gng	-	gng	verilog-project	gng	19849	668	242406a8f3db1ad34129753e412d84459b66324e6d9f52e04d9ec7a8e842edd3	-
 opencores	i2c	-	i2c	verilog-project	i2c_master_top	51342	1556	f7313b2a91665bba15dfe7524fffd511bdc707ab857b071cff36922b13972837	-
 opencores	i2cslave	-	i2cslave	verilog-project	i2cSlaveTop	24943	769	2f4e1ac554fba3f945db2e2b61798affce3266c10d7de3ca130b4702504557f2	-
 opencores	mips_16	-	mips_16	verilog-project	mips_16_core_top	26616	945	30037a4ee3d398e0ef6318067494bbb7bc5eb64366cbe7c1e423c8f79f3d53ac	-
