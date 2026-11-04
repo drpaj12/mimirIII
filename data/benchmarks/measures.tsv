@@ -665,6 +665,17 @@ opencores	dblclockfft	src_rev	opencores.org/ocsvn/dblclockfft/dblclockfft/trunk 
 opencores	dblclockfft	tb	data/benchmarks/opencores-tb/dblclockfft	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	dblclockfft	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	dblclockfft	vec	0	not scanned
+opencores	dblclockfft	vtr_blocks	4009	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1; vtr_blocks = CLB count
+opencores	dblclockfft	vtr_cpd	5.19941	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_cw	72	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_ffs	30280	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_luts	43969	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_maxrss_kb	1332864	/usr/bin/time over the run steps
+opencores	dblclockfft	vtr_mem	59	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_mult	0	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_note	Odin III reads the cmem_*.hex files beside the source, so the map used a run copy of the RTL with the hex files of data/benchmarks/opencores-tb/dblclockfft; VPR run directly on the mapped BLIF (seed 1, 582 s, 1.3 GB RSS)	run inspection: summary.txt
+opencores	dblclockfft	vtr_pins	76	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	vtr_stage	timing	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	des	desc	DES/Triple DES IP Cores	https://opencores.org/projects/des
 opencores	des	licence	none stated (OpenCores page has no licence; file header is a permissive no-name notice)	rtl/verilog/perf_opt/des.v:11-20 of github.com/freecores/des git 6f7865564a0c
 opencores	des	oc_design_done	False	https://opencores.org/projects/des (page data, read 2026-11-04)
@@ -757,18 +768,19 @@ opencores	mips_16	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mi
 opencores	mips_16	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	sim_odin_msg	tb_mips_16.v:15: unsupported: compiler directive	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	src_rev	github.com/freecores/mips_16 git 5dc3eec81faa	https://opencores.org/projects/mips_16; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	mips_16	synth_origin	mimir-patched	data/benchmarks/opencores-synth/mips_16 (patch; upstream clone untouched)
 opencores	mips_16	tb	data/benchmarks/opencores-tb/mips_16	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	vec	0	not scanned
-opencores	mips_16	vtr_blocks	1	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
-opencores	mips_16	vtr_cpd	1.5	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	mips_16	vtr_cw	50	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	mips_16	vtr_ffs	8	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	mips_16	vtr_luts	8	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	mips_16	vtr_maxrss_kb	80192	/usr/bin/time over the run steps
+opencores	mips_16	vtr_blocks	6	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	mips_16	vtr_cpd	4.40109	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_cw	22	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_ffs	33	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_luts	68	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	vtr_maxrss_kb	79580	/usr/bin/time over the run steps
 opencores	mips_16	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mips_16	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	mips_16	vtr_note	degenerate result: the instruction ROM is loaded by the testbench ($readmemb), so the synthesised core has no program and reduces to the PC counter (8 LUTs, output pc only); not representative of the core	run inspection: map.log, instruction_mem.v:15-23
+opencores	mips_16	vtr_note	synthesised from a mimir-patched variant: upstream leaves the instruction ROM empty (loaded by the testbench), so synthesis kept only the PC (8 LUTs, degenerate); the variant adds initial $readmemb(test2.prog, rom) in instruction_mem.v (the project multiply program); the core has only pc as output, so logic that cannot reach pc is pruned by synthesis (68 LUTs, 33 FFs); mimir-written testbench still passes under iverilog with the patched DUT (34 checks, 0 errors)	run inspection: data/benchmarks/opencores-synth/mips_16
 opencores	mips_16	vtr_pins	10	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mips_16	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
@@ -805,9 +817,24 @@ opencores	reed_solomon_decoder	licence	GPL-3.0+ (OpenCores page: GPL)	rtl/RS_dec
 opencores	reed_solomon_decoder	oc_design_done	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
 opencores	reed_solomon_decoder	oc_fpga_proven	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
 opencores	reed_solomon_decoder	oc_stage	stable	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
+opencores	reed_solomon_decoder	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/reed_solomon_decoder)
+opencores	reed_solomon_decoder	sim_iverilog_msg	testbench prints 'No Errors' at once (vacuous, before any compare) and then 2908726 'Error at out no.' lines until the 600 s cap	iverilog+vvp (project testbench, run in work/opencores-runs/reed_solomon_decoder)
+opencores	reed_solomon_decoder	sim_odin	fail	odin3 1.2.0 sim_tb
+opencores	reed_solomon_decoder	sim_odin_msg	testbench:55: $readmem: cannot read `input_RS_blocks`	odin3 1.2.0 sim_tb
 opencores	reed_solomon_decoder	src_rev	github.com/freecores/reed_solomon_decoder git 2d581673ad7d	https://opencores.org/projects/reed_solomon_decoder; tree hash = sha256 of sorted 'relpath sha256' lines of the 12 RTL files read
 opencores	reed_solomon_decoder	tb	reed_solomon_decoder/simulation/RS_dec_tb.v	file scan of the project (bench/testbench files)
+opencores	reed_solomon_decoder	tb_origin	upstream	testbench provenance
 opencores	reed_solomon_decoder	vec	0	not scanned
+opencores	reed_solomon_decoder	vtr_blocks	526	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	reed_solomon_decoder	vtr_cpd	6.14868	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_cw	64	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_ffs	2882	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_luts	4690	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_maxrss_kb	188720	/usr/bin/time over the run steps
+opencores	reed_solomon_decoder	vtr_mem	120	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_pins	21	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sdr_ctrl	desc	SDRAM controller (32-bit configuration read)	https://opencores.org/projects/sdr_ctrl
 opencores	sdr_ctrl	licence	LGPL-2.1+ per file header	rtl/top/sdrc_top.v:44-46 of github.com/freecores/sdr_ctrl git 4f3f0b4e0000
 opencores	sdr_ctrl	oc_design_done	True	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
@@ -956,12 +983,21 @@ opencores	verilog_cordic_core	sim_iverilog	pass	docs/benchmarks/opencores-testbe
 opencores	verilog_cordic_core	sim_odin	refused	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	sim_odin_msg	cordic.v:178:5: error: for-loop condition is not constant (it reads 'i')	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	src_rev	github.com/freecores/verilog_cordic_core git c1e99960d63a	https://opencores.org/projects/verilog_cordic_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
+opencores	verilog_cordic_core	synth_origin	mimir-patched	data/benchmarks/opencores-synth/verilog_cordic_core (patch; upstream clone untouched)
 opencores	verilog_cordic_core	tb	data/benchmarks/opencores-tb/verilog_cordic_core	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	verilog_cordic_core	vec	0	not scanned
-opencores	verilog_cordic_core	vtr_maxrss_kb	23876	/usr/bin/time over the run steps
-opencores	verilog_cordic_core	vtr_msg	cordic.v:178:5: error: for-loop condition is not constant (it reads 'i')	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	verilog_cordic_core	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_blocks	133	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1); vtr_blocks = CLB count
+opencores	verilog_cordic_core	vtr_cpd	4.1275	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_cw	54	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_ffs	765	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_luts	1153	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_maxrss_kb	101988	/usr/bin/time over the run steps
+opencores	verilog_cordic_core	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_note	synthesised from a mimir-patched variant: the upstream signed_shifter loop (cordic.v:178) has a non-constant bound that Odin III, Yosys and Parmys reject; the patch uses a constant bound with an if (j < i) guard (same behaviour; mimir-written testbench still passes under iverilog with the patched DUT: 200 checks, 0 errors, largest error 9 LSB). Unpatched upstream: vtr_stage none	run inspection: data/benchmarks/opencores-synth/verilog_cordic_core
+opencores	verilog_cordic_core	vtr_pins	104	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
 opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
 opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
