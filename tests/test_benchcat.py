@@ -87,6 +87,21 @@ class CatalogueTest(unittest.TestCase):
         self.assertIn("| 12 |", first[0])
         self.assertNotIn("/home", first[0])
 
+    def test_readme_section_replaced_only(self) -> None:
+        idx = fixture()
+        readme = idx / "README.md"
+        readme.write_text(f"intro\n\n{benchcat.README_START}\nold\n{benchcat.README_END}\n\ntail\n")
+        benchcat.generate(idx, idx / "c.md", "legend", readme)
+        once = readme.read_text()
+        self.assertTrue(once.startswith("intro\n\n") and once.endswith("\n\ntail\n"))
+        self.assertNotIn("old", once)
+        self.assertIn("<details><summary>s1 (1 designs)</summary>\n\n", once)
+        benchcat.generate(idx, idx / "c.md", "legend", readme)
+        self.assertEqual(once, readme.read_text())
+        readme.write_text("no markers\n")
+        with self.assertRaises(benchcat.CatalogueError):
+            benchcat.generate(idx, idx / "c.md", "legend", readme)
+
     def test_unknown_key_refused(self) -> None:
         with self.assertRaises(benchcat.CatalogueError):
             benchcat.upsert_measures(fixture(), [["s1", "a", "nope", "1", "t"]])

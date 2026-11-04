@@ -205,7 +205,8 @@ def _fail_reason(rc: int, text: str) -> str:
         return f"fail: timeout {TIMEOUT_S} s"
     errs = [ln for ln in text.splitlines() if "error" in ln.lower()]
     first = errs[0].split("error:", 1)[-1].strip() if errs else f"exit {rc}"
-    return "fail: " + first.replace("\t", " ")[:80]
+    first = re.sub(r"(?:/[^\s:'\"]+)+/([^/\s:'\"]+)", r"\1", first)  # no absolute paths
+    return "fail: " + first.replace("\t", " ")[:100]
 
 
 def _cells(text: str, after: int = 0) -> dict[str, int]:
@@ -335,7 +336,8 @@ def _soft_runs(binary: Path, d: bench.Design, read: str, src: str) -> list[Row]:
 def _verilog_files(suite: bench.Suite, d: bench.Design) -> list[Path]:
     base = bench.external_root() / suite.external / suite.subdir
     if d.format == "verilog-project":
-        return sorted(f for f in base.glob("*.v") if not f.stem.lower().startswith("tb_"))
+        return sorted(f for f in base.glob("*.v") if not f.stem.lower().startswith("tb_")
+                      and not f.stem.endswith("_bb"))
     return [base / d.path]
 
 
@@ -356,7 +358,8 @@ def measure_design(binary: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
             rows += _fail_rows(d, keys, _fail_reason(rc, text), src)
         return rows
     files = " ".join(str(f) for f in _verilog_files(suite, d))
-    read = "read_verilog --nolatches --vtr-compat " + files
+    flags = "--auto-blackbox " if d.format == "verilog-project" else ""
+    read = f"read_verilog --nolatches --vtr-compat {flags}{files}"
     prop = f"read_arch {arch}; {read}; stats; {FRONT}; stats; hardmap; stats"
     rc, text = run_odin(binary, d.top, prop)
     try:

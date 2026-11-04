@@ -209,7 +209,8 @@ def _cmd_measure(args: argparse.Namespace) -> int:
 
 def _cmd_catalogue(args: argparse.Namespace) -> int:
     idx = _idx(args)
-    rows = benchcat.generate(idx, Path(args.out), LEGEND)
+    readme = Path(args.readme) if args.readme else None
+    rows = benchcat.generate(idx, Path(args.out), LEGEND, readme)
     print(f"{args.out}\t{len(rows)} rows")
     for key, (have, tot) in benchcat.fill_counts(rows).items():
         print(f"  {key}\t{have}/{tot}")
@@ -282,6 +283,7 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p = bs.add_parser("catalogue", help="write the catalogue table (markdown + tsv)")
     common(p)
     p.add_argument("--out", default="docs/benchmarks/catalogue.md")
+    p.add_argument("--readme", help="README.md whose marked catalogue block is regenerated")
     p.set_defaults(fn=_cmd_catalogue)
     p = bs.add_parser("report", help="one self-contained HTML page: suites, sizes, store metrics")
     common(p)
