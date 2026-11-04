@@ -64,3 +64,51 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
   Mimir measured it (`struct.n_comb`, `struct.depth`, sources `mcnc-k4` and `mcnc`), not an `abc --lut 4`
   remap. `blif/2` (k2) is not measured separately: a row with a k4 circuit takes k4 values.
 - For BLIF circuits "gates" are the `.names` nodes as shipped (`$sop` cells that `read_blif` creates).
+
+## Tiers and order (rules use measured columns, never the suite name)
+
+| tier | rule |
+|---|---|
+| T0 whole flow | T1 rule, and `sim_iverilog` = 1 and `sim_odin` = 1 and `vtr_stage` = `route` |
+| T1 HDL + testbench, larger | format Verilog, a testbench file (`tb` not 0), LOC >= 200 |
+| T2 HDL + testbench, small | format Verilog, a testbench file, LOC < 200 |
+| T3 HDL, no testbench | format Verilog, no testbench file |
+| T4 netlist only | format BLIF |
+
+Size threshold: 200 Verilog lines (`lines` of `designs.tsv`; a project is its total). Within a tier: rows
+with a testbench first, then rows with a LUT count before rows with only LOC; LUT count = `l6_luts`, else
+`vtr_luts`, else `l4_luts`; largest first; design name breaks ties (then suite). Keys the T0 rule needs, to be
+written by the opencores intake lane or any later collector: `sim_iverilog` (1 = the design's own testbench
+passes in iverilog, 0 = fails, `fail: reason`), `sim_odin` (1 = passes in Odin III `sim_tb`/`run_testbenches`),
+`vtr_stage` (deepest VTR stage reached: `synth`, `pack`, `place`, `route`; `route` means routed with timing
+analysis). `catalogue.tsv` has `tier` and `rank` as its first two columns.
+
+`desc` (what it does) sources: VerilogEval, the sentence after "The module should implement" in
+`<problem>_prompt.txt`; VTR Verilog, the Domain column of the VTR 7.0 benchmark table in the VTR docs
+(`doc/src/vtr/benchmarks.rst`; 19 of 31 designs are listed); MCNC circuits, `intent` of `data/meta/mcnc.toml`
+up to its first parenthesis; BRISC-V, the suite title. ITC'99 and the other BLIF circuits: `-`, the sources
+read say nothing per circuit. Each `desc` row's source field names the file. Collector: `mimir bench measure
+desc`.
+
+BRISC-V: the first Odin III run was stopped by my 1500 s wall limit with no values; its checks and counts
+are `-` until rerun with longer limits.
+
+## Layout
+
+- GitHub tables are narrow: per tier, an Overview table (design, what it does, suite, link, licence, LOC,
+  testbench, vectors) and, folded in `<details>`, Flow and VTR QoR, LUT forms, Properties and Silicon. Every
+  table has `design` first and the same rows in the same order. Long values are cut to 30 characters there;
+  the full text is in `catalogue.tsv` and in the HTML page.
+- `docs/benchmarks/catalogue.html`: one wide table, sticky header row and first column, a scrollbar above
+  the table that follows the one below, sortable columns, filter box. Inline CSS and JS only, no network.
+  GitHub Pages serves it at https://drpaj12.github.io/mimirIII/benchmarks/catalogue.html (Pages is on, main,
+  `/docs`; `docs/.nojekyll` keeps Jekyll from processing the markdown there).
+- link = the `link` measure if present, else the suite's upstream URL; licence = the `licence` measure, else
+  the licence name at the head of the suite's `licence` text in `suites.toml`.
+
+## Run order and limits
+
+Every pass runs smaller designs first (source bytes, ascending) and suites from small to large; BRISC-V
+(4349 lines) goes after the small suites. One Odin III run is limited to 900 s (and the heavy-run slice
+memory cap). A design that hits a limit is recorded as `fail: too big for now (timeout 900 s, last finished
+pass <name>)` and the pass goes on with the next design.
