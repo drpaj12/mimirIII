@@ -6,12 +6,13 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
-from collections.abc import Mapping
+import subprocess
+from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
-from mimir import bench, blif, blobs
+from mimir import bench, benchcat, blif, blobs
 
 VTR_ARCH = "k6_frac_N10_frac_chain_mem32K_40nm"
 VTR_SOURCE = "norns-placers-e10-base"
@@ -177,3 +178,218 @@ def collect_testbench(idx: Path, ext_root: Path) -> list[Row]:
         rows.append([d.suite, d.design, "tb", rel, "file scan"])
         rows.append([d.suite, d.design, "vec", "1" if vec else "0", "testbench text scan"])
     return rows
+
+
+# ---- Odin III: property checks, gate and LUT counts ---------------------------------------
+# Three runs per Verilog design (properties on the VTR architecture, then soft logic mapped to
+# 6-LUTs and to 4-LUTs); two per BLIF circuit. Commands are in docs/benchmarks/catalogue-method.md.
+
+ARCH_REL = "vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml"
+FRONT = "proc; fsm; opt; flatten; opt -full; wreduce"
+CELL_RE = re.compile(r"stats: module (\S+): cell (\S+) (\d+)")
+KNOWN_HARD = {"adder", "multiply", "single_port_ram", "dual_port_ram"}
+TIMEOUT_S = 900
+
+
+def run_odin(binary: Path, top: str, script: str, timeout: int = TIMEOUT_S) -> tuple[int, str]:
+    cmd = [str(binary)] + (["--top", top] if top and top != "-" else []) + ["-p", script]
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, check=False)
+    except subprocess.TimeoutExpired:
+        return 124, "timeout"
+    return res.returncode, res.stdout + res.stderr
+
+
+def _fail_reason(rc: int, text: str) -> str:
+    if text == "timeout":
+        return f"fail: timeout {TIMEOUT_S} s"
+    errs = [ln for ln in text.splitlines() if "error" in ln.lower()]
+    first = errs[0].split("error:", 1)[-1].strip() if errs else f"exit {rc}"
+    return "fail: " + first.replace("\t", " ")[:80]
+
+
+def _cells(text: str, after: int = 0) -> dict[str, int]:
+    """Cell-type counts of the stats block that starts at or after offset `after`."""
+    out: dict[str, int] = {}
+    for m in CELL_RE.finditer(text, after):
+        out[m.group(2)] = out.get(m.group(2), 0) + int(m.group(3))
+    return out
+
+
+def _stats_blocks(text: str) -> list[dict[str, int]]:
+    parts = text.split("stats: design:")[1:]
+    return [_cells("stats: design:" + p) for p in parts]
+
+
+def _modules(text: str) -> int:
+    m = re.search(r"stats: design: modules (\d+)", text)
+    return int(m.group(1)) if m else 0
+
+
+def _flag(b: bool) -> str:
+    return "1" if b else "0"
+
+
+def properties(text: str) -> dict[str, str]:
+    """The eight checks from the log of the property run (stats after read, after the front
+    passes, after hardmap; the fsm and partial_map messages)."""
+    blocks = _stats_blocks(text)
+    if len(blocks) < 2:
+        raise ValueError("no stats blocks")
+    word = blocks[1]
+    pm = re.search(r"partial_map: (\d+) multiply, (\d+) adder in \d+ chains, (\d+) single_port_ram"
+                   r" \+ (\d+) dual_port_ram", text)
+    mult, add, spr, dpr = (int(x) for x in pm.groups()) if pm else (0, 0, 0, 0)
+    names = " ".join(word)
+    return {
+        "chk_seq": _flag(bool(re.search(r"\$\w*(dff|latch)", names, re.I)) or bool(spr + dpr)),
+        "chk_lat": _flag(bool(re.search(r"\$\w*latch", names, re.I))),
+        "chk_mem": _flag(bool(re.search(r"\$mem", names)) or bool(spr + dpr)
+                         or "single_port_ram" in word or "dual_port_ram" in word),
+        "chk_mul": _flag(bool(re.search(r"\$(mul|macc)\b", names)) or mult > 0),
+        "chk_add": _flag(bool(re.search(r"\$(add|sub|alu|macc)\b", names)) or add > 0),
+        "chk_fsm": _flag("fsm: information on FSM" in text),
+        "chk_hier": _flag(_modules(text) > 1),
+        "chk_bbx": _flag(any(not t.startswith("$") and t not in KNOWN_HARD for t in word)),
+    }
+
+
+GATE_SKIP = ("FF", "LATCH", "CONST")
+
+
+def gates_count(block: dict[str, int]) -> int:
+    n = 0
+    for t, c in block.items():
+        m = re.fullmatch(r"\$_([A-Z0-9]+)_", t)
+        if m and not any(s in m.group(1) for s in GATE_SKIP):
+            n += c
+    return n
+
+
+def lut_result(text: str) -> tuple[int, int]:
+    """(LUTs, depth) from the abc pass: `$lut` cells of the last stats block and `final: depth`."""
+    blocks = _stats_blocks(text)
+    d = re.search(r"abc: final: depth (\d+)", text)
+    if not blocks or "$lut" not in blocks[-1] or d is None:
+        raise ValueError("no abc LUT result")
+    return blocks[-1]["$lut"], int(d.group(1))
+
+
+def _gate_total(d: bench.Design, blk: dict[str, int]) -> int:
+    """Gates of the pre-LUT netlist: bit-level gates of a lowered design, `.names` nodes (`$sop`)
+    of a BLIF circuit as shipped."""
+    return blk.get("$sop", 0) if d.format == "blif" else gates_count(blk)
+
+
+def _empty(rc: int, gates: int) -> str:
+    """No logic level or LUT result: with no gates and a clean exit that is 0, else a failure."""
+    return "0" if rc == 0 and gates == 0 else f"fail: exit {rc}"
+
+
+def _luts_or_empty(rc: int, text: str, gates: int) -> tuple[str, str]:
+    try:
+        luts, depth = lut_result(text)
+    except ValueError:
+        if rc == 0 and gates == 0:
+            return "0", "0"
+        raise
+    return str(luts), str(depth)
+
+
+def _row(d: bench.Design, key: str, val: str, src: str) -> Row:
+    return [d.suite, d.design, key, val, src]
+
+
+def _fail_rows(d: bench.Design, keys: list[str], reason: str, src: str) -> list[Row]:
+    return [_row(d, k, reason, src) for k in keys]
+
+
+def _soft_runs(binary: Path, d: bench.Design, read: str, src: str) -> list[Row]:
+    rows: list[Row] = []
+    run_a = f"{read}; {FRONT}; lower; stats; levelize; abc --lut 6; stats"
+    if d.format == "blif":
+        run_a = f"{read}; stats; levelize; abc --lut 6; stats"
+    rc, text = run_odin(binary, d.top, run_a)
+    keys6 = ["g_gates", "g_depth", "l6_luts", "l6_depth"]
+    try:
+        blk = _stats_blocks(text)[0]
+        gates = _gate_total(d, blk)
+        rows.append(_row(d, "g_gates", str(gates), src))
+        lv = re.search(r"levelize: .* max level (\d+)", text)
+        rows.append(_row(d, "g_depth", lv.group(1) if lv else _empty(rc, gates), src))
+        luts, depth = _luts_or_empty(rc, text, gates)
+        rows += [_row(d, "l6_luts", luts, src), _row(d, "l6_depth", depth, src)]
+    except (ValueError, IndexError):
+        rows += _fail_rows(d, keys6, _fail_reason(rc, text), src)
+    run_b = run_a.replace("--lut 6", "--lut 4")
+    rc, text = run_odin(binary, d.top, run_b)
+    try:
+        gates4 = _gate_total(d, _stats_blocks(text)[0])
+        luts, depth = _luts_or_empty(rc, text, gates4)
+        rows += [_row(d, "l4_luts", luts, src), _row(d, "l4_depth", depth, src)]
+    except (ValueError, IndexError):
+        rows += _fail_rows(d, ["l4_luts", "l4_depth"], _fail_reason(rc, text), src)
+    return rows
+
+
+def _verilog_files(suite: bench.Suite, d: bench.Design) -> list[Path]:
+    base = bench.external_root() / suite.external / suite.subdir
+    if d.format == "verilog-project":
+        return sorted(f for f in base.glob("*.v") if not f.stem.lower().startswith("tb_"))
+    return [base / d.path]
+
+
+def measure_design(binary: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
+                   version: str) -> list[Row]:
+    src = f"odin3 {version} ({binary.parent.name})"
+    arch = vtr / ARCH_REL
+    if d.format == "blif":
+        path = bench.source_path(suite, d)
+        read = f"read_blif {path}"
+        rows = _soft_runs(binary, d, read, src)
+        rc, text = run_odin(binary, "", f"read_arch {arch}; {read}; stats")
+        try:
+            blk = _stats_blocks(text)[0]
+            rows += _blif_props(d, blk, _modules(text), src)
+        except IndexError:
+            keys = [f"chk_{c}" for c in benchcat.CHECKS]
+            rows += _fail_rows(d, keys, _fail_reason(rc, text), src)
+        return rows
+    files = " ".join(str(f) for f in _verilog_files(suite, d))
+    read = "read_verilog --nolatches --vtr-compat " + files
+    prop = f"read_arch {arch}; {read}; stats; {FRONT}; stats; hardmap; stats"
+    rc, text = run_odin(binary, d.top, prop)
+    try:
+        rows = [_row(d, k, v, src) for k, v in properties(text).items()]
+    except ValueError:
+        rows = _fail_rows(d, [f"chk_{c}" for c in benchcat.CHECKS], _fail_reason(rc, text), src)
+    return rows + _soft_runs(binary, d, read, src)
+
+
+def _blif_props(d: bench.Design, blk: dict[str, int], modules: int, src: str) -> list[Row]:
+    seq = any("DFF" in t or "LATCH" in t for t in blk)
+    sub = [t for t in blk if not t.startswith("$")]
+    vals = {"chk_seq": _flag(seq), "chk_mem": _flag(any(t in MEM_MODELS for t in sub)),
+            "chk_mul": _flag(any(t in MULT_MODELS for t in sub)),
+            "chk_add": _flag("adder" in sub), "chk_hier": _flag(modules > 1),
+            "chk_bbx": _flag(any(t not in KNOWN_HARD for t in sub)),
+            "chk_fsm": "n/a", "chk_lat": "n/a"}
+    return [_row(d, k, v, src) for k, v in vals.items()]
+
+
+def collect_odin(idx: Path, binary: Path, vtr: Path, suite_id: str, done: set[tuple[str, str]],
+                 limit: int | None, sink: Callable[[list[Row]], None]) -> int:
+    """Run the measures for the designs of suite_id, smallest source first; `sink` is called
+    after each design with its rows. Returns the number of designs run."""
+    suites = bench.load_suites(idx)
+    su = suites[suite_id]
+    raw = subprocess.run([str(binary), "--version"], capture_output=True, text=True,
+                         check=False).stdout.split()
+    ver = " ".join(raw)
+    todo = sorted((d for d in bench.load_designs(idx) if d.suite == suite_id
+                   and (d.suite, d.design) not in done), key=lambda d: (d.bytes, d.design))
+    n = 0
+    for d in todo[:limit]:
+        sink(measure_design(binary, vtr, su, d, ver))
+        n += 1
+    return n

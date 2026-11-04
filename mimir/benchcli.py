@@ -180,8 +180,22 @@ LEGEND = (
 )
 
 
+def _measure_odin(args: argparse.Namespace, idx: Path) -> int:
+    done = {(r[0], r[1]) for r in bench.read_tsv(benchcat.measures_path(idx), 5)
+            if r[2] == "chk_seq" and not args.force}
+    def sink(rows: list[list[str]]) -> None:
+        benchcat.upsert_measures(idx, rows)
+
+    n = benchmeasure.collect_odin(idx, Path(args.odin3), Path(args.vtr), args.suite, done,
+                                  args.limit, sink)
+    print(f"odin: {n} designs measured in {args.suite}")
+    return 0
+
+
 def _cmd_measure(args: argparse.Namespace) -> int:
     idx = _idx(args)
+    if args.kind == "odin":
+        return _measure_odin(args, idx)
     if args.kind == "vtr":
         rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
     elif args.kind == "silicon":
@@ -255,7 +269,12 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.set_defaults(fn=_cmd_check)
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
-    p.add_argument("kind", choices=("vtr", "silicon", "testbench"))
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin"))
+    p.add_argument("--odin3", help="odin: Odin III binary")
+    p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
+    p.add_argument("--suite", help="odin: suite id")
+    p.add_argument("--limit", type=int, help="odin: at most N designs")
+    p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
     p.add_argument("--root", help="silicon: run root; testbench: external dir")
     p.add_argument("--label", default="silicon-run", help="silicon: run name for the source field")

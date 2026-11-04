@@ -113,3 +113,33 @@ class CatalogueTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+LOG = """odin3: info: stats: design: modules 2, top t
+odin3: info: stats: module t: cell $dff 1
+odin3: info: fsm: information on FSM 't.s':
+odin3: info: stats: design: modules 1, top t
+odin3: info: stats: module t: cell $dlatch 1
+odin3: info: stats: module t: cell $mul 1
+odin3: info: stats: module t: cell $add 1
+odin3: info: stats: module t: cell $port_in 2
+odin3: info: partial_map: 1 multiply, 8 adder in 1 chains, 0 single_port_ram + 0 dual_port_ram
+odin3: info: stats: design: modules 1, top t
+odin3: info: stats: module t: cell adder 8
+"""
+
+
+class OdinParseTest(unittest.TestCase):
+    def test_properties(self) -> None:
+        p = benchmeasure.properties(LOG)
+        self.assertEqual([p[f"chk_{c}"] for c in benchcat.CHECKS],
+                         ["1", "0", "1", "1", "1", "1", "1", "0"])
+
+    def test_gates_and_luts(self) -> None:
+        blk = {"$_AND_": 3, "$_MUX_": 2, "$_DFF_P_": 4, "$_CONST0_": 1, "$port_in": 2}
+        self.assertEqual(benchmeasure.gates_count(blk), 5)
+        text = ("odin3: info: stats: design: modules 1, top t\n"
+                "odin3: info: abc: final: depth 3\n"
+                "odin3: info: stats: design: modules 1, top t\n"
+                "odin3: info: stats: module t: cell $lut 7\n")
+        self.assertEqual(benchmeasure.lut_result(text), (7, 3))
