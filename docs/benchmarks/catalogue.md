@@ -2,6 +2,8 @@
 
 One row per registered design, in tiers: best first (HDL with testbench and the whole flow), down to BLIF netlists only; each tier states its rule. `✓` yes, `✗` no (both measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value is in `data/benchmarks/measures.tsv` with its source; the rules are in `docs/benchmarks/catalogue-method.md`. The `vtr-blif-k2` and `vtr-blif-k4` suites hold the same circuits: one row per circuit name present in either.
 
+One sortable, filterable table with a top scrollbar: [catalogue.html](https://drpaj12.github.io/mimirIII/benchmarks/catalogue.html) (file `docs/benchmarks/catalogue.html`).
+
 | tier | rule | designs |
 |---|---|---|
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
@@ -24,457 +26,2281 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 
 Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
-| design | suite | what it does | format | top | LOC | seq | mem | mul | add | fsm | latch | hier | bbox | testbench | vectors | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | gates/depth | 4-LUT/depth | 6-LUT/depth | cells | core um2 | LVS | stage |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| quartus_project_revert_timer | [brisc-v](#sources) | BRISC-V microcontroller (Arduino-on-RISC-V) | verilog-project | single_cycle_BRAM_top | 4349 | - | - | - | - | - | - | - | - | Arduino-on-RISC-V/quartus_project_revert_timer/tb_single_cycle_BRAM_top_gcd.v | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
+| design | what it does | suite | link | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|
+| quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | MIT | 4349 | ✓ | ✓ |
+
+<details><summary>Flow and VTR QoR</summary>
+
+| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>LUT forms</summary>
+
+| design | gates/d | 4-LUT/d | 6-LUT/d |
+|---|---|---|---|
+| quartus_project_revert_timer | - | - | - |
+
+</details>
+
+<details><summary>Properties</summary>
+
+| design | seq | mem | mul | add | fsm | latch | hier | bbox |
+|---|---|---|---|---|---|---|---|---|
+| quartus_project_revert_timer | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>Silicon</summary>
+
+| design | cells | core um2 | LVS | Si stage |
+|---|---|---|---|---|
+| quartus_project_revert_timer | - | - | - | - |
+
+</details>
 
 ## T2 HDL + testbench, small
 
 Rule: HDL with a testbench and under 200 Verilog lines.
 
-| design | suite | what it does | format | top | LOC | seq | mem | mul | add | fsm | latch | hier | bbox | testbench | vectors | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | gates/depth | 4-LUT/depth | 6-LUT/depth | cells | core um2 | LVS | stage |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Prob144_conwaylife | [verilogeval](#sources) | - | verilog | RefModule | 37 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob144_conwaylife_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1966/- | - | - | - | - |
-| Prob030_popcount255 | [verilogeval](#sources) | a population count circuit for a 255-bit input vector | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob030_popcount255_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1369/- | - | - | - | - |
-| Prob153_gshare | [verilogeval](#sources) | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (usi... | verilog | RefModule | 49 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob153_gshare_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 647/- | - | - | - | - |
-| Prob108_rule90 | [verilogeval](#sources) | Rule 90, a one-dimensional cellular automaton with interesting properties | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob108_rule90_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 512/- | - | - | - | - |
-| Prob124_rule110 | [verilogeval](#sources) | Rule 110, a one-dimensional cellular automaton with interesting properties (s... | verilog | RefModule | 22 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob124_rule110_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 512/- | - | - | - | - |
-| Prob021_mux256to1v | [verilogeval](#sources) | a 4-bit wide, 256-to-1 multiplexer | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob021_mux256to1v_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 390/- | - | - | - | - |
-| Prob092_gatesv100 | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob092_gatesv100_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 298/- | - | 6531.3 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob105_rotate100 | [verilogeval](#sources) | a 100-bit left/right rotator, with synchronous load and left/right enable | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob105_rotate100_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 201/- | 873 | 18955.7 | match | lvs |
-| Prob115_shift18 | [verilogeval](#sources) | a 64-bit arithmetic shift register, with synchronous load | verilog | RefModule | 24 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob115_shift18_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 130/- | 703 | 13934.6 | match | lvs |
-| Prob018_mux256to1 | [verilogeval](#sources) | a 1-bit wide, 256-to-1 multiplexer | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob018_mux256to1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 105/- | 506 | 7847.5 | match | lvs |
-| Prob017_mux2to1v | [verilogeval](#sources) | a 2-1 multiplexer | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob017_mux2to1v_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 100/- | - | 4144.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob097_mux9to1v | [verilogeval](#sources) | a 16-bit wide, 9-to-1 multiplexer | verilog | RefModule | 32 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob097_mux9to1v_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 95/- | 187 | 3178.0 | match | lvs |
-| Prob052_gates100 | [verilogeval](#sources) | a combinational circuit with 100 inputs, in[99:0] | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob052_gates100_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 88/- | 318 | 5172.5 | match | lvs |
-| Prob055_conditional | [verilogeval](#sources) | - | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob055_conditional_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 56/- | 159 | 2499.9 | match | lvs |
-| Prob141_count_clock | [verilogeval](#sources) | - | verilog | RefModule | 47 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob141_count_clock_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 41/- | - | - | - | - |
-| Prob066_edgecapture | [verilogeval](#sources) | - | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob066_edgecapture_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 32/- | - | - | - | - |
-| Prob082_lfsr32 | [verilogeval](#sources) | a 32-bit Galois LFSR with taps at bit positions 32, 22, 2, and 1 | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob082_lfsr32_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 32/- | - | - | - | - |
-| Prob118_history_shift | [verilogeval](#sources) | a 32-bit global history shift register, including support for rolling back st... | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob118_history_shift_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 32/- | - | - | - | - |
-| Prob154_fsm_ps2data | [verilogeval](#sources) | a finite state machine that will search for message boundaries when given an... | verilog | RefModule | 42 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob154_fsm_ps2data_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 28/- | - | 2876.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob068_countbcd | [verilogeval](#sources) | a 4-digit BCD (binary-coded decimal) counter | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob068_countbcd_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 22/- | - | - | - | - |
-| Prob123_bugs_addsubz | [verilogeval](#sources) | - | verilog | RefModule | 19 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob123_bugs_addsubz_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 22/- | - | - | - | - |
-| Prob043_vector5 | [verilogeval](#sources) | - | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob043_vector5_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 20/- | 25 | 420.4 | mismatch | extract |
-| Prob146_fsm_serialdata | [verilogeval](#sources) | - | verilog | RefModule | 46 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob146_fsm_serialdata_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 20/- | - | - | - | - |
-| Prob080_timer | [verilogeval](#sources) | a timer that counts down for a given number of clock cycles, then asserts a s... | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob080_timer_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 17/- | - | - | - | - |
-| Prob155_lemmings4 | [verilogeval](#sources) | - | verilog | RefModule | 60 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob155_lemmings4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 17/- | - | - | - | - |
-| Prob073_dff16e | [verilogeval](#sources) | - | verilog | RefModule | 22 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob073_dff16e_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 16/- | - | - | - | - |
-| Prob126_circuit6 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob126_circuit6_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 16/- | - | - | - | - |
-| Prob037_review2015_count1k | [verilogeval](#sources) | a counter that counts from 0 to 999, inclusive, with a period of 1000 cycles | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob037_review2015_count1k_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 14/- | - | - | - | - |
-| Prob033_ece241_2014_q1c | [verilogeval](#sources) | - | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob033_ece241_2014_q1c_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 13/- | - | - | - | - |
-| Prob114_bugs_case | [verilogeval](#sources) | - | verilog | RefModule | 31 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob114_bugs_case_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 13/- | - | - | - | - |
-| Prob143_fsm_onehot | [verilogeval](#sources) | the state transition logic and output logic portions of the state machine (bu... | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob143_fsm_onehot_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 13/- | 23 | 300.3 | match | lvs |
-| Prob076_always_case | [verilogeval](#sources) | a 6-to-1 multiplexer | verilog | RefModule | 26 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob076_always_case_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 12/- | - | - | - | - |
-| Prob137_fsm_serial | [verilogeval](#sources) | - | verilog | RefModule | 38 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob137_fsm_serial_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 12/- | - | - | - | - |
-| Prob084_ece241_2013_q12 | [verilogeval](#sources) | a circuit for an 8x1 memory, where writing to the memory is accomplished by s... | verilog | RefModule | 21 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob084_ece241_2013_q12_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 11/- | - | - | - | - |
-| Prob140_fsm_hdlc | [verilogeval](#sources) | - | verilog | RefModule | 37 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob140_fsm_hdlc_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 11/- | - | - | - | - |
-| Prob149_ece241_2013_q4 | [verilogeval](#sources) | - | verilog | RefModule | 46 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob149_ece241_2013_q4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 11/- | - | - | - | - |
-| Prob044_vectorgates | [verilogeval](#sources) | - | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob044_vectorgates_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 10/- | 12 | 145.1 | mismatch | extract |
-| Prob094_gatesv | [verilogeval](#sources) | - | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob094_gatesv_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 10/- | - | - | - | - |
-| Prob106_always_nolatches | [verilogeval](#sources) | - | verilog | RefModule | 21 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob106_always_nolatches_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 10/- | - | - | - | - |
-| Prob130_circuit5 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 21 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob130_circuit5_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 9/- | - | - | - | - |
-| Prob133_2014_q3fsm | [verilogeval](#sources) | a finite state machine with inputs s and w | verilog | RefModule | 35 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob133_2014_q3fsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 9/- | - | - | - | - |
-| Prob139_2013_q2bfsm | [verilogeval](#sources) | - | verilog | RefModule | 38 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob139_2013_q2bfsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 9/- | - | - | - | - |
-| Prob041_dff8r | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob041_dff8r_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 8/- | - | - | - | - |
-| Prob045_edgedetect2 | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob045_edgedetect2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 8/- | - | 1594.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob047_dff8ar | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob047_dff8ar_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 8/- | - | - | - | - |
-| Prob054_edgedetect | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob054_edgedetect_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 8/- | - | 1559.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob062_bugs_mux2 | [verilogeval](#sources) | - | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob062_bugs_mux2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 8/- | - | - | - | - |
-| Prob087_gates | [verilogeval](#sources) | a combinational circuit with two inputs, a and b | verilog | RefModule | 23 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob087_gates_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 7/- | 10 | 93.8 | mismatch | extract |
-| Prob136_m2014_q6 | [verilogeval](#sources) | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | verilog | RefModule | 33 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob136_m2014_q6_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 7/- | - | - | - | - |
-| Prob138_2012_q2fsm | [verilogeval](#sources) | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B... | verilog | RefModule | 31 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob138_2012_q2fsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 7/- | - | - | - | - |
-| Prob016_m2014_q4j | [verilogeval](#sources) | - | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob016_m2014_q4j_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 6/- | - | - | - | - |
-| Prob121_2014_q3bfsm | [verilogeval](#sources) | a finite-state machine with the state-assigned table shown below | verilog | RefModule | 31 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob121_2014_q3bfsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 6/- | 21 | 402.9 | match | lvs |
-| Prob152_lemmings3 | [verilogeval](#sources) | - | verilog | RefModule | 48 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob152_lemmings3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 6/- | - | - | - | - |
-| Prob086_lfsr5 | [verilogeval](#sources) | a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3 | verilog | RefModule | 23 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob086_lfsr5_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 5/- | - | - | - | - |
-| Prob096_review2015_fsmseq | [verilogeval](#sources) | a finite-state machine that searches for the sequence 1101 in an input bit st... | verilog | RefModule | 30 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob096_review2015_fsmseq_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 5/- | - | - | - | - |
-| Prob148_2013_q2afsm | [verilogeval](#sources) | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A... | verilog | RefModule | 35 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob148_2013_q2afsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 5/- | - | - | - | - |
-| Prob150_review2015_fsmonehot | [verilogeval](#sources) | the following Moore state machine with 3 input (d, done_counting, ack) and 3... | verilog | RefModule | 30 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob150_review2015_fsmonehot_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 5/- | 10 | 150.1 | mismatch | extract |
-| Prob035_count1to10 | [verilogeval](#sources) | a decade counter that counts 1 through 10, inclusive | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob035_count1to10_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob038_count15 | [verilogeval](#sources) | a 4-bit binary counter that counts from 0 through 15, inclusive, with a perio... | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob038_count15_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob040_count10 | [verilogeval](#sources) | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob040_count10_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob060_m2014_q4k | [verilogeval](#sources) | a shift register with four D flops | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob060_m2014_q4k_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob063_review2015_shiftcount | [verilogeval](#sources) | a four-bit shift register that also acts as a down counter | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob063_review2015_shiftcount_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob067_countslow | [verilogeval](#sources) | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | verilog | RefModule | 20 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob067_countslow_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob079_fsm3onehot | [verilogeval](#sources) | the state transition table for a Moore state machine with one input, one outp... | verilog | RefModule | 19 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob079_fsm3onehot_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | 9 | 97.6 | mismatch | extract |
-| Prob085_shift4 | [verilogeval](#sources) | a 4-bit shift register (right shift), with asynchronous positive edge trigger... | verilog | RefModule | 21 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob085_shift4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob095_review2015_fsmshift | [verilogeval](#sources) | - | verilog | RefModule | 29 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob095_review2015_fsmshift_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob120_fsm3s | [verilogeval](#sources) | a Moore state machine with the following state transition table with one inpu... | verilog | RefModule | 30 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob120_fsm3s_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob128_fsm_ps2 | [verilogeval](#sources) | a finite state machine that will search for message boundaries when given an... | verilog | RefModule | 32 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob128_fsm_ps2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob142_lemmings2 | [verilogeval](#sources) | - | verilog | RefModule | 36 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob142_lemmings2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 4/- | - | - | - | - |
-| Prob051_gates4 | [verilogeval](#sources) | a combinational circuit with four inputs, in[3:0] | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob051_gates4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob072_thermostat | [verilogeval](#sources) | a heating/cooling thermostat controller which controls both a heater (during... | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob072_thermostat_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob074_ece241_2014_q4 | [verilogeval](#sources) | a finite state machine with the following behavior | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob074_ece241_2014_q4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob089_ece241_2014_q5a | [verilogeval](#sources) | a one-input one-output serial 2's complementer Moore state machine | verilog | RefModule | 26 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob089_ece241_2014_q5a_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob093_ece241_2014_q3 | [verilogeval](#sources) | - | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob093_ece241_2014_q3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | 42.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob100_fsm3comb | [verilogeval](#sources) | the following is the state transition table for a Moore state machine with on... | verilog | RefModule | 23 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob100_fsm3comb_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | 4 | 45.0 | mismatch | extract |
-| Prob117_circuit9 | [verilogeval](#sources) | - | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob117_circuit9_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob119_fsm3 | [verilogeval](#sources) | a Moore state machine with the following state transition table with one inpu... | verilog | RefModule | 30 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob119_fsm3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob129_ece241_2013_q8 | [verilogeval](#sources) | a Mealy-type finite state machine that recognizes the sequence "101" on an in... | verilog | RefModule | 37 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob129_ece241_2013_q8_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 3/- | - | - | - | - |
-| Prob009_popcount3 | [verilogeval](#sources) | a "population count" circuit that counts the number of '1's in the input vector | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob009_popcount3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob024_hadd | [verilogeval](#sources) | a half adder | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob024_hadd_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob025_reduction | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob025_reduction_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob027_fadd | [verilogeval](#sources) | - | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob027_fadd_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob036_ringer | [verilogeval](#sources) | a circuit to control a cellphone's ringer and vibration motor | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob036_ringer_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | 17.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob058_alwaysblock2 | [verilogeval](#sources) | an XOR gate three ways, using an assign statement (output out_assign), a comb... | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob058_alwaysblock2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob065_7420 | [verilogeval](#sources) | the same functionality as the 7420 chip | verilog | RefModule | 19 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob065_7420_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | 17.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob070_ece241_2013_q2 | [verilogeval](#sources) | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2,... | verilog | RefModule | 19 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob070_ece241_2013_q2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob075_counter_2bc | [verilogeval](#sources) | a two-bit saturating counter | verilog | RefModule | 22 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob075_counter_2bc_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob077_wire_decl | [verilogeval](#sources) | the following circuit | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob077_wire_decl_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob081_7458 | [verilogeval](#sources) | - | verilog | RefModule | 21 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob081_7458_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | 4 | 47.5 | mismatch | extract |
-| Prob088_ece241_2014_q5b | [verilogeval](#sources) | the following Mealy finite-state machine which is an implementation of the 2'... | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob088_ece241_2014_q5b_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob091_2012_q2b | [verilogeval](#sources) | the state output logic for this finite-state machine | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob091_2012_q2b_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | 40.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob099_m2014_q6c | [verilogeval](#sources) | - | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob099_m2014_q6c_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob112_always_case2 | [verilogeval](#sources) | a priority encoder | verilog | RefModule | 30 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob112_always_case2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | 5 | 50.0 | mismatch | extract |
-| Prob127_lemmings1 | [verilogeval](#sources) | a simple game called Lemmings which involves critters with fairly simple brains | verilog | RefModule | 31 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob127_lemmings1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob134_2014_q3c | [verilogeval](#sources) | the output logic and next state logic for an FSM using the table shown below | verilog | RefModule | 36 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob134_2014_q3c_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob147_circuit10 | [verilogeval](#sources) | a sequential circuit | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob147_circuit10_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 2/- | - | - | - | - |
-| Prob005_notgate | [verilogeval](#sources) | a NOT gate | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob005_notgate_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob010_mt2015_q4a | [verilogeval](#sources) | the boolean function z = (x^y) & x | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob010_mt2015_q4a_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob011_norgate | [verilogeval](#sources) | a NOR gate | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob011_norgate_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob012_xnorgate | [verilogeval](#sources) | an XNOR gate | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob012_xnorgate_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob013_m2014_q4e | [verilogeval](#sources) | a 2-input NOR gate | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob013_m2014_q4e_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob014_andgate | [verilogeval](#sources) | a 2-input AND gate | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob014_andgate_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob019_m2014_q4f | [verilogeval](#sources) | the following circuit in Verilog | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob019_m2014_q4f_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob020_mt2015_eq2 | [verilogeval](#sources) | a circuit that has two 2-bit inputs A[1:0] and B[1:0], and produces an output z | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob020_mt2015_eq2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob022_mux2to1 | [verilogeval](#sources) | a one-bit wide, 2-to-1 multiplexer | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob022_mux2to1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob026_alwaysblock1 | [verilogeval](#sources) | an AND gate using both an assign statement and a combinational always block | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob026_alwaysblock1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob029_m2014_q4g | [verilogeval](#sources) | - | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob029_m2014_q4g_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob039_always_if | [verilogeval](#sources) | a 2-to-1 mux that chooses between a and b | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob039_always_if_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob048_m2014_q4c | [verilogeval](#sources) | a simple D flip flop with active high synchronous reset (reset output to 0) | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob048_m2014_q4c_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob049_m2014_q4b | [verilogeval](#sources) | a D flip flop, positive edge triggered, with an asynchronous reset "ar" | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob049_m2014_q4b_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob050_kmap1 | [verilogeval](#sources) | the circuit described by the Karnaugh map below | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob050_kmap1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob053_m2014_q4d | [verilogeval](#sources) | the following circuit: A D flip-flop takes as input the output of a two-input... | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob053_m2014_q4d_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob056_ece241_2013_q7 | [verilogeval](#sources) | a JK flip-flop with the following truth table | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob056_ece241_2013_q7_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob057_kmap2 | [verilogeval](#sources) | the circuit described by the Karnaugh map below | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob057_kmap2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob061_2014_q4a | [verilogeval](#sources) | - | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob061_2014_q4a_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob069_truthtable1 | [verilogeval](#sources) | - | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob069_truthtable1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob083_mt2015_q4b | [verilogeval](#sources) | - | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob083_mt2015_q4b_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob090_circuit1 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob090_circuit1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob098_circuit7 | [verilogeval](#sources) | - | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob098_circuit7_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob101_circuit4 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob101_circuit4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob102_circuit3 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob102_circuit3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob103_circuit2 | [verilogeval](#sources) | a combinational circuit | verilog | RefModule | 13 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob103_circuit2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob104_mt2015_muxdff | [verilogeval](#sources) | - | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob104_mt2015_muxdff_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob107_fsm1s | [verilogeval](#sources) | - | verilog | RefModule | 28 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob107_fsm1s_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob109_fsm1 | [verilogeval](#sources) | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1-->... | verilog | RefModule | 28 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob109_fsm1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob110_fsm2 | [verilogeval](#sources) | a Moore state machine with two states, two inputs, and one output according t... | verilog | RefModule | 29 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob110_fsm2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob111_fsm2s | [verilogeval](#sources) | a Moore state machine with two states, two inputs, and one output according t... | verilog | RefModule | 29 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob111_fsm2s_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob113_2012_q1g | [verilogeval](#sources) | the function f shown in the Karnaugh map below | verilog | RefModule | 29 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob113_2012_q1g_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob116_m2014_q3 | [verilogeval](#sources) | the function f shown in the Karnaugh map below | verilog | RefModule | 29 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob116_m2014_q3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob122_kmap4 | [verilogeval](#sources) | the Karnaugh map below | verilog | RefModule | 32 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob122_kmap4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob125_kmap3 | [verilogeval](#sources) | the Karnaugh map below | verilog | RefModule | 32 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob125_kmap3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob131_mt2015_q4 | [verilogeval](#sources) | - | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob131_mt2015_q4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob132_always_if2 | [verilogeval](#sources) | - | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob132_always_if2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob135_m2014_q6b | [verilogeval](#sources) | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | verilog | RefModule | 27 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob135_m2014_q6b_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 1/- | - | - | - | - |
-| Prob001_zero | [verilogeval](#sources) | - | verilog | RefModule | 9 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob001_zero_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob002_m2014_q4i | [verilogeval](#sources) | - | verilog | RefModule | 9 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob002_m2014_q4i_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob003_step_one | [verilogeval](#sources) | - | verilog | RefModule | 9 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob003_step_one_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob004_vector2 | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob004_vector2_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob006_vectorr | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob006_vectorr_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob007_wire | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob007_wire_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob008_m2014_q4h | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob008_m2014_q4h_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob015_vector1 | [verilogeval](#sources) | a combinational circuit that splits an input half-word (16 bits, [15:0] ) int... | verilog | RefModule | 11 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob015_vector1_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob023_vector100r | [verilogeval](#sources) | - | verilog | RefModule | 12 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob023_vector100r_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob028_m2014_q4a | [verilogeval](#sources) | - | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob028_m2014_q4a_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | - | - |
-| Prob032_vector0 | [verilogeval](#sources) | - | verilog | RefModule | 14 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob032_vector0_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob034_dff8 | [verilogeval](#sources) | - | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob034_dff8_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | 788.3 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob042_vector4 | [verilogeval](#sources) | - | verilog | RefModule | 10 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob042_vector4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob059_wire4 | [verilogeval](#sources) | - | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob059_wire4_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob064_vector3 | [verilogeval](#sources) | - | verilog | RefModule | 18 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob064_vector3_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
-| Prob071_always_casez | [verilogeval](#sources) | a priority encoder for an 8-bit input | verilog | RefModule | 22 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob071_always_casez_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | 0/- | - | - | - | - |
-| Prob156_review2015_fancytimer | [verilogeval](#sources) | a timer with one input that: (1) is started when a particular input pattern (... | verilog | RefModule | 78 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob156_review2015_fancytimer_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| Prob151_review2015_fsm | [verilogeval](#sources) | a timer that: (1) is started when a particular pattern (1101) is detected, (2... | verilog | RefModule | 56 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob151_review2015_fsm_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| Prob078_dualedge | [verilogeval](#sources) | - | verilog | RefModule | 25 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob078_dualedge_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| Prob145_circuit8 | [verilogeval](#sources) | a sequential circuit | verilog | RefModule | 17 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob145_circuit8_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| Prob046_dff8p | [verilogeval](#sources) | - | verilog | RefModule | 16 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob046_dff8p_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | out of scope: stopped at equiv (equiv header.check.detail: absolute or home path in 'equiv-c) | map |
-| Prob031_dff | [verilogeval](#sources) | a single D flip-flop | verilog | RefModule | 15 | - | - | - | - | - | - | - | - | Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob031_dff_test.sv | ✓ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
+| design | what it does | suite | link | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|
+| Prob144_conwaylife | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
+| Prob030_popcount255 | a population count circuit for a 255-bit input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob153_gshare | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (usi... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 49 | ✓ | ✓ |
+| Prob108_rule90 | Rule 90, a one-dimensional cellular automaton with interesting properties | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob124_rule110 | Rule 110, a one-dimensional cellular automaton with interesting properties (s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
+| Prob021_mux256to1v | a 4-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob092_gatesv100 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob105_rotate100 | a 100-bit left/right rotator, with synchronous load and left/right enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob115_shift18 | a 64-bit arithmetic shift register, with synchronous load | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 24 | ✓ | ✓ |
+| Prob018_mux256to1 | a 1-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob017_mux2to1v | a 2-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob097_mux9to1v | a 16-bit wide, 9-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
+| Prob052_gates100 | a combinational circuit with 100 inputs, in[99:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob055_conditional | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob141_count_clock | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 47 | ✓ | ✓ |
+| Prob066_edgecapture | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob082_lfsr32 | a 32-bit Galois LFSR with taps at bit positions 32, 22, 2, and 1 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob118_history_shift | a 32-bit global history shift register, including support for rolling back st... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob154_fsm_ps2data | a finite state machine that will search for message boundaries when given an... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 42 | ✓ | ✓ |
+| Prob068_countbcd | a 4-digit BCD (binary-coded decimal) counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob123_bugs_addsubz | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob043_vector5 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob146_fsm_serialdata | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
+| Prob080_timer | a timer that counts down for a given number of clock cycles, then asserts a s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob155_lemmings4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 60 | ✓ | ✓ |
+| Prob073_dff16e | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
+| Prob126_circuit6 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob037_review2015_count1k | a counter that counts from 0 to 999, inclusive, with a period of 1000 cycles | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob033_ece241_2014_q1c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob114_bugs_case | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
+| Prob143_fsm_onehot | the state transition logic and output logic portions of the state machine (bu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob076_always_case | a 6-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
+| Prob137_fsm_serial | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
+| Prob084_ece241_2013_q12 | a circuit for an 8x1 memory, where writing to the memory is accomplished by s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob140_fsm_hdlc | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
+| Prob149_ece241_2013_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
+| Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob094_gatesv | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob106_always_nolatches | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob130_circuit5 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob133_2014_q3fsm | a finite state machine with inputs s and w | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
+| Prob139_2013_q2bfsm | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
+| Prob041_dff8r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob045_edgedetect2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob047_dff8ar | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob054_edgedetect | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob062_bugs_mux2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob087_gates | a combinational circuit with two inputs, a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
+| Prob136_m2014_q6 | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 33 | ✓ | ✓ |
+| Prob138_2012_q2fsm | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
+| Prob016_m2014_q4j | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob121_2014_q3bfsm | a finite-state machine with the state-assigned table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
+| Prob152_lemmings3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 48 | ✓ | ✓ |
+| Prob086_lfsr5 | a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
+| Prob096_review2015_fsmseq | a finite-state machine that searches for the sequence 1101 in an input bit st... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob148_2013_q2afsm | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
+| Prob150_review2015_fsmonehot | the following Moore state machine with 3 input (d, done_counting, ack) and 3... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob035_count1to10 | a decade counter that counts 1 through 10, inclusive | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob038_count15 | a 4-bit binary counter that counts from 0 through 15, inclusive, with a perio... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob040_count10 | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob060_m2014_q4k | a shift register with four D flops | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob063_review2015_shiftcount | a four-bit shift register that also acts as a down counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob067_countslow | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
+| Prob079_fsm3onehot | the state transition table for a Moore state machine with one input, one outp... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob085_shift4 | a 4-bit shift register (right shift), with asynchronous positive edge trigger... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob095_review2015_fsmshift | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob120_fsm3s | a Moore state machine with the following state transition table with one inpu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob128_fsm_ps2 | a finite state machine that will search for message boundaries when given an... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
+| Prob142_lemmings2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 36 | ✓ | ✓ |
+| Prob051_gates4 | a combinational circuit with four inputs, in[3:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob072_thermostat | a heating/cooling thermostat controller which controls both a heater (during... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob074_ece241_2014_q4 | a finite state machine with the following behavior | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob089_ece241_2014_q5a | a one-input one-output serial 2's complementer Moore state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
+| Prob093_ece241_2014_q3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob100_fsm3comb | the following is the state transition table for a Moore state machine with on... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
+| Prob117_circuit9 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob119_fsm3 | a Moore state machine with the following state transition table with one inpu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob129_ece241_2013_q8 | a Mealy-type finite state machine that recognizes the sequence "101" on an in... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
+| Prob009_popcount3 | a "population count" circuit that counts the number of '1's in the input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob024_hadd | a half adder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob025_reduction | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob027_fadd | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob036_ringer | a circuit to control a cellphone's ringer and vibration motor | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob058_alwaysblock2 | an XOR gate three ways, using an assign statement (output out_assign), a comb... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob065_7420 | the same functionality as the 7420 chip | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2,... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
+| Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2'... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob099_m2014_q6c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob112_always_case2 | a priority encoder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob127_lemmings1 | a simple game called Lemmings which involves critters with fairly simple brains | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
+| Prob134_2014_q3c | the output logic and next state logic for an FSM using the table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 36 | ✓ | ✓ |
+| Prob147_circuit10 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob005_notgate | a NOT gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob010_mt2015_q4a | the boolean function z = (x^y) & x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob011_norgate | a NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob012_xnorgate | an XNOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob013_m2014_q4e | a 2-input NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob014_andgate | a 2-input AND gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob019_m2014_q4f | the following circuit in Verilog | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob020_mt2015_eq2 | a circuit that has two 2-bit inputs A[1:0] and B[1:0], and produces an output z | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob022_mux2to1 | a one-bit wide, 2-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob026_alwaysblock1 | an AND gate using both an assign statement and a combinational always block | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob029_m2014_q4g | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob039_always_if | a 2-to-1 mux that chooses between a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob048_m2014_q4c | a simple D flip flop with active high synchronous reset (reset output to 0) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob049_m2014_q4b | a D flip flop, positive edge triggered, with an asynchronous reset "ar" | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob050_kmap1 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob053_m2014_q4d | the following circuit: A D flip-flop takes as input the output of a two-input... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob056_ece241_2013_q7 | a JK flip-flop with the following truth table | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob057_kmap2 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob061_2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob069_truthtable1 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob083_mt2015_q4b | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob090_circuit1 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob098_circuit7 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob101_circuit4 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob102_circuit3 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob103_circuit2 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
+| Prob104_mt2015_muxdff | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob107_fsm1s | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
+| Prob109_fsm1 | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1-->... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
+| Prob110_fsm2 | a Moore state machine with two states, two inputs, and one output according t... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob111_fsm2s | a Moore state machine with two states, two inputs, and one output according t... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob113_2012_q1g | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob116_m2014_q3 | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob122_kmap4 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
+| Prob125_kmap3 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
+| Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
+| Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
+| Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
+| Prob003_step_one | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
+| Prob004_vector2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob006_vectorr | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob007_wire | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob008_m2014_q4h | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) int... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
+| Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob032_vector0 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob034_dff8 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob042_vector4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
+| Prob059_wire4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob064_vector3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
+| Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
+| Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
+| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+
+<details><summary>Flow and VTR QoR</summary>
+
+| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Prob144_conwaylife | - | - | - | - | - | - | - | - | - | - |
+| Prob030_popcount255 | - | - | - | - | - | - | - | - | - | - |
+| Prob153_gshare | - | - | - | - | - | - | - | - | - | - |
+| Prob108_rule90 | - | - | - | - | - | - | - | - | - | - |
+| Prob124_rule110 | - | - | - | - | - | - | - | - | - | - |
+| Prob021_mux256to1v | - | - | - | - | - | - | - | - | - | - |
+| Prob092_gatesv100 | - | - | - | - | - | - | - | - | - | - |
+| Prob105_rotate100 | - | - | - | - | - | - | - | - | - | - |
+| Prob115_shift18 | - | - | - | - | - | - | - | - | - | - |
+| Prob018_mux256to1 | - | - | - | - | - | - | - | - | - | - |
+| Prob017_mux2to1v | - | - | - | - | - | - | - | - | - | - |
+| Prob097_mux9to1v | - | - | - | - | - | - | - | - | - | - |
+| Prob052_gates100 | - | - | - | - | - | - | - | - | - | - |
+| Prob055_conditional | - | - | - | - | - | - | - | - | - | - |
+| Prob141_count_clock | - | - | - | - | - | - | - | - | - | - |
+| Prob066_edgecapture | - | - | - | - | - | - | - | - | - | - |
+| Prob082_lfsr32 | - | - | - | - | - | - | - | - | - | - |
+| Prob118_history_shift | - | - | - | - | - | - | - | - | - | - |
+| Prob154_fsm_ps2data | - | - | - | - | - | - | - | - | - | - |
+| Prob068_countbcd | - | - | - | - | - | - | - | - | - | - |
+| Prob123_bugs_addsubz | - | - | - | - | - | - | - | - | - | - |
+| Prob043_vector5 | - | - | - | - | - | - | - | - | - | - |
+| Prob146_fsm_serialdata | - | - | - | - | - | - | - | - | - | - |
+| Prob080_timer | - | - | - | - | - | - | - | - | - | - |
+| Prob155_lemmings4 | - | - | - | - | - | - | - | - | - | - |
+| Prob073_dff16e | - | - | - | - | - | - | - | - | - | - |
+| Prob126_circuit6 | - | - | - | - | - | - | - | - | - | - |
+| Prob037_review2015_count1k | - | - | - | - | - | - | - | - | - | - |
+| Prob033_ece241_2014_q1c | - | - | - | - | - | - | - | - | - | - |
+| Prob114_bugs_case | - | - | - | - | - | - | - | - | - | - |
+| Prob143_fsm_onehot | - | - | - | - | - | - | - | - | - | - |
+| Prob076_always_case | - | - | - | - | - | - | - | - | - | - |
+| Prob137_fsm_serial | - | - | - | - | - | - | - | - | - | - |
+| Prob084_ece241_2013_q12 | - | - | - | - | - | - | - | - | - | - |
+| Prob140_fsm_hdlc | - | - | - | - | - | - | - | - | - | - |
+| Prob149_ece241_2013_q4 | - | - | - | - | - | - | - | - | - | - |
+| Prob044_vectorgates | - | - | - | - | - | - | - | - | - | - |
+| Prob094_gatesv | - | - | - | - | - | - | - | - | - | - |
+| Prob106_always_nolatches | - | - | - | - | - | - | - | - | - | - |
+| Prob130_circuit5 | - | - | - | - | - | - | - | - | - | - |
+| Prob133_2014_q3fsm | - | - | - | - | - | - | - | - | - | - |
+| Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - | - | - |
+| Prob041_dff8r | - | - | - | - | - | - | - | - | - | - |
+| Prob045_edgedetect2 | - | - | - | - | - | - | - | - | - | - |
+| Prob047_dff8ar | - | - | - | - | - | - | - | - | - | - |
+| Prob054_edgedetect | - | - | - | - | - | - | - | - | - | - |
+| Prob062_bugs_mux2 | - | - | - | - | - | - | - | - | - | - |
+| Prob087_gates | - | - | - | - | - | - | - | - | - | - |
+| Prob136_m2014_q6 | - | - | - | - | - | - | - | - | - | - |
+| Prob138_2012_q2fsm | - | - | - | - | - | - | - | - | - | - |
+| Prob016_m2014_q4j | - | - | - | - | - | - | - | - | - | - |
+| Prob121_2014_q3bfsm | - | - | - | - | - | - | - | - | - | - |
+| Prob152_lemmings3 | - | - | - | - | - | - | - | - | - | - |
+| Prob086_lfsr5 | - | - | - | - | - | - | - | - | - | - |
+| Prob096_review2015_fsmseq | - | - | - | - | - | - | - | - | - | - |
+| Prob148_2013_q2afsm | - | - | - | - | - | - | - | - | - | - |
+| Prob150_review2015_fsmonehot | - | - | - | - | - | - | - | - | - | - |
+| Prob035_count1to10 | - | - | - | - | - | - | - | - | - | - |
+| Prob038_count15 | - | - | - | - | - | - | - | - | - | - |
+| Prob040_count10 | - | - | - | - | - | - | - | - | - | - |
+| Prob060_m2014_q4k | - | - | - | - | - | - | - | - | - | - |
+| Prob063_review2015_shiftcount | - | - | - | - | - | - | - | - | - | - |
+| Prob067_countslow | - | - | - | - | - | - | - | - | - | - |
+| Prob079_fsm3onehot | - | - | - | - | - | - | - | - | - | - |
+| Prob085_shift4 | - | - | - | - | - | - | - | - | - | - |
+| Prob095_review2015_fsmshift | - | - | - | - | - | - | - | - | - | - |
+| Prob120_fsm3s | - | - | - | - | - | - | - | - | - | - |
+| Prob128_fsm_ps2 | - | - | - | - | - | - | - | - | - | - |
+| Prob142_lemmings2 | - | - | - | - | - | - | - | - | - | - |
+| Prob051_gates4 | - | - | - | - | - | - | - | - | - | - |
+| Prob072_thermostat | - | - | - | - | - | - | - | - | - | - |
+| Prob074_ece241_2014_q4 | - | - | - | - | - | - | - | - | - | - |
+| Prob089_ece241_2014_q5a | - | - | - | - | - | - | - | - | - | - |
+| Prob093_ece241_2014_q3 | - | - | - | - | - | - | - | - | - | - |
+| Prob100_fsm3comb | - | - | - | - | - | - | - | - | - | - |
+| Prob117_circuit9 | - | - | - | - | - | - | - | - | - | - |
+| Prob119_fsm3 | - | - | - | - | - | - | - | - | - | - |
+| Prob129_ece241_2013_q8 | - | - | - | - | - | - | - | - | - | - |
+| Prob009_popcount3 | - | - | - | - | - | - | - | - | - | - |
+| Prob024_hadd | - | - | - | - | - | - | - | - | - | - |
+| Prob025_reduction | - | - | - | - | - | - | - | - | - | - |
+| Prob027_fadd | - | - | - | - | - | - | - | - | - | - |
+| Prob036_ringer | - | - | - | - | - | - | - | - | - | - |
+| Prob058_alwaysblock2 | - | - | - | - | - | - | - | - | - | - |
+| Prob065_7420 | - | - | - | - | - | - | - | - | - | - |
+| Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - | - | - |
+| Prob075_counter_2bc | - | - | - | - | - | - | - | - | - | - |
+| Prob077_wire_decl | - | - | - | - | - | - | - | - | - | - |
+| Prob081_7458 | - | - | - | - | - | - | - | - | - | - |
+| Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - | - | - |
+| Prob091_2012_q2b | - | - | - | - | - | - | - | - | - | - |
+| Prob099_m2014_q6c | - | - | - | - | - | - | - | - | - | - |
+| Prob112_always_case2 | - | - | - | - | - | - | - | - | - | - |
+| Prob127_lemmings1 | - | - | - | - | - | - | - | - | - | - |
+| Prob134_2014_q3c | - | - | - | - | - | - | - | - | - | - |
+| Prob147_circuit10 | - | - | - | - | - | - | - | - | - | - |
+| Prob005_notgate | - | - | - | - | - | - | - | - | - | - |
+| Prob010_mt2015_q4a | - | - | - | - | - | - | - | - | - | - |
+| Prob011_norgate | - | - | - | - | - | - | - | - | - | - |
+| Prob012_xnorgate | - | - | - | - | - | - | - | - | - | - |
+| Prob013_m2014_q4e | - | - | - | - | - | - | - | - | - | - |
+| Prob014_andgate | - | - | - | - | - | - | - | - | - | - |
+| Prob019_m2014_q4f | - | - | - | - | - | - | - | - | - | - |
+| Prob020_mt2015_eq2 | - | - | - | - | - | - | - | - | - | - |
+| Prob022_mux2to1 | - | - | - | - | - | - | - | - | - | - |
+| Prob026_alwaysblock1 | - | - | - | - | - | - | - | - | - | - |
+| Prob029_m2014_q4g | - | - | - | - | - | - | - | - | - | - |
+| Prob039_always_if | - | - | - | - | - | - | - | - | - | - |
+| Prob048_m2014_q4c | - | - | - | - | - | - | - | - | - | - |
+| Prob049_m2014_q4b | - | - | - | - | - | - | - | - | - | - |
+| Prob050_kmap1 | - | - | - | - | - | - | - | - | - | - |
+| Prob053_m2014_q4d | - | - | - | - | - | - | - | - | - | - |
+| Prob056_ece241_2013_q7 | - | - | - | - | - | - | - | - | - | - |
+| Prob057_kmap2 | - | - | - | - | - | - | - | - | - | - |
+| Prob061_2014_q4a | - | - | - | - | - | - | - | - | - | - |
+| Prob069_truthtable1 | - | - | - | - | - | - | - | - | - | - |
+| Prob083_mt2015_q4b | - | - | - | - | - | - | - | - | - | - |
+| Prob090_circuit1 | - | - | - | - | - | - | - | - | - | - |
+| Prob098_circuit7 | - | - | - | - | - | - | - | - | - | - |
+| Prob101_circuit4 | - | - | - | - | - | - | - | - | - | - |
+| Prob102_circuit3 | - | - | - | - | - | - | - | - | - | - |
+| Prob103_circuit2 | - | - | - | - | - | - | - | - | - | - |
+| Prob104_mt2015_muxdff | - | - | - | - | - | - | - | - | - | - |
+| Prob107_fsm1s | - | - | - | - | - | - | - | - | - | - |
+| Prob109_fsm1 | - | - | - | - | - | - | - | - | - | - |
+| Prob110_fsm2 | - | - | - | - | - | - | - | - | - | - |
+| Prob111_fsm2s | - | - | - | - | - | - | - | - | - | - |
+| Prob113_2012_q1g | - | - | - | - | - | - | - | - | - | - |
+| Prob116_m2014_q3 | - | - | - | - | - | - | - | - | - | - |
+| Prob122_kmap4 | - | - | - | - | - | - | - | - | - | - |
+| Prob125_kmap3 | - | - | - | - | - | - | - | - | - | - |
+| Prob131_mt2015_q4 | - | - | - | - | - | - | - | - | - | - |
+| Prob132_always_if2 | - | - | - | - | - | - | - | - | - | - |
+| Prob135_m2014_q6b | - | - | - | - | - | - | - | - | - | - |
+| Prob001_zero | - | - | - | - | - | - | - | - | - | - |
+| Prob002_m2014_q4i | - | - | - | - | - | - | - | - | - | - |
+| Prob003_step_one | - | - | - | - | - | - | - | - | - | - |
+| Prob004_vector2 | - | - | - | - | - | - | - | - | - | - |
+| Prob006_vectorr | - | - | - | - | - | - | - | - | - | - |
+| Prob007_wire | - | - | - | - | - | - | - | - | - | - |
+| Prob008_m2014_q4h | - | - | - | - | - | - | - | - | - | - |
+| Prob015_vector1 | - | - | - | - | - | - | - | - | - | - |
+| Prob023_vector100r | - | - | - | - | - | - | - | - | - | - |
+| Prob028_m2014_q4a | - | - | - | - | - | - | - | - | - | - |
+| Prob032_vector0 | - | - | - | - | - | - | - | - | - | - |
+| Prob034_dff8 | - | - | - | - | - | - | - | - | - | - |
+| Prob042_vector4 | - | - | - | - | - | - | - | - | - | - |
+| Prob059_wire4 | - | - | - | - | - | - | - | - | - | - |
+| Prob064_vector3 | - | - | - | - | - | - | - | - | - | - |
+| Prob071_always_casez | - | - | - | - | - | - | - | - | - | - |
+| Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - | - | - |
+| Prob151_review2015_fsm | - | - | - | - | - | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>LUT forms</summary>
+
+| design | gates/d | 4-LUT/d | 6-LUT/d |
+|---|---|---|---|
+| Prob144_conwaylife | - | - | 1966/- |
+| Prob030_popcount255 | - | - | 1369/- |
+| Prob153_gshare | - | - | 647/- |
+| Prob108_rule90 | - | - | 512/- |
+| Prob124_rule110 | - | - | 512/- |
+| Prob021_mux256to1v | - | - | 390/- |
+| Prob092_gatesv100 | - | - | 298/- |
+| Prob105_rotate100 | - | - | 201/- |
+| Prob115_shift18 | - | - | 130/- |
+| Prob018_mux256to1 | - | - | 105/- |
+| Prob017_mux2to1v | - | - | 100/- |
+| Prob097_mux9to1v | - | - | 95/- |
+| Prob052_gates100 | - | - | 88/- |
+| Prob055_conditional | - | - | 56/- |
+| Prob141_count_clock | - | - | 41/- |
+| Prob066_edgecapture | - | - | 32/- |
+| Prob082_lfsr32 | - | - | 32/- |
+| Prob118_history_shift | - | - | 32/- |
+| Prob154_fsm_ps2data | - | - | 28/- |
+| Prob068_countbcd | - | - | 22/- |
+| Prob123_bugs_addsubz | - | - | 22/- |
+| Prob043_vector5 | - | - | 20/- |
+| Prob146_fsm_serialdata | - | - | 20/- |
+| Prob080_timer | - | - | 17/- |
+| Prob155_lemmings4 | - | - | 17/- |
+| Prob073_dff16e | - | - | 16/- |
+| Prob126_circuit6 | - | - | 16/- |
+| Prob037_review2015_count1k | - | - | 14/- |
+| Prob033_ece241_2014_q1c | - | - | 13/- |
+| Prob114_bugs_case | - | - | 13/- |
+| Prob143_fsm_onehot | - | - | 13/- |
+| Prob076_always_case | - | - | 12/- |
+| Prob137_fsm_serial | - | - | 12/- |
+| Prob084_ece241_2013_q12 | - | - | 11/- |
+| Prob140_fsm_hdlc | - | - | 11/- |
+| Prob149_ece241_2013_q4 | - | - | 11/- |
+| Prob044_vectorgates | - | - | 10/- |
+| Prob094_gatesv | - | - | 10/- |
+| Prob106_always_nolatches | - | - | 10/- |
+| Prob130_circuit5 | - | - | 9/- |
+| Prob133_2014_q3fsm | - | - | 9/- |
+| Prob139_2013_q2bfsm | - | - | 9/- |
+| Prob041_dff8r | - | - | 8/- |
+| Prob045_edgedetect2 | - | - | 8/- |
+| Prob047_dff8ar | - | - | 8/- |
+| Prob054_edgedetect | - | - | 8/- |
+| Prob062_bugs_mux2 | - | - | 8/- |
+| Prob087_gates | - | - | 7/- |
+| Prob136_m2014_q6 | - | - | 7/- |
+| Prob138_2012_q2fsm | - | - | 7/- |
+| Prob016_m2014_q4j | - | - | 6/- |
+| Prob121_2014_q3bfsm | - | - | 6/- |
+| Prob152_lemmings3 | - | - | 6/- |
+| Prob086_lfsr5 | - | - | 5/- |
+| Prob096_review2015_fsmseq | - | - | 5/- |
+| Prob148_2013_q2afsm | - | - | 5/- |
+| Prob150_review2015_fsmonehot | - | - | 5/- |
+| Prob035_count1to10 | - | - | 4/- |
+| Prob038_count15 | - | - | 4/- |
+| Prob040_count10 | - | - | 4/- |
+| Prob060_m2014_q4k | - | - | 4/- |
+| Prob063_review2015_shiftcount | - | - | 4/- |
+| Prob067_countslow | - | - | 4/- |
+| Prob079_fsm3onehot | - | - | 4/- |
+| Prob085_shift4 | - | - | 4/- |
+| Prob095_review2015_fsmshift | - | - | 4/- |
+| Prob120_fsm3s | - | - | 4/- |
+| Prob128_fsm_ps2 | - | - | 4/- |
+| Prob142_lemmings2 | - | - | 4/- |
+| Prob051_gates4 | - | - | 3/- |
+| Prob072_thermostat | - | - | 3/- |
+| Prob074_ece241_2014_q4 | - | - | 3/- |
+| Prob089_ece241_2014_q5a | - | - | 3/- |
+| Prob093_ece241_2014_q3 | - | - | 3/- |
+| Prob100_fsm3comb | - | - | 3/- |
+| Prob117_circuit9 | - | - | 3/- |
+| Prob119_fsm3 | - | - | 3/- |
+| Prob129_ece241_2013_q8 | - | - | 3/- |
+| Prob009_popcount3 | - | - | 2/- |
+| Prob024_hadd | - | - | 2/- |
+| Prob025_reduction | - | - | 2/- |
+| Prob027_fadd | - | - | 2/- |
+| Prob036_ringer | - | - | 2/- |
+| Prob058_alwaysblock2 | - | - | 2/- |
+| Prob065_7420 | - | - | 2/- |
+| Prob070_ece241_2013_q2 | - | - | 2/- |
+| Prob075_counter_2bc | - | - | 2/- |
+| Prob077_wire_decl | - | - | 2/- |
+| Prob081_7458 | - | - | 2/- |
+| Prob088_ece241_2014_q5b | - | - | 2/- |
+| Prob091_2012_q2b | - | - | 2/- |
+| Prob099_m2014_q6c | - | - | 2/- |
+| Prob112_always_case2 | - | - | 2/- |
+| Prob127_lemmings1 | - | - | 2/- |
+| Prob134_2014_q3c | - | - | 2/- |
+| Prob147_circuit10 | - | - | 2/- |
+| Prob005_notgate | - | - | 1/- |
+| Prob010_mt2015_q4a | - | - | 1/- |
+| Prob011_norgate | - | - | 1/- |
+| Prob012_xnorgate | - | - | 1/- |
+| Prob013_m2014_q4e | - | - | 1/- |
+| Prob014_andgate | - | - | 1/- |
+| Prob019_m2014_q4f | - | - | 1/- |
+| Prob020_mt2015_eq2 | - | - | 1/- |
+| Prob022_mux2to1 | - | - | 1/- |
+| Prob026_alwaysblock1 | - | - | 1/- |
+| Prob029_m2014_q4g | - | - | 1/- |
+| Prob039_always_if | - | - | 1/- |
+| Prob048_m2014_q4c | - | - | 1/- |
+| Prob049_m2014_q4b | - | - | 1/- |
+| Prob050_kmap1 | - | - | 1/- |
+| Prob053_m2014_q4d | - | - | 1/- |
+| Prob056_ece241_2013_q7 | - | - | 1/- |
+| Prob057_kmap2 | - | - | 1/- |
+| Prob061_2014_q4a | - | - | 1/- |
+| Prob069_truthtable1 | - | - | 1/- |
+| Prob083_mt2015_q4b | - | - | 1/- |
+| Prob090_circuit1 | - | - | 1/- |
+| Prob098_circuit7 | - | - | 1/- |
+| Prob101_circuit4 | - | - | 1/- |
+| Prob102_circuit3 | - | - | 1/- |
+| Prob103_circuit2 | - | - | 1/- |
+| Prob104_mt2015_muxdff | - | - | 1/- |
+| Prob107_fsm1s | - | - | 1/- |
+| Prob109_fsm1 | - | - | 1/- |
+| Prob110_fsm2 | - | - | 1/- |
+| Prob111_fsm2s | - | - | 1/- |
+| Prob113_2012_q1g | - | - | 1/- |
+| Prob116_m2014_q3 | - | - | 1/- |
+| Prob122_kmap4 | - | - | 1/- |
+| Prob125_kmap3 | - | - | 1/- |
+| Prob131_mt2015_q4 | - | - | 1/- |
+| Prob132_always_if2 | - | - | 1/- |
+| Prob135_m2014_q6b | - | - | 1/- |
+| Prob001_zero | - | - | 0/- |
+| Prob002_m2014_q4i | - | - | 0/- |
+| Prob003_step_one | - | - | 0/- |
+| Prob004_vector2 | - | - | 0/- |
+| Prob006_vectorr | - | - | 0/- |
+| Prob007_wire | - | - | 0/- |
+| Prob008_m2014_q4h | - | - | 0/- |
+| Prob015_vector1 | - | - | 0/- |
+| Prob023_vector100r | - | - | 0/- |
+| Prob028_m2014_q4a | - | - | 0/- |
+| Prob032_vector0 | - | - | 0/- |
+| Prob034_dff8 | - | - | 0/- |
+| Prob042_vector4 | - | - | 0/- |
+| Prob059_wire4 | - | - | 0/- |
+| Prob064_vector3 | - | - | 0/- |
+| Prob071_always_casez | - | - | 0/- |
+| Prob156_review2015_fancytimer | - | - | - |
+| Prob151_review2015_fsm | - | - | - |
+| Prob078_dualedge | - | - | - |
+| Prob145_circuit8 | - | - | - |
+| Prob046_dff8p | - | - | - |
+| Prob031_dff | - | - | - |
+
+</details>
+
+<details><summary>Properties</summary>
+
+| design | seq | mem | mul | add | fsm | latch | hier | bbox |
+|---|---|---|---|---|---|---|---|---|
+| Prob144_conwaylife | - | - | - | - | - | - | - | - |
+| Prob030_popcount255 | - | - | - | - | - | - | - | - |
+| Prob153_gshare | - | - | - | - | - | - | - | - |
+| Prob108_rule90 | - | - | - | - | - | - | - | - |
+| Prob124_rule110 | - | - | - | - | - | - | - | - |
+| Prob021_mux256to1v | - | - | - | - | - | - | - | - |
+| Prob092_gatesv100 | - | - | - | - | - | - | - | - |
+| Prob105_rotate100 | - | - | - | - | - | - | - | - |
+| Prob115_shift18 | - | - | - | - | - | - | - | - |
+| Prob018_mux256to1 | - | - | - | - | - | - | - | - |
+| Prob017_mux2to1v | - | - | - | - | - | - | - | - |
+| Prob097_mux9to1v | - | - | - | - | - | - | - | - |
+| Prob052_gates100 | - | - | - | - | - | - | - | - |
+| Prob055_conditional | - | - | - | - | - | - | - | - |
+| Prob141_count_clock | - | - | - | - | - | - | - | - |
+| Prob066_edgecapture | - | - | - | - | - | - | - | - |
+| Prob082_lfsr32 | - | - | - | - | - | - | - | - |
+| Prob118_history_shift | - | - | - | - | - | - | - | - |
+| Prob154_fsm_ps2data | - | - | - | - | - | - | - | - |
+| Prob068_countbcd | - | - | - | - | - | - | - | - |
+| Prob123_bugs_addsubz | - | - | - | - | - | - | - | - |
+| Prob043_vector5 | - | - | - | - | - | - | - | - |
+| Prob146_fsm_serialdata | - | - | - | - | - | - | - | - |
+| Prob080_timer | - | - | - | - | - | - | - | - |
+| Prob155_lemmings4 | - | - | - | - | - | - | - | - |
+| Prob073_dff16e | - | - | - | - | - | - | - | - |
+| Prob126_circuit6 | - | - | - | - | - | - | - | - |
+| Prob037_review2015_count1k | - | - | - | - | - | - | - | - |
+| Prob033_ece241_2014_q1c | - | - | - | - | - | - | - | - |
+| Prob114_bugs_case | - | - | - | - | - | - | - | - |
+| Prob143_fsm_onehot | - | - | - | - | - | - | - | - |
+| Prob076_always_case | - | - | - | - | - | - | - | - |
+| Prob137_fsm_serial | - | - | - | - | - | - | - | - |
+| Prob084_ece241_2013_q12 | - | - | - | - | - | - | - | - |
+| Prob140_fsm_hdlc | - | - | - | - | - | - | - | - |
+| Prob149_ece241_2013_q4 | - | - | - | - | - | - | - | - |
+| Prob044_vectorgates | - | - | - | - | - | - | - | - |
+| Prob094_gatesv | - | - | - | - | - | - | - | - |
+| Prob106_always_nolatches | - | - | - | - | - | - | - | - |
+| Prob130_circuit5 | - | - | - | - | - | - | - | - |
+| Prob133_2014_q3fsm | - | - | - | - | - | - | - | - |
+| Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - |
+| Prob041_dff8r | - | - | - | - | - | - | - | - |
+| Prob045_edgedetect2 | - | - | - | - | - | - | - | - |
+| Prob047_dff8ar | - | - | - | - | - | - | - | - |
+| Prob054_edgedetect | - | - | - | - | - | - | - | - |
+| Prob062_bugs_mux2 | - | - | - | - | - | - | - | - |
+| Prob087_gates | - | - | - | - | - | - | - | - |
+| Prob136_m2014_q6 | - | - | - | - | - | - | - | - |
+| Prob138_2012_q2fsm | - | - | - | - | - | - | - | - |
+| Prob016_m2014_q4j | - | - | - | - | - | - | - | - |
+| Prob121_2014_q3bfsm | - | - | - | - | - | - | - | - |
+| Prob152_lemmings3 | - | - | - | - | - | - | - | - |
+| Prob086_lfsr5 | - | - | - | - | - | - | - | - |
+| Prob096_review2015_fsmseq | - | - | - | - | - | - | - | - |
+| Prob148_2013_q2afsm | - | - | - | - | - | - | - | - |
+| Prob150_review2015_fsmonehot | - | - | - | - | - | - | - | - |
+| Prob035_count1to10 | - | - | - | - | - | - | - | - |
+| Prob038_count15 | - | - | - | - | - | - | - | - |
+| Prob040_count10 | - | - | - | - | - | - | - | - |
+| Prob060_m2014_q4k | - | - | - | - | - | - | - | - |
+| Prob063_review2015_shiftcount | - | - | - | - | - | - | - | - |
+| Prob067_countslow | - | - | - | - | - | - | - | - |
+| Prob079_fsm3onehot | - | - | - | - | - | - | - | - |
+| Prob085_shift4 | - | - | - | - | - | - | - | - |
+| Prob095_review2015_fsmshift | - | - | - | - | - | - | - | - |
+| Prob120_fsm3s | - | - | - | - | - | - | - | - |
+| Prob128_fsm_ps2 | - | - | - | - | - | - | - | - |
+| Prob142_lemmings2 | - | - | - | - | - | - | - | - |
+| Prob051_gates4 | - | - | - | - | - | - | - | - |
+| Prob072_thermostat | - | - | - | - | - | - | - | - |
+| Prob074_ece241_2014_q4 | - | - | - | - | - | - | - | - |
+| Prob089_ece241_2014_q5a | - | - | - | - | - | - | - | - |
+| Prob093_ece241_2014_q3 | - | - | - | - | - | - | - | - |
+| Prob100_fsm3comb | - | - | - | - | - | - | - | - |
+| Prob117_circuit9 | - | - | - | - | - | - | - | - |
+| Prob119_fsm3 | - | - | - | - | - | - | - | - |
+| Prob129_ece241_2013_q8 | - | - | - | - | - | - | - | - |
+| Prob009_popcount3 | - | - | - | - | - | - | - | - |
+| Prob024_hadd | - | - | - | - | - | - | - | - |
+| Prob025_reduction | - | - | - | - | - | - | - | - |
+| Prob027_fadd | - | - | - | - | - | - | - | - |
+| Prob036_ringer | - | - | - | - | - | - | - | - |
+| Prob058_alwaysblock2 | - | - | - | - | - | - | - | - |
+| Prob065_7420 | - | - | - | - | - | - | - | - |
+| Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - |
+| Prob075_counter_2bc | - | - | - | - | - | - | - | - |
+| Prob077_wire_decl | - | - | - | - | - | - | - | - |
+| Prob081_7458 | - | - | - | - | - | - | - | - |
+| Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - |
+| Prob091_2012_q2b | - | - | - | - | - | - | - | - |
+| Prob099_m2014_q6c | - | - | - | - | - | - | - | - |
+| Prob112_always_case2 | - | - | - | - | - | - | - | - |
+| Prob127_lemmings1 | - | - | - | - | - | - | - | - |
+| Prob134_2014_q3c | - | - | - | - | - | - | - | - |
+| Prob147_circuit10 | - | - | - | - | - | - | - | - |
+| Prob005_notgate | - | - | - | - | - | - | - | - |
+| Prob010_mt2015_q4a | - | - | - | - | - | - | - | - |
+| Prob011_norgate | - | - | - | - | - | - | - | - |
+| Prob012_xnorgate | - | - | - | - | - | - | - | - |
+| Prob013_m2014_q4e | - | - | - | - | - | - | - | - |
+| Prob014_andgate | - | - | - | - | - | - | - | - |
+| Prob019_m2014_q4f | - | - | - | - | - | - | - | - |
+| Prob020_mt2015_eq2 | - | - | - | - | - | - | - | - |
+| Prob022_mux2to1 | - | - | - | - | - | - | - | - |
+| Prob026_alwaysblock1 | - | - | - | - | - | - | - | - |
+| Prob029_m2014_q4g | - | - | - | - | - | - | - | - |
+| Prob039_always_if | - | - | - | - | - | - | - | - |
+| Prob048_m2014_q4c | - | - | - | - | - | - | - | - |
+| Prob049_m2014_q4b | - | - | - | - | - | - | - | - |
+| Prob050_kmap1 | - | - | - | - | - | - | - | - |
+| Prob053_m2014_q4d | - | - | - | - | - | - | - | - |
+| Prob056_ece241_2013_q7 | - | - | - | - | - | - | - | - |
+| Prob057_kmap2 | - | - | - | - | - | - | - | - |
+| Prob061_2014_q4a | - | - | - | - | - | - | - | - |
+| Prob069_truthtable1 | - | - | - | - | - | - | - | - |
+| Prob083_mt2015_q4b | - | - | - | - | - | - | - | - |
+| Prob090_circuit1 | - | - | - | - | - | - | - | - |
+| Prob098_circuit7 | - | - | - | - | - | - | - | - |
+| Prob101_circuit4 | - | - | - | - | - | - | - | - |
+| Prob102_circuit3 | - | - | - | - | - | - | - | - |
+| Prob103_circuit2 | - | - | - | - | - | - | - | - |
+| Prob104_mt2015_muxdff | - | - | - | - | - | - | - | - |
+| Prob107_fsm1s | - | - | - | - | - | - | - | - |
+| Prob109_fsm1 | - | - | - | - | - | - | - | - |
+| Prob110_fsm2 | - | - | - | - | - | - | - | - |
+| Prob111_fsm2s | - | - | - | - | - | - | - | - |
+| Prob113_2012_q1g | - | - | - | - | - | - | - | - |
+| Prob116_m2014_q3 | - | - | - | - | - | - | - | - |
+| Prob122_kmap4 | - | - | - | - | - | - | - | - |
+| Prob125_kmap3 | - | - | - | - | - | - | - | - |
+| Prob131_mt2015_q4 | - | - | - | - | - | - | - | - |
+| Prob132_always_if2 | - | - | - | - | - | - | - | - |
+| Prob135_m2014_q6b | - | - | - | - | - | - | - | - |
+| Prob001_zero | - | - | - | - | - | - | - | - |
+| Prob002_m2014_q4i | - | - | - | - | - | - | - | - |
+| Prob003_step_one | - | - | - | - | - | - | - | - |
+| Prob004_vector2 | - | - | - | - | - | - | - | - |
+| Prob006_vectorr | - | - | - | - | - | - | - | - |
+| Prob007_wire | - | - | - | - | - | - | - | - |
+| Prob008_m2014_q4h | - | - | - | - | - | - | - | - |
+| Prob015_vector1 | - | - | - | - | - | - | - | - |
+| Prob023_vector100r | - | - | - | - | - | - | - | - |
+| Prob028_m2014_q4a | - | - | - | - | - | - | - | - |
+| Prob032_vector0 | - | - | - | - | - | - | - | - |
+| Prob034_dff8 | - | - | - | - | - | - | - | - |
+| Prob042_vector4 | - | - | - | - | - | - | - | - |
+| Prob059_wire4 | - | - | - | - | - | - | - | - |
+| Prob064_vector3 | - | - | - | - | - | - | - | - |
+| Prob071_always_casez | - | - | - | - | - | - | - | - |
+| Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - |
+| Prob151_review2015_fsm | - | - | - | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>Silicon</summary>
+
+| design | cells | core um2 | LVS | Si stage |
+|---|---|---|---|---|
+| Prob144_conwaylife | - | - | - | - |
+| Prob030_popcount255 | - | - | - | - |
+| Prob153_gshare | - | - | - | - |
+| Prob108_rule90 | - | - | - | - |
+| Prob124_rule110 | - | - | - | - |
+| Prob021_mux256to1v | - | - | - | - |
+| Prob092_gatesv100 | - | 6531.3 | out of scope: stopped at pl... | equiv |
+| Prob105_rotate100 | 873 | 18955.7 | match | lvs |
+| Prob115_shift18 | 703 | 13934.6 | match | lvs |
+| Prob018_mux256to1 | 506 | 7847.5 | match | lvs |
+| Prob017_mux2to1v | - | 4144.0 | out of scope: stopped at pl... | equiv |
+| Prob097_mux9to1v | 187 | 3178.0 | match | lvs |
+| Prob052_gates100 | 318 | 5172.5 | match | lvs |
+| Prob055_conditional | 159 | 2499.9 | match | lvs |
+| Prob141_count_clock | - | - | - | - |
+| Prob066_edgecapture | - | - | - | - |
+| Prob082_lfsr32 | - | - | - | - |
+| Prob118_history_shift | - | - | - | - |
+| Prob154_fsm_ps2data | - | 2876.5 | out of scope: stopped at pl... | equiv |
+| Prob068_countbcd | - | - | - | - |
+| Prob123_bugs_addsubz | - | - | - | - |
+| Prob043_vector5 | 25 | 420.4 | mismatch | extract |
+| Prob146_fsm_serialdata | - | - | - | - |
+| Prob080_timer | - | - | - | - |
+| Prob155_lemmings4 | - | - | - | - |
+| Prob073_dff16e | - | - | - | - |
+| Prob126_circuit6 | - | - | - | - |
+| Prob037_review2015_count1k | - | - | - | - |
+| Prob033_ece241_2014_q1c | - | - | - | - |
+| Prob114_bugs_case | - | - | - | - |
+| Prob143_fsm_onehot | 23 | 300.3 | match | lvs |
+| Prob076_always_case | - | - | - | - |
+| Prob137_fsm_serial | - | - | - | - |
+| Prob084_ece241_2013_q12 | - | - | - | - |
+| Prob140_fsm_hdlc | - | - | - | - |
+| Prob149_ece241_2013_q4 | - | - | - | - |
+| Prob044_vectorgates | 12 | 145.1 | mismatch | extract |
+| Prob094_gatesv | - | - | - | - |
+| Prob106_always_nolatches | - | - | - | - |
+| Prob130_circuit5 | - | - | - | - |
+| Prob133_2014_q3fsm | - | - | - | - |
+| Prob139_2013_q2bfsm | - | - | - | - |
+| Prob041_dff8r | - | - | - | - |
+| Prob045_edgedetect2 | - | 1594.0 | out of scope: stopped at pl... | equiv |
+| Prob047_dff8ar | - | - | - | - |
+| Prob054_edgedetect | - | 1559.0 | out of scope: stopped at pl... | equiv |
+| Prob062_bugs_mux2 | - | - | - | - |
+| Prob087_gates | 10 | 93.8 | mismatch | extract |
+| Prob136_m2014_q6 | - | - | - | - |
+| Prob138_2012_q2fsm | - | - | - | - |
+| Prob016_m2014_q4j | - | - | - | - |
+| Prob121_2014_q3bfsm | 21 | 402.9 | match | lvs |
+| Prob152_lemmings3 | - | - | - | - |
+| Prob086_lfsr5 | - | - | - | - |
+| Prob096_review2015_fsmseq | - | - | - | - |
+| Prob148_2013_q2afsm | - | - | - | - |
+| Prob150_review2015_fsmonehot | 10 | 150.1 | mismatch | extract |
+| Prob035_count1to10 | - | - | - | - |
+| Prob038_count15 | - | - | - | - |
+| Prob040_count10 | - | - | - | - |
+| Prob060_m2014_q4k | - | - | - | - |
+| Prob063_review2015_shiftcount | - | - | - | - |
+| Prob067_countslow | - | - | - | - |
+| Prob079_fsm3onehot | 9 | 97.6 | mismatch | extract |
+| Prob085_shift4 | - | - | - | - |
+| Prob095_review2015_fsmshift | - | - | - | - |
+| Prob120_fsm3s | - | - | - | - |
+| Prob128_fsm_ps2 | - | - | - | - |
+| Prob142_lemmings2 | - | - | - | - |
+| Prob051_gates4 | - | - | - | - |
+| Prob072_thermostat | - | - | - | - |
+| Prob074_ece241_2014_q4 | - | - | - | - |
+| Prob089_ece241_2014_q5a | - | - | - | - |
+| Prob093_ece241_2014_q3 | - | 42.5 | out of scope: stopped at pl... | equiv |
+| Prob100_fsm3comb | 4 | 45.0 | mismatch | extract |
+| Prob117_circuit9 | - | - | - | - |
+| Prob119_fsm3 | - | - | - | - |
+| Prob129_ece241_2013_q8 | - | - | - | - |
+| Prob009_popcount3 | - | - | - | - |
+| Prob024_hadd | - | - | - | - |
+| Prob025_reduction | - | - | - | - |
+| Prob027_fadd | - | - | - | - |
+| Prob036_ringer | - | 17.5 | out of scope: stopped at pl... | equiv |
+| Prob058_alwaysblock2 | - | - | - | - |
+| Prob065_7420 | - | 17.5 | out of scope: stopped at pl... | equiv |
+| Prob070_ece241_2013_q2 | - | - | - | - |
+| Prob075_counter_2bc | - | - | - | - |
+| Prob077_wire_decl | - | - | - | - |
+| Prob081_7458 | 4 | 47.5 | mismatch | extract |
+| Prob088_ece241_2014_q5b | - | - | - | - |
+| Prob091_2012_q2b | - | 40.0 | out of scope: stopped at pl... | equiv |
+| Prob099_m2014_q6c | - | - | - | - |
+| Prob112_always_case2 | 5 | 50.0 | mismatch | extract |
+| Prob127_lemmings1 | - | - | - | - |
+| Prob134_2014_q3c | - | - | - | - |
+| Prob147_circuit10 | - | - | - | - |
+| Prob005_notgate | - | - | - | - |
+| Prob010_mt2015_q4a | - | - | - | - |
+| Prob011_norgate | - | - | - | - |
+| Prob012_xnorgate | - | - | - | - |
+| Prob013_m2014_q4e | - | - | - | - |
+| Prob014_andgate | - | - | - | - |
+| Prob019_m2014_q4f | - | - | - | - |
+| Prob020_mt2015_eq2 | - | - | - | - |
+| Prob022_mux2to1 | - | - | - | - |
+| Prob026_alwaysblock1 | - | - | - | - |
+| Prob029_m2014_q4g | - | - | - | - |
+| Prob039_always_if | - | - | - | - |
+| Prob048_m2014_q4c | - | - | - | - |
+| Prob049_m2014_q4b | - | - | - | - |
+| Prob050_kmap1 | - | - | - | - |
+| Prob053_m2014_q4d | - | - | - | - |
+| Prob056_ece241_2013_q7 | - | - | - | - |
+| Prob057_kmap2 | - | - | - | - |
+| Prob061_2014_q4a | - | - | - | - |
+| Prob069_truthtable1 | - | - | - | - |
+| Prob083_mt2015_q4b | - | - | - | - |
+| Prob090_circuit1 | - | - | - | - |
+| Prob098_circuit7 | - | - | - | - |
+| Prob101_circuit4 | - | - | - | - |
+| Prob102_circuit3 | - | - | - | - |
+| Prob103_circuit2 | - | - | - | - |
+| Prob104_mt2015_muxdff | - | - | - | - |
+| Prob107_fsm1s | - | - | - | - |
+| Prob109_fsm1 | - | - | - | - |
+| Prob110_fsm2 | - | - | - | - |
+| Prob111_fsm2s | - | - | - | - |
+| Prob113_2012_q1g | - | - | - | - |
+| Prob116_m2014_q3 | - | - | - | - |
+| Prob122_kmap4 | - | - | - | - |
+| Prob125_kmap3 | - | - | - | - |
+| Prob131_mt2015_q4 | - | - | - | - |
+| Prob132_always_if2 | - | - | - | - |
+| Prob135_m2014_q6b | - | - | - | - |
+| Prob001_zero | - | - | out of scope: stopped at pl... | equiv |
+| Prob002_m2014_q4i | - | - | out of scope: stopped at pl... | equiv |
+| Prob003_step_one | - | - | out of scope: stopped at pl... | equiv |
+| Prob004_vector2 | - | - | out of scope: stopped at pl... | equiv |
+| Prob006_vectorr | - | - | out of scope: stopped at pl... | equiv |
+| Prob007_wire | - | - | out of scope: stopped at pl... | equiv |
+| Prob008_m2014_q4h | - | - | out of scope: stopped at pl... | equiv |
+| Prob015_vector1 | - | - | out of scope: stopped at pl... | equiv |
+| Prob023_vector100r | - | - | out of scope: stopped at pl... | equiv |
+| Prob028_m2014_q4a | - | - | - | - |
+| Prob032_vector0 | - | - | out of scope: stopped at pl... | equiv |
+| Prob034_dff8 | - | 788.3 | out of scope: stopped at pl... | equiv |
+| Prob042_vector4 | - | - | out of scope: stopped at pl... | equiv |
+| Prob059_wire4 | - | - | out of scope: stopped at pl... | equiv |
+| Prob064_vector3 | - | - | out of scope: stopped at pl... | equiv |
+| Prob071_always_casez | - | - | - | - |
+| Prob156_review2015_fancytimer | - | - | - | - |
+| Prob151_review2015_fsm | - | - | - | - |
+| Prob078_dualedge | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - |
+| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
+| Prob031_dff | - | - | - | - |
+
+</details>
 
 ## T3 HDL, no testbench
 
 Rule: HDL (Verilog) with no testbench file.
 
-| design | suite | what it does | format | top | LOC | seq | mem | mul | add | fsm | latch | hier | bbox | testbench | vectors | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | gates/depth | 4-LUT/depth | 6-LUT/depth | cells | core um2 | LVS | stage |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| stereovision2 | [vtr-verilog](#sources) | Computer Vision | verilog | sv_chip2_hierarchy_no_mem | 1846 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 8426 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 | - | - | - | - | - | - | - |
-| stereovision0 | [vtr-verilog](#sources) | Computer Vision | verilog | sv_chip0_hierarchy_no_mem | 3905 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 6887 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 | - | - | - | - | - | - | - |
-| stereovision1 | [vtr-verilog](#sources) | Computer Vision | verilog | sv_chip1_hierarchy_no_mem | 2553 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 6462 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 | - | - | - | - | - | - | - |
-| b22 | [itc99](#sources) | - | verilog | - | 2751 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 56695/105 | 8495/33 | 6234/20 | - | - | - | - |
-| blob_merge | [vtr-verilog](#sources) | Image Processing | verilog | RLE_BlobMerging | 1617 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | 6015 | 486 | 575 | 232 | 0/0 | 14.668 | 62 | 61064/78 | 8741/30 | 5264/18 | - | - | - | - |
-| b17 | [itc99](#sources) | - | verilog | - | 940 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 107358/80 | 7388/19 | 5240/12 | - | - | - | - |
-| b20 | [itc99](#sources) | - | verilog | - | 1842 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 37565/105 | 5680/33 | 4108/20 | - | - | - | - |
-| b21 | [itc99](#sources) | - | verilog | - | 1853 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 38305/105 | 5603/34 | 4058/21 | - | - | - | - |
-| diffeq1 | [vtr-verilog](#sources) | Math | verilog | diffeq_paj_convert | 56 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | 294 | 31 | 193 | 258 | 5/0 | 17.2038 | 58 | 14398/101 | 4897/34 | 3585/23 | - | - | - | - |
-| b18 | [itc99](#sources) | - | verilog | - | 1931 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 36964/105 | 4976/0 | 3500/0 | - | - | - | - |
-| b19 | [itc99](#sources) | - | verilog | - | 1993 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 36964/105 | 4976/0 | 3500/0 | - | - | - | - |
-| or1200 | [vtr-verilog](#sources) | Soft Processor | verilog | or1200_flat | 5237 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 | - | - | - | - | - | - | - |
-| b15 | [itc99](#sources) | - | verilog | b15 | 805 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 26705/80 | 3326/19 | 2322/12 | - | - | - | - |
-| mkDelayWorker32B | [vtr-verilog](#sources) | Packet Processing | verilog | mkDelayWorker32B | 6628 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 | - | - | - | - | - | - | - |
-| sha | [vtr-verilog](#sources) | Cryptography | verilog | sha1 | 2171 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 | 8125/79 | 2788/30 | 1583/20 | - | - | - | - |
-| mkSMAdapter4B | [vtr-verilog](#sources) | Packet Processing | verilog | mkSMAdapter4B | 4348 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 | - | - | - | - | - | - | - |
-| raygentop | [vtr-verilog](#sources) | Ray Tracing | verilog | paj_raygentop_hierarchy_no_mem | 2978 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 | - | - | - | - | - | - | - |
-| b14 | [itc99](#sources) | - | verilog | b14 | 904 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 9335/105 | 1352/32 | 984/20 | - | - | - | - |
-| boundtop | [vtr-verilog](#sources) | Ray Tracing | verilog | paj_boundtop_hierarchy_no_mem | 2825 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 | - | - | - | - | - | - | - |
-| b12 | [itc99](#sources) | - | verilog | b12 | 635 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 5026/26 | 673/8 | 484/5 | - | - | - | - |
-| b11 | [itc99](#sources) | - | verilog | b11 | 138 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 3924/39 | 515/14 | 357/9 | - | - | - | - |
-| mkPktMerge | [vtr-verilog](#sources) | Packet Processing | verilog | mkPktMerge | 1535 | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | - | - | - | 329 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 | fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th/fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th | fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th/fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th | fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th/fail: mkPktMerge.v:566:1: error: unresolved_module: module 'dual_port_ram' is not defined; if you meant th | - | - | - | - |
-| b05 | [itc99](#sources) | - | verilog | b05 | 444 | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 20479/98 | 306/12 | 196/8 | - | - | - | - |
-| ch_intrinsics | [vtr-verilog](#sources) | Memory Init | verilog | memset | 292 | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 | fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean/fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean | fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean/fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean | fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean/fail: ch_intrinsics.v:34:1: error: unresolved_module: module 'single_port_ram' is not defined; if you mean | - | - | - | - |
-| stereovision3 | [vtr-verilog](#sources) | Computer Vision | verilog | sv_chip3_hierarchy_no_mem | 1061 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | 171 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 | 2042/17 | 233/5 | 175/4 | - | - | - | - |
-| diffeq2 | [vtr-verilog](#sources) | Math | verilog | diffeq_f_systemC | 63 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | 198 | 22 | 96 | 162 | 5/0 | 13.5453 | 44 | 14387/93 | 162/22 | 105/13 | - | - | - | - |
-| b04 | [itc99](#sources) | - | verilog | b04 | 113 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 1782/54 | 133/6 | 104/4 | - | - | - | - |
-| b07 | [itc99](#sources) | - | verilog | b07 | 125 | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 776/17 | 128/6 | 95/4 | - | - | - | - |
-| b13 | [itc99](#sources) | - | verilog | b13 | 320 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 1034/24 | 90/3 | 70/3 | - | - | - | - |
-| b09 | [itc99](#sources) | - | verilog | b09 | 91 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 248/13 | 61/4 | 47/3 | - | - | - | - |
-| b10 | [itc99](#sources) | - | verilog | b10 | 178 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 211/10 | 55/4 | 39/2 | - | - | - | - |
-| b03 | [itc99](#sources) | - | verilog | b03 | 133 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 193/10 | 56/4 | 37/3 | - | - | - | - |
-| b08 | [itc99](#sources) | - | verilog | b08 | 88 | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 654/16 | 56/5 | 35/3 | - | - | - | - |
-| b06 | [itc99](#sources) | - | verilog | b06 | 130 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 72/7 | 17/3 | 14/2 | - | - | - | - |
-| multiclock_reader_writer | [vtr-verilog](#sources) | - | verilog | multiclock_reader_writer | 61 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 118/9 | 16/2 | 10/1 | - | - | - | - |
-| b02 | [itc99](#sources) | - | verilog | b02 | 74 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 26/6 | 10/2 | 9/2 | - | - | - | - |
-| b01 | [itc99](#sources) | - | verilog | b01 | 117 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 105/10 | 18/3 | 5/1 | - | - | - | - |
-| multiclock_output_and_latch | [vtr-verilog](#sources) | - | verilog | - | 63 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 9/3 | 5/1 | 5/1 | - | - | - | - |
-| multiclock_separate_and_latch | [vtr-verilog](#sources) | - | verilog | - | 53 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 3/1 | 3/1 | 3/1 | - | - | - | - |
-| and_latch | [vtr-verilog](#sources) | - | verilog | and_latch | 21 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 1/1 | 1/1 | 1/1 | - | - | - | - |
-| single_ff | [vtr-verilog](#sources) | - | verilog | top | 5 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 0/0 | 0/0 | 0/0 | - | - | - | - |
-| single_wire | [vtr-verilog](#sources) | - | verilog | top | 3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | 0/0 | 0/0 | 0/0 | - | - | - | - |
-| mcml | [vtr-verilog](#sources) | Medical Physics | verilog | - | 24507 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| arm_core | [vtr-verilog](#sources) | - | verilog | - | 8211 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| LU64PEEng | [vtr-verilog](#sources) | - | verilog | - | 6043 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| LU32PEEng | [vtr-verilog](#sources) | Math | verilog | - | 5497 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| LU8PEEng | [vtr-verilog](#sources) | Math | verilog | - | 5033 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| raygentop_nolatches | [vtr-verilog](#sources) | - | verilog | - | 3178 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| spree | [vtr-verilog](#sources) | - | verilog | - | 3072 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| boundtop_nolatches | [vtr-verilog](#sources) | - | verilog | - | 3053 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| bgm | [vtr-verilog](#sources) | Finance | verilog | - | 2663 | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| ch_intrinsics_nolatches | [vtr-verilog](#sources) | - | verilog | - | 301 | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i/fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i | fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i/fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i | fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i/fail: ch_intrinsics_nolatches.v:31:1: error: unresolved_module: module 'single_port_ram' is not defined; i | - | - | - | - |
+| design | what it does | suite | link | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|
+| stereovision2 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1846 | ✗ | ✗ |
+| stereovision0 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3905 | ✗ | ✗ |
+| stereovision1 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2553 | ✗ | ✗ |
+| b22 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 2751 | ✗ | ✗ |
+| blob_merge | Image Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1617 | ✗ | ✗ |
+| b17 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 940 | ✗ | ✗ |
+| b20 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1842 | ✗ | ✗ |
+| b21 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1853 | ✗ | ✗ |
+| diffeq1 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 56 | ✗ | ✗ |
+| b18 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1931 | ✗ | ✗ |
+| b19 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1993 | ✗ | ✗ |
+| or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5237 | ✗ | ✗ |
+| b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 805 | ✗ | ✗ |
+| mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6628 | ✗ | ✗ |
+| sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2171 | ✗ | ✗ |
+| mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 4348 | ✗ | ✗ |
+| raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2978 | ✗ | ✗ |
+| b14 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 904 | ✗ | ✗ |
+| boundtop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2825 | ✗ | ✗ |
+| b12 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 635 | ✗ | ✗ |
+| b11 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 138 | ✗ | ✗ |
+| mkPktMerge | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1535 | ✗ | ✗ |
+| b05 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 444 | ✗ | ✗ |
+| ch_intrinsics | Memory Init | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 292 | ✗ | ✗ |
+| stereovision3 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1061 | ✗ | ✗ |
+| diffeq2 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 63 | ✗ | ✗ |
+| b04 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 113 | ✗ | ✗ |
+| b07 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 125 | ✗ | ✗ |
+| b13 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 320 | ✗ | ✗ |
+| b09 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 91 | ✗ | ✗ |
+| b10 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 178 | ✗ | ✗ |
+| b03 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 133 | ✗ | ✗ |
+| b08 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 88 | ✗ | ✗ |
+| b06 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 130 | ✗ | ✗ |
+| multiclock_reader_writer | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 61 | ✗ | ✗ |
+| b02 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 74 | ✗ | ✗ |
+| b01 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 117 | ✗ | ✗ |
+| multiclock_output_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 63 | ✗ | ✗ |
+| multiclock_separate_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 53 | ✗ | ✗ |
+| and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 21 | ✗ | ✗ |
+| single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5 | ✗ | ✗ |
+| single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3 | ✗ | ✗ |
+| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
+| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
+| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
+| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
+| LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5033 | ✗ | ✗ |
+| raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3178 | ✗ | ✗ |
+| spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3072 | ✗ | ✗ |
+| boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3053 | ✗ | ✗ |
+| bgm | Finance | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2663 | ✗ | ✗ |
+| ch_intrinsics_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 301 | ✗ | ✗ |
+
+<details><summary>Flow and VTR QoR</summary>
+
+| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| stereovision2 | - | - | - | 8426 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 |
+| stereovision0 | - | - | - | 6887 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 |
+| stereovision1 | - | - | - | 6462 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 |
+| b22 | - | - | - | - | - | - | - | - | - | - |
+| blob_merge | - | - | - | 6015 | 486 | 575 | 232 | 0/0 | 14.668 | 62 |
+| b17 | - | - | - | - | - | - | - | - | - | - |
+| b20 | - | - | - | - | - | - | - | - | - | - |
+| b21 | - | - | - | - | - | - | - | - | - | - |
+| diffeq1 | - | - | - | 294 | 31 | 193 | 258 | 5/0 | 17.2038 | 58 |
+| b18 | - | - | - | - | - | - | - | - | - | - |
+| b19 | - | - | - | - | - | - | - | - | - | - |
+| or1200 | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 |
+| b15 | - | - | - | - | - | - | - | - | - | - |
+| mkDelayWorker32B | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 |
+| sha | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 |
+| mkSMAdapter4B | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 |
+| raygentop | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 |
+| b14 | - | - | - | - | - | - | - | - | - | - |
+| boundtop | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 |
+| b12 | - | - | - | - | - | - | - | - | - | - |
+| b11 | - | - | - | - | - | - | - | - | - | - |
+| mkPktMerge | - | - | - | 329 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 |
+| b05 | - | - | - | - | - | - | - | - | - | - |
+| ch_intrinsics | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 |
+| stereovision3 | - | - | - | 171 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 |
+| diffeq2 | - | - | - | 198 | 22 | 96 | 162 | 5/0 | 13.5453 | 44 |
+| b04 | - | - | - | - | - | - | - | - | - | - |
+| b07 | - | - | - | - | - | - | - | - | - | - |
+| b13 | - | - | - | - | - | - | - | - | - | - |
+| b09 | - | - | - | - | - | - | - | - | - | - |
+| b10 | - | - | - | - | - | - | - | - | - | - |
+| b03 | - | - | - | - | - | - | - | - | - | - |
+| b08 | - | - | - | - | - | - | - | - | - | - |
+| b06 | - | - | - | - | - | - | - | - | - | - |
+| multiclock_reader_writer | - | - | - | - | - | - | - | - | - | - |
+| b02 | - | - | - | - | - | - | - | - | - | - |
+| b01 | - | - | - | - | - | - | - | - | - | - |
+| multiclock_output_and_latch | - | - | - | - | - | - | - | - | - | - |
+| multiclock_separate_and_latch | - | - | - | - | - | - | - | - | - | - |
+| and_latch | - | - | - | - | - | - | - | - | - | - |
+| single_ff | - | - | - | - | - | - | - | - | - | - |
+| single_wire | - | - | - | - | - | - | - | - | - | - |
+| mcml | - | - | - | - | - | - | - | - | - | - |
+| arm_core | - | - | - | - | - | - | - | - | - | - |
+| LU64PEEng | - | - | - | - | - | - | - | - | - | - |
+| LU32PEEng | - | - | - | - | - | - | - | - | - | - |
+| LU8PEEng | - | - | - | - | - | - | - | - | - | - |
+| raygentop_nolatches | - | - | - | - | - | - | - | - | - | - |
+| spree | - | - | - | - | - | - | - | - | - | - |
+| boundtop_nolatches | - | - | - | - | - | - | - | - | - | - |
+| bgm | - | - | - | - | - | - | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>LUT forms</summary>
+
+| design | gates/d | 4-LUT/d | 6-LUT/d |
+|---|---|---|---|
+| stereovision2 | - | - | - |
+| stereovision0 | - | - | - |
+| stereovision1 | - | - | - |
+| b22 | 56695/105 | 8495/33 | 6234/20 |
+| blob_merge | 61064/78 | 8741/30 | 5264/18 |
+| b17 | 107358/80 | 7388/19 | 5240/12 |
+| b20 | 37565/105 | 5680/33 | 4108/20 |
+| b21 | 38305/105 | 5603/34 | 4058/21 |
+| diffeq1 | 14398/101 | 4897/34 | 3585/23 |
+| b18 | 36964/105 | 4976/0 | 3500/0 |
+| b19 | 36964/105 | 4976/0 | 3500/0 |
+| or1200 | - | - | - |
+| b15 | 26705/80 | 3326/19 | 2322/12 |
+| mkDelayWorker32B | - | - | - |
+| sha | 8125/79 | 2788/30 | 1583/20 |
+| mkSMAdapter4B | - | - | - |
+| raygentop | - | - | - |
+| b14 | 9335/105 | 1352/32 | 984/20 |
+| boundtop | - | - | - |
+| b12 | 5026/26 | 673/8 | 484/5 |
+| b11 | 3924/39 | 515/14 | 357/9 |
+| mkPktMerge | fail: mkPktMerge.v:566:1: e... | fail: mkPktMerge.v:566:1: e... | fail: mkPktMerge.v:566:1: e... |
+| b05 | 20479/98 | 306/12 | 196/8 |
+| ch_intrinsics | fail: ch_intrinsics.v:34:1:... | fail: ch_intrinsics.v:34:1:... | fail: ch_intrinsics.v:34:1:... |
+| stereovision3 | 2042/17 | 233/5 | 175/4 |
+| diffeq2 | 14387/93 | 162/22 | 105/13 |
+| b04 | 1782/54 | 133/6 | 104/4 |
+| b07 | 776/17 | 128/6 | 95/4 |
+| b13 | 1034/24 | 90/3 | 70/3 |
+| b09 | 248/13 | 61/4 | 47/3 |
+| b10 | 211/10 | 55/4 | 39/2 |
+| b03 | 193/10 | 56/4 | 37/3 |
+| b08 | 654/16 | 56/5 | 35/3 |
+| b06 | 72/7 | 17/3 | 14/2 |
+| multiclock_reader_writer | 118/9 | 16/2 | 10/1 |
+| b02 | 26/6 | 10/2 | 9/2 |
+| b01 | 105/10 | 18/3 | 5/1 |
+| multiclock_output_and_latch | 9/3 | 5/1 | 5/1 |
+| multiclock_separate_and_latch | 3/1 | 3/1 | 3/1 |
+| and_latch | 1/1 | 1/1 | 1/1 |
+| single_ff | 0/0 | 0/0 | 0/0 |
+| single_wire | 0/0 | 0/0 | 0/0 |
+| mcml | - | - | - |
+| arm_core | - | - | - |
+| LU64PEEng | - | - | - |
+| LU32PEEng | - | - | - |
+| LU8PEEng | - | - | - |
+| raygentop_nolatches | - | - | - |
+| spree | - | - | - |
+| boundtop_nolatches | - | - | - |
+| bgm | - | - | - |
+| ch_intrinsics_nolatches | fail: ch_intrinsics_nolatch... | fail: ch_intrinsics_nolatch... | fail: ch_intrinsics_nolatch... |
+
+</details>
+
+<details><summary>Properties</summary>
+
+| design | seq | mem | mul | add | fsm | latch | hier | bbox |
+|---|---|---|---|---|---|---|---|---|
+| stereovision2 | - | - | - | - | - | - | - | - |
+| stereovision0 | - | - | - | - | - | - | - | - |
+| stereovision1 | - | - | - | - | - | - | - | - |
+| b22 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ |
+| blob_merge | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ |
+| b17 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ |
+| b20 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ |
+| b21 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ |
+| diffeq1 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| b18 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| b19 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| or1200 | - | - | - | - | - | - | - | - |
+| b15 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| mkDelayWorker32B | - | - | - | - | - | - | - | - |
+| sha | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| mkSMAdapter4B | - | - | - | - | - | - | - | - |
+| raygentop | - | - | - | - | - | - | - | - |
+| b14 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| boundtop | - | - | - | - | - | - | - | - |
+| b12 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| b11 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| mkPktMerge | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| b05 | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| ch_intrinsics | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
+| stereovision3 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| diffeq2 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| b04 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| b07 | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| b13 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| b09 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| b10 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| b03 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| b08 | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| b06 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| multiclock_reader_writer | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| b02 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| b01 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| multiclock_output_and_latch | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✗ |
+| multiclock_separate_and_latch | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ |
+| and_latch | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| single_ff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| single_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| mcml | - | - | - | - | - | - | - | - |
+| arm_core | - | - | - | - | - | - | - | - |
+| LU64PEEng | - | - | - | - | - | - | - | - |
+| LU32PEEng | - | - | - | - | - | - | - | - |
+| LU8PEEng | - | - | - | - | - | - | - | - |
+| raygentop_nolatches | - | - | - | - | - | - | - | - |
+| spree | - | - | - | - | - | - | - | - |
+| boundtop_nolatches | - | - | - | - | - | - | - | - |
+| bgm | - | - | - | - | - | - | - | - |
+| ch_intrinsics_nolatches | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
+
+</details>
+
+<details><summary>Silicon</summary>
+
+| design | cells | core um2 | LVS | Si stage |
+|---|---|---|---|---|
+| stereovision2 | - | - | - | - |
+| stereovision0 | - | - | - | - |
+| stereovision1 | - | - | - | - |
+| b22 | - | - | - | - |
+| blob_merge | - | - | - | - |
+| b17 | - | - | - | - |
+| b20 | - | - | - | - |
+| b21 | - | - | - | - |
+| diffeq1 | - | - | - | - |
+| b18 | - | - | - | - |
+| b19 | - | - | - | - |
+| or1200 | - | - | - | - |
+| b15 | - | - | - | - |
+| mkDelayWorker32B | - | - | - | - |
+| sha | - | - | - | - |
+| mkSMAdapter4B | - | - | - | - |
+| raygentop | - | - | - | - |
+| b14 | - | - | - | - |
+| boundtop | - | - | - | - |
+| b12 | - | - | - | - |
+| b11 | - | - | - | - |
+| mkPktMerge | - | - | - | - |
+| b05 | - | - | - | - |
+| ch_intrinsics | - | - | - | - |
+| stereovision3 | - | - | - | - |
+| diffeq2 | - | - | - | - |
+| b04 | - | - | - | - |
+| b07 | - | - | - | - |
+| b13 | - | - | - | - |
+| b09 | - | - | - | - |
+| b10 | - | - | - | - |
+| b03 | - | - | - | - |
+| b08 | - | - | - | - |
+| b06 | - | - | - | - |
+| multiclock_reader_writer | - | - | - | - |
+| b02 | - | - | - | - |
+| b01 | - | - | - | - |
+| multiclock_output_and_latch | - | - | - | - |
+| multiclock_separate_and_latch | - | - | - | - |
+| and_latch | - | - | - | - |
+| single_ff | - | - | - | - |
+| single_wire | - | - | - | - |
+| mcml | - | - | - | - |
+| arm_core | - | - | - | - |
+| LU64PEEng | - | - | - | - |
+| LU32PEEng | - | - | - | - |
+| LU8PEEng | - | - | - | - |
+| raygentop_nolatches | - | - | - | - |
+| spree | - | - | - | - |
+| boundtop_nolatches | - | - | - | - |
+| bgm | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | - | - |
+
+</details>
 
 ## T4 netlist only
 
 Rule: BLIF netlist, no HDL.
 
-| design | suite | what it does | format | top | LOC | seq | mem | mul | add | fsm | latch | hier | bbox | testbench | vectors | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | gates/depth | 4-LUT/depth | 6-LUT/depth | cells | core um2 | LVS | stage |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| clma | [vtr-blif](#sources) | Bus interface | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 8380/16 | - | - | - | - | - |
-| s38584.1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 6269/9 | - | - | - | - | - |
-| s38417 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 6096/11 | - | - | - | - | - |
-| ex1010 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 4598/8 | - | - | - | - | - |
-| pdc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 4575/9 | - | - | - | - | - |
-| spla | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3690/8 | - | - | - | - | - |
-| elliptic | [vtr-blif](#sources) | Fifth Order Elliptic Filter | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3602/18 | - | - | - | - | - |
-| frisc | [vtr-blif](#sources) | RISC Microprocessor | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3539/23 | - | - | - | - | - |
-| ex1010 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 2777 | 314 | 0 | 20 | 0/0 | 9.8022 | 84 | - | 4598/8 | - | - | - | - | - |
-| s38584.1 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 2190 | 182 | 1141 | 343 | 0/0 | 4.65105 | 48 | - | 6269/9 | - | - | - | - | - |
-| s38417 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 2189 | 179 | 1345 | 135 | 0/0 | 4.96812 | 42 | - | 6096/11 | - | - | - | - | - |
-| pdc | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1973 | 176 | 0 | 56 | 0/0 | 7.42762 | 72 | - | 4575/9 | - | - | - | - | - |
-| s298 | [vtr-blif](#sources) | Finite state machine "from a PLD" | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1930/15 | - | - | - | - | - |
-| apex2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1878/8 | - | - | - | - | - |
-| seq | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1750/7 | - | - | - | - | - |
-| bigkey | [vtr-blif](#sources) | Key encryption circuit | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1707/3 | - | - | - | - | - |
-| frisc | [mcnc20](#sources) | RISC Microprocessor | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1668 | 153 | 814 | 136 | 0/0 | 8.694 | 66 | - | 3539/23 | - | - | - | - | - |
-| des | [vtr-blif](#sources) | DES data encryption circuit | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1591/6 | - | - | - | - | - |
-| alu4 | [vtr-blif](#sources) | ALU | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1522/7 | - | - | - | - | - |
-| diffeq | [vtr-blif](#sources) | Differential Equation Solver | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1494/14 | - | - | - | - | - |
-| elliptic | [mcnc20](#sources) | Fifth Order Elliptic Filter | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1463 | 137 | 884 | 245 | 0/0 | 7.59909 | 58 | - | 3602/18 | - | - | - | - | - |
-| spla | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 1445 | 131 | 0 | 62 | 0/0 | 6.39096 | 60 | - | 3690/8 | - | - | - | - | - |
-| misex3 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1397/7 | - | - | - | - | - |
-| dsip | [vtr-blif](#sources) | Encryption circuit | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1370/3 | - | - | - | - | - |
-| apex4 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1261/6 | - | - | - | - | - |
-| ex5p | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1064/7 | - | - | - | - | - |
-| tseng | [vtr-blif](#sources) | Bus controller | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1046/13 | - | - | - | - | - |
-| i10 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 995/13 | - | - | - | - | - |
-| apex2 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 992 | 92 | 0 | 42 | 0/0 | 5.89143 | 54 | - | 1878/8 | - | - | - | - | - |
-| des | [mcnc20](#sources) | DES data encryption circuit | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 901 | 77 | 0 | 501 | 0/0 | 4.68402 | 38 | - | 1591/6 | - | - | - | - | - |
-| apex3 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 869/6 | - | - | - | - | - |
-| apex4 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 865 | 80 | 0 | 28 | 0/0 | 5.74616 | 60 | - | 1261/6 | - | - | - | - | - |
-| seq | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 855 | 75 | 0 | 76 | 0/0 | 4.95078 | 54 | - | 1750/7 | - | - | - | - | - |
-| alu4 | [mcnc20](#sources) | ALU | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 818 | 68 | 0 | 22 | 0/0 | 5.0705 | 42 | - | 1522/7 | - | - | - | - | - |
-| cps | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 756/5 | - | - | - | - | - |
-| C7552 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 739/10 | - | - | - | - | - |
-| misex3 | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 714 | 62 | 0 | 28 | 0/0 | 4.81741 | 48 | - | 1397/7 | - | - | - | - | - |
-| apex1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 699/7 | - | - | - | - | - |
-| dsip | [mcnc20](#sources) | Encryption circuit | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 686 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 | - | 1370/3 | - | - | - | - | - |
-| s298 | [mcnc20](#sources) | Finite state machine "from a PLD" | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 661 | 58 | 8 | 10 | 0/0 | 6.32231 | 46 | - | 1930/15 | - | - | - | - | - |
-| parker1986 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 660/13 | - | - | - | - | - |
-| pair | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 647/7 | - | - | - | - | - |
-| C5315 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 620/10 | - | - | - | - | - |
-| diffeq | [mcnc20](#sources) | Differential Equation Solver | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 580 | 53 | 310 | 103 | 0/0 | 4.91464 | 42 | - | 1494/14 | - | - | - | - | - |
-| bigkey | [mcnc20](#sources) | Key encryption circuit | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 572 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 | - | 1707/3 | - | - | - | - | - |
-| s5378 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 571/6 | - | - | - | - | - |
-| misex3c | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 549/6 | - | - | - | - | - |
-| apex5 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 534/5 | - | - | - | - | - |
-| C6288 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 527/28 | - | - | - | - | - |
-| k2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 518/7 | - | - | - | - | - |
-| dalu | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 500/6 | - | - | - | - | - |
-| table5 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 485/6 | - | - | - | - | - |
-| i8 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 481/5 | - | - | - | - | - |
-| table3 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 480/6 | - | - | - | - | - |
-| ex5p | [mcnc20](#sources) | - | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 467 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 | - | 1064/7 | - | - | - | - | - |
-| mm30a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 467/58 | - | - | - | - | - |
-| cordic | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 466/9 | - | - | - | - | - |
-| s9234.1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 459/8 | - | - | - | - | - |
-| clma | [mcnc20](#sources) | Bus interface | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 450 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 | - | 8380/16 | - | - | - | - | - |
-| ex4p | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 444/5 | - | - | - | - | - |
-| C3540 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 431/12 | - | - | - | - | - |
-| scf | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 416/5 | - | - | - | - | - |
-| tseng | [mcnc20](#sources) | Bus controller | blif | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | 407 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 | - | 1046/13 | - | - | - | - | - |
-| bbrtas | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 406/18 | - | - | - | - | - |
-| apex6 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 393/6 | - | - | - | - | - |
-| sbc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 384/5 | - | - | - | - | - |
-| frg2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 379/6 | - | - | - | - | - |
-| x3 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 377/5 | - | - | - | - | - |
-| i9 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 376/5 | - | - | - | - | - |
-| ecc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 330/5 | - | - | - | - | - |
-| daio-rec | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 311/7 | - | - | - | - | - |
-| rot | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 307/8 | - | - | - | - | - |
-| s1488 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 296/4 | - | - | - | - | - |
-| s1238 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 292/8 | - | - | - | - | - |
-| s1494 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 292/5 | - | - | - | - | - |
-| vda | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 291/6 | - | - | - | - | - |
-| e64 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 274/4 | - | - | - | - | - |
-| planet | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 266/4 | - | - | - | - | - |
-| planet1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 266/4 | - | - | - | - | - |
-| s1196 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 264/7 | - | - | - | - | - |
-| C2670 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 258/7 | - | - | - | - | - |
-| duke2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 251/5 | - | - | - | - | - |
-| sand | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 243/5 | - | - | - | - | - |
-| styr | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 238/5 | - | - | - | - | - |
-| s1423 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 221/15 | - | - | - | - | - |
-| ph-decod | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 219/6 | - | - | - | - | - |
-| gcd | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 218/11 | - | - | - | - | - |
-| s953 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 214/5 | - | - | - | - | - |
-| t481 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 214/7 | - | - | - | - | - |
-| mm9b | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 204/20 | - | - | - | - | - |
-| i7 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 203/2 | - | - | - | - | - |
-| alu2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 197/10 | - | - | - | - | - |
-| s1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 195/10 | - | - | - | - | - |
-| x4 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 194/3 | - | - | - | - | - |
-| too-lrg | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 187/7 | - | - | - | - | - |
-| i6 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 182/2 | - | - | - | - | - |
-| C880 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 174/9 | - | - | - | - | - |
-| s838 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 167/8 | - | - | - | - | - |
-| rd84 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 157/6 | - | - | - | - | - |
-| C1908 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 145/10 | - | - | - | - | - |
-| s832 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 145/5 | - | - | - | - | - |
-| 9sym | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 144/6 | - | - | - | - | - |
-| x1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 143/4 | - | - | - | - | - |
-| mm9a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 142/17 | - | - | - | - | - |
-| clip | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 140/5 | - | - | - | - | - |
-| example2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 138/4 | - | - | - | - | - |
-| bw | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 132/4 | - | - | - | - | - |
-| C432 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 124/11 | - | - | - | - | - |
-| ex1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 124/4 | - | - | - | - | - |
-| s820 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 120/5 | - | - | - | - | - |
-| mult32a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 116/24 | - | - | - | - | - |
-| dk16 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 105/4 | - | - | - | - | - |
-| keyb | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 103/5 | - | - | - | - | - |
-| apex7 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 102/5 | - | - | - | - | - |
-| s510 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 101/5 | - | - | - | - | - |
-| i4 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 98/5 | - | - | - | - | - |
-| 9symml | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 97/6 | - | - | - | - | - |
-| s838.1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 95/9 | - | - | - | - | - |
-| cse | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 90/4 | - | - | - | - | - |
-| sao2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 90/5 | - | - | - | - | - |
-| i5 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 88/6 | - | - | - | - | - |
-| s713 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 88/8 | - | - | - | - | - |
-| term1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 88/5 | - | - | - | - | - |
-| s641 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 87/9 | - | - | - | - | - |
-| pma | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 85/4 | - | - | - | - | - |
-| tbk | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 84/8 | - | - | - | - | - |
-| rd73 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 83/5 | - | - | - | - | - |
-| mm4a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 78/10 | - | - | - | - | - |
-| ttt2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 75/4 | - | - | - | - | - |
-| C1355 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 74/4 | - | - | - | - | - |
-| C499 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 74/4 | - | - | - | - | - |
-| i2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 74/5 | - | - | - | - | - |
-| s400 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 69/4 | - | - | - | - | - |
-| s344 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 67/4 | - | - | - | - | - |
-| s349 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 67/4 | - | - | - | - | - |
-| vg2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 67/4 | - | - | - | - | - |
-| bbsse | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 64/6 | - | - | - | - | - |
-| inc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 64/4 | - | - | - | - | - |
-| sse | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 64/6 | - | - | - | - | - |
-| s444 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 62/4 | - | - | - | - | - |
-| ex6 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 60/7 | - | - | - | - | - |
-| s382 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 60/4 | - | - | - | - | - |
-| s526n | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 60/4 | - | - | - | - | - |
-| 5xp1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 57/4 | - | - | - | - | - |
-| mult16a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 57/12 | - | - | - | - | - |
-| b12 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 56/4 | - | - | - | - | - |
-| s386 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 56/3 | - | - | - | - | - |
-| cht | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 55/2 | - | - | - | - | - |
-| f51m | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 54/4 | - | - | - | - | - |
-| s526 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 52/4 | - | - | - | - | - |
-| opus | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 50/5 | - | - | - | - | - |
-| frg1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 49/6 | - | - | - | - | - |
-| misex2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 49/3 | - | - | - | - | - |
-| unreg | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 48/2 | - | - | - | - | - |
-| my-adder | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 47/16 | - | - | - | - | - |
-| s420.1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 47/5 | - | - | - | - | - |
-| b9 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 46/3 | - | - | - | - | - |
-| i3 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 46/3 | - | - | - | - | - |
-| o64 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 46/4 | - | - | - | - | - |
-| dk14 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 43/7 | - | - | - | - | - |
-| comp | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 40/5 | - | - | - | - | - |
-| c8 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 39/4 | - | - | - | - | - |
-| count | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 39/5 | - | - | - | - | - |
-| ldd | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 37/5 | - | - | - | - | - |
-| ex4 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 35/4 | - | - | - | - | - |
-| pcler8 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 35/4 | - | - | - | - | - |
-| traffic | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 35/3 | - | - | - | - | - |
-| lal | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 34/3 | - | - | - | - | - |
-| mark1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 34/3 | - | - | - | - | - |
-| squar5 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 34/3 | - | - | - | - | - |
-| bbara | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 33/3 | - | - | - | - | - |
-| mult16b | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 31/1 | - | - | - | - | - |
-| sqrt8ml | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 31/6 | - | - | - | - | - |
-| sqrt8 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 29/4 | - | - | - | - | - |
-| cc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 26/3 | - | - | - | - | - |
-| dk15 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 24/3 | - | - | - | - | - |
-| s208.1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 24/4 | - | - | - | - | - |
-| s420 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 23/3 | - | - | - | - | - |
-| sct | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 23/3 | - | - | - | - | - |
-| cu | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 22/3 | - | - | - | - | - |
-| i1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 21/3 | - | - | - | - | - |
-| misex1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 21/3 | - | - | - | - | - |
-| pcle | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 21/3 | - | - | - | - | - |
-| decod | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 20/2 | - | - | - | - | - |
-| pm1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 19/3 | - | - | - | - | - |
-| cm162a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 18/3 | - | - | - | - | - |
-| s208 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 18/3 | - | - | - | - | - |
-| cmb | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 17/3 | - | - | - | - | - |
-| x2 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 17/3 | - | - | - | - | - |
-| tcon | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 16/1 | - | - | - | - | - |
-| dk17 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 15/2 | - | - | - | - | - |
-| mux | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 15/4 | - | - | - | - | - |
-| beecount | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 14/2 | - | - | - | - | - |
-| cm150a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 14/3 | - | - | - | - | - |
-| dk512 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 14/2 | - | - | - | - | - |
-| rd53 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 12/4 | - | - | - | - | - |
-| cm163a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 11/3 | - | - | - | - | - |
-| cm85a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 11/3 | - | - | - | - | - |
-| cm138a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 10/2 | - | - | - | - | - |
-| cm42a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 10/1 | - | - | - | - | - |
-| tav | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 9/2 | - | - | - | - | - |
-| cm151a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 8/3 | - | - | - | - | - |
-| z4ml | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 8/3 | - | - | - | - | - |
-| mc | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 7/2 | - | - | - | - | - |
-| bbtas | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 6/2 | - | - | - | - | - |
-| cm152a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 6/3 | - | - | - | - | - |
-| s27 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 6/2 | - | - | - | - | - |
-| con1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 5/2 | - | - | - | - | - |
-| dk27 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 5/1 | - | - | - | - | - |
-| parity | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 5/2 | - | - | - | - | - |
-| b1 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 4/1 | - | - | - | - | - |
-| cm82a | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 4/2 | - | - | - | - | - |
-| daio | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3/1 | - | - | - | - | - |
-| lion | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3/1 | - | - | - | - | - |
-| majority | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 3/2 | - | - | - | - | - |
-| C17 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 2/1 | - | - | - | - | - |
-| xor5 | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 2/2 | - | - | - | - | - |
-| chain_cout_fanout | [vtr-blif](#sources) | - | blif (k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 1/1 | - | - | - | - | - |
-| shiftreg | [vtr-blif](#sources) | - | blif (k2,k4) | - | - | - | - | - | - | - | - | - | - | ✗ | ✗ | - | - | - | - | - | - | - | - | - | - | - | 0/0 | - | - | - | - | - |
+| design | what it does | suite | link | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|
+| clma | Bus interface | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s38584.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s38417 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex1010 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pdc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| spla | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| elliptic | Fifth Order Elliptic Filter | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frisc | RISC Microprocessor | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex1010 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s38584.1 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s38417 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| pdc | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| seq | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frisc | RISC Microprocessor | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| des | DES data encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| alu4 | ALU | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| elliptic | Fifth Order Elliptic Filter | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| spla | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| misex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dsip | Encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex5p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tseng | Bus controller | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i10 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex2 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| des | DES data encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| apex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex4 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| seq | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| alu4 | ALU | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| cps | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C7552 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex3 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| apex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dsip | Encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| parker1986 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pair | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C5315 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s5378 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex3c | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C6288 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| k2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dalu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| table5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| table3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex5p | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| mm30a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cordic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s9234.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| clma | Bus interface | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| ex4p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C3540 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| scf | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tseng | Bus controller | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| bbrtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sbc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ecc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| daio-rec | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rot | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1488 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1238 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1494 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| vda | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| e64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| planet | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| planet1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1196 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C2670 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| duke2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sand | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| styr | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1423 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ph-decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| gcd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s953 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| t481 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm9b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| alu2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| too-lrg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C880 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s838 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd84 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C1908 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s832 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| 9sym | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm9a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| clip | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| example2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bw | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C432 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s820 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mult32a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk16 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| keyb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s510 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| 9symml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s838.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sao2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s713 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| term1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s641 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pma | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tbk | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd73 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm4a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ttt2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C1355 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C499 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s400 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s344 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s349 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| vg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbsse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| inc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s444 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s382 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s526n | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| 5xp1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mult16a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| b12 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s386 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cht | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| f51m | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s526 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| opus | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frg1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| unreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| my-adder | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s420.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| b9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| o64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk14 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| comp | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| c8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| count | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ldd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pcler8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| traffic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| lal | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mark1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| squar5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbara | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mult16b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sqrt8ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sqrt8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk15 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s208.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s420 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sct | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pcle | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pm1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm162a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s208 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cmb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tcon | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mux | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| beecount | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm150a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk512 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd53 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm163a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm85a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm138a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm42a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tav | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm151a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| z4ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm152a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| con1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| parity | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| b1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm82a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| daio | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| lion | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| majority | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| xor5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| chain_cout_fanout | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| shiftreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+
+<details><summary>Flow and VTR QoR</summary>
+
+| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| clma | - | - | - | - | - | - | - | - | - | - |
+| s38584.1 | - | - | - | - | - | - | - | - | - | - |
+| s38417 | - | - | - | - | - | - | - | - | - | - |
+| ex1010 | - | - | - | - | - | - | - | - | - | - |
+| pdc | - | - | - | - | - | - | - | - | - | - |
+| spla | - | - | - | - | - | - | - | - | - | - |
+| elliptic | - | - | - | - | - | - | - | - | - | - |
+| frisc | - | - | - | - | - | - | - | - | - | - |
+| ex1010 | - | - | - | 2777 | 314 | 0 | 20 | 0/0 | 9.8022 | 84 |
+| s38584.1 | - | - | - | 2190 | 182 | 1141 | 343 | 0/0 | 4.65105 | 48 |
+| s38417 | - | - | - | 2189 | 179 | 1345 | 135 | 0/0 | 4.96812 | 42 |
+| pdc | - | - | - | 1973 | 176 | 0 | 56 | 0/0 | 7.42762 | 72 |
+| s298 | - | - | - | - | - | - | - | - | - | - |
+| apex2 | - | - | - | - | - | - | - | - | - | - |
+| seq | - | - | - | - | - | - | - | - | - | - |
+| bigkey | - | - | - | - | - | - | - | - | - | - |
+| frisc | - | - | - | 1668 | 153 | 814 | 136 | 0/0 | 8.694 | 66 |
+| des | - | - | - | - | - | - | - | - | - | - |
+| alu4 | - | - | - | - | - | - | - | - | - | - |
+| diffeq | - | - | - | - | - | - | - | - | - | - |
+| elliptic | - | - | - | 1463 | 137 | 884 | 245 | 0/0 | 7.59909 | 58 |
+| spla | - | - | - | 1445 | 131 | 0 | 62 | 0/0 | 6.39096 | 60 |
+| misex3 | - | - | - | - | - | - | - | - | - | - |
+| dsip | - | - | - | - | - | - | - | - | - | - |
+| apex4 | - | - | - | - | - | - | - | - | - | - |
+| ex5p | - | - | - | - | - | - | - | - | - | - |
+| tseng | - | - | - | - | - | - | - | - | - | - |
+| i10 | - | - | - | - | - | - | - | - | - | - |
+| apex2 | - | - | - | 992 | 92 | 0 | 42 | 0/0 | 5.89143 | 54 |
+| des | - | - | - | 901 | 77 | 0 | 501 | 0/0 | 4.68402 | 38 |
+| apex3 | - | - | - | - | - | - | - | - | - | - |
+| apex4 | - | - | - | 865 | 80 | 0 | 28 | 0/0 | 5.74616 | 60 |
+| seq | - | - | - | 855 | 75 | 0 | 76 | 0/0 | 4.95078 | 54 |
+| alu4 | - | - | - | 818 | 68 | 0 | 22 | 0/0 | 5.0705 | 42 |
+| cps | - | - | - | - | - | - | - | - | - | - |
+| C7552 | - | - | - | - | - | - | - | - | - | - |
+| misex3 | - | - | - | 714 | 62 | 0 | 28 | 0/0 | 4.81741 | 48 |
+| apex1 | - | - | - | - | - | - | - | - | - | - |
+| dsip | - | - | - | 686 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 |
+| s298 | - | - | - | 661 | 58 | 8 | 10 | 0/0 | 6.32231 | 46 |
+| parker1986 | - | - | - | - | - | - | - | - | - | - |
+| pair | - | - | - | - | - | - | - | - | - | - |
+| C5315 | - | - | - | - | - | - | - | - | - | - |
+| diffeq | - | - | - | 580 | 53 | 310 | 103 | 0/0 | 4.91464 | 42 |
+| bigkey | - | - | - | 572 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 |
+| s5378 | - | - | - | - | - | - | - | - | - | - |
+| misex3c | - | - | - | - | - | - | - | - | - | - |
+| apex5 | - | - | - | - | - | - | - | - | - | - |
+| C6288 | - | - | - | - | - | - | - | - | - | - |
+| k2 | - | - | - | - | - | - | - | - | - | - |
+| dalu | - | - | - | - | - | - | - | - | - | - |
+| table5 | - | - | - | - | - | - | - | - | - | - |
+| i8 | - | - | - | - | - | - | - | - | - | - |
+| table3 | - | - | - | - | - | - | - | - | - | - |
+| ex5p | - | - | - | 467 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 |
+| mm30a | - | - | - | - | - | - | - | - | - | - |
+| cordic | - | - | - | - | - | - | - | - | - | - |
+| s9234.1 | - | - | - | - | - | - | - | - | - | - |
+| clma | - | - | - | 450 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 |
+| ex4p | - | - | - | - | - | - | - | - | - | - |
+| C3540 | - | - | - | - | - | - | - | - | - | - |
+| scf | - | - | - | - | - | - | - | - | - | - |
+| tseng | - | - | - | 407 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 |
+| bbrtas | - | - | - | - | - | - | - | - | - | - |
+| apex6 | - | - | - | - | - | - | - | - | - | - |
+| sbc | - | - | - | - | - | - | - | - | - | - |
+| frg2 | - | - | - | - | - | - | - | - | - | - |
+| x3 | - | - | - | - | - | - | - | - | - | - |
+| i9 | - | - | - | - | - | - | - | - | - | - |
+| ecc | - | - | - | - | - | - | - | - | - | - |
+| daio-rec | - | - | - | - | - | - | - | - | - | - |
+| rot | - | - | - | - | - | - | - | - | - | - |
+| s1488 | - | - | - | - | - | - | - | - | - | - |
+| s1238 | - | - | - | - | - | - | - | - | - | - |
+| s1494 | - | - | - | - | - | - | - | - | - | - |
+| vda | - | - | - | - | - | - | - | - | - | - |
+| e64 | - | - | - | - | - | - | - | - | - | - |
+| planet | - | - | - | - | - | - | - | - | - | - |
+| planet1 | - | - | - | - | - | - | - | - | - | - |
+| s1196 | - | - | - | - | - | - | - | - | - | - |
+| C2670 | - | - | - | - | - | - | - | - | - | - |
+| duke2 | - | - | - | - | - | - | - | - | - | - |
+| sand | - | - | - | - | - | - | - | - | - | - |
+| styr | - | - | - | - | - | - | - | - | - | - |
+| s1423 | - | - | - | - | - | - | - | - | - | - |
+| ph-decod | - | - | - | - | - | - | - | - | - | - |
+| gcd | - | - | - | - | - | - | - | - | - | - |
+| s953 | - | - | - | - | - | - | - | - | - | - |
+| t481 | - | - | - | - | - | - | - | - | - | - |
+| mm9b | - | - | - | - | - | - | - | - | - | - |
+| i7 | - | - | - | - | - | - | - | - | - | - |
+| alu2 | - | - | - | - | - | - | - | - | - | - |
+| s1 | - | - | - | - | - | - | - | - | - | - |
+| x4 | - | - | - | - | - | - | - | - | - | - |
+| too-lrg | - | - | - | - | - | - | - | - | - | - |
+| i6 | - | - | - | - | - | - | - | - | - | - |
+| C880 | - | - | - | - | - | - | - | - | - | - |
+| s838 | - | - | - | - | - | - | - | - | - | - |
+| rd84 | - | - | - | - | - | - | - | - | - | - |
+| C1908 | - | - | - | - | - | - | - | - | - | - |
+| s832 | - | - | - | - | - | - | - | - | - | - |
+| 9sym | - | - | - | - | - | - | - | - | - | - |
+| x1 | - | - | - | - | - | - | - | - | - | - |
+| mm9a | - | - | - | - | - | - | - | - | - | - |
+| clip | - | - | - | - | - | - | - | - | - | - |
+| example2 | - | - | - | - | - | - | - | - | - | - |
+| bw | - | - | - | - | - | - | - | - | - | - |
+| C432 | - | - | - | - | - | - | - | - | - | - |
+| ex1 | - | - | - | - | - | - | - | - | - | - |
+| s820 | - | - | - | - | - | - | - | - | - | - |
+| mult32a | - | - | - | - | - | - | - | - | - | - |
+| dk16 | - | - | - | - | - | - | - | - | - | - |
+| keyb | - | - | - | - | - | - | - | - | - | - |
+| apex7 | - | - | - | - | - | - | - | - | - | - |
+| s510 | - | - | - | - | - | - | - | - | - | - |
+| i4 | - | - | - | - | - | - | - | - | - | - |
+| 9symml | - | - | - | - | - | - | - | - | - | - |
+| s838.1 | - | - | - | - | - | - | - | - | - | - |
+| cse | - | - | - | - | - | - | - | - | - | - |
+| sao2 | - | - | - | - | - | - | - | - | - | - |
+| i5 | - | - | - | - | - | - | - | - | - | - |
+| s713 | - | - | - | - | - | - | - | - | - | - |
+| term1 | - | - | - | - | - | - | - | - | - | - |
+| s641 | - | - | - | - | - | - | - | - | - | - |
+| pma | - | - | - | - | - | - | - | - | - | - |
+| tbk | - | - | - | - | - | - | - | - | - | - |
+| rd73 | - | - | - | - | - | - | - | - | - | - |
+| mm4a | - | - | - | - | - | - | - | - | - | - |
+| ttt2 | - | - | - | - | - | - | - | - | - | - |
+| C1355 | - | - | - | - | - | - | - | - | - | - |
+| C499 | - | - | - | - | - | - | - | - | - | - |
+| i2 | - | - | - | - | - | - | - | - | - | - |
+| s400 | - | - | - | - | - | - | - | - | - | - |
+| s344 | - | - | - | - | - | - | - | - | - | - |
+| s349 | - | - | - | - | - | - | - | - | - | - |
+| vg2 | - | - | - | - | - | - | - | - | - | - |
+| bbsse | - | - | - | - | - | - | - | - | - | - |
+| inc | - | - | - | - | - | - | - | - | - | - |
+| sse | - | - | - | - | - | - | - | - | - | - |
+| s444 | - | - | - | - | - | - | - | - | - | - |
+| ex6 | - | - | - | - | - | - | - | - | - | - |
+| s382 | - | - | - | - | - | - | - | - | - | - |
+| s526n | - | - | - | - | - | - | - | - | - | - |
+| 5xp1 | - | - | - | - | - | - | - | - | - | - |
+| mult16a | - | - | - | - | - | - | - | - | - | - |
+| b12 | - | - | - | - | - | - | - | - | - | - |
+| s386 | - | - | - | - | - | - | - | - | - | - |
+| cht | - | - | - | - | - | - | - | - | - | - |
+| f51m | - | - | - | - | - | - | - | - | - | - |
+| s526 | - | - | - | - | - | - | - | - | - | - |
+| opus | - | - | - | - | - | - | - | - | - | - |
+| frg1 | - | - | - | - | - | - | - | - | - | - |
+| misex2 | - | - | - | - | - | - | - | - | - | - |
+| unreg | - | - | - | - | - | - | - | - | - | - |
+| my-adder | - | - | - | - | - | - | - | - | - | - |
+| s420.1 | - | - | - | - | - | - | - | - | - | - |
+| b9 | - | - | - | - | - | - | - | - | - | - |
+| i3 | - | - | - | - | - | - | - | - | - | - |
+| o64 | - | - | - | - | - | - | - | - | - | - |
+| dk14 | - | - | - | - | - | - | - | - | - | - |
+| comp | - | - | - | - | - | - | - | - | - | - |
+| c8 | - | - | - | - | - | - | - | - | - | - |
+| count | - | - | - | - | - | - | - | - | - | - |
+| ldd | - | - | - | - | - | - | - | - | - | - |
+| ex4 | - | - | - | - | - | - | - | - | - | - |
+| pcler8 | - | - | - | - | - | - | - | - | - | - |
+| traffic | - | - | - | - | - | - | - | - | - | - |
+| lal | - | - | - | - | - | - | - | - | - | - |
+| mark1 | - | - | - | - | - | - | - | - | - | - |
+| squar5 | - | - | - | - | - | - | - | - | - | - |
+| bbara | - | - | - | - | - | - | - | - | - | - |
+| mult16b | - | - | - | - | - | - | - | - | - | - |
+| sqrt8ml | - | - | - | - | - | - | - | - | - | - |
+| sqrt8 | - | - | - | - | - | - | - | - | - | - |
+| cc | - | - | - | - | - | - | - | - | - | - |
+| dk15 | - | - | - | - | - | - | - | - | - | - |
+| s208.1 | - | - | - | - | - | - | - | - | - | - |
+| s420 | - | - | - | - | - | - | - | - | - | - |
+| sct | - | - | - | - | - | - | - | - | - | - |
+| cu | - | - | - | - | - | - | - | - | - | - |
+| i1 | - | - | - | - | - | - | - | - | - | - |
+| misex1 | - | - | - | - | - | - | - | - | - | - |
+| pcle | - | - | - | - | - | - | - | - | - | - |
+| decod | - | - | - | - | - | - | - | - | - | - |
+| pm1 | - | - | - | - | - | - | - | - | - | - |
+| cm162a | - | - | - | - | - | - | - | - | - | - |
+| s208 | - | - | - | - | - | - | - | - | - | - |
+| cmb | - | - | - | - | - | - | - | - | - | - |
+| x2 | - | - | - | - | - | - | - | - | - | - |
+| tcon | - | - | - | - | - | - | - | - | - | - |
+| dk17 | - | - | - | - | - | - | - | - | - | - |
+| mux | - | - | - | - | - | - | - | - | - | - |
+| beecount | - | - | - | - | - | - | - | - | - | - |
+| cm150a | - | - | - | - | - | - | - | - | - | - |
+| dk512 | - | - | - | - | - | - | - | - | - | - |
+| rd53 | - | - | - | - | - | - | - | - | - | - |
+| cm163a | - | - | - | - | - | - | - | - | - | - |
+| cm85a | - | - | - | - | - | - | - | - | - | - |
+| cm138a | - | - | - | - | - | - | - | - | - | - |
+| cm42a | - | - | - | - | - | - | - | - | - | - |
+| tav | - | - | - | - | - | - | - | - | - | - |
+| cm151a | - | - | - | - | - | - | - | - | - | - |
+| z4ml | - | - | - | - | - | - | - | - | - | - |
+| mc | - | - | - | - | - | - | - | - | - | - |
+| bbtas | - | - | - | - | - | - | - | - | - | - |
+| cm152a | - | - | - | - | - | - | - | - | - | - |
+| s27 | - | - | - | - | - | - | - | - | - | - |
+| con1 | - | - | - | - | - | - | - | - | - | - |
+| dk27 | - | - | - | - | - | - | - | - | - | - |
+| parity | - | - | - | - | - | - | - | - | - | - |
+| b1 | - | - | - | - | - | - | - | - | - | - |
+| cm82a | - | - | - | - | - | - | - | - | - | - |
+| daio | - | - | - | - | - | - | - | - | - | - |
+| lion | - | - | - | - | - | - | - | - | - | - |
+| majority | - | - | - | - | - | - | - | - | - | - |
+| C17 | - | - | - | - | - | - | - | - | - | - |
+| xor5 | - | - | - | - | - | - | - | - | - | - |
+| chain_cout_fanout | - | - | - | - | - | - | - | - | - | - |
+| shiftreg | - | - | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>LUT forms</summary>
+
+| design | gates/d | 4-LUT/d | 6-LUT/d |
+|---|---|---|---|
+| clma | - | 8380/16 | - |
+| s38584.1 | - | 6269/9 | - |
+| s38417 | - | 6096/11 | - |
+| ex1010 | - | 4598/8 | - |
+| pdc | - | 4575/9 | - |
+| spla | - | 3690/8 | - |
+| elliptic | - | 3602/18 | - |
+| frisc | - | 3539/23 | - |
+| ex1010 | - | 4598/8 | - |
+| s38584.1 | - | 6269/9 | - |
+| s38417 | - | 6096/11 | - |
+| pdc | - | 4575/9 | - |
+| s298 | - | 1930/15 | - |
+| apex2 | - | 1878/8 | - |
+| seq | - | 1750/7 | - |
+| bigkey | - | 1707/3 | - |
+| frisc | - | 3539/23 | - |
+| des | - | 1591/6 | - |
+| alu4 | - | 1522/7 | - |
+| diffeq | - | 1494/14 | - |
+| elliptic | - | 3602/18 | - |
+| spla | - | 3690/8 | - |
+| misex3 | - | 1397/7 | - |
+| dsip | - | 1370/3 | - |
+| apex4 | - | 1261/6 | - |
+| ex5p | - | 1064/7 | - |
+| tseng | - | 1046/13 | - |
+| i10 | - | 995/13 | - |
+| apex2 | - | 1878/8 | - |
+| des | - | 1591/6 | - |
+| apex3 | - | 869/6 | - |
+| apex4 | - | 1261/6 | - |
+| seq | - | 1750/7 | - |
+| alu4 | - | 1522/7 | - |
+| cps | - | 756/5 | - |
+| C7552 | - | 739/10 | - |
+| misex3 | - | 1397/7 | - |
+| apex1 | - | 699/7 | - |
+| dsip | - | 1370/3 | - |
+| s298 | - | 1930/15 | - |
+| parker1986 | - | 660/13 | - |
+| pair | - | 647/7 | - |
+| C5315 | - | 620/10 | - |
+| diffeq | - | 1494/14 | - |
+| bigkey | - | 1707/3 | - |
+| s5378 | - | 571/6 | - |
+| misex3c | - | 549/6 | - |
+| apex5 | - | 534/5 | - |
+| C6288 | - | 527/28 | - |
+| k2 | - | 518/7 | - |
+| dalu | - | 500/6 | - |
+| table5 | - | 485/6 | - |
+| i8 | - | 481/5 | - |
+| table3 | - | 480/6 | - |
+| ex5p | - | 1064/7 | - |
+| mm30a | - | 467/58 | - |
+| cordic | - | 466/9 | - |
+| s9234.1 | - | 459/8 | - |
+| clma | - | 8380/16 | - |
+| ex4p | - | 444/5 | - |
+| C3540 | - | 431/12 | - |
+| scf | - | 416/5 | - |
+| tseng | - | 1046/13 | - |
+| bbrtas | - | 406/18 | - |
+| apex6 | - | 393/6 | - |
+| sbc | - | 384/5 | - |
+| frg2 | - | 379/6 | - |
+| x3 | - | 377/5 | - |
+| i9 | - | 376/5 | - |
+| ecc | - | 330/5 | - |
+| daio-rec | - | 311/7 | - |
+| rot | - | 307/8 | - |
+| s1488 | - | 296/4 | - |
+| s1238 | - | 292/8 | - |
+| s1494 | - | 292/5 | - |
+| vda | - | 291/6 | - |
+| e64 | - | 274/4 | - |
+| planet | - | 266/4 | - |
+| planet1 | - | 266/4 | - |
+| s1196 | - | 264/7 | - |
+| C2670 | - | 258/7 | - |
+| duke2 | - | 251/5 | - |
+| sand | - | 243/5 | - |
+| styr | - | 238/5 | - |
+| s1423 | - | 221/15 | - |
+| ph-decod | - | 219/6 | - |
+| gcd | - | 218/11 | - |
+| s953 | - | 214/5 | - |
+| t481 | - | 214/7 | - |
+| mm9b | - | 204/20 | - |
+| i7 | - | 203/2 | - |
+| alu2 | - | 197/10 | - |
+| s1 | - | 195/10 | - |
+| x4 | - | 194/3 | - |
+| too-lrg | - | 187/7 | - |
+| i6 | - | 182/2 | - |
+| C880 | - | 174/9 | - |
+| s838 | - | 167/8 | - |
+| rd84 | - | 157/6 | - |
+| C1908 | - | 145/10 | - |
+| s832 | - | 145/5 | - |
+| 9sym | - | 144/6 | - |
+| x1 | - | 143/4 | - |
+| mm9a | - | 142/17 | - |
+| clip | - | 140/5 | - |
+| example2 | - | 138/4 | - |
+| bw | - | 132/4 | - |
+| C432 | - | 124/11 | - |
+| ex1 | - | 124/4 | - |
+| s820 | - | 120/5 | - |
+| mult32a | - | 116/24 | - |
+| dk16 | - | 105/4 | - |
+| keyb | - | 103/5 | - |
+| apex7 | - | 102/5 | - |
+| s510 | - | 101/5 | - |
+| i4 | - | 98/5 | - |
+| 9symml | - | 97/6 | - |
+| s838.1 | - | 95/9 | - |
+| cse | - | 90/4 | - |
+| sao2 | - | 90/5 | - |
+| i5 | - | 88/6 | - |
+| s713 | - | 88/8 | - |
+| term1 | - | 88/5 | - |
+| s641 | - | 87/9 | - |
+| pma | - | 85/4 | - |
+| tbk | - | 84/8 | - |
+| rd73 | - | 83/5 | - |
+| mm4a | - | 78/10 | - |
+| ttt2 | - | 75/4 | - |
+| C1355 | - | 74/4 | - |
+| C499 | - | 74/4 | - |
+| i2 | - | 74/5 | - |
+| s400 | - | 69/4 | - |
+| s344 | - | 67/4 | - |
+| s349 | - | 67/4 | - |
+| vg2 | - | 67/4 | - |
+| bbsse | - | 64/6 | - |
+| inc | - | 64/4 | - |
+| sse | - | 64/6 | - |
+| s444 | - | 62/4 | - |
+| ex6 | - | 60/7 | - |
+| s382 | - | 60/4 | - |
+| s526n | - | 60/4 | - |
+| 5xp1 | - | 57/4 | - |
+| mult16a | - | 57/12 | - |
+| b12 | - | 56/4 | - |
+| s386 | - | 56/3 | - |
+| cht | - | 55/2 | - |
+| f51m | - | 54/4 | - |
+| s526 | - | 52/4 | - |
+| opus | - | 50/5 | - |
+| frg1 | - | 49/6 | - |
+| misex2 | - | 49/3 | - |
+| unreg | - | 48/2 | - |
+| my-adder | - | 47/16 | - |
+| s420.1 | - | 47/5 | - |
+| b9 | - | 46/3 | - |
+| i3 | - | 46/3 | - |
+| o64 | - | 46/4 | - |
+| dk14 | - | 43/7 | - |
+| comp | - | 40/5 | - |
+| c8 | - | 39/4 | - |
+| count | - | 39/5 | - |
+| ldd | - | 37/5 | - |
+| ex4 | - | 35/4 | - |
+| pcler8 | - | 35/4 | - |
+| traffic | - | 35/3 | - |
+| lal | - | 34/3 | - |
+| mark1 | - | 34/3 | - |
+| squar5 | - | 34/3 | - |
+| bbara | - | 33/3 | - |
+| mult16b | - | 31/1 | - |
+| sqrt8ml | - | 31/6 | - |
+| sqrt8 | - | 29/4 | - |
+| cc | - | 26/3 | - |
+| dk15 | - | 24/3 | - |
+| s208.1 | - | 24/4 | - |
+| s420 | - | 23/3 | - |
+| sct | - | 23/3 | - |
+| cu | - | 22/3 | - |
+| i1 | - | 21/3 | - |
+| misex1 | - | 21/3 | - |
+| pcle | - | 21/3 | - |
+| decod | - | 20/2 | - |
+| pm1 | - | 19/3 | - |
+| cm162a | - | 18/3 | - |
+| s208 | - | 18/3 | - |
+| cmb | - | 17/3 | - |
+| x2 | - | 17/3 | - |
+| tcon | - | 16/1 | - |
+| dk17 | - | 15/2 | - |
+| mux | - | 15/4 | - |
+| beecount | - | 14/2 | - |
+| cm150a | - | 14/3 | - |
+| dk512 | - | 14/2 | - |
+| rd53 | - | 12/4 | - |
+| cm163a | - | 11/3 | - |
+| cm85a | - | 11/3 | - |
+| cm138a | - | 10/2 | - |
+| cm42a | - | 10/1 | - |
+| tav | - | 9/2 | - |
+| cm151a | - | 8/3 | - |
+| z4ml | - | 8/3 | - |
+| mc | - | 7/2 | - |
+| bbtas | - | 6/2 | - |
+| cm152a | - | 6/3 | - |
+| s27 | - | 6/2 | - |
+| con1 | - | 5/2 | - |
+| dk27 | - | 5/1 | - |
+| parity | - | 5/2 | - |
+| b1 | - | 4/1 | - |
+| cm82a | - | 4/2 | - |
+| daio | - | 3/1 | - |
+| lion | - | 3/1 | - |
+| majority | - | 3/2 | - |
+| C17 | - | 2/1 | - |
+| xor5 | - | 2/2 | - |
+| chain_cout_fanout | - | 1/1 | - |
+| shiftreg | - | 0/0 | - |
+
+</details>
+
+<details><summary>Properties</summary>
+
+| design | seq | mem | mul | add | fsm | latch | hier | bbox |
+|---|---|---|---|---|---|---|---|---|
+| clma | - | - | - | - | - | - | - | - |
+| s38584.1 | - | - | - | - | - | - | - | - |
+| s38417 | - | - | - | - | - | - | - | - |
+| ex1010 | - | - | - | - | - | - | - | - |
+| pdc | - | - | - | - | - | - | - | - |
+| spla | - | - | - | - | - | - | - | - |
+| elliptic | - | - | - | - | - | - | - | - |
+| frisc | - | - | - | - | - | - | - | - |
+| ex1010 | - | - | - | - | - | - | - | - |
+| s38584.1 | - | - | - | - | - | - | - | - |
+| s38417 | - | - | - | - | - | - | - | - |
+| pdc | - | - | - | - | - | - | - | - |
+| s298 | - | - | - | - | - | - | - | - |
+| apex2 | - | - | - | - | - | - | - | - |
+| seq | - | - | - | - | - | - | - | - |
+| bigkey | - | - | - | - | - | - | - | - |
+| frisc | - | - | - | - | - | - | - | - |
+| des | - | - | - | - | - | - | - | - |
+| alu4 | - | - | - | - | - | - | - | - |
+| diffeq | - | - | - | - | - | - | - | - |
+| elliptic | - | - | - | - | - | - | - | - |
+| spla | - | - | - | - | - | - | - | - |
+| misex3 | - | - | - | - | - | - | - | - |
+| dsip | - | - | - | - | - | - | - | - |
+| apex4 | - | - | - | - | - | - | - | - |
+| ex5p | - | - | - | - | - | - | - | - |
+| tseng | - | - | - | - | - | - | - | - |
+| i10 | - | - | - | - | - | - | - | - |
+| apex2 | - | - | - | - | - | - | - | - |
+| des | - | - | - | - | - | - | - | - |
+| apex3 | - | - | - | - | - | - | - | - |
+| apex4 | - | - | - | - | - | - | - | - |
+| seq | - | - | - | - | - | - | - | - |
+| alu4 | - | - | - | - | - | - | - | - |
+| cps | - | - | - | - | - | - | - | - |
+| C7552 | - | - | - | - | - | - | - | - |
+| misex3 | - | - | - | - | - | - | - | - |
+| apex1 | - | - | - | - | - | - | - | - |
+| dsip | - | - | - | - | - | - | - | - |
+| s298 | - | - | - | - | - | - | - | - |
+| parker1986 | - | - | - | - | - | - | - | - |
+| pair | - | - | - | - | - | - | - | - |
+| C5315 | - | - | - | - | - | - | - | - |
+| diffeq | - | - | - | - | - | - | - | - |
+| bigkey | - | - | - | - | - | - | - | - |
+| s5378 | - | - | - | - | - | - | - | - |
+| misex3c | - | - | - | - | - | - | - | - |
+| apex5 | - | - | - | - | - | - | - | - |
+| C6288 | - | - | - | - | - | - | - | - |
+| k2 | - | - | - | - | - | - | - | - |
+| dalu | - | - | - | - | - | - | - | - |
+| table5 | - | - | - | - | - | - | - | - |
+| i8 | - | - | - | - | - | - | - | - |
+| table3 | - | - | - | - | - | - | - | - |
+| ex5p | - | - | - | - | - | - | - | - |
+| mm30a | - | - | - | - | - | - | - | - |
+| cordic | - | - | - | - | - | - | - | - |
+| s9234.1 | - | - | - | - | - | - | - | - |
+| clma | - | - | - | - | - | - | - | - |
+| ex4p | - | - | - | - | - | - | - | - |
+| C3540 | - | - | - | - | - | - | - | - |
+| scf | - | - | - | - | - | - | - | - |
+| tseng | - | - | - | - | - | - | - | - |
+| bbrtas | - | - | - | - | - | - | - | - |
+| apex6 | - | - | - | - | - | - | - | - |
+| sbc | - | - | - | - | - | - | - | - |
+| frg2 | - | - | - | - | - | - | - | - |
+| x3 | - | - | - | - | - | - | - | - |
+| i9 | - | - | - | - | - | - | - | - |
+| ecc | - | - | - | - | - | - | - | - |
+| daio-rec | - | - | - | - | - | - | - | - |
+| rot | - | - | - | - | - | - | - | - |
+| s1488 | - | - | - | - | - | - | - | - |
+| s1238 | - | - | - | - | - | - | - | - |
+| s1494 | - | - | - | - | - | - | - | - |
+| vda | - | - | - | - | - | - | - | - |
+| e64 | - | - | - | - | - | - | - | - |
+| planet | - | - | - | - | - | - | - | - |
+| planet1 | - | - | - | - | - | - | - | - |
+| s1196 | - | - | - | - | - | - | - | - |
+| C2670 | - | - | - | - | - | - | - | - |
+| duke2 | - | - | - | - | - | - | - | - |
+| sand | - | - | - | - | - | - | - | - |
+| styr | - | - | - | - | - | - | - | - |
+| s1423 | - | - | - | - | - | - | - | - |
+| ph-decod | - | - | - | - | - | - | - | - |
+| gcd | - | - | - | - | - | - | - | - |
+| s953 | - | - | - | - | - | - | - | - |
+| t481 | - | - | - | - | - | - | - | - |
+| mm9b | - | - | - | - | - | - | - | - |
+| i7 | - | - | - | - | - | - | - | - |
+| alu2 | - | - | - | - | - | - | - | - |
+| s1 | - | - | - | - | - | - | - | - |
+| x4 | - | - | - | - | - | - | - | - |
+| too-lrg | - | - | - | - | - | - | - | - |
+| i6 | - | - | - | - | - | - | - | - |
+| C880 | - | - | - | - | - | - | - | - |
+| s838 | - | - | - | - | - | - | - | - |
+| rd84 | - | - | - | - | - | - | - | - |
+| C1908 | - | - | - | - | - | - | - | - |
+| s832 | - | - | - | - | - | - | - | - |
+| 9sym | - | - | - | - | - | - | - | - |
+| x1 | - | - | - | - | - | - | - | - |
+| mm9a | - | - | - | - | - | - | - | - |
+| clip | - | - | - | - | - | - | - | - |
+| example2 | - | - | - | - | - | - | - | - |
+| bw | - | - | - | - | - | - | - | - |
+| C432 | - | - | - | - | - | - | - | - |
+| ex1 | - | - | - | - | - | - | - | - |
+| s820 | - | - | - | - | - | - | - | - |
+| mult32a | - | - | - | - | - | - | - | - |
+| dk16 | - | - | - | - | - | - | - | - |
+| keyb | - | - | - | - | - | - | - | - |
+| apex7 | - | - | - | - | - | - | - | - |
+| s510 | - | - | - | - | - | - | - | - |
+| i4 | - | - | - | - | - | - | - | - |
+| 9symml | - | - | - | - | - | - | - | - |
+| s838.1 | - | - | - | - | - | - | - | - |
+| cse | - | - | - | - | - | - | - | - |
+| sao2 | - | - | - | - | - | - | - | - |
+| i5 | - | - | - | - | - | - | - | - |
+| s713 | - | - | - | - | - | - | - | - |
+| term1 | - | - | - | - | - | - | - | - |
+| s641 | - | - | - | - | - | - | - | - |
+| pma | - | - | - | - | - | - | - | - |
+| tbk | - | - | - | - | - | - | - | - |
+| rd73 | - | - | - | - | - | - | - | - |
+| mm4a | - | - | - | - | - | - | - | - |
+| ttt2 | - | - | - | - | - | - | - | - |
+| C1355 | - | - | - | - | - | - | - | - |
+| C499 | - | - | - | - | - | - | - | - |
+| i2 | - | - | - | - | - | - | - | - |
+| s400 | - | - | - | - | - | - | - | - |
+| s344 | - | - | - | - | - | - | - | - |
+| s349 | - | - | - | - | - | - | - | - |
+| vg2 | - | - | - | - | - | - | - | - |
+| bbsse | - | - | - | - | - | - | - | - |
+| inc | - | - | - | - | - | - | - | - |
+| sse | - | - | - | - | - | - | - | - |
+| s444 | - | - | - | - | - | - | - | - |
+| ex6 | - | - | - | - | - | - | - | - |
+| s382 | - | - | - | - | - | - | - | - |
+| s526n | - | - | - | - | - | - | - | - |
+| 5xp1 | - | - | - | - | - | - | - | - |
+| mult16a | - | - | - | - | - | - | - | - |
+| b12 | - | - | - | - | - | - | - | - |
+| s386 | - | - | - | - | - | - | - | - |
+| cht | - | - | - | - | - | - | - | - |
+| f51m | - | - | - | - | - | - | - | - |
+| s526 | - | - | - | - | - | - | - | - |
+| opus | - | - | - | - | - | - | - | - |
+| frg1 | - | - | - | - | - | - | - | - |
+| misex2 | - | - | - | - | - | - | - | - |
+| unreg | - | - | - | - | - | - | - | - |
+| my-adder | - | - | - | - | - | - | - | - |
+| s420.1 | - | - | - | - | - | - | - | - |
+| b9 | - | - | - | - | - | - | - | - |
+| i3 | - | - | - | - | - | - | - | - |
+| o64 | - | - | - | - | - | - | - | - |
+| dk14 | - | - | - | - | - | - | - | - |
+| comp | - | - | - | - | - | - | - | - |
+| c8 | - | - | - | - | - | - | - | - |
+| count | - | - | - | - | - | - | - | - |
+| ldd | - | - | - | - | - | - | - | - |
+| ex4 | - | - | - | - | - | - | - | - |
+| pcler8 | - | - | - | - | - | - | - | - |
+| traffic | - | - | - | - | - | - | - | - |
+| lal | - | - | - | - | - | - | - | - |
+| mark1 | - | - | - | - | - | - | - | - |
+| squar5 | - | - | - | - | - | - | - | - |
+| bbara | - | - | - | - | - | - | - | - |
+| mult16b | - | - | - | - | - | - | - | - |
+| sqrt8ml | - | - | - | - | - | - | - | - |
+| sqrt8 | - | - | - | - | - | - | - | - |
+| cc | - | - | - | - | - | - | - | - |
+| dk15 | - | - | - | - | - | - | - | - |
+| s208.1 | - | - | - | - | - | - | - | - |
+| s420 | - | - | - | - | - | - | - | - |
+| sct | - | - | - | - | - | - | - | - |
+| cu | - | - | - | - | - | - | - | - |
+| i1 | - | - | - | - | - | - | - | - |
+| misex1 | - | - | - | - | - | - | - | - |
+| pcle | - | - | - | - | - | - | - | - |
+| decod | - | - | - | - | - | - | - | - |
+| pm1 | - | - | - | - | - | - | - | - |
+| cm162a | - | - | - | - | - | - | - | - |
+| s208 | - | - | - | - | - | - | - | - |
+| cmb | - | - | - | - | - | - | - | - |
+| x2 | - | - | - | - | - | - | - | - |
+| tcon | - | - | - | - | - | - | - | - |
+| dk17 | - | - | - | - | - | - | - | - |
+| mux | - | - | - | - | - | - | - | - |
+| beecount | - | - | - | - | - | - | - | - |
+| cm150a | - | - | - | - | - | - | - | - |
+| dk512 | - | - | - | - | - | - | - | - |
+| rd53 | - | - | - | - | - | - | - | - |
+| cm163a | - | - | - | - | - | - | - | - |
+| cm85a | - | - | - | - | - | - | - | - |
+| cm138a | - | - | - | - | - | - | - | - |
+| cm42a | - | - | - | - | - | - | - | - |
+| tav | - | - | - | - | - | - | - | - |
+| cm151a | - | - | - | - | - | - | - | - |
+| z4ml | - | - | - | - | - | - | - | - |
+| mc | - | - | - | - | - | - | - | - |
+| bbtas | - | - | - | - | - | - | - | - |
+| cm152a | - | - | - | - | - | - | - | - |
+| s27 | - | - | - | - | - | - | - | - |
+| con1 | - | - | - | - | - | - | - | - |
+| dk27 | - | - | - | - | - | - | - | - |
+| parity | - | - | - | - | - | - | - | - |
+| b1 | - | - | - | - | - | - | - | - |
+| cm82a | - | - | - | - | - | - | - | - |
+| daio | - | - | - | - | - | - | - | - |
+| lion | - | - | - | - | - | - | - | - |
+| majority | - | - | - | - | - | - | - | - |
+| C17 | - | - | - | - | - | - | - | - |
+| xor5 | - | - | - | - | - | - | - | - |
+| chain_cout_fanout | - | - | - | - | - | - | - | - |
+| shiftreg | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>Silicon</summary>
+
+| design | cells | core um2 | LVS | Si stage |
+|---|---|---|---|---|
+| clma | - | - | - | - |
+| s38584.1 | - | - | - | - |
+| s38417 | - | - | - | - |
+| ex1010 | - | - | - | - |
+| pdc | - | - | - | - |
+| spla | - | - | - | - |
+| elliptic | - | - | - | - |
+| frisc | - | - | - | - |
+| ex1010 | - | - | - | - |
+| s38584.1 | - | - | - | - |
+| s38417 | - | - | - | - |
+| pdc | - | - | - | - |
+| s298 | - | - | - | - |
+| apex2 | - | - | - | - |
+| seq | - | - | - | - |
+| bigkey | - | - | - | - |
+| frisc | - | - | - | - |
+| des | - | - | - | - |
+| alu4 | - | - | - | - |
+| diffeq | - | - | - | - |
+| elliptic | - | - | - | - |
+| spla | - | - | - | - |
+| misex3 | - | - | - | - |
+| dsip | - | - | - | - |
+| apex4 | - | - | - | - |
+| ex5p | - | - | - | - |
+| tseng | - | - | - | - |
+| i10 | - | - | - | - |
+| apex2 | - | - | - | - |
+| des | - | - | - | - |
+| apex3 | - | - | - | - |
+| apex4 | - | - | - | - |
+| seq | - | - | - | - |
+| alu4 | - | - | - | - |
+| cps | - | - | - | - |
+| C7552 | - | - | - | - |
+| misex3 | - | - | - | - |
+| apex1 | - | - | - | - |
+| dsip | - | - | - | - |
+| s298 | - | - | - | - |
+| parker1986 | - | - | - | - |
+| pair | - | - | - | - |
+| C5315 | - | - | - | - |
+| diffeq | - | - | - | - |
+| bigkey | - | - | - | - |
+| s5378 | - | - | - | - |
+| misex3c | - | - | - | - |
+| apex5 | - | - | - | - |
+| C6288 | - | - | - | - |
+| k2 | - | - | - | - |
+| dalu | - | - | - | - |
+| table5 | - | - | - | - |
+| i8 | - | - | - | - |
+| table3 | - | - | - | - |
+| ex5p | - | - | - | - |
+| mm30a | - | - | - | - |
+| cordic | - | - | - | - |
+| s9234.1 | - | - | - | - |
+| clma | - | - | - | - |
+| ex4p | - | - | - | - |
+| C3540 | - | - | - | - |
+| scf | - | - | - | - |
+| tseng | - | - | - | - |
+| bbrtas | - | - | - | - |
+| apex6 | - | - | - | - |
+| sbc | - | - | - | - |
+| frg2 | - | - | - | - |
+| x3 | - | - | - | - |
+| i9 | - | - | - | - |
+| ecc | - | - | - | - |
+| daio-rec | - | - | - | - |
+| rot | - | - | - | - |
+| s1488 | - | - | - | - |
+| s1238 | - | - | - | - |
+| s1494 | - | - | - | - |
+| vda | - | - | - | - |
+| e64 | - | - | - | - |
+| planet | - | - | - | - |
+| planet1 | - | - | - | - |
+| s1196 | - | - | - | - |
+| C2670 | - | - | - | - |
+| duke2 | - | - | - | - |
+| sand | - | - | - | - |
+| styr | - | - | - | - |
+| s1423 | - | - | - | - |
+| ph-decod | - | - | - | - |
+| gcd | - | - | - | - |
+| s953 | - | - | - | - |
+| t481 | - | - | - | - |
+| mm9b | - | - | - | - |
+| i7 | - | - | - | - |
+| alu2 | - | - | - | - |
+| s1 | - | - | - | - |
+| x4 | - | - | - | - |
+| too-lrg | - | - | - | - |
+| i6 | - | - | - | - |
+| C880 | - | - | - | - |
+| s838 | - | - | - | - |
+| rd84 | - | - | - | - |
+| C1908 | - | - | - | - |
+| s832 | - | - | - | - |
+| 9sym | - | - | - | - |
+| x1 | - | - | - | - |
+| mm9a | - | - | - | - |
+| clip | - | - | - | - |
+| example2 | - | - | - | - |
+| bw | - | - | - | - |
+| C432 | - | - | - | - |
+| ex1 | - | - | - | - |
+| s820 | - | - | - | - |
+| mult32a | - | - | - | - |
+| dk16 | - | - | - | - |
+| keyb | - | - | - | - |
+| apex7 | - | - | - | - |
+| s510 | - | - | - | - |
+| i4 | - | - | - | - |
+| 9symml | - | - | - | - |
+| s838.1 | - | - | - | - |
+| cse | - | - | - | - |
+| sao2 | - | - | - | - |
+| i5 | - | - | - | - |
+| s713 | - | - | - | - |
+| term1 | - | - | - | - |
+| s641 | - | - | - | - |
+| pma | - | - | - | - |
+| tbk | - | - | - | - |
+| rd73 | - | - | - | - |
+| mm4a | - | - | - | - |
+| ttt2 | - | - | - | - |
+| C1355 | - | - | - | - |
+| C499 | - | - | - | - |
+| i2 | - | - | - | - |
+| s400 | - | - | - | - |
+| s344 | - | - | - | - |
+| s349 | - | - | - | - |
+| vg2 | - | - | - | - |
+| bbsse | - | - | - | - |
+| inc | - | - | - | - |
+| sse | - | - | - | - |
+| s444 | - | - | - | - |
+| ex6 | - | - | - | - |
+| s382 | - | - | - | - |
+| s526n | - | - | - | - |
+| 5xp1 | - | - | - | - |
+| mult16a | - | - | - | - |
+| b12 | - | - | - | - |
+| s386 | - | - | - | - |
+| cht | - | - | - | - |
+| f51m | - | - | - | - |
+| s526 | - | - | - | - |
+| opus | - | - | - | - |
+| frg1 | - | - | - | - |
+| misex2 | - | - | - | - |
+| unreg | - | - | - | - |
+| my-adder | - | - | - | - |
+| s420.1 | - | - | - | - |
+| b9 | - | - | - | - |
+| i3 | - | - | - | - |
+| o64 | - | - | - | - |
+| dk14 | - | - | - | - |
+| comp | - | - | - | - |
+| c8 | - | - | - | - |
+| count | - | - | - | - |
+| ldd | - | - | - | - |
+| ex4 | - | - | - | - |
+| pcler8 | - | - | - | - |
+| traffic | - | - | - | - |
+| lal | - | - | - | - |
+| mark1 | - | - | - | - |
+| squar5 | - | - | - | - |
+| bbara | - | - | - | - |
+| mult16b | - | - | - | - |
+| sqrt8ml | - | - | - | - |
+| sqrt8 | - | - | - | - |
+| cc | - | - | - | - |
+| dk15 | - | - | - | - |
+| s208.1 | - | - | - | - |
+| s420 | - | - | - | - |
+| sct | - | - | - | - |
+| cu | - | - | - | - |
+| i1 | - | - | - | - |
+| misex1 | - | - | - | - |
+| pcle | - | - | - | - |
+| decod | - | - | - | - |
+| pm1 | - | - | - | - |
+| cm162a | - | - | - | - |
+| s208 | - | - | - | - |
+| cmb | - | - | - | - |
+| x2 | - | - | - | - |
+| tcon | - | - | - | - |
+| dk17 | - | - | - | - |
+| mux | - | - | - | - |
+| beecount | - | - | - | - |
+| cm150a | - | - | - | - |
+| dk512 | - | - | - | - |
+| rd53 | - | - | - | - |
+| cm163a | - | - | - | - |
+| cm85a | - | - | - | - |
+| cm138a | - | - | - | - |
+| cm42a | - | - | - | - |
+| tav | - | - | - | - |
+| cm151a | - | - | - | - |
+| z4ml | - | - | - | - |
+| mc | - | - | - | - |
+| bbtas | - | - | - | - |
+| cm152a | - | - | - | - |
+| s27 | - | - | - | - |
+| con1 | - | - | - | - |
+| dk27 | - | - | - | - |
+| parity | - | - | - | - |
+| b1 | - | - | - | - |
+| cm82a | - | - | - | - |
+| daio | - | - | - | - |
+| lion | - | - | - | - |
+| majority | - | - | - | - |
+| C17 | - | - | - | - |
+| xor5 | - | - | - | - |
+| chain_cout_fanout | - | - | - | - |
+| shiftreg | - | - | - | - |
+
+</details>
 
 <a id="sources"></a>
 

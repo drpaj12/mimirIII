@@ -92,3 +92,16 @@ desc`.
 
 BRISC-V: the first Odin III run was stopped by my 1500 s wall limit with no values; its checks and counts
 are `-` until rerun with longer limits.
+
+## Layout
+
+- GitHub tables are narrow: per tier, an Overview table (design, what it does, suite, link, licence, LOC,
+  testbench, vectors) and, folded in `<details>`, Flow and VTR QoR, LUT forms, Properties and Silicon. Every
+  table has `design` first and the same rows in the same order. Long values are cut to 30 characters there;
+  the full text is in `catalogue.tsv` and in the HTML page.
+- `docs/benchmarks/catalogue.html`: one wide table, sticky header row and first column, a scrollbar above
+  the table that follows the one below, sortable columns, filter box. Inline CSS and JS only, no network.
+  GitHub Pages serves it at https://drpaj12.github.io/mimirIII/benchmarks/catalogue.html (Pages is on, main,
+  `/docs`; `docs/.nojekyll` keeps Jekyll from processing the markdown there).
+- link = the `link` measure if present, else the suite's upstream URL; licence = the `licence` measure, else
+  the licence name at the head of the suite's `licence` text in `suites.toml`.

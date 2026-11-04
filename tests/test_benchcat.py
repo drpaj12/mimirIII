@@ -84,7 +84,8 @@ class CatalogueTest(unittest.TestCase):
         first = (out.read_text(), (idx / "catalogue.tsv").read_text())
         benchcat.generate(idx, out, "legend")
         self.assertEqual(first, (out.read_text(), (idx / "catalogue.tsv").read_text()))
-        self.assertIn("| a | [s1](#sources) | - | verilog | a | 7 | ✓ |", first[0])
+        row = "| a | - | [s1](#sources) | [repo](https://example.org/s1) | MIT | 7 | - | - |"
+        self.assertIn(row, first[0])
         self.assertIn("| 12 |", first[0])
         self.assertNotIn("/home", first[0])
 
@@ -176,6 +177,31 @@ class TierTest(unittest.TestCase):
         self.assertEqual(got, ["m", "b", "z", "a", "n"])
         self.assertEqual([r.rank for r in benchcat.rank_rows(rows)], [1, 2, 3, 4, 5])
         self.assertEqual(got, [r.design for r in benchcat.rank_rows(list(reversed(rows)))])
+
+
+class SplitTest(unittest.TestCase):
+    def test_sub_tables_same_rows_and_order(self) -> None:
+        rows = benchcat.rank_rows([mk("z", "300", tb="t", l6_luts="10"), mk("a", "900", tb="t"),
+                                   mk("m", "300", tb="t", l6_luts="50")])
+        tables = benchcat.sub_tables(rows)
+        self.assertEqual(set(tables), set(benchcat.GROUPS))
+        want = [r.design for r in rows]
+        for name, lines in tables.items():
+            self.assertTrue(lines[0].startswith("| design |"), name)
+            self.assertEqual([ln.split(" | ")[0][2:] for ln in lines[2:]], want, name)
+            self.assertLessEqual(max(len(ln) for ln in lines), 400, name)
+
+    def test_licence_and_html(self) -> None:
+        self.assertEqual(benchcat.short_licence("MIT (Copyright (c) 2021 x)"), "MIT")
+        self.assertEqual(benchcat.short_licence("not read: the licence"), "not read")
+        from mimir import benchcathtml
+
+        rows = benchcat.rank_rows([mk("a<b", "50", tb="x.v", l6_luts="3")])
+        page = benchcathtml.render(rows)
+        self.assertIn("a&lt;b", page)
+        self.assertNotIn("http://", page.replace("https://", ""))
+        self.assertNotIn("<script src", page)
+        self.assertIn("position:sticky", page)
 
 
 class DescTest(unittest.TestCase):
