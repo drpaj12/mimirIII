@@ -6,7 +6,7 @@ value, the source says where it came from). Collectors: `mimir bench measure vtr
 runs are added by `mimir bench measure odin` (Phase 2, below). Empty cell `-` = not run, `n/a` = does not
 apply, `fail: <reason>` = the tool failed. No value is estimated.
 
-Rows: 428 = one per design of `designs.tsv`, except that `vtr-blif-k2` and `vtr-blif-k4` hold the same
+Rows: 429 = one per design of `designs.tsv`, except that `vtr-blif-k2` and `vtr-blif-k4` hold the same
 circuits and are one section, one row per circuit name present in either (rule: equal design name; 199
 names; format column says `blif (k2,k4)`). Values for a joined row are looked up in k4 first, then k2.
 
@@ -119,3 +119,16 @@ Every pass runs smaller designs first (source bytes, ascending) and suites from 
 (4349 lines) goes after the small suites. One Odin III run is limited to 900 s (and the heavy-run slice
 memory cap). A design that hits a limit is recorded as `fail: too big for now (timeout 900 s, last finished
 pass <name>)` and the pass goes on with the next design.
+
+## Provisional status and OpenCores update 1 (2026-11-05)
+
+- `prov` (column `status`): every OpenCores row says which binary produced its values. `provisional: rel-main2`
+  = the 2026-11-04 intake, not yet re-run with the 2026-11-05 Odin III main binary. Rows from the tri-state
+  branch run (i2cslave, sdr_ctrl) and the `--vendor-prims` run (sdram_16bit) say so. `note` = a short stop reason
+  or caveat. Both keys are in `measures.tsv`.
+- `mips_16_noxarm`: `mips_16` synthesis variant without the `ALU_NC` (`3'bxxx`) arm of `alu.v`
+  (`data/benchmarks/opencores-synth/mips_16/alu.v.patch`). The first arm is a wildcard, so the datapath folds to
+  71 LUTs (Odin III matches Yosys/Parmys); without it 640 LUTs / 247 FFs (controller report, provisional).
+- Silicon columns for OpenCores: `si_cells` = `inst_count_all` minus the inserted fill instances, `si_area` =
+  `core_um2`, from `chain.out` of the sifix3 ladder (des, mmuart, i2c, wb_lcd, verilog_cordic_core) and the first
+  ladder (simple_spi); sha3_low is `running`.

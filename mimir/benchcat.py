@@ -31,6 +31,7 @@ KEYS = (
     + ["vtr_luts", "vtr_blocks", "vtr_ffs", "vtr_pins", "vtr_mult", "vtr_mem", "vtr_cpd", "vtr_cw"]
     + ["g_gates", "g_depth", "l4_luts", "l4_depth", "l6_luts", "l6_depth"]
     + ["si_cells", "si_area", "si_lvs", "si_stage"]
+    + ["prov", "note"]
 )
 CHECK_KEYS = {f"chk_{c}" for c in CHECKS} | {"vec", "sim_iverilog", "sim_odin"}
 TSV_HEAD = (["tier", "rank", "section", "design", "format", "top", "loc", "members", "link",
@@ -209,11 +210,12 @@ LABELS = {
     "gates": "gates/d", "l4": "4-LUT/d", "l6": "6-LUT/d",
     **{c: h for c, h in zip(CHECKS, CHECK_HEAD, strict=True)},
     "cells": "cells", "area": "core um2", "lvs": "LVS", "sstage": "Si stage",
+    "prov": "status", "note": "note",
 }
 GROUPS = {
     "Overview": ["design", "desc", "suite", "link", "licence", "loc", "tb", "vec"],
     "Flow and VTR QoR": ["design", "iv", "osim", "stage", "luts", "blocks", "ffs", "pins", "hard",
-                         "cpd", "cw"],
+                         "cpd", "cw", "prov", "note"],
     "LUT forms": ["design", "gates", "l4", "l6"],
     "Properties": ["design", *CHECKS],
     "Silicon": ["design", "cells", "area", "lvs", "sstage"],
@@ -235,6 +237,7 @@ def fields(row: Row, html: bool = False) -> dict[str, str]:
         "cw": g["vtr_cw"], "gates": _pair(g["g_gates"], g["g_depth"]),
         "l4": _pair(g["l4_luts"], g["l4_depth"]), "l6": _pair(g["l6_luts"], g["l6_depth"]),
         "cells": g["si_cells"], "area": g["si_area"], "lvs": g["si_lvs"], "sstage": g["si_stage"],
+        "prov": g["prov"], "note": g["note"],
         **{c: g[f"chk_{c}"] for c in CHECKS},
     }
     return out
@@ -249,7 +252,7 @@ def _md(col: str, row: Row, v: str) -> str:
         return f"[{v}](#sources)"
     if col == "link":
         return f"[repo]({v})" if v.startswith("http") else v
-    if col not in ("design", "desc") and len(v) > MD_MAX:
+    if col not in ("design", "desc", "note") and len(v) > MD_MAX:
         return v[: MD_MAX - 3] + "..."
     return v
 

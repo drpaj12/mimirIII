@@ -177,7 +177,9 @@ LEGEND = (
     "measured), `-` not run, `n/a` does not apply, `fail: ...` the tool failed. Every value is in "
     "`data/benchmarks/measures.tsv` with its source; the rules are in "
     "`docs/benchmarks/catalogue-method.md`. The `vtr-blif-k2` and `vtr-blif-k4` suites hold the "
-    "same circuits: one row per circuit name present in either."
+    "same circuits: one row per circuit name present in either. `status` = `provisional` marks a row "
+    "whose values were not all re-measured with the 2026-11-05 Odin III main binary; the text after "
+    "it says what produced them."
 )
 
 
