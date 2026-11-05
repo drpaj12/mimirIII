@@ -7950,6 +7950,8 @@ opencores	a-z80	vec	0	not scanned
 opencores	a-z80	vtr_maxrss_kb	40000	/usr/bin/time over the run steps
 opencores	a-z80	vtr_msg	coremodules.vh:404:10: error: net 'db1[0]' is driven by inout port 'db' of instance 'alu_flags_' and by logic at coremodules.vh:325:10; internal tri-state nets are not supported (D3)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	a-z80	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	a-z80	note	needs a bus patch: db0/db1/db2 segments joined by data_switch (a bidirectional switch; tristate pass leaves them, lower refuses)	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	a-z80	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	amber	desc	Amber ARM-compatible core	https://opencores.org/projects/amber
 opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_core.v:24-28 of github.com/freecores/amber git 9b995cc298ec
 opencores	amber	oc_design_done	True	https://opencores.org/projects/amber (page data, read 2026-11-04)
@@ -7964,6 +7966,8 @@ opencores	amber	vec	0	not scanned
 opencores	amber	vtr_maxrss_kb	21516	/usr/bin/time over the run steps
 opencores	amber	vtr_msg	generic_sram_byte_en.v:70:13: error: non-constant index into 'mem' is not supported here	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	amber	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	amber	note	generic_sram_byte_en non-constant index fixed (#345); next stop not yet run	controller report 2026-11-05
+opencores	amber	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	attiny_atmega_xmega_core	desc	Attiny Atmega Xmega core	https://opencores.org/projects/attiny_atmega_xmega_core
 opencores	attiny_atmega_xmega_core	licence	custom BSD-style one-condition notice (OpenCores page says LGPL: mismatch, flagged)	rtl/mega_core_opt.v:5-17 of opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15
 opencores	attiny_atmega_xmega_core	oc_design_done	True	https://opencores.org/projects/attiny_atmega_xmega_core (page data, read 2026-11-04)
@@ -7985,6 +7989,7 @@ opencores	attiny_atmega_xmega_core	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_fra
 opencores	attiny_atmega_xmega_core	vtr_mult	1	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	attiny_atmega_xmega_core	vtr_pins	2	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	attiny_atmega_xmega_core	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	attiny_atmega_xmega_core	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	ca_prng	desc	Cellular Automata PRNG	https://opencores.org/projects/ca_prng
 opencores	ca_prng	licence	BSD-3-Clause style (InformAsic AB; OpenCores page: BSD)	COPYING.txt:1-5; src/rtl/ca_prng.v:16-19 of github.com/freecores/ca_prng git dd3bcbe138fc
 opencores	ca_prng	oc_design_done	True	https://opencores.org/projects/ca_prng (page data, read 2026-11-04)
@@ -8007,6 +8012,7 @@ opencores	ca_prng	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_
 opencores	ca_prng	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ca_prng	vtr_pins	77	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ca_prng	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ca_prng	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	dblclockfft	desc	Double Clocked FFT Core	https://opencores.org/projects/dblclockfft
 opencores	dblclockfft	licence	LGPL-3.0+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/fftmain.v:51-54 of opencores.org/ocsvn/dblclockfft/dblclockfft/trunk svn r43
 opencores	dblclockfft	oc_design_done	True	https://opencores.org/projects/dblclockfft (page data, read 2026-11-04)
@@ -8030,6 +8036,7 @@ opencores	dblclockfft	vtr_mult	0	odin3 map (read_verilog --auto-blackbox) + dire
 opencores	dblclockfft	vtr_note	Odin III reads the cmem_*.hex files beside the source, so the map used a run copy of the RTL with the hex files of data/benchmarks/opencores-tb/dblclockfft; VPR run directly on the mapped BLIF (seed 1, 582 s, 1.3 GB RSS)	run inspection: summary.txt
 opencores	dblclockfft	vtr_pins	76	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	dblclockfft	vtr_stage	timing	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	dblclockfft	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	des	desc	DES/Triple DES IP Cores	https://opencores.org/projects/des
 opencores	des	licence	none stated (OpenCores page has no licence; file header is a permissive no-name notice)	rtl/verilog/perf_opt/des.v:11-20 of github.com/freecores/des git 6f7865564a0c
 opencores	des	oc_design_done	False	https://opencores.org/projects/des (page data, read 2026-11-04)
@@ -8051,6 +8058,11 @@ opencores	des	vtr_maxrss_kb	154184	/usr/bin/time over the run steps
 opencores	des	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	des	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	des	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	des	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	des	si_area	516945.8	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	des	si_cells	26124	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	des	si_lvs	match	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	des	si_stage	lvs	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	ethmac	desc	Ethernet MAC 10/100	https://opencores.org/projects/ethmac
 opencores	ethmac	licence	LGPL-2.1+ per file header	rtl/verilog/eth_top.v:24-27 of github.com/freecores/ethmac git dd26899086ed
 opencores	ethmac	oc_design_done	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
@@ -8075,6 +8087,7 @@ opencores	ethmac	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_
 opencores	ethmac	vtr_note	iverilog testbench run capped at 1800 s (see sim_iverilog_msg); VTR flow ran to completion	run inspection: summary.txt
 opencores	ethmac	vtr_pins	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	ethmac	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	ethmac	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	i2c	desc	I2C core, Wishbone master	https://opencores.org/projects/i2c
 opencores	i2c	licence	none named (permissive no-restriction notice with disclaimer, Richard Herveille 2001)	rtl/verilog/i2c_master_top.v:17-20 of github.com/freecores/i2c git 3b067f00ccced
 opencores	i2c	oc_design_done	True	https://opencores.org/projects/i2c (page data, read 2026-11-04)
@@ -8097,6 +8110,11 @@ opencores	i2c	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem3
 opencores	i2c	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	i2c	vtr_pins	22	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	i2c	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2c	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	i2c	si_area	30669.4	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	i2c	si_cells	1397	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	i2c	si_lvs	match	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	i2c	si_stage	lvs	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	i2cslave	desc	I2C Slave	https://opencores.org/projects/i2cslave
 opencores	i2cslave	licence	LGPL-2.1+ per file header (OpenCores page says GPL: mismatch, flagged)	rtl/i2cSlave.v:27-30 of github.com/freecores/i2cslave git ffe84e97cf28
 opencores	i2cslave	oc_design_done	True	https://opencores.org/projects/i2cslave (page data, read 2026-11-04)
@@ -8111,8 +8129,12 @@ opencores	i2cslave	tb	i2cslave/bench/testHarness.v i2cslave/model/wb_master_mode
 opencores	i2cslave	tb_origin	upstream	testbench provenance
 opencores	i2cslave	vec	0	not scanned
 opencores	i2cslave	vtr_maxrss_kb	23596	/usr/bin/time over the run steps
-opencores	i2cslave	vtr_msg	i2cSlave.v:97:8: error: tri-state driver on 'sda' of an inout port of a module below the top is not supported (D3)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
-opencores	i2cslave	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	i2cslave	vtr_stage	timing	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	i2cslave	note	tri-state on sda now converted (tristate pass); iverilog testbench fails (timeout, no end summary)	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	i2cslave	prov	provisional: tristate pass run (feat/tristate-pass); sim_odin and iverilog from rel-main2	status label, 2026-11-05
+opencores	i2cslave	vtr_cpd	2.59	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	i2cslave	vtr_ffs	139	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	i2cslave	vtr_luts	199	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
 opencores	mips_16	desc	Educational 16-bit MIPS Processor	https://opencores.org/projects/mips_16
 opencores	mips_16	licence	none stated in the source or docs (OpenCores page says LGPL: mismatch, flagged)	rtl/*.v headers, doc/ read of github.com/freecores/mips_16 git 5dc3eec81faa
 opencores	mips_16	oc_design_done	True	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
@@ -8137,6 +8159,8 @@ opencores	mips_16	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain
 opencores	mips_16	vtr_note	synthesised from a mimir-patched variant with two patches: (1) instruction_mem.v: initial $readmemb(test2.prog, rom), because upstream leaves the ROM empty (loaded by the testbench) and synthesis then kept only the PC (8 LUTs, degenerate); (2) mips_16_core_top.v: observation outputs dbg_wb_en, dbg_wb_dest, dbg_wb_data (register-file write-back) and dbg_ex_pipeline (EX stage register incl. the ALU result), because with only pc as output the logic that cannot reach pc was pruned (first variant with patch 1 only: 68 LUTs, 33 FFs; with both patches: 71 LUTs, 36 FFs, still small; why the register file and pipeline are mostly removed was not investigated); mimir-written testbench still passes under iverilog with both patches (4 programs, 34 checks, 0 errors)	run inspection: data/benchmarks/opencores-synth/mips_16
 opencores	mips_16	vtr_pins	68	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mips_16	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mips_16	note	71 LUTs because the ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm	controller report 2026-11-05
+opencores	mips_16	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	mmuart	desc	Simple RS232 UART	https://opencores.org/projects/mmuart
 opencores	mmuart	licence	GPL-3.0 (OpenCores page: GPL)	rtl/uart.v:6-7 of github.com/freecores/mmuart git 20c32acaf590
 opencores	mmuart	oc_design_done	True	https://opencores.org/projects/mmuart (page data, read 2026-11-04)
@@ -8158,6 +8182,11 @@ opencores	mmuart	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_m
 opencores	mmuart	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mmuart	vtr_pins	83	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	mmuart	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	mmuart	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	mmuart	si_area	14589.0	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	mmuart	si_cells	681	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	mmuart	si_lvs	match	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	mmuart	si_stage	lvs	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	pipelined_fft_256	desc	256-point pipelined FFT/IFFT	https://opencores.org/projects/pipelined_fft_256
 opencores	pipelined_fft_256	licence	none named (Unicore Systems notice: may be used and distributed without restriction, with disclaimer)	SRC/fft256.v header of github.com/freecores/pipelined_fft_256 git cd8cafa8c3d8
 opencores	pipelined_fft_256	oc_design_done	False	https://opencores.org/projects/pipelined_fft_256 (page data, read 2026-11-04)
@@ -8173,6 +8202,7 @@ opencores	pipelined_fft_256	vec	0	not scanned
 opencores	pipelined_fft_256	vtr_maxrss_kb	21552	/usr/bin/time over the run steps
 opencores	pipelined_fft_256	vtr_msg	odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	pipelined_fft_256	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	pipelined_fft_256	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	reed_solomon_decoder	desc	Reed Solomon Decoder (204,188)	https://opencores.org/projects/reed_solomon_decoder
 opencores	reed_solomon_decoder	licence	GPL-3.0+ (OpenCores page: GPL)	rtl/RS_dec.v:1-4 of github.com/freecores/reed_solomon_decoder git 2d581673ad7d
 opencores	reed_solomon_decoder	oc_design_done	True	https://opencores.org/projects/reed_solomon_decoder (page data, read 2026-11-04)
@@ -8194,6 +8224,7 @@ opencores	reed_solomon_decoder	vtr_mem	120	odin3-flow (odin3 map + VPR, k6_frac_
 opencores	reed_solomon_decoder	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	reed_solomon_decoder	vtr_pins	21	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	reed_solomon_decoder	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	reed_solomon_decoder	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	sdr_ctrl	desc	SDRAM controller (32-bit configuration read)	https://opencores.org/projects/sdr_ctrl
 opencores	sdr_ctrl	licence	LGPL-2.1+ per file header	rtl/top/sdrc_top.v:44-46 of github.com/freecores/sdr_ctrl git 4f3f0b4e0000
 opencores	sdr_ctrl	oc_design_done	True	https://opencores.org/projects/sdr_ctrl (page data, read 2026-11-04)
@@ -8207,8 +8238,12 @@ opencores	sdr_ctrl	tb	sdr_ctrl/verif/tb/tb_top.sv sdr_ctrl/verif/model/mt48lc2m3
 opencores	sdr_ctrl	tb_origin	upstream	testbench provenance
 opencores	sdr_ctrl	vec	0	not scanned
 opencores	sdr_ctrl	vtr_maxrss_kb	21228	/usr/bin/time over the run steps
-opencores	sdr_ctrl	vtr_msg	sdrc_top.v:202:10: error: 'sdr_dq' has two drivers (also driven at sdrc_top.v:159:21)	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
-opencores	sdr_ctrl	vtr_stage	none	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	sdr_ctrl	vtr_stage	timing	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	sdr_ctrl	note	sdr_dq split to sdr_dq_i/_o/_oe by the tristate pass; sim_odin still the old fail	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	sdr_ctrl	prov	provisional: tristate pass run (feat/tristate-pass); sim_odin and iverilog from rel-main2	status label, 2026-11-05
+opencores	sdr_ctrl	vtr_cpd	5.55	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	sdr_ctrl	vtr_ffs	1130	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
+opencores	sdr_ctrl	vtr_luts	1757	odin3 docs/notes/tristate-opencores-results.md (feat/tristate-pass run, k6_frac 40nm, seed 1)
 opencores	sdram_16bit	desc	16-bit SDRAM Controller	https://opencores.org/projects/sdram_16bit
 opencores	sdram_16bit	licence	GPL-2.0+ (OpenCores page: GPL)	rtl/sdram.v:9,15-17 of opencores.org/ocsvn/sdram_16bit/sdram_16bit/trunk svn r2
 opencores	sdram_16bit	oc_design_done	True	https://opencores.org/projects/sdram_16bit (page data, read 2026-11-04)
@@ -8222,8 +8257,11 @@ opencores	sdram_16bit	tb	data/benchmarks/opencores-tb/sdram_16bit	docs/benchmark
 opencores	sdram_16bit	tb_origin	upstream-fixed	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	vec	0	not scanned
 opencores	sdram_16bit	vtr_maxrss_kb	45916	/usr/bin/time over the run steps
-opencores	sdram_16bit	vtr_msg	write_blif: --vtr: sdram: port 'sdram_data_io': inout port; VPR has no bidirectional pins	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
-opencores	sdram_16bit	vtr_stage	map	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	sdram_16bit	vtr_stage	map	controller report 2026-11-05: odin3 read_verilog --vendor-prims (#346) run of sdram_16bit
+opencores	sdram_16bit	note	with --vendor-prims (IOBUF/ODDR2 behavioural): 283 LUTs, 182 FFs, 25 adders; sdram_data_io split to _i/_o/_oe; cpd not run	controller report 2026-11-05: odin3 read_verilog --vendor-prims (#346) run of sdram_16bit
+opencores	sdram_16bit	prov	provisional: --vendor-prims run (#346); VPR not re-run, sim_odin from rel-main2	status label, 2026-11-05
+opencores	sdram_16bit	vtr_ffs	182	controller report 2026-11-05: odin3 read_verilog --vendor-prims (#346) run of sdram_16bit
+opencores	sdram_16bit	vtr_luts	283	controller report 2026-11-05: odin3 read_verilog --vendor-prims (#346) run of sdram_16bit
 opencores	sha3_high	desc	SHA-3 (Keccak) high-throughput core, two rounds per cycle	https://opencores.org/projects/sha3_high
 opencores	sha3_high	licence	Apache-2.0	LICENSE:1-3; high_throughput_core/rtl/keccak.v of github.com/freecores/sha3 git c25a5befc75e
 opencores	sha3_high	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
@@ -8246,6 +8284,7 @@ opencores	sha3_high	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chai
 opencores	sha3_high	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sha3_high	vtr_pins	585	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sha3_high	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_high	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	sha3_low	desc	SHA-3 (Keccak) low-throughput core	https://opencores.org/projects/sha3_low
 opencores	sha3_low	licence	Apache-2.0	LICENSE:1-3; low_throughput_core/rtl/keccak.v:4-6 of github.com/freecores/sha3 git c25a5befc75e
 opencores	sha3_low	oc_design_done	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
@@ -8268,6 +8307,11 @@ opencores	sha3_low	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain
 opencores	sha3_low	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sha3_low	vtr_pins	552	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	sha3_low	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	sha3_low	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	sha3_low	si_area	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
+opencores	sha3_low	si_cells	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
+opencores	sha3_low	si_lvs	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
+opencores	sha3_low	si_stage	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
 opencores	simple_spi	desc	SPI core	https://opencores.org/projects/simple_spi
 opencores	simple_spi	licence	none stated (OpenCores page has no licence; file header is a permissive no-name copyright notice)	rtl/verilog/simple_spi_top.v:11-20 of github.com/freecores/simple_spi git 61c39a5f79fd
 opencores	simple_spi	oc_design_done	True	https://opencores.org/projects/simple_spi (page data, read 2026-11-04)
@@ -8290,6 +8334,11 @@ opencores	simple_spi	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_cha
 opencores	simple_spi	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	simple_spi	vtr_pins	27	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	simple_spi	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	simple_spi	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	simple_spi	si_area	20364.5	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
+opencores	simple_spi	si_cells	974	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
+opencores	simple_spi	si_lvs	match	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
+opencores	simple_spi	si_stage	lvs	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
 opencores	spi	desc	SPI core, Wishbone master	https://opencores.org/projects/spi
 opencores	spi	licence	LGPL-2.1+ per file header	rtl/verilog/spi_top.v:24-26 of github.com/freecores/spi git 1b8aa4c54bd7
 opencores	spi	oc_design_done	False	https://opencores.org/projects/spi (page data, read 2026-11-04)
@@ -8312,6 +8361,7 @@ opencores	spi	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem3
 opencores	spi	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	spi	vtr_pins	71	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	spi	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	spi	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	tiny_aes	desc	AES	https://opencores.org/projects/tiny_aes
 opencores	tiny_aes	licence	Apache-2.0 (OpenCores page: Others)	LICENSE:1-3; rtl/aes_128.v:4-6 of github.com/freecores/tiny_aes git faf2afb2bcb6
 opencores	tiny_aes	oc_design_done	True	https://opencores.org/projects/tiny_aes (page data, read 2026-11-04)
@@ -8328,6 +8378,7 @@ opencores	tiny_aes	vec	0	not scanned
 opencores	tiny_aes	vtr_maxrss_kb	917460	/usr/bin/time over the run steps
 opencores	tiny_aes	vtr_msg	abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical memory and the cgroup's memory.max)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	tiny_aes	vtr_stage	elab	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	tiny_aes	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	usbhostslave	desc	USB 1.1 Host and Function IP core	https://opencores.org/projects/usbhostslave
 opencores	usbhostslave	licence	LGPL-2.1+ (OpenCores page: LGPL)	RTL/wrapper/usbHostSlave.v:26-30 of github.com/freecores/usbhostslave git 3508a22f1c3d
 opencores	usbhostslave	oc_design_done	True	https://opencores.org/projects/usbhostslave (page data, read 2026-11-04)
@@ -8350,6 +8401,7 @@ opencores	usbhostslave	vtr_mem	0	odin3 map (read_verilog --auto-blackbox) + dire
 opencores	usbhostslave	vtr_mult	0	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	usbhostslave	vtr_pins	51	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
 opencores	usbhostslave	vtr_stage	timing	odin3 map (read_verilog --auto-blackbox) + direct vpr, seed 1
+opencores	usbhostslave	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	verilog_cordic_core	desc	configurable CORDIC core in Verilog (first quadrant)	https://opencores.org/projects/verilog_cordic_core
 opencores	verilog_cordic_core	licence	none stated (no licence text in cordic.v or the project; OpenCores page has none)	cordic.v:1-12 of github.com/freecores/verilog_cordic_core git c1e99960d63a
 opencores	verilog_cordic_core	oc_design_done	True	https://opencores.org/projects/verilog_cordic_core (page data, read 2026-11-04)
@@ -8374,6 +8426,11 @@ opencores	verilog_cordic_core	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N1
 opencores	verilog_cordic_core	vtr_note	synthesised from a mimir-patched variant: the upstream signed_shifter loop (cordic.v:178) has a non-constant bound that Odin III, Yosys and Parmys reject; the patch uses a constant bound with an if (j < i) guard (same behaviour; mimir-written testbench still passes under iverilog with the patched DUT: 200 checks, 0 errors, largest error 9 LSB). Unpatched upstream: vtr_stage none	run inspection: data/benchmarks/opencores-synth/verilog_cordic_core
 opencores	verilog_cordic_core	vtr_pins	104	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	verilog_cordic_core	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	verilog_cordic_core	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	verilog_cordic_core	si_area	188396.9	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	verilog_cordic_core	si_cells	10158	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	verilog_cordic_core	si_lvs	match	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
+opencores	verilog_cordic_core	si_stage	lvs	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	vga_lcd	desc	VGA/LCD Controller	https://opencores.org/projects/vga_lcd
 opencores	vga_lcd	licence	none named (OpenCores page: GPL; file header is a permissive no-name notice): flagged	rtl/verilog/vga_enh_top.v:14-20 of github.com/freecores/vga_lcd git 6baa0f08e50e
 opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
@@ -8396,6 +8453,7 @@ opencores	vga_lcd	vtr_mem	32	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain
 opencores	vga_lcd	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	vga_lcd	vtr_pins	4	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	vga_lcd	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	vga_lcd	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
 opencores	wb_lcd	desc	WB LCD Character Display Controller	https://opencores.org/projects/wb_lcd
 opencores	wb_lcd	licence	LGPL-3.0+ per file header (OpenCores page: LGPL)	verilog/wb_lcd/rtl/wb_lcd.v:27-30 of github.com/freecores/wb_lcd git 671c784ed1a2
 opencores	wb_lcd	oc_design_done	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
@@ -8417,3 +8475,21 @@ opencores	wb_lcd	vtr_mem	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_m
 opencores	wb_lcd	vtr_mult	0	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	wb_lcd	vtr_pins	66	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	wb_lcd	vtr_stage	timing	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	wb_lcd	prov	provisional: rel-main2 (4c91edff), not re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	wb_lcd	si_area	98994.9	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
+opencores	wb_lcd	si_cells	4428	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
+opencores	wb_lcd	si_lvs	match	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
+opencores	wb_lcd	si_stage	lvs	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
+opencores	mips_16_noxarm	desc	Educational 16-bit MIPS Processor (variant without the ALU_NC x arm)	controller report 2026-11-05 (mips_16 synthesis variant without the ALU_NC arm of alu.v (data/benchmarks/opencores-synth/mips_16/alu.v.patch))
+opencores	mips_16_noxarm	licence	none stated in the source or docs (OpenCores page says LGPL: mismatch, flagged)	rtl/*.v headers, doc/ read of github.com/freecores/mips_16 git 5dc3eec81faa
+opencores	mips_16_noxarm	note	variant of mips_16 without the ALU_NC 3'bxxx arm; the datapath no longer folds	mips_16 synthesis variant without the ALU_NC arm of alu.v (data/benchmarks/opencores-synth/mips_16/alu.v.patch)
+opencores	mips_16_noxarm	oc_design_done	True	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16_noxarm	oc_fpga_proven	False	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16_noxarm	oc_stage	stable	https://opencores.org/projects/mips_16 (page data, read 2026-11-04)
+opencores	mips_16_noxarm	prov	provisional: LUTs/FFs reported by the controller, to be re-run with the 2026-11-05 binary	status label, 2026-11-05
+opencores	mips_16_noxarm	src_rev	github.com/freecores/mips_16 git 5dc3eec81faa	https://opencores.org/projects/mips_16; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
+opencores	mips_16_noxarm	tb	data/benchmarks/opencores-tb/mips_16	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16_noxarm	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
+opencores	mips_16_noxarm	vec	0	not scanned
+opencores	mips_16_noxarm	vtr_ffs	247	controller report 2026-11-05 (mips_16 synthesis variant without the ALU_NC arm of alu.v (data/benchmarks/opencores-synth/mips_16/alu.v.patch))
+opencores	mips_16_noxarm	vtr_luts	640	controller report 2026-11-05 (mips_16 synthesis variant without the ALU_NC arm of alu.v (data/benchmarks/opencores-synth/mips_16/alu.v.patch))

@@ -51,6 +51,7 @@ opencores	ethmac	-	ethmac	verilog-project	eth_top	393294	12270	af1d499299918e4af
 opencores	i2c	-	i2c	verilog-project	i2c_master_top	51342	1556	f7313b2a91665bba15dfe7524fffd511bdc707ab857b071cff36922b13972837	-
 opencores	i2cslave	-	i2cslave	verilog-project	i2cSlaveTop	24943	769	2f4e1ac554fba3f945db2e2b61798affce3266c10d7de3ca130b4702504557f2	-
 opencores	mips_16	-	mips_16	verilog-project	mips_16_core_top	26616	945	30037a4ee3d398e0ef6318067494bbb7bc5eb64366cbe7c1e423c8f79f3d53ac	-
+opencores	mips_16_noxarm	-	mips_16	verilog-project	mips_16_core_top	26616	945	30037a4ee3d398e0ef6318067494bbb7bc5eb64366cbe7c1e423c8f79f3d53ac	-
 opencores	mmuart	-	mmuart	verilog-project	uart	5859	253	cb7ea190860f964de62028937ba601b7c5f547ddf27ac9754e4cd3314b0479b5	-
 opencores	pipelined_fft_256	-	pipelined_fft_256	verilog-project	FFT256	102202	2055	edf93b86a50c90cbe891e8e3294977d8a6d60e2d16699179318ac0f8b828dff7	-
 opencores	reed_solomon_decoder	-	reed_solomon_decoder	verilog-project	RS_dec	103066	4366	2a1e1691c553b2cb2fff65bac6448d16dc9e8b71f8fe510ce9d4ac830ab6f8c3	-
