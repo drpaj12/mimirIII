@@ -330,10 +330,36 @@ def _tier_blocks(rows: list[Row], fold: bool) -> list[str]:
     return out
 
 
+PICK = ["design", "tier", "luts", "ffs", "tb", "iv", "osim", "stage", "cpd", "sstage", "area",
+        "mem", "mul", "fsm", "prov", "note"]
+
+
+def _pick_table(rows: list[Row]) -> list[str]:
+    """OpenCores designs to choose from: tier, size, simulation, VTR and silicon stage, flags."""
+    oc = [r for r in rows if r.section == "opencores"]
+    if not oc:
+        return []
+    head = ["design", "tier", "LUTs", "FFs", "tb", "iverilog", "Odin sim", "VTR stage", "cpd ns",
+            "Si stage", "core um2", "mem", "mult", "fsm", "status", "note"]
+    out = ["", "## OpenCores: designs to pick from", "",
+           "Sorted by tier, then size (LUTs, else lines). LUTs = `.names` with two or more inputs "
+           "of the mapped BLIF (one basis for every row). Full columns are in the tiers below.", "",
+           "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
+    for r in oc:
+        f = fields(r)
+        f["tier"] = f"T{r.tier}"
+        f["mult"] = f["mul"] = r.vals.get("vtr_mult", f["mul"])
+        f["mem"] = r.vals.get("vtr_mem", f["mem"])
+        out.append("| " + " | ".join(_md(c, r, f[c]) if c != "note" else f[c].replace("|", "/")
+                                      for c in PICK) + " |")
+    return out
+
+
 def render_md(suites: dict[str, bench.Suite], rows: list[Row], legend: str) -> str:
     out = ["# Mimir benchmark catalogue", "", legend, "",
            f"One sortable, filterable table with a top scrollbar: [catalogue.html]({HTML_URL}) "
            "(file `docs/benchmarks/catalogue.html`).", ""] + _summary(rows)
+    out += _pick_table(rows)
     out += _tier_blocks(rows, False) + [""] + _sources(suites, rows)
     return "\n".join(out) + "\n"
 

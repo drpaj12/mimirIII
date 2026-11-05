@@ -94,7 +94,7 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 | tier | rule | designs |
 |---|---|---|
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
-| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 23 |
+| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 24 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
 | T3 HDL, no testbench | HDL (Verilog) with no testbench file | 55 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
@@ -104,13 +104,13 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 | brisc-v | 1 |
 | itc99 | 21 |
 | mcnc20 | 20 |
-| opencores | 25 |
+| opencores | 26 |
 | verilogeval | 156 |
 | vtr-blif | 199 |
 | vtr-verilog | 31 |
-| total | 453 |
+| total | 454 |
 
-<details><summary>T1 HDL + testbench, larger (23 designs)</summary>
+<details><summary>T1 HDL + testbench, larger (24 designs)</summary>
 
 Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
@@ -127,6 +127,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3929 | ✓ | ✗ |
 | verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 379 | ✓ | ✗ |
 | wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 695 | ✓ | ✗ |
+| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2583 | ✓ | ✗ |
 | mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 945 | ✓ | ✗ |
 | spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 633 | ✓ | ✗ |
 | i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1556 | ✓ | ✗ |
@@ -144,29 +145,30 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | status | note |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | provisional: rel-main2 (4c9... | - |
-| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | provisional: rel-main2 (4c9... | - |
-| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | provisional: rel-main2 (4c9... | - |
-| usbhostslave | pass | fail | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | provisional: rel-main2 (4c9... | - |
-| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | provisional: rel-main2 (4c9... | - |
-| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | provisional: rel-main2 (4c9... | - |
-| reed_solomon_decoder | pass | pass | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | provisional: rel-main2 (4c9... | - |
-| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | provisional: rel-main2 (4c9... | - |
-| sdr_ctrl | pass | fail | timing | 1757 | - | 1130 | - | - | 5.55 | - | provisional: tristate pass ... | sdr_dq split to sdr_dq_i/_o/_oe by the tristate pass; sim_odin still the old fail |
-| verilog_cordic_core | pass | refused | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | provisional: rel-main2 (4c9... | - |
-| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | provisional: rel-main2 (4c9... | - |
-| mips_16_noxarm | - | - | - | 640 | - | 247 | - | - | - | - | provisional: LUTs/FFs repor... | variant of mips_16 without the ALU_NC 3'bxxx arm; the datapath no longer folds |
-| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | provisional: rel-main2 (4c9... | - |
-| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | provisional: rel-main2 (4c9... | - |
-| sdram_16bit | pass | refused | map | 283 | - | 182 | - | - | - | - | provisional: --vendor-prims... | with --vendor-prims (IOBUF/ODDR2 behavioural): 283 LUTs, 182 FFs, 25 adders; sdram_data_io split to _i/_o/_oe; cpd not run |
-| i2cslave | fail | refused | timing | 199 | - | 139 | - | - | 2.59 | - | provisional: tristate pass ... | tri-state on sda now converted (tristate pass); iverilog testbench fails (timeout, no end summary) |
-| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | provisional: rel-main2 (4c9... | - |
-| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | provisional: rel-main2 (4c9... | - |
-| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | provisional: rel-main2 (4c9... | - |
-| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | provisional: rel-main2 (4c9... | 71 LUTs because the ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
+| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | sim re-run 2026-11-05; VTR ... | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | sim re-run 2026-11-05; VTR ... | sim_odin: test_bench_top.v:558: unsupported: real number |
+| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_ethernet.v:1071: unsupported: x/z literal (the simulator is 2-state) |
+| usbhostslave | pass | refused | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | sim re-run 2026-11-05; VTR ... | sim_odin: sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state) |
+| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR ... | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR ... | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| reed_solomon_decoder | pass | fail | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR ... | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR ... | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
+| sdr_ctrl | pass | refused | timing | 1710 | 170 | 1130 | 8 | 0/0 | 5.57435 | 50 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
+| verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR ... | - |
+| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | sim re-run 2026-11-05; VTR ... | - |
+| uart2spi | - | refused | timing | 685 | 67 | 422 | 22 | 0/0 | 3.30854 | 36 | re-run 2026-11-05 (VTR, sim) | upstream bench (upstream-fixed) with flash model; sim_odin: tb_top.v:51: unsupported: real number |
+| mips_16_noxarm | - | - | timing | 639 | 54 | 247 | 68 | 0/0 | 5.72277 | 42 | re-run 2026-11-05 (VTR) | mips_16 variant without the ALU_NC x arm; datapath no longer folds; no testbench run on the variant |
+| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state) |
+| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | sim re-run 2026-11-05; VTR ... | sim_odin: tst_bench_top.v:194: unsupported: x/z literal (the simulator is 2-state) |
+| sdram_16bit | pass | fail | timing | 281 | 24 | 182 | 130 | 0/0 | 4.01425 | 44 | re-run 2026-11-05 (VTR, sim) | --vendor-prims: IOBUF/ODDR2 built as soft logic, data_io split to _i/_o/_oe; VPR done. sim_odin: simulation.svh:19:37: error: syntax: '`__FILE__' is a SystemVerilog macro operator; not Verilog-2005 (Phase 5) |
+| i2cslave | fail | refused | timing | 198 | 18 | 139 | 11 | 0/0 | 2.21504 | 32 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sda; iverilog testbench fails (timeout); sim_odin: testHarness.v:89: unsupported: x/z literal (the simulator is 2-state) |
+| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | sim re-run 2026-11-05; VTR ... | sim_odin: tst_bench_top.v:305: unsupported: x/z literal (the simulator is 2-state) |
+| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_ca_prng.v:147: unsupported: task |
+| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | sim re-run 2026-11-05; VTR ... | - |
+| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | sim re-run 2026-11-05; VTR ... | 71 LUTs: ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
 | quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - | - | - |
-| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | provisional: rel-main2 (4c9... | - |
-| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - | provisional: rel-main2 (4c9... | - |
+| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR ... | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
+| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR ... | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
 
 </details>
 
@@ -185,6 +187,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sdr_ctrl | - | - | - |
 | verilog_cordic_core | - | - | - |
 | wb_lcd | - | - | - |
+| uart2spi | - | - | - |
 | mips_16_noxarm | - | - | - |
 | spi | - | - | - |
 | i2c | - | - | - |
@@ -215,6 +218,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sdr_ctrl | - | - | - | - | - | - | - | - |
 | verilog_cordic_core | - | - | - | - | - | - | - | - |
 | wb_lcd | - | - | - | - | - | - | - | - |
+| uart2spi | - | - | - | - | - | - | - | - |
 | mips_16_noxarm | - | - | - | - | - | - | - | - |
 | spi | - | - | - | - | - | - | - | - |
 | i2c | - | - | - | - | - | - | - | - |
@@ -245,6 +249,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sdr_ctrl | - | - | - | - |
 | verilog_cordic_core | 10158 | 188396.9 | match | lvs |
 | wb_lcd | 4428 | 98994.9 | match | lvs |
+| uart2spi | - | - | - | - |
 | mips_16_noxarm | - | - | - | - |
 | spi | - | - | - | - |
 | i2c | 1397 | 30669.4 | match | lvs |
@@ -1148,40 +1153,40 @@ Rule: HDL (Verilog) with no testbench file.
 | LU64PEEng | - | - | route | 131211 | 15299 | 37270 | 216 | 64/10372 | 71.2027 | 118 | - | - |
 | mcml | - | - | route | 75336 | 7421 | 51494 | 392 | 27/348 | 46.605 | 124 | - | - |
 | LU32PEEng | - | - | route | 66933 | 7915 | 19668 | 216 | 32/5251 | 70.3903 | 100 | - | - |
-| stereovision2 | - | - | - | 8426 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 | - | - |
+| stereovision2 | - | - | - | 7914 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 | - | - |
 | bgm | - | - | route | 25388 | 3074 | 5105 | 290 | 11/0 | 23.8936 | 90 | - | - |
 | LU8PEEng | - | - | route | 19051 | 2400 | 6224 | 216 | 8/1409 | 76.1243 | 84 | - | - |
-| stereovision1 | - | - | - | 6462 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 | - | - |
-| stereovision0 | - | - | - | 6887 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 | - | - |
+| stereovision1 | - | - | - | 6305 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 | - | - |
+| stereovision0 | - | - | - | 6801 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 | - | - |
 | raygentop_nolatches | - | - | route | 1693 | 758 | 1398 | 560 | 18/21 | 4.86647 | 58 | - | - |
 | arm_core | - | - | route | 10707 | 1310 | 3943 | 313 | 0/1192 | 24.503 | 98 | - | - |
-| or1200 | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 | - | - |
-| raygentop | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 | - | - |
+| or1200 | - | - | - | 2204 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 | - | - |
+| raygentop | - | - | - | 1069 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 | - | - |
 | b22 | - | - | - | - | - | - | - | - | - | - | - | - |
-| blob_merge | - | - | - | 6015 | 486 | 575 | 232 | 0/0 | 14.668 | 62 | - | - |
+| blob_merge | - | - | - | 3140 | 486 | 575 | 232 | 0/0 | 14.668 | 62 | - | - |
 | b17 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b20 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b21 | - | - | - | - | - | - | - | - | - | - | - | - |
-| diffeq1 | - | - | - | 294 | 31 | 193 | 258 | 5/0 | 17.2038 | 58 | - | - |
+| diffeq1 | - | - | - | 230 | 31 | 193 | 258 | 5/0 | 17.2038 | 58 | - | - |
 | b18 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b19 | - | - | - | - | - | - | - | - | - | - | - | - |
-| boundtop | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 | - | - |
+| boundtop | - | - | - | 538 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 | - | - |
 | boundtop_nolatches | - | - | route | 378 | 378 | 209 | 468 | 0/32 | 2.3407 | 40 | - | - |
 | b15 | - | - | - | - | - | - | - | - | - | - | - | - |
 | spree | - | - | route | 669 | 144 | 200 | 164 | 1/128 | 12.1663 | 58 | - | - |
-| attiny_atmega_xmega_core | none | none | timing | 1973 | 186 | 373 | 2 | 1/0 | 14.924 | 66 | provisional: rel-main2 (4c9... | - |
-| mkDelayWorker32B | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 | - | - |
-| sha | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 | - | - |
-| mkSMAdapter4B | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 | - | - |
+| attiny_atmega_xmega_core | none | none | timing | 1973 | 186 | 373 | 2 | 1/0 | 14.924 | 66 | provisional (rel-main2) | - |
+| mkDelayWorker32B | - | - | - | 436 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 | - | - |
+| sha | - | - | - | 1289 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 | - | - |
+| mkSMAdapter4B | - | - | - | 1045 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 | - | - |
 | b14 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b12 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b11 | - | - | - | - | - | - | - | - | - | - | - | - |
-| mkPktMerge | - | - | - | 329 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 | - | - |
+| mkPktMerge | - | - | - | 176 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 | - | - |
 | ch_intrinsics_nolatches | - | - | route | 128 | 245 | 82 | 229 | 0/8 | 2.09608 | 38 | - | - |
 | b05 | - | - | - | - | - | - | - | - | - | - | - | - |
-| stereovision3 | - | - | - | 171 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 | - | - |
-| ch_intrinsics | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 | - | - |
-| diffeq2 | - | - | - | 198 | 22 | 96 | 162 | 5/0 | 13.5453 | 44 | - | - |
+| stereovision3 | - | - | - | 169 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 | - | - |
+| ch_intrinsics | - | - | - | 95 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 | - | - |
+| diffeq2 | - | - | - | 134 | 22 | 96 | 162 | 5/0 | 13.5453 | 44 | - | - |
 | b04 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b07 | - | - | - | - | - | - | - | - | - | - | - | - |
 | b13 | - | - | - | - | - | - | - | - | - | - | - | - |
@@ -1198,8 +1203,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | route | 1 | 5 | 1 | 4 | 0/0 | 1.52719 | 20 | - | - |
 | single_ff | - | - | route | 0 | 4 | 1 | 3 | 0/0 | 1.45102 | 26 | - | - |
 | single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 | - | - |
-| a-z80 | none | none | none | - | - | - | - | - | - | - | provisional: rel-main2 (4c9... | needs a bus patch: db0/db1/db2 segments joined by data_switch (a bidirectional switch; tristate pass leaves them, lower refuses) |
-| amber | none | none | none | - | - | - | - | - | - | - | provisional: rel-main2 (4c9... | generic_sram_byte_en non-constant index fixed (#345); next stop not yet run |
+| a-z80 | none | none | none | - | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them) |
+| amber | none | none | map | - | - | - | - | - | - | - | re-run 2026-11-05 (VTR) | generic_sram_byte_en fixed (#345); next stop: lower: module 'a23_core': '$mem' '$c2032' would create 28238599 nodes (cap 16777216) |
 
 </details>
 
@@ -1623,17 +1628,17 @@ Rule: BLIF netlist, no HDL.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | ex1010 | - | - | - | 2777 | 314 | 0 | 20 | 0/0 | 9.8022 | 84 | - | - |
 | ex1010 | - | - | - | - | - | - | - | - | - | - | - | - |
-| s38584.1 | - | - | - | 2190 | 182 | 1141 | 343 | 0/0 | 4.65105 | 48 | - | - |
+| s38584.1 | - | - | - | 2037 | 182 | 1141 | 343 | 0/0 | 4.65105 | 48 | - | - |
 | s38584.1 | - | - | - | - | - | - | - | - | - | - | - | - |
-| s38417 | - | - | - | 2189 | 179 | 1345 | 135 | 0/0 | 4.96812 | 42 | - | - |
+| s38417 | - | - | - | 2066 | 179 | 1345 | 135 | 0/0 | 4.96812 | 42 | - | - |
 | s38417 | - | - | - | - | - | - | - | - | - | - | - | - |
 | pdc | - | - | - | 1973 | 176 | 0 | 56 | 0/0 | 7.42762 | 72 | - | - |
 | pdc | - | - | - | - | - | - | - | - | - | - | - | - |
 | frisc | - | - | - | 1668 | 153 | 814 | 136 | 0/0 | 8.694 | 66 | - | - |
 | frisc | - | - | - | - | - | - | - | - | - | - | - | - |
-| elliptic | - | - | - | 1463 | 137 | 884 | 245 | 0/0 | 7.59909 | 58 | - | - |
+| elliptic | - | - | - | 1462 | 137 | 884 | 245 | 0/0 | 7.59909 | 58 | - | - |
 | elliptic | - | - | - | - | - | - | - | - | - | - | - | - |
-| spla | - | - | - | 1445 | 131 | 0 | 62 | 0/0 | 6.39096 | 60 | - | - |
+| spla | - | - | - | 1444 | 131 | 0 | 62 | 0/0 | 6.39096 | 60 | - | - |
 | spla | - | - | - | - | - | - | - | - | - | - | - | - |
 | apex2 | - | - | - | 992 | 92 | 0 | 42 | 0/0 | 5.89143 | 54 | - | - |
 | apex2 | - | - | - | - | - | - | - | - | - | - | - | - |
@@ -1643,27 +1648,27 @@ Rule: BLIF netlist, no HDL.
 | apex4 | - | - | - | - | - | - | - | - | - | - | - | - |
 | seq | - | - | - | 855 | 75 | 0 | 76 | 0/0 | 4.95078 | 54 | - | - |
 | seq | - | - | - | - | - | - | - | - | - | - | - | - |
-| alu4 | - | - | - | 818 | 68 | 0 | 22 | 0/0 | 5.0705 | 42 | - | - |
+| alu4 | - | - | - | 817 | 68 | 0 | 22 | 0/0 | 5.0705 | 42 | - | - |
 | alu4 | - | - | - | - | - | - | - | - | - | - | - | - |
 | misex3 | - | - | - | 714 | 62 | 0 | 28 | 0/0 | 4.81741 | 48 | - | - |
 | misex3 | - | - | - | - | - | - | - | - | - | - | - | - |
-| dsip | - | - | - | 686 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 | - | - |
+| dsip | - | - | - | 682 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 | - | - |
 | dsip | - | - | - | - | - | - | - | - | - | - | - | - |
 | s298 | - | - | - | 661 | 58 | 8 | 10 | 0/0 | 6.32231 | 46 | - | - |
 | s298 | - | - | - | - | - | - | - | - | - | - | - | - |
 | diffeq | - | - | - | 580 | 53 | 310 | 103 | 0/0 | 4.91464 | 42 | - | - |
 | diffeq | - | - | - | - | - | - | - | - | - | - | - | - |
-| bigkey | - | - | - | 572 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 | - | - |
+| bigkey | - | - | - | 568 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 | - | - |
 | bigkey | - | - | - | - | - | - | - | - | - | - | - | - |
 | apex3 | - | - | - | - | - | - | - | - | - | - | - | - |
 | i10 | - | - | - | - | - | - | - | - | - | - | - | - |
 | C6288 | - | - | - | - | - | - | - | - | - | - | - | - |
-| ex5p | - | - | - | 467 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 | - | - |
+| ex5p | - | - | - | 465 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 | - | - |
 | ex5p | - | - | - | - | - | - | - | - | - | - | - | - |
-| clma | - | - | - | 450 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 | - | - |
+| clma | - | - | - | 445 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 | - | - |
 | clma | - | - | - | - | - | - | - | - | - | - | - | - |
 | apex1 | - | - | - | - | - | - | - | - | - | - | - | - |
-| tseng | - | - | - | 407 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 | - | - |
+| tseng | - | - | - | 391 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 | - | - |
 | tseng | - | - | - | - | - | - | - | - | - | - | - | - |
 | cps | - | - | - | - | - | - | - | - | - | - | - | - |
 | C7552 | - | - | - | - | - | - | - | - | - | - | - | - |
