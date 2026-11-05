@@ -132,3 +132,19 @@ pass <name>)` and the pass goes on with the next design.
 - Silicon columns for OpenCores: `si_cells` = `inst_count_all` minus the inserted fill instances, `si_area` =
   `core_um2`, from `chain.out` of the sifix3 ladder (des, mmuart, i2c, wb_lcd, verilog_cordic_core) and the first
   ladder (simple_spi); sha3_low is `running`.
+
+## OpenCores update 2 (2026-11-05)
+
+- Binary: `rel-main3` = odin3 1.4.0, commit `19f5c918` (tri-state pass, vendor prims, amber fix, `sim_tb` with
+  directives, include dirs, several files). Runs: `odin3-flow` with `-f` list and `--read-opt`, VPR seed 1, arch
+  `k6_frac_N10_frac_chain_mem32K_40nm`, one design at a time in a 4 GB memory scope; `sim_tb` with `-I`/`-D` of the
+  project bench (upstream, unpatched bench files for `upstream-fixed` projects; the sim step reads the RTL,
+  `proc; opt; flatten; tristate; lower`). Sim limits: 900 s (1200 s for wb_lcd and dblclockfft).
+- Status values: `re-run 2026-11-05 (...)` = those columns come from `rel-main3`; `sim re-run ...; VTR provisional
+  (rel-main2)` = `sim_odin` is new, the VTR columns are the 2026-11-04 `rel-main2` run; `provisional (rel-main2)` =
+  nothing re-run (attiny, a-z80).
+- `vtr_luts` basis, all rows: `.names` with two or more inputs of the mapped BLIF (what `odin3-flow` calls `luts`).
+  The 35 store rows (20 mcnc20, 15 vtr-verilog; Norns e10-base) were `struct.n_comb` and are recomputed from their
+  mapped BLIF blobs (up to 5x lower where the BLIF has many buffers, e.g. mkDelayWorker32B 2057 to 436).
+- `OpenCores: designs to pick from` (top of `catalogue.md`): one row per OpenCores design, tier then size.
+- uart2spi added (RTL from the candidates survey clone); `mips_16_noxarm` re-run: 639 LUTs, 247 FFs.

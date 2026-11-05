@@ -62,6 +62,7 @@ opencores	sha3_low	-	sha3/low_throughput_core	verilog-project	keccak	16023	499	8
 opencores	simple_spi	-	simple_spi	verilog-project	simple_spi_top	14610	456	fe81935c37be7bb45f4845d9ed3c588bcf68e7e29160d3412abcf4654b9a6783	-
 opencores	spi	-	spi	verilog-project	spi_top	27059	633	0e6ef9b829b8cc92377a53356fb43522f7b953f98092e5e89d24f3af1639d2a7	-
 opencores	tiny_aes	-	tiny_aes	verilog-project	aes_128	20063	764	c1380d013cafb04f6863171ae3b85219b14e0665e61b5836789984638db43c4e	-
+opencores	uart2spi	-	uart2spi	verilog-project	top	98147	2583	45d2446dcb136d686b95c2271c02b5f7e8835db023ce145da460c4881601edd2	-
 opencores	usbhostslave	-	usbhostslave	verilog-project	usbHostSlave	427107	12433	9cd9e0808fb92fca3cc07854f48544e25fb8600b1f4458d8c869c760f92e0873	-
 opencores	verilog_cordic_core	-	verilog_cordic_core	verilog-project	cordic	12622	379	e460d062ce1ef1c63931c7b1e2e37cbe13e2ab3fc4defbc2a1e803e2899906ad	-
 opencores	vga_lcd	-	vga_lcd	verilog-project	vga_enh_top	153227	4900	446f84c4353f05df7b7004999eab9b010192f9c2917d1101dd3654d95bcc8c01	-
