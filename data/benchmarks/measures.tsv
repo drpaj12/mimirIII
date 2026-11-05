@@ -373,7 +373,7 @@ mcnc20	alu4	vtr_blocks	68	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	alu4	vtr_cpd	5.0705	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	alu4	vtr_cw	42	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	alu4	vtr_ffs	0	blob e69b130bac2a flow odin3-1.2.0-k6-blif
-mcnc20	alu4	vtr_luts	818	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	alu4	vtr_luts	817	blob e69b130bac2a flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 818)
 mcnc20	alu4	vtr_mem	0	blob e69b130bac2a flow odin3-1.2.0-k6-blif
 mcnc20	alu4	vtr_mult	0	blob e69b130bac2a flow odin3-1.2.0-k6-blif
 mcnc20	alu4	vtr_pins	22	blob e69b130bac2a flow odin3-1.2.0-k6-blif
@@ -397,7 +397,7 @@ mcnc20	apex2	vtr_blocks	92	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10
 mcnc20	apex2	vtr_cpd	5.89143	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	apex2	vtr_cw	54	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	apex2	vtr_ffs	0	blob c8a2cd402d64 flow odin3-1.2.0-k6-blif
-mcnc20	apex2	vtr_luts	992	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	apex2	vtr_luts	992	blob c8a2cd402d64 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 992)
 mcnc20	apex2	vtr_mem	0	blob c8a2cd402d64 flow odin3-1.2.0-k6-blif
 mcnc20	apex2	vtr_mult	0	blob c8a2cd402d64 flow odin3-1.2.0-k6-blif
 mcnc20	apex2	vtr_pins	42	blob c8a2cd402d64 flow odin3-1.2.0-k6-blif
@@ -421,7 +421,7 @@ mcnc20	apex4	vtr_blocks	80	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10
 mcnc20	apex4	vtr_cpd	5.74616	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	apex4	vtr_cw	60	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	apex4	vtr_ffs	0	blob 8d457f3432d7 flow odin3-1.2.0-k6-blif
-mcnc20	apex4	vtr_luts	865	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	apex4	vtr_luts	865	blob 8d457f3432d7 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 865)
 mcnc20	apex4	vtr_mem	0	blob 8d457f3432d7 flow odin3-1.2.0-k6-blif
 mcnc20	apex4	vtr_mult	0	blob 8d457f3432d7 flow odin3-1.2.0-k6-blif
 mcnc20	apex4	vtr_pins	28	blob 8d457f3432d7 flow odin3-1.2.0-k6-blif
@@ -446,7 +446,7 @@ mcnc20	bigkey	vtr_blocks	52	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N1
 mcnc20	bigkey	vtr_cpd	2.59891	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	bigkey	vtr_cw	38	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	bigkey	vtr_ffs	224	blob a9c98f370f11 flow odin3-1.2.0-k6-blif
-mcnc20	bigkey	vtr_luts	572	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	bigkey	vtr_luts	568	blob a9c98f370f11 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 572)
 mcnc20	bigkey	vtr_mem	0	blob a9c98f370f11 flow odin3-1.2.0-k6-blif
 mcnc20	bigkey	vtr_mult	0	blob a9c98f370f11 flow odin3-1.2.0-k6-blif
 mcnc20	bigkey	vtr_pins	460	blob a9c98f370f11 flow odin3-1.2.0-k6-blif
@@ -471,7 +471,7 @@ mcnc20	clma	vtr_blocks	82	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	clma	vtr_cpd	5.41555	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	clma	vtr_cw	36	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	clma	vtr_ffs	26	blob a4bf222ff818 flow odin3-1.2.0-k6-blif
-mcnc20	clma	vtr_luts	450	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	clma	vtr_luts	445	blob a4bf222ff818 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 450)
 mcnc20	clma	vtr_mem	0	blob a4bf222ff818 flow odin3-1.2.0-k6-blif
 mcnc20	clma	vtr_mult	0	blob a4bf222ff818 flow odin3-1.2.0-k6-blif
 mcnc20	clma	vtr_pins	465	blob a4bf222ff818 flow odin3-1.2.0-k6-blif
@@ -496,7 +496,7 @@ mcnc20	des	vtr_blocks	77	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_f
 mcnc20	des	vtr_cpd	4.68402	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	des	vtr_cw	38	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	des	vtr_ffs	0	blob deb11fe042f6 flow odin3-1.2.0-k6-blif
-mcnc20	des	vtr_luts	901	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	des	vtr_luts	901	blob deb11fe042f6 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 901)
 mcnc20	des	vtr_mem	0	blob deb11fe042f6 flow odin3-1.2.0-k6-blif
 mcnc20	des	vtr_mult	0	blob deb11fe042f6 flow odin3-1.2.0-k6-blif
 mcnc20	des	vtr_pins	501	blob deb11fe042f6 flow odin3-1.2.0-k6-blif
@@ -521,7 +521,7 @@ mcnc20	diffeq	vtr_blocks	53	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N1
 mcnc20	diffeq	vtr_cpd	4.91464	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	diffeq	vtr_cw	42	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	diffeq	vtr_ffs	310	blob 828b8534c983 flow odin3-1.2.0-k6-blif
-mcnc20	diffeq	vtr_luts	580	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	diffeq	vtr_luts	580	blob 828b8534c983 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 580)
 mcnc20	diffeq	vtr_mem	0	blob 828b8534c983 flow odin3-1.2.0-k6-blif
 mcnc20	diffeq	vtr_mult	0	blob 828b8534c983 flow odin3-1.2.0-k6-blif
 mcnc20	diffeq	vtr_pins	103	blob 828b8534c983 flow odin3-1.2.0-k6-blif
@@ -546,7 +546,7 @@ mcnc20	dsip	vtr_blocks	66	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	dsip	vtr_cpd	2.72755	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	dsip	vtr_cw	34	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	dsip	vtr_ffs	224	blob a7f8f3663d3b flow odin3-1.2.0-k6-blif
-mcnc20	dsip	vtr_luts	686	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	dsip	vtr_luts	682	blob a7f8f3663d3b flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 686)
 mcnc20	dsip	vtr_mem	0	blob a7f8f3663d3b flow odin3-1.2.0-k6-blif
 mcnc20	dsip	vtr_mult	0	blob a7f8f3663d3b flow odin3-1.2.0-k6-blif
 mcnc20	dsip	vtr_pins	426	blob a7f8f3663d3b flow odin3-1.2.0-k6-blif
@@ -571,7 +571,7 @@ mcnc20	elliptic	vtr_blocks	137	store norns-placers-e10-base/vpr_sa/seed1/k6_frac
 mcnc20	elliptic	vtr_cpd	7.59909	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	elliptic	vtr_cw	58	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	elliptic	vtr_ffs	884	blob 249a2eb5f6f6 flow odin3-1.2.0-k6-blif
-mcnc20	elliptic	vtr_luts	1463	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	elliptic	vtr_luts	1462	blob 249a2eb5f6f6 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1463)
 mcnc20	elliptic	vtr_mem	0	blob 249a2eb5f6f6 flow odin3-1.2.0-k6-blif
 mcnc20	elliptic	vtr_mult	0	blob 249a2eb5f6f6 flow odin3-1.2.0-k6-blif
 mcnc20	elliptic	vtr_pins	245	blob 249a2eb5f6f6 flow odin3-1.2.0-k6-blif
@@ -595,7 +595,7 @@ mcnc20	ex1010	vtr_blocks	314	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N
 mcnc20	ex1010	vtr_cpd	9.8022	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	ex1010	vtr_cw	84	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	ex1010	vtr_ffs	0	blob ac791252c39a flow odin3-1.2.0-k6-blif
-mcnc20	ex1010	vtr_luts	2777	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	ex1010	vtr_luts	2777	blob ac791252c39a flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 2777)
 mcnc20	ex1010	vtr_mem	0	blob ac791252c39a flow odin3-1.2.0-k6-blif
 mcnc20	ex1010	vtr_mult	0	blob ac791252c39a flow odin3-1.2.0-k6-blif
 mcnc20	ex1010	vtr_pins	20	blob ac791252c39a flow odin3-1.2.0-k6-blif
@@ -619,7 +619,7 @@ mcnc20	ex5p	vtr_blocks	39	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	ex5p	vtr_cpd	5.34702	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	ex5p	vtr_cw	48	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	ex5p	vtr_ffs	0	blob f5c3360fbf97 flow odin3-1.2.0-k6-blif
-mcnc20	ex5p	vtr_luts	467	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	ex5p	vtr_luts	465	blob f5c3360fbf97 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 467)
 mcnc20	ex5p	vtr_mem	0	blob f5c3360fbf97 flow odin3-1.2.0-k6-blif
 mcnc20	ex5p	vtr_mult	0	blob f5c3360fbf97 flow odin3-1.2.0-k6-blif
 mcnc20	ex5p	vtr_pins	71	blob f5c3360fbf97 flow odin3-1.2.0-k6-blif
@@ -644,7 +644,7 @@ mcnc20	frisc	vtr_blocks	153	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N1
 mcnc20	frisc	vtr_cpd	8.694	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	frisc	vtr_cw	66	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	frisc	vtr_ffs	814	blob 72b256a02c9a flow odin3-1.2.0-k6-blif
-mcnc20	frisc	vtr_luts	1668	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	frisc	vtr_luts	1668	blob 72b256a02c9a flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1668)
 mcnc20	frisc	vtr_mem	0	blob 72b256a02c9a flow odin3-1.2.0-k6-blif
 mcnc20	frisc	vtr_mult	0	blob 72b256a02c9a flow odin3-1.2.0-k6-blif
 mcnc20	frisc	vtr_pins	136	blob 72b256a02c9a flow odin3-1.2.0-k6-blif
@@ -668,7 +668,7 @@ mcnc20	misex3	vtr_blocks	62	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N1
 mcnc20	misex3	vtr_cpd	4.81741	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	misex3	vtr_cw	48	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	misex3	vtr_ffs	0	blob ccbe1e7b25c4 flow odin3-1.2.0-k6-blif
-mcnc20	misex3	vtr_luts	714	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	misex3	vtr_luts	714	blob ccbe1e7b25c4 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 714)
 mcnc20	misex3	vtr_mem	0	blob ccbe1e7b25c4 flow odin3-1.2.0-k6-blif
 mcnc20	misex3	vtr_mult	0	blob ccbe1e7b25c4 flow odin3-1.2.0-k6-blif
 mcnc20	misex3	vtr_pins	28	blob ccbe1e7b25c4 flow odin3-1.2.0-k6-blif
@@ -692,7 +692,7 @@ mcnc20	pdc	vtr_blocks	176	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	pdc	vtr_cpd	7.42762	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	pdc	vtr_cw	72	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	pdc	vtr_ffs	0	blob 6a03a8551cc2 flow odin3-1.2.0-k6-blif
-mcnc20	pdc	vtr_luts	1973	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	pdc	vtr_luts	1973	blob 6a03a8551cc2 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1973)
 mcnc20	pdc	vtr_mem	0	blob 6a03a8551cc2 flow odin3-1.2.0-k6-blif
 mcnc20	pdc	vtr_mult	0	blob 6a03a8551cc2 flow odin3-1.2.0-k6-blif
 mcnc20	pdc	vtr_pins	56	blob 6a03a8551cc2 flow odin3-1.2.0-k6-blif
@@ -717,7 +717,7 @@ mcnc20	s298	vtr_blocks	58	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_
 mcnc20	s298	vtr_cpd	6.32231	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	s298	vtr_cw	46	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	s298	vtr_ffs	8	blob 42f42fa7cb62 flow odin3-1.2.0-k6-blif
-mcnc20	s298	vtr_luts	661	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	s298	vtr_luts	661	blob 42f42fa7cb62 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 661)
 mcnc20	s298	vtr_mem	0	blob 42f42fa7cb62 flow odin3-1.2.0-k6-blif
 mcnc20	s298	vtr_mult	0	blob 42f42fa7cb62 flow odin3-1.2.0-k6-blif
 mcnc20	s298	vtr_pins	10	blob 42f42fa7cb62 flow odin3-1.2.0-k6-blif
@@ -741,7 +741,7 @@ mcnc20	s38417	vtr_blocks	179	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N
 mcnc20	s38417	vtr_cpd	4.96812	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	s38417	vtr_cw	42	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	s38417	vtr_ffs	1345	blob 7277264a5847 flow odin3-1.2.0-k6-blif
-mcnc20	s38417	vtr_luts	2189	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	s38417	vtr_luts	2066	blob 7277264a5847 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 2189)
 mcnc20	s38417	vtr_mem	0	blob 7277264a5847 flow odin3-1.2.0-k6-blif
 mcnc20	s38417	vtr_mult	0	blob 7277264a5847 flow odin3-1.2.0-k6-blif
 mcnc20	s38417	vtr_pins	135	blob 7277264a5847 flow odin3-1.2.0-k6-blif
@@ -765,7 +765,7 @@ mcnc20	s38584.1	vtr_blocks	182	store norns-placers-e10-base/vpr_sa/seed1/k6_frac
 mcnc20	s38584.1	vtr_cpd	4.65105	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	s38584.1	vtr_cw	48	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	s38584.1	vtr_ffs	1141	blob f13d0e4cd696 flow odin3-1.2.0-k6-blif
-mcnc20	s38584.1	vtr_luts	2190	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	s38584.1	vtr_luts	2037	blob f13d0e4cd696 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 2190)
 mcnc20	s38584.1	vtr_mem	0	blob f13d0e4cd696 flow odin3-1.2.0-k6-blif
 mcnc20	s38584.1	vtr_mult	0	blob f13d0e4cd696 flow odin3-1.2.0-k6-blif
 mcnc20	s38584.1	vtr_pins	343	blob f13d0e4cd696 flow odin3-1.2.0-k6-blif
@@ -789,7 +789,7 @@ mcnc20	seq	vtr_blocks	75	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_f
 mcnc20	seq	vtr_cpd	4.95078	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	seq	vtr_cw	54	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	seq	vtr_ffs	0	blob c43d32f98275 flow odin3-1.2.0-k6-blif
-mcnc20	seq	vtr_luts	855	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	seq	vtr_luts	855	blob c43d32f98275 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 855)
 mcnc20	seq	vtr_mem	0	blob c43d32f98275 flow odin3-1.2.0-k6-blif
 mcnc20	seq	vtr_mult	0	blob c43d32f98275 flow odin3-1.2.0-k6-blif
 mcnc20	seq	vtr_pins	76	blob c43d32f98275 flow odin3-1.2.0-k6-blif
@@ -813,7 +813,7 @@ mcnc20	spla	vtr_blocks	131	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10
 mcnc20	spla	vtr_cpd	6.39096	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	spla	vtr_cw	60	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	spla	vtr_ffs	0	blob d6f25c919d9c flow odin3-1.2.0-k6-blif
-mcnc20	spla	vtr_luts	1445	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	spla	vtr_luts	1444	blob d6f25c919d9c flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1445)
 mcnc20	spla	vtr_mem	0	blob d6f25c919d9c flow odin3-1.2.0-k6-blif
 mcnc20	spla	vtr_mult	0	blob d6f25c919d9c flow odin3-1.2.0-k6-blif
 mcnc20	spla	vtr_pins	62	blob d6f25c919d9c flow odin3-1.2.0-k6-blif
@@ -838,7 +838,7 @@ mcnc20	tseng	vtr_blocks	34	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10
 mcnc20	tseng	vtr_cpd	4.62879	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 mcnc20	tseng	vtr_cw	48	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 mcnc20	tseng	vtr_ffs	219	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
-mcnc20	tseng	vtr_luts	407	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+mcnc20	tseng	vtr_luts	391	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 407)
 mcnc20	tseng	vtr_mem	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_mult	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_pins	174	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
@@ -7331,7 +7331,7 @@ vtr-verilog	blob_merge	vtr_blocks	486	store norns-placers-e10-base/vpr_sa/seed1/
 vtr-verilog	blob_merge	vtr_cpd	14.668	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	blob_merge	vtr_cw	62	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	blob_merge	vtr_ffs	575	blob aa37c6381c16 flow odin3-1.2.0-k6-verilog
-vtr-verilog	blob_merge	vtr_luts	6015	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	blob_merge	vtr_luts	3140	blob aa37c6381c16 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 6015)
 vtr-verilog	blob_merge	vtr_mem	0	blob aa37c6381c16 flow odin3-1.2.0-k6-verilog
 vtr-verilog	blob_merge	vtr_mult	0	blob aa37c6381c16 flow odin3-1.2.0-k6-verilog
 vtr-verilog	blob_merge	vtr_pins	232	blob aa37c6381c16 flow odin3-1.2.0-k6-verilog
@@ -7356,7 +7356,7 @@ vtr-verilog	boundtop	vtr_blocks	41	store norns-placers-e10-base/vpr_sa/seed1/k6_
 vtr-verilog	boundtop	vtr_cpd	3.06393	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	boundtop	vtr_cw	40	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	boundtop	vtr_ffs	383	blob f459fbd12c87 flow odin3-1.2.0-k6-verilog
-vtr-verilog	boundtop	vtr_luts	572	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	boundtop	vtr_luts	538	blob f459fbd12c87 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 572)
 vtr-verilog	boundtop	vtr_mem	32	blob f459fbd12c87 flow odin3-1.2.0-k6-verilog
 vtr-verilog	boundtop	vtr_mult	0	blob f459fbd12c87 flow odin3-1.2.0-k6-verilog
 vtr-verilog	boundtop	vtr_pins	468	blob f459fbd12c87 flow odin3-1.2.0-k6-verilog
@@ -7406,7 +7406,7 @@ vtr-verilog	ch_intrinsics	vtr_blocks	12	store norns-placers-e10-base/vpr_sa/seed
 vtr-verilog	ch_intrinsics	vtr_cpd	2.12094	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	ch_intrinsics	vtr_cw	38	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	ch_intrinsics	vtr_ffs	82	blob fc121a686cf4 flow odin3-1.2.0-k6-verilog
-vtr-verilog	ch_intrinsics	vtr_luts	192	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	ch_intrinsics	vtr_luts	95	blob fc121a686cf4 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 192)
 vtr-verilog	ch_intrinsics	vtr_mem	8	blob fc121a686cf4 flow odin3-1.2.0-k6-verilog
 vtr-verilog	ch_intrinsics	vtr_mult	0	blob fc121a686cf4 flow odin3-1.2.0-k6-verilog
 vtr-verilog	ch_intrinsics	vtr_pins	229	blob fc121a686cf4 flow odin3-1.2.0-k6-verilog
@@ -7456,7 +7456,7 @@ vtr-verilog	diffeq1	vtr_blocks	31	store norns-placers-e10-base/vpr_sa/seed1/k6_f
 vtr-verilog	diffeq1	vtr_cpd	17.2038	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	diffeq1	vtr_cw	58	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	diffeq1	vtr_ffs	193	blob a17931a4e2d7 flow odin3-1.2.0-k6-verilog
-vtr-verilog	diffeq1	vtr_luts	294	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	diffeq1	vtr_luts	230	blob a17931a4e2d7 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 294)
 vtr-verilog	diffeq1	vtr_mem	0	blob a17931a4e2d7 flow odin3-1.2.0-k6-verilog
 vtr-verilog	diffeq1	vtr_mult	5	blob a17931a4e2d7 flow odin3-1.2.0-k6-verilog
 vtr-verilog	diffeq1	vtr_pins	258	blob a17931a4e2d7 flow odin3-1.2.0-k6-verilog
@@ -7481,7 +7481,7 @@ vtr-verilog	diffeq2	vtr_blocks	22	store norns-placers-e10-base/vpr_sa/seed1/k6_f
 vtr-verilog	diffeq2	vtr_cpd	13.5453	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	diffeq2	vtr_cw	44	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	diffeq2	vtr_ffs	96	blob 9c4a5d6ed08b flow odin3-1.2.0-k6-verilog
-vtr-verilog	diffeq2	vtr_luts	198	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	diffeq2	vtr_luts	134	blob 9c4a5d6ed08b flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 198)
 vtr-verilog	diffeq2	vtr_mem	0	blob 9c4a5d6ed08b flow odin3-1.2.0-k6-verilog
 vtr-verilog	diffeq2	vtr_mult	5	blob 9c4a5d6ed08b flow odin3-1.2.0-k6-verilog
 vtr-verilog	diffeq2	vtr_pins	162	blob 9c4a5d6ed08b flow odin3-1.2.0-k6-verilog
@@ -7532,7 +7532,7 @@ vtr-verilog	mkDelayWorker32B	vtr_blocks	63	store norns-placers-e10-base/vpr_sa/s
 vtr-verilog	mkDelayWorker32B	vtr_cpd	6.8227	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	mkDelayWorker32B	vtr_cw	38	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	mkDelayWorker32B	vtr_ffs	34	blob 5a77f8ae1bcb flow odin3-1.2.0-k6-verilog
-vtr-verilog	mkDelayWorker32B	vtr_luts	2057	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	mkDelayWorker32B	vtr_luts	436	blob 5a77f8ae1bcb flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 2057)
 vtr-verilog	mkDelayWorker32B	vtr_mem	1336	blob 5a77f8ae1bcb flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkDelayWorker32B	vtr_mult	0	blob 5a77f8ae1bcb flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkDelayWorker32B	vtr_pins	1066	blob 5a77f8ae1bcb flow odin3-1.2.0-k6-verilog
@@ -7557,7 +7557,7 @@ vtr-verilog	mkPktMerge	vtr_blocks	19	store norns-placers-e10-base/vpr_sa/seed1/k
 vtr-verilog	mkPktMerge	vtr_cpd	4.09815	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	mkPktMerge	vtr_cw	36	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	mkPktMerge	vtr_ffs	18	blob 959fd36cc872 flow odin3-1.2.0-k6-verilog
-vtr-verilog	mkPktMerge	vtr_luts	329	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	mkPktMerge	vtr_luts	176	blob 959fd36cc872 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 329)
 vtr-verilog	mkPktMerge	vtr_mem	459	blob 959fd36cc872 flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkPktMerge	vtr_mult	0	blob 959fd36cc872 flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkPktMerge	vtr_pins	467	blob 959fd36cc872 flow odin3-1.2.0-k6-verilog
@@ -7582,7 +7582,7 @@ vtr-verilog	mkSMAdapter4B	vtr_blocks	118	store norns-placers-e10-base/vpr_sa/see
 vtr-verilog	mkSMAdapter4B	vtr_cpd	6.19734	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	mkSMAdapter4B	vtr_cw	48	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	mkSMAdapter4B	vtr_ffs	639	blob 572b7ba31af1 flow odin3-1.2.0-k6-verilog
-vtr-verilog	mkSMAdapter4B	vtr_luts	1200	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	mkSMAdapter4B	vtr_luts	1045	blob 572b7ba31af1 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1200)
 vtr-verilog	mkSMAdapter4B	vtr_mem	153	blob 572b7ba31af1 flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkSMAdapter4B	vtr_mult	0	blob 572b7ba31af1 flow odin3-1.2.0-k6-verilog
 vtr-verilog	mkSMAdapter4B	vtr_pins	403	blob 572b7ba31af1 flow odin3-1.2.0-k6-verilog
@@ -7682,7 +7682,7 @@ vtr-verilog	or1200	vtr_blocks	237	store norns-placers-e10-base/vpr_sa/seed1/k6_f
 vtr-verilog	or1200	vtr_cpd	8.74562	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	or1200	vtr_cw	82	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	or1200	vtr_ffs	672	blob 1b0672143182 flow odin3-1.2.0-k6-verilog
-vtr-verilog	or1200	vtr_luts	2473	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	or1200	vtr_luts	2204	blob 1b0672143182 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 2473)
 vtr-verilog	or1200	vtr_mem	64	blob 1b0672143182 flow odin3-1.2.0-k6-verilog
 vtr-verilog	or1200	vtr_mult	1	blob 1b0672143182 flow odin3-1.2.0-k6-verilog
 vtr-verilog	or1200	vtr_pins	782	blob 1b0672143182 flow odin3-1.2.0-k6-verilog
@@ -7707,7 +7707,7 @@ vtr-verilog	raygentop	vtr_blocks	127	store norns-placers-e10-base/vpr_sa/seed1/k
 vtr-verilog	raygentop	vtr_cpd	5.43116	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	raygentop	vtr_cw	56	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	raygentop	vtr_ffs	946	blob 395a9faeaade flow odin3-1.2.0-k6-verilog
-vtr-verilog	raygentop	vtr_luts	1195	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	raygentop	vtr_luts	1069	blob 395a9faeaade flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1195)
 vtr-verilog	raygentop	vtr_mem	21	blob 395a9faeaade flow odin3-1.2.0-k6-verilog
 vtr-verilog	raygentop	vtr_mult	15	blob 395a9faeaade flow odin3-1.2.0-k6-verilog
 vtr-verilog	raygentop	vtr_pins	560	blob 395a9faeaade flow odin3-1.2.0-k6-verilog
@@ -7757,7 +7757,7 @@ vtr-verilog	sha	vtr_blocks	142	store norns-placers-e10-base/vpr_sa/seed1/k6_frac
 vtr-verilog	sha	vtr_cpd	9.86096	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	sha	vtr_cw	64	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	sha	vtr_ffs	893	blob 9f8e528e4c83 flow odin3-1.2.0-k6-verilog
-vtr-verilog	sha	vtr_luts	1290	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	sha	vtr_luts	1289	blob 9f8e528e4c83 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 1290)
 vtr-verilog	sha	vtr_mem	0	blob 9f8e528e4c83 flow odin3-1.2.0-k6-verilog
 vtr-verilog	sha	vtr_mult	0	blob 9f8e528e4c83 flow odin3-1.2.0-k6-verilog
 vtr-verilog	sha	vtr_pins	74	blob 9f8e528e4c83 flow odin3-1.2.0-k6-verilog
@@ -7857,7 +7857,7 @@ vtr-verilog	stereovision0	vtr_blocks	702	store norns-placers-e10-base/vpr_sa/see
 vtr-verilog	stereovision0	vtr_cpd	3.8277	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	stereovision0	vtr_cw	52	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	stereovision0	vtr_ffs	11458	blob 41c7935e6655 flow odin3-1.2.0-k6-verilog
-vtr-verilog	stereovision0	vtr_luts	6887	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	stereovision0	vtr_luts	6801	blob 41c7935e6655 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 6887)
 vtr-verilog	stereovision0	vtr_mem	0	blob 41c7935e6655 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision0	vtr_mult	0	blob 41c7935e6655 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision0	vtr_pins	366	blob 41c7935e6655 flow odin3-1.2.0-k6-verilog
@@ -7882,7 +7882,7 @@ vtr-verilog	stereovision1	vtr_blocks	758	store norns-placers-e10-base/vpr_sa/see
 vtr-verilog	stereovision1	vtr_cpd	5.72613	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	stereovision1	vtr_cw	76	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	stereovision1	vtr_ffs	10315	blob 657fe78e2a22 flow odin3-1.2.0-k6-verilog
-vtr-verilog	stereovision1	vtr_luts	6462	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	stereovision1	vtr_luts	6305	blob 657fe78e2a22 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 6462)
 vtr-verilog	stereovision1	vtr_mem	0	blob 657fe78e2a22 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision1	vtr_mult	152	blob 657fe78e2a22 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision1	vtr_pins	278	blob 657fe78e2a22 flow odin3-1.2.0-k6-verilog
@@ -7907,7 +7907,7 @@ vtr-verilog	stereovision2	vtr_blocks	1689	store norns-placers-e10-base/vpr_sa/se
 vtr-verilog	stereovision2	vtr_cpd	13.2648	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	stereovision2	vtr_cw	90	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	stereovision2	vtr_ffs	15573	blob 081c5760d4ed flow odin3-1.2.0-k6-verilog
-vtr-verilog	stereovision2	vtr_luts	8426	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	stereovision2	vtr_luts	7914	blob 081c5760d4ed flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 8426)
 vtr-verilog	stereovision2	vtr_mem	0	blob 081c5760d4ed flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision2	vtr_mult	468	blob 081c5760d4ed flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision2	vtr_pins	331	blob 081c5760d4ed flow odin3-1.2.0-k6-verilog
@@ -7932,7 +7932,7 @@ vtr-verilog	stereovision3	vtr_blocks	15	store norns-placers-e10-base/vpr_sa/seed
 vtr-verilog	stereovision3	vtr_cpd	2.63369	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.cpd
 vtr-verilog	stereovision3	vtr_cw	30	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.chan_width
 vtr-verilog	stereovision3	vtr_ffs	120	blob c4868907e594 flow odin3-1.2.0-k6-verilog
-vtr-verilog	stereovision3	vtr_luts	171	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm struct.n_comb
+vtr-verilog	stereovision3	vtr_luts	169	blob c4868907e594 flow odin3-1.2.0-k6-verilog: .names with two or more inputs (basis of all rows; replaces store struct.n_comb 171)
 vtr-verilog	stereovision3	vtr_mem	0	blob c4868907e594 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision3	vtr_mult	0	blob c4868907e594 flow odin3-1.2.0-k6-verilog
 vtr-verilog	stereovision3	vtr_pins	53	blob c4868907e594 flow odin3-1.2.0-k6-verilog
