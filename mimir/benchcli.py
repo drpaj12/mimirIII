@@ -7,7 +7,7 @@ import os
 from collections import Counter
 from pathlib import Path
 
-from mimir import bench, benchcat, benchmeasure, benchpub, benchreg, blobs
+from mimir import bench, benchcat, benchmeasure, benchpub, benchreg, benchvpr, blobs
 from mimir.meta import load_licence_rules
 
 
@@ -198,10 +198,23 @@ def _measure_odin(args: argparse.Namespace, idx: Path) -> int:
     return 0
 
 
+def _measure_vpr(args: argparse.Namespace, idx: Path) -> int:
+    def sink(rows: list[list[str]]) -> None:
+        benchcat.upsert_measures(idx, rows)
+        print(f"vpr: {rows[0][1]}: {rows[0][3]}", flush=True)
+
+    n = benchvpr.collect_vpr(idx, Path(args.odin3), Path(args.vtr), args.suite,
+                             Path(args.root), args.limit, sink, args.retry_failed)
+    print(f"vpr: {n} designs run in {args.suite}")
+    return 0
+
+
 def _cmd_measure(args: argparse.Namespace) -> int:
     idx = _idx(args)
     if args.kind == "odin":
         return _measure_odin(args, idx)
+    if args.kind == "vpr":
+        return _measure_vpr(args, idx)
     if args.kind == "desc":
         rows = benchmeasure.collect_desc(idx, Path(args.root), Path(args.meta))
     elif args.kind == "store":
@@ -280,7 +293,7 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.set_defaults(fn=_cmd_check)
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
-    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc"))
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc", "vpr"))
     p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
@@ -289,7 +302,7 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
-    p.add_argument("--root", help="silicon: run root; testbench: external dir")
+    p.add_argument("--root", help="silicon: run root; testbench: external dir; vpr: output dir")
     p.add_argument("--label", default="silicon-run", help="silicon: run name for the source field")
     p.set_defaults(fn=_cmd_measure)
     p = bs.add_parser("catalogue", help="write the catalogue table (markdown + tsv)")

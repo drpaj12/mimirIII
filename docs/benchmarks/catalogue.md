@@ -7,9 +7,9 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | tier | rule | designs |
 |---|---|---|
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
-| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 1 |
+| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 22 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
-| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 52 |
+| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 55 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
 
 | suite | designs |
@@ -17,10 +17,11 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | brisc-v | 1 |
 | itc99 | 21 |
 | mcnc20 | 20 |
+| opencores | 24 |
 | verilogeval | 156 |
 | vtr-blif | 199 |
 | vtr-verilog | 31 |
-| total | 428 |
+| total | 452 |
 
 ## T1 HDL + testbench, larger
 
@@ -28,13 +29,55 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | what it does | suite | link | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|
+| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3790 | ✓ | ✗ |
+| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4900 | ✓ | ✗ |
+| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12270 | ✓ | ✗ |
+| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12433 | ✓ | ✗ |
+| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 618 | ✓ | ✗ |
+| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 499 | ✓ | ✗ |
+| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4366 | ✓ | ✗ |
+| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2061 | ✓ | ✗ |
+| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 379 | ✓ | ✗ |
+| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 695 | ✓ | ✗ |
+| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 633 | ✓ | ✗ |
+| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1556 | ✓ | ✗ |
+| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 456 | ✓ | ✗ |
+| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1311 | ✓ | ✗ |
+| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 253 | ✓ | ✗ |
+| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 945 | ✓ | ✗ |
 | quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | MIT | 4349 | ✓ | ✓ |
+| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3929 | ✓ | ✗ |
+| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2055 | ✓ | ✗ |
+| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 769 | ✓ | ✗ |
+| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 764 | ✓ | ✗ |
+| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 741 | ✓ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
 |---|---|---|---|---|---|---|---|---|---|---|
+| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 |
+| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 |
+| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 |
+| usbhostslave | pass | fail | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 |
+| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 |
+| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 |
+| reed_solomon_decoder | pass | pass | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 |
+| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 |
+| verilog_cordic_core | pass | refused | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 |
+| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 |
+| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 |
+| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 |
+| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 |
+| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 |
+| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 |
+| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 |
 | quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - |
+| sdr_ctrl | pass | fail | none | - | - | - | - | - | - | - |
+| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - |
+| i2cslave | fail | refused | none | - | - | - | - | - | - | - |
+| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - |
+| sdram_16bit | pass | refused | map | - | - | - | - | - | - | - |
 
 </details>
 
@@ -42,7 +85,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
-| quartus_project_revert_timer | - | - | - |
+| dblclockfft | - | - | - |
+| vga_lcd | - | - | - |
+| ethmac | - | - | - |
+| usbhostslave | - | - | - |
+| sha3_high | - | - | - |
+| sha3_low | - | - | - |
+| reed_solomon_decoder | - | - | - |
+| des | - | - | - |
+| verilog_cordic_core | - | - | - |
+| wb_lcd | - | - | - |
+| spi | - | - | - |
+| i2c | - | - | - |
+| simple_spi | - | - | - |
+| ca_prng | - | - | - |
+| mmuart | - | - | - |
+| mips_16 | - | - | - |
+| quartus_project_revert_timer | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| sdr_ctrl | - | - | - |
+| pipelined_fft_256 | - | - | - |
+| i2cslave | - | - | - |
+| tiny_aes | - | - | - |
+| sdram_16bit | - | - | - |
 
 </details>
 
@@ -50,7 +114,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
-| quartus_project_revert_timer | - | - | - | - | - | - | - | - |
+| dblclockfft | - | - | - | - | - | - | - | - |
+| vga_lcd | - | - | - | - | - | - | - | - |
+| ethmac | - | - | - | - | - | - | - | - |
+| usbhostslave | - | - | - | - | - | - | - | - |
+| sha3_high | - | - | - | - | - | - | - | - |
+| sha3_low | - | - | - | - | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - | - | - | - | - |
+| des | - | - | - | - | - | - | - | - |
+| verilog_cordic_core | - | - | - | - | - | - | - | - |
+| wb_lcd | - | - | - | - | - | - | - | - |
+| spi | - | - | - | - | - | - | - | - |
+| i2c | - | - | - | - | - | - | - | - |
+| simple_spi | - | - | - | - | - | - | - | - |
+| ca_prng | - | - | - | - | - | - | - | - |
+| mmuart | - | - | - | - | - | - | - | - |
+| mips_16 | - | - | - | - | - | - | - | - |
+| quartus_project_revert_timer | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| sdr_ctrl | - | - | - | - | - | - | - | - |
+| pipelined_fft_256 | - | - | - | - | - | - | - | - |
+| i2cslave | - | - | - | - | - | - | - | - |
+| tiny_aes | - | - | - | - | - | - | - | - |
+| sdram_16bit | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -58,7 +143,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
+| dblclockfft | - | - | - | - |
+| vga_lcd | - | - | - | - |
+| ethmac | - | - | - | - |
+| usbhostslave | - | - | - | - |
+| sha3_high | - | - | - | - |
+| sha3_low | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - |
+| des | - | - | - | - |
+| verilog_cordic_core | - | - | - | - |
+| wb_lcd | - | - | - | - |
+| spi | - | - | - | - |
+| i2c | - | - | - | - |
+| simple_spi | - | - | - | - |
+| ca_prng | - | - | - | - |
+| mmuart | - | - | - | - |
+| mips_16 | - | - | - | - |
 | quartus_project_revert_timer | - | - | - | - |
+| sdr_ctrl | - | - | - | - |
+| pipelined_fft_256 | - | - | - | - |
+| i2cslave | - | - | - | - |
+| tiny_aes | - | - | - | - |
+| sdram_16bit | - | - | - | - |
 
 </details>
 
@@ -107,6 +213,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob094_gatesv | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob106_always_nolatches | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob130_circuit5 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob133_2014_q3fsm | a finite state machine with inputs s and w | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
 | Prob139_2013_q2bfsm | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
@@ -156,6 +263,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2,... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
 | Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2'... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
@@ -202,6 +310,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
+| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
 | Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
 | Prob003_step_one | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
@@ -212,6 +321,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) int... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
 | Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
+| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob032_vector0 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
 | Prob034_dff8 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob042_vector4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
@@ -220,10 +330,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
 | Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
-| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -268,6 +374,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | - | - | - | - | - | - | - | - | - | - |
 | Prob094_gatesv | - | - | - | - | - | - | - | - | - | - |
 | Prob106_always_nolatches | - | - | - | - | - | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - | - | - | - | - | - |
 | Prob130_circuit5 | - | - | - | - | - | - | - | - | - | - |
 | Prob133_2014_q3fsm | - | - | - | - | - | - | - | - | - | - |
 | Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - | - | - |
@@ -317,6 +424,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - | - | - |
 | Prob075_counter_2bc | - | - | - | - | - | - | - | - | - | - |
 | Prob077_wire_decl | - | - | - | - | - | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - | - | - | - | - | - |
 | Prob081_7458 | - | - | - | - | - | - | - | - | - | - |
 | Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - | - | - |
 | Prob091_2012_q2b | - | - | - | - | - | - | - | - | - | - |
@@ -363,6 +471,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | - | - | - | - | - | - | - | - | - |
 | Prob132_always_if2 | - | - | - | - | - | - | - | - | - | - |
 | Prob135_m2014_q6b | - | - | - | - | - | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - | - | - | - | - | - |
 | Prob001_zero | - | - | - | - | - | - | - | - | - | - |
 | Prob002_m2014_q4i | - | - | - | - | - | - | - | - | - | - |
 | Prob003_step_one | - | - | - | - | - | - | - | - | - | - |
@@ -373,6 +482,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | - | - | - | - | - | - | - | - | - | - |
 | Prob023_vector100r | - | - | - | - | - | - | - | - | - | - |
 | Prob028_m2014_q4a | - | - | - | - | - | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - | - | - | - | - | - |
 | Prob032_vector0 | - | - | - | - | - | - | - | - | - | - |
 | Prob034_dff8 | - | - | - | - | - | - | - | - | - | - |
 | Prob042_vector4 | - | - | - | - | - | - | - | - | - | - |
@@ -381,10 +491,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | - | - | - | - | - | - | - | - | - | - |
 | Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - | - | - |
 | Prob151_review2015_fsm | - | - | - | - | - | - | - | - | - | - |
-| Prob078_dualedge | - | - | - | - | - | - | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - | - | - | - | - | - | - |
-| Prob046_dff8p | - | - | - | - | - | - | - | - | - | - |
-| Prob031_dff | - | - | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -392,162 +498,162 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
-| Prob144_conwaylife | - | - | 1966/- |
-| Prob030_popcount255 | - | - | 1369/- |
-| Prob153_gshare | - | - | 647/- |
-| Prob108_rule90 | - | - | 512/- |
-| Prob124_rule110 | - | - | 512/- |
-| Prob021_mux256to1v | - | - | 390/- |
-| Prob092_gatesv100 | - | - | 298/- |
-| Prob105_rotate100 | - | - | 201/- |
-| Prob115_shift18 | - | - | 130/- |
-| Prob018_mux256to1 | - | - | 105/- |
-| Prob017_mux2to1v | - | - | 100/- |
-| Prob097_mux9to1v | - | - | 95/- |
-| Prob052_gates100 | - | - | 88/- |
-| Prob055_conditional | - | - | 56/- |
-| Prob141_count_clock | - | - | 41/- |
-| Prob066_edgecapture | - | - | 32/- |
-| Prob082_lfsr32 | - | - | 32/- |
-| Prob118_history_shift | - | - | 32/- |
-| Prob154_fsm_ps2data | - | - | 28/- |
-| Prob068_countbcd | - | - | 22/- |
-| Prob123_bugs_addsubz | - | - | 22/- |
-| Prob043_vector5 | - | - | 20/- |
-| Prob146_fsm_serialdata | - | - | 20/- |
-| Prob080_timer | - | - | 17/- |
-| Prob155_lemmings4 | - | - | 17/- |
-| Prob073_dff16e | - | - | 16/- |
-| Prob126_circuit6 | - | - | 16/- |
-| Prob037_review2015_count1k | - | - | 14/- |
-| Prob033_ece241_2014_q1c | - | - | 13/- |
-| Prob114_bugs_case | - | - | 13/- |
-| Prob143_fsm_onehot | - | - | 13/- |
-| Prob076_always_case | - | - | 12/- |
-| Prob137_fsm_serial | - | - | 12/- |
-| Prob084_ece241_2013_q12 | - | - | 11/- |
-| Prob140_fsm_hdlc | - | - | 11/- |
-| Prob149_ece241_2013_q4 | - | - | 11/- |
-| Prob044_vectorgates | - | - | 10/- |
-| Prob094_gatesv | - | - | 10/- |
-| Prob106_always_nolatches | - | - | 10/- |
-| Prob130_circuit5 | - | - | 9/- |
-| Prob133_2014_q3fsm | - | - | 9/- |
-| Prob139_2013_q2bfsm | - | - | 9/- |
-| Prob041_dff8r | - | - | 8/- |
-| Prob045_edgedetect2 | - | - | 8/- |
-| Prob047_dff8ar | - | - | 8/- |
-| Prob054_edgedetect | - | - | 8/- |
-| Prob062_bugs_mux2 | - | - | 8/- |
-| Prob087_gates | - | - | 7/- |
-| Prob136_m2014_q6 | - | - | 7/- |
-| Prob138_2012_q2fsm | - | - | 7/- |
-| Prob016_m2014_q4j | - | - | 6/- |
-| Prob121_2014_q3bfsm | - | - | 6/- |
-| Prob152_lemmings3 | - | - | 6/- |
-| Prob086_lfsr5 | - | - | 5/- |
-| Prob096_review2015_fsmseq | - | - | 5/- |
-| Prob148_2013_q2afsm | - | - | 5/- |
-| Prob150_review2015_fsmonehot | - | - | 5/- |
-| Prob035_count1to10 | - | - | 4/- |
-| Prob038_count15 | - | - | 4/- |
-| Prob040_count10 | - | - | 4/- |
-| Prob060_m2014_q4k | - | - | 4/- |
-| Prob063_review2015_shiftcount | - | - | 4/- |
-| Prob067_countslow | - | - | 4/- |
-| Prob079_fsm3onehot | - | - | 4/- |
-| Prob085_shift4 | - | - | 4/- |
-| Prob095_review2015_fsmshift | - | - | 4/- |
-| Prob120_fsm3s | - | - | 4/- |
-| Prob128_fsm_ps2 | - | - | 4/- |
-| Prob142_lemmings2 | - | - | 4/- |
-| Prob051_gates4 | - | - | 3/- |
-| Prob072_thermostat | - | - | 3/- |
-| Prob074_ece241_2014_q4 | - | - | 3/- |
-| Prob089_ece241_2014_q5a | - | - | 3/- |
-| Prob093_ece241_2014_q3 | - | - | 3/- |
-| Prob100_fsm3comb | - | - | 3/- |
-| Prob117_circuit9 | - | - | 3/- |
-| Prob119_fsm3 | - | - | 3/- |
-| Prob129_ece241_2013_q8 | - | - | 3/- |
-| Prob009_popcount3 | - | - | 2/- |
-| Prob024_hadd | - | - | 2/- |
-| Prob025_reduction | - | - | 2/- |
-| Prob027_fadd | - | - | 2/- |
-| Prob036_ringer | - | - | 2/- |
-| Prob058_alwaysblock2 | - | - | 2/- |
-| Prob065_7420 | - | - | 2/- |
-| Prob070_ece241_2013_q2 | - | - | 2/- |
-| Prob075_counter_2bc | - | - | 2/- |
-| Prob077_wire_decl | - | - | 2/- |
-| Prob081_7458 | - | - | 2/- |
-| Prob088_ece241_2014_q5b | - | - | 2/- |
-| Prob091_2012_q2b | - | - | 2/- |
-| Prob099_m2014_q6c | - | - | 2/- |
-| Prob112_always_case2 | - | - | 2/- |
-| Prob127_lemmings1 | - | - | 2/- |
-| Prob134_2014_q3c | - | - | 2/- |
-| Prob147_circuit10 | - | - | 2/- |
-| Prob005_notgate | - | - | 1/- |
-| Prob010_mt2015_q4a | - | - | 1/- |
-| Prob011_norgate | - | - | 1/- |
-| Prob012_xnorgate | - | - | 1/- |
-| Prob013_m2014_q4e | - | - | 1/- |
-| Prob014_andgate | - | - | 1/- |
-| Prob019_m2014_q4f | - | - | 1/- |
-| Prob020_mt2015_eq2 | - | - | 1/- |
-| Prob022_mux2to1 | - | - | 1/- |
-| Prob026_alwaysblock1 | - | - | 1/- |
-| Prob029_m2014_q4g | - | - | 1/- |
-| Prob039_always_if | - | - | 1/- |
-| Prob048_m2014_q4c | - | - | 1/- |
-| Prob049_m2014_q4b | - | - | 1/- |
-| Prob050_kmap1 | - | - | 1/- |
-| Prob053_m2014_q4d | - | - | 1/- |
-| Prob056_ece241_2013_q7 | - | - | 1/- |
-| Prob057_kmap2 | - | - | 1/- |
-| Prob061_2014_q4a | - | - | 1/- |
-| Prob069_truthtable1 | - | - | 1/- |
-| Prob083_mt2015_q4b | - | - | 1/- |
-| Prob090_circuit1 | - | - | 1/- |
-| Prob098_circuit7 | - | - | 1/- |
-| Prob101_circuit4 | - | - | 1/- |
-| Prob102_circuit3 | - | - | 1/- |
-| Prob103_circuit2 | - | - | 1/- |
-| Prob104_mt2015_muxdff | - | - | 1/- |
-| Prob107_fsm1s | - | - | 1/- |
-| Prob109_fsm1 | - | - | 1/- |
-| Prob110_fsm2 | - | - | 1/- |
-| Prob111_fsm2s | - | - | 1/- |
-| Prob113_2012_q1g | - | - | 1/- |
-| Prob116_m2014_q3 | - | - | 1/- |
-| Prob122_kmap4 | - | - | 1/- |
-| Prob125_kmap3 | - | - | 1/- |
-| Prob131_mt2015_q4 | - | - | 1/- |
-| Prob132_always_if2 | - | - | 1/- |
-| Prob135_m2014_q6b | - | - | 1/- |
-| Prob001_zero | - | - | 0/- |
-| Prob002_m2014_q4i | - | - | 0/- |
-| Prob003_step_one | - | - | 0/- |
-| Prob004_vector2 | - | - | 0/- |
-| Prob006_vectorr | - | - | 0/- |
-| Prob007_wire | - | - | 0/- |
-| Prob008_m2014_q4h | - | - | 0/- |
-| Prob015_vector1 | - | - | 0/- |
-| Prob023_vector100r | - | - | 0/- |
-| Prob028_m2014_q4a | - | - | 0/- |
-| Prob032_vector0 | - | - | 0/- |
-| Prob034_dff8 | - | - | 0/- |
-| Prob042_vector4 | - | - | 0/- |
-| Prob059_wire4 | - | - | 0/- |
-| Prob064_vector3 | - | - | 0/- |
-| Prob071_always_casez | - | - | 0/- |
-| Prob156_review2015_fancytimer | - | - | - |
-| Prob151_review2015_fsm | - | - | - |
-| Prob078_dualedge | - | - | - |
-| Prob145_circuit8 | - | - | - |
-| Prob046_dff8p | - | - | - |
-| Prob031_dff | - | - | - |
+| Prob144_conwaylife | 30976/22 | 3280/5 | 1966/3 |
+| Prob030_popcount255 | 14806/527 | 1822/130 | 1369/67 |
+| Prob153_gshare | 6984/31 | 930/10 | 647/7 |
+| Prob108_rule90 | 1022/2 | 512/1 | 512/1 |
+| Prob124_rule110 | 6643/7 | 1022/2 | 512/1 |
+| Prob021_mux256to1v | 90112/11 | 887/7 | 390/5 |
+| Prob092_gatesv100 | 298/1 | 298/1 | 298/1 |
+| Prob105_rotate100 | 310/6 | 300/2 | 201/2 |
+| Prob115_shift18 | 539/9 | 356/3 | 130/2 |
+| Prob018_mux256to1 | 2048/8 | 223/7 | 105/5 |
+| Prob017_mux2to1v | 100/1 | 100/1 | 100/1 |
+| Prob097_mux9to1v | 364/10 | 123/4 | 95/2 |
+| Prob052_gates100 | 297/7 | 102/4 | 88/3 |
+| Prob055_conditional | 231/40 | 60/12 | 56/9 |
+| Prob141_count_clock | 468/12 | 60/5 | 41/4 |
+| Prob066_edgecapture | 128/4 | 32/1 | 32/1 |
+| Prob082_lfsr32 | 35/2 | 32/1 | 32/1 |
+| Prob118_history_shift | 97/3 | 65/2 | 32/1 |
+| Prob154_fsm_ps2data | 37/4 | 28/1 | 28/1 |
+| Prob068_countbcd | 211/10 | 32/5 | 22/3 |
+| Prob123_bugs_addsubz | 150/24 | 30/7 | 22/4 |
+| Prob043_vector5 | 30/2 | 20/1 | 20/1 |
+| Prob146_fsm_serialdata | 32/5 | 21/2 | 20/1 |
+| Prob080_timer | 124/15 | 22/4 | 17/3 |
+| Prob155_lemmings4 | 220/22 | 21/3 | 17/2 |
+| Prob073_dff16e | 32/2 | 16/1 | 16/1 |
+| Prob126_circuit6 | 272/9 | 16/1 | 16/1 |
+| Prob037_review2015_count1k | 105/13 | 18/3 | 14/3 |
+| Prob033_ece241_2014_q1c | 63/14 | 17/5 | 13/3 |
+| Prob114_bugs_case | 249/11 | 18/4 | 13/3 |
+| Prob143_fsm_onehot | 23/7 | 15/2 | 13/2 |
+| Prob076_always_case | 86/9 | 25/3 | 12/2 |
+| Prob137_fsm_serial | 24/5 | 13/2 | 12/1 |
+| Prob084_ece241_2013_q12 | 32/3 | 14/3 | 11/2 |
+| Prob140_fsm_hdlc | 29/5 | 14/2 | 11/2 |
+| Prob149_ece241_2013_q4 | 101/6 | 17/2 | 11/2 |
+| Prob044_vectorgates | 14/3 | 10/2 | 10/1 |
+| Prob094_gatesv | 10/1 | 10/1 | 10/1 |
+| Prob106_always_nolatches | 128/6 | 12/3 | 10/2 |
+| Prob046_dff8p | 9/1 | 9/1 | 9/1 |
+| Prob130_circuit5 | 63/8 | 16/3 | 9/2 |
+| Prob133_2014_q3fsm | 33/6 | 10/2 | 9/2 |
+| Prob139_2013_q2bfsm | 37/5 | 10/2 | 9/1 |
+| Prob041_dff8r | 8/1 | 8/1 | 8/1 |
+| Prob045_edgedetect2 | 8/1 | 8/1 | 8/1 |
+| Prob047_dff8ar | 8/1 | 8/1 | 8/1 |
+| Prob054_edgedetect | 16/2 | 8/1 | 8/1 |
+| Prob062_bugs_mux2 | 8/1 | 8/1 | 8/1 |
+| Prob087_gates | 8/2 | 7/1 | 7/1 |
+| Prob136_m2014_q6 | 22/5 | 8/2 | 7/1 |
+| Prob138_2012_q2fsm | 22/4 | 8/2 | 7/1 |
+| Prob016_m2014_q4j | 32/9 | 7/3 | 6/2 |
+| Prob121_2014_q3bfsm | 22/5 | 8/2 | 6/1 |
+| Prob152_lemmings3 | 86/10 | 8/3 | 6/2 |
+| Prob086_lfsr5 | 6/2 | 5/1 | 5/1 |
+| Prob096_review2015_fsmseq | 18/5 | 6/2 | 5/1 |
+| Prob148_2013_q2afsm | 62/7 | 8/2 | 5/2 |
+| Prob150_review2015_fsmonehot | 19/5 | 6/2 | 5/1 |
+| Prob035_count1to10 | 39/9 | 7/2 | 4/1 |
+| Prob038_count15 | 30/9 | 5/2 | 4/1 |
+| Prob040_count10 | 39/9 | 7/2 | 4/1 |
+| Prob060_m2014_q4k | 4/1 | 4/1 | 4/1 |
+| Prob063_review2015_shiftcount | 39/11 | 5/2 | 4/1 |
+| Prob067_countslow | 46/11 | 7/3 | 4/1 |
+| Prob079_fsm3onehot | 9/3 | 4/1 | 4/1 |
+| Prob085_shift4 | 13/3 | 9/2 | 4/1 |
+| Prob095_review2015_fsmshift | 9/3 | 4/1 | 4/1 |
+| Prob120_fsm3s | 15/4 | 5/2 | 4/1 |
+| Prob128_fsm_ps2 | 13/4 | 4/1 | 4/1 |
+| Prob142_lemmings2 | 37/8 | 6/2 | 4/1 |
+| Prob051_gates4 | 9/2 | 3/1 | 3/1 |
+| Prob072_thermostat | 5/2 | 3/1 | 3/1 |
+| Prob074_ece241_2014_q4 | 8/3 | 3/1 | 3/1 |
+| Prob089_ece241_2014_q5a | 10/4 | 4/2 | 3/1 |
+| Prob093_ece241_2014_q3 | 3/1 | 3/1 | 3/1 |
+| Prob100_fsm3comb | 24/7 | 3/1 | 3/1 |
+| Prob117_circuit9 | 30/8 | 3/1 | 3/1 |
+| Prob119_fsm3 | 26/8 | 3/1 | 3/1 |
+| Prob129_ece241_2013_q8 | 30/8 | 3/1 | 3/1 |
+| Prob009_popcount3 | 22/7 | 2/1 | 2/1 |
+| Prob024_hadd | 11/5 | 2/1 | 2/1 |
+| Prob025_reduction | 7/3 | 3/2 | 2/2 |
+| Prob027_fadd | 22/7 | 2/1 | 2/1 |
+| Prob036_ringer | 3/2 | 2/1 | 2/1 |
+| Prob058_alwaysblock2 | 1/1 | 2/1 | 2/1 |
+| Prob065_7420 | 8/3 | 2/1 | 2/1 |
+| Prob070_ece241_2013_q2 | 15/7 | 2/1 | 2/1 |
+| Prob075_counter_2bc | 62/14 | 4/2 | 2/1 |
+| Prob077_wire_decl | 4/3 | 2/1 | 2/1 |
+| Prob078_dualedge | 2/1 | 2/1 | 2/1 |
+| Prob081_7458 | 8/3 | 3/2 | 2/1 |
+| Prob088_ece241_2014_q5b | 7/3 | 2/1 | 2/1 |
+| Prob091_2012_q2b | 6/4 | 3/2 | 2/1 |
+| Prob099_m2014_q6c | 6/4 | 3/2 | 2/1 |
+| Prob112_always_case2 | 142/12 | 2/1 | 2/1 |
+| Prob127_lemmings1 | 4/3 | 2/1 | 2/1 |
+| Prob134_2014_q3c | 59/8 | 2/1 | 2/1 |
+| Prob147_circuit10 | 7/3 | 2/1 | 2/1 |
+| Prob005_notgate | 1/1 | 1/1 | 1/1 |
+| Prob010_mt2015_q4a | 2/2 | 1/1 | 1/1 |
+| Prob011_norgate | 2/2 | 1/1 | 1/1 |
+| Prob012_xnorgate | 2/2 | 1/1 | 1/1 |
+| Prob013_m2014_q4e | 2/2 | 1/1 | 1/1 |
+| Prob014_andgate | 1/1 | 1/1 | 1/1 |
+| Prob019_m2014_q4f | 2/2 | 1/1 | 1/1 |
+| Prob020_mt2015_eq2 | 4/3 | 1/1 | 1/1 |
+| Prob022_mux2to1 | 1/1 | 1/1 | 1/1 |
+| Prob026_alwaysblock1 | 1/1 | 1/1 | 1/1 |
+| Prob029_m2014_q4g | 3/3 | 1/1 | 1/1 |
+| Prob039_always_if | 2/2 | 1/1 | 1/1 |
+| Prob048_m2014_q4c | 1/1 | 1/1 | 1/1 |
+| Prob049_m2014_q4b | 1/1 | 1/1 | 1/1 |
+| Prob050_kmap1 | 2/2 | 1/1 | 1/1 |
+| Prob053_m2014_q4d | 1/1 | 1/1 | 1/1 |
+| Prob056_ece241_2013_q7 | 5/3 | 1/1 | 1/1 |
+| Prob057_kmap2 | 13/5 | 1/1 | 1/1 |
+| Prob061_2014_q4a | 3/2 | 2/2 | 1/1 |
+| Prob069_truthtable1 | 13/6 | 1/1 | 1/1 |
+| Prob083_mt2015_q4b | 2/2 | 1/1 | 1/1 |
+| Prob090_circuit1 | 1/1 | 1/1 | 1/1 |
+| Prob098_circuit7 | 1/1 | 1/1 | 1/1 |
+| Prob101_circuit4 | 1/1 | 1/1 | 1/1 |
+| Prob102_circuit3 | 3/2 | 1/1 | 1/1 |
+| Prob103_circuit2 | 4/4 | 1/1 | 1/1 |
+| Prob104_mt2015_muxdff | 1/1 | 1/1 | 1/1 |
+| Prob107_fsm1s | 3/3 | 1/1 | 1/1 |
+| Prob109_fsm1 | 3/3 | 1/1 | 1/1 |
+| Prob110_fsm2 | 3/3 | 1/1 | 1/1 |
+| Prob111_fsm2s | 3/3 | 1/1 | 1/1 |
+| Prob113_2012_q1g | 67/7 | 1/1 | 1/1 |
+| Prob116_m2014_q3 | 103/8 | 1/1 | 1/1 |
+| Prob122_kmap4 | 68/8 | 1/1 | 1/1 |
+| Prob125_kmap3 | 98/8 | 1/1 | 1/1 |
+| Prob131_mt2015_q4 | 2/2 | 1/1 | 1/1 |
+| Prob132_always_if2 | 2/2 | 1/1 | 1/1 |
+| Prob135_m2014_q6b | 50/8 | 1/1 | 1/1 |
+| Prob145_circuit8 | 1/1 | 1/1 | 1/1 |
+| Prob001_zero | 0/0 | 0/0 | 0/0 |
+| Prob002_m2014_q4i | 0/0 | 0/0 | 0/0 |
+| Prob003_step_one | 0/0 | 0/0 | 0/0 |
+| Prob004_vector2 | 0/0 | 0/0 | 0/0 |
+| Prob006_vectorr | 0/0 | 0/0 | 0/0 |
+| Prob007_wire | 0/0 | 0/0 | 0/0 |
+| Prob008_m2014_q4h | 0/0 | 0/0 | 0/0 |
+| Prob015_vector1 | 0/0 | 0/0 | 0/0 |
+| Prob023_vector100r | 0/0 | 0/0 | 0/0 |
+| Prob028_m2014_q4a | 0/0 | 0/0 | 0/0 |
+| Prob031_dff | 0/0 | 0/0 | 0/0 |
+| Prob032_vector0 | 0/0 | 0/0 | 0/0 |
+| Prob034_dff8 | 0/0 | 0/0 | 0/0 |
+| Prob042_vector4 | 0/0 | 0/0 | 0/0 |
+| Prob059_wire4 | 0/0 | 0/0 | 0/0 |
+| Prob064_vector3 | 0/0 | 0/0 | 0/0 |
+| Prob071_always_casez | 0/0 | 0/0 | 0/0 |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
 
 </details>
 
@@ -555,162 +661,162 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
-| Prob144_conwaylife | - | - | - | - | - | - | - | - |
-| Prob030_popcount255 | - | - | - | - | - | - | - | - |
-| Prob153_gshare | - | - | - | - | - | - | - | - |
-| Prob108_rule90 | - | - | - | - | - | - | - | - |
-| Prob124_rule110 | - | - | - | - | - | - | - | - |
-| Prob021_mux256to1v | - | - | - | - | - | - | - | - |
-| Prob092_gatesv100 | - | - | - | - | - | - | - | - |
-| Prob105_rotate100 | - | - | - | - | - | - | - | - |
-| Prob115_shift18 | - | - | - | - | - | - | - | - |
-| Prob018_mux256to1 | - | - | - | - | - | - | - | - |
-| Prob017_mux2to1v | - | - | - | - | - | - | - | - |
-| Prob097_mux9to1v | - | - | - | - | - | - | - | - |
-| Prob052_gates100 | - | - | - | - | - | - | - | - |
-| Prob055_conditional | - | - | - | - | - | - | - | - |
-| Prob141_count_clock | - | - | - | - | - | - | - | - |
-| Prob066_edgecapture | - | - | - | - | - | - | - | - |
-| Prob082_lfsr32 | - | - | - | - | - | - | - | - |
-| Prob118_history_shift | - | - | - | - | - | - | - | - |
-| Prob154_fsm_ps2data | - | - | - | - | - | - | - | - |
-| Prob068_countbcd | - | - | - | - | - | - | - | - |
-| Prob123_bugs_addsubz | - | - | - | - | - | - | - | - |
-| Prob043_vector5 | - | - | - | - | - | - | - | - |
-| Prob146_fsm_serialdata | - | - | - | - | - | - | - | - |
-| Prob080_timer | - | - | - | - | - | - | - | - |
-| Prob155_lemmings4 | - | - | - | - | - | - | - | - |
-| Prob073_dff16e | - | - | - | - | - | - | - | - |
-| Prob126_circuit6 | - | - | - | - | - | - | - | - |
-| Prob037_review2015_count1k | - | - | - | - | - | - | - | - |
-| Prob033_ece241_2014_q1c | - | - | - | - | - | - | - | - |
-| Prob114_bugs_case | - | - | - | - | - | - | - | - |
-| Prob143_fsm_onehot | - | - | - | - | - | - | - | - |
-| Prob076_always_case | - | - | - | - | - | - | - | - |
-| Prob137_fsm_serial | - | - | - | - | - | - | - | - |
-| Prob084_ece241_2013_q12 | - | - | - | - | - | - | - | - |
-| Prob140_fsm_hdlc | - | - | - | - | - | - | - | - |
-| Prob149_ece241_2013_q4 | - | - | - | - | - | - | - | - |
-| Prob044_vectorgates | - | - | - | - | - | - | - | - |
-| Prob094_gatesv | - | - | - | - | - | - | - | - |
-| Prob106_always_nolatches | - | - | - | - | - | - | - | - |
-| Prob130_circuit5 | - | - | - | - | - | - | - | - |
-| Prob133_2014_q3fsm | - | - | - | - | - | - | - | - |
-| Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - |
-| Prob041_dff8r | - | - | - | - | - | - | - | - |
-| Prob045_edgedetect2 | - | - | - | - | - | - | - | - |
-| Prob047_dff8ar | - | - | - | - | - | - | - | - |
-| Prob054_edgedetect | - | - | - | - | - | - | - | - |
-| Prob062_bugs_mux2 | - | - | - | - | - | - | - | - |
-| Prob087_gates | - | - | - | - | - | - | - | - |
-| Prob136_m2014_q6 | - | - | - | - | - | - | - | - |
-| Prob138_2012_q2fsm | - | - | - | - | - | - | - | - |
-| Prob016_m2014_q4j | - | - | - | - | - | - | - | - |
-| Prob121_2014_q3bfsm | - | - | - | - | - | - | - | - |
-| Prob152_lemmings3 | - | - | - | - | - | - | - | - |
-| Prob086_lfsr5 | - | - | - | - | - | - | - | - |
-| Prob096_review2015_fsmseq | - | - | - | - | - | - | - | - |
-| Prob148_2013_q2afsm | - | - | - | - | - | - | - | - |
-| Prob150_review2015_fsmonehot | - | - | - | - | - | - | - | - |
-| Prob035_count1to10 | - | - | - | - | - | - | - | - |
-| Prob038_count15 | - | - | - | - | - | - | - | - |
-| Prob040_count10 | - | - | - | - | - | - | - | - |
-| Prob060_m2014_q4k | - | - | - | - | - | - | - | - |
-| Prob063_review2015_shiftcount | - | - | - | - | - | - | - | - |
-| Prob067_countslow | - | - | - | - | - | - | - | - |
-| Prob079_fsm3onehot | - | - | - | - | - | - | - | - |
-| Prob085_shift4 | - | - | - | - | - | - | - | - |
-| Prob095_review2015_fsmshift | - | - | - | - | - | - | - | - |
-| Prob120_fsm3s | - | - | - | - | - | - | - | - |
-| Prob128_fsm_ps2 | - | - | - | - | - | - | - | - |
-| Prob142_lemmings2 | - | - | - | - | - | - | - | - |
-| Prob051_gates4 | - | - | - | - | - | - | - | - |
-| Prob072_thermostat | - | - | - | - | - | - | - | - |
-| Prob074_ece241_2014_q4 | - | - | - | - | - | - | - | - |
-| Prob089_ece241_2014_q5a | - | - | - | - | - | - | - | - |
-| Prob093_ece241_2014_q3 | - | - | - | - | - | - | - | - |
-| Prob100_fsm3comb | - | - | - | - | - | - | - | - |
-| Prob117_circuit9 | - | - | - | - | - | - | - | - |
-| Prob119_fsm3 | - | - | - | - | - | - | - | - |
-| Prob129_ece241_2013_q8 | - | - | - | - | - | - | - | - |
-| Prob009_popcount3 | - | - | - | - | - | - | - | - |
-| Prob024_hadd | - | - | - | - | - | - | - | - |
-| Prob025_reduction | - | - | - | - | - | - | - | - |
-| Prob027_fadd | - | - | - | - | - | - | - | - |
-| Prob036_ringer | - | - | - | - | - | - | - | - |
-| Prob058_alwaysblock2 | - | - | - | - | - | - | - | - |
-| Prob065_7420 | - | - | - | - | - | - | - | - |
-| Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - |
-| Prob075_counter_2bc | - | - | - | - | - | - | - | - |
-| Prob077_wire_decl | - | - | - | - | - | - | - | - |
-| Prob081_7458 | - | - | - | - | - | - | - | - |
-| Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - |
-| Prob091_2012_q2b | - | - | - | - | - | - | - | - |
-| Prob099_m2014_q6c | - | - | - | - | - | - | - | - |
-| Prob112_always_case2 | - | - | - | - | - | - | - | - |
-| Prob127_lemmings1 | - | - | - | - | - | - | - | - |
-| Prob134_2014_q3c | - | - | - | - | - | - | - | - |
-| Prob147_circuit10 | - | - | - | - | - | - | - | - |
-| Prob005_notgate | - | - | - | - | - | - | - | - |
-| Prob010_mt2015_q4a | - | - | - | - | - | - | - | - |
-| Prob011_norgate | - | - | - | - | - | - | - | - |
-| Prob012_xnorgate | - | - | - | - | - | - | - | - |
-| Prob013_m2014_q4e | - | - | - | - | - | - | - | - |
-| Prob014_andgate | - | - | - | - | - | - | - | - |
-| Prob019_m2014_q4f | - | - | - | - | - | - | - | - |
-| Prob020_mt2015_eq2 | - | - | - | - | - | - | - | - |
-| Prob022_mux2to1 | - | - | - | - | - | - | - | - |
-| Prob026_alwaysblock1 | - | - | - | - | - | - | - | - |
-| Prob029_m2014_q4g | - | - | - | - | - | - | - | - |
-| Prob039_always_if | - | - | - | - | - | - | - | - |
-| Prob048_m2014_q4c | - | - | - | - | - | - | - | - |
-| Prob049_m2014_q4b | - | - | - | - | - | - | - | - |
-| Prob050_kmap1 | - | - | - | - | - | - | - | - |
-| Prob053_m2014_q4d | - | - | - | - | - | - | - | - |
-| Prob056_ece241_2013_q7 | - | - | - | - | - | - | - | - |
-| Prob057_kmap2 | - | - | - | - | - | - | - | - |
-| Prob061_2014_q4a | - | - | - | - | - | - | - | - |
-| Prob069_truthtable1 | - | - | - | - | - | - | - | - |
-| Prob083_mt2015_q4b | - | - | - | - | - | - | - | - |
-| Prob090_circuit1 | - | - | - | - | - | - | - | - |
-| Prob098_circuit7 | - | - | - | - | - | - | - | - |
-| Prob101_circuit4 | - | - | - | - | - | - | - | - |
-| Prob102_circuit3 | - | - | - | - | - | - | - | - |
-| Prob103_circuit2 | - | - | - | - | - | - | - | - |
-| Prob104_mt2015_muxdff | - | - | - | - | - | - | - | - |
-| Prob107_fsm1s | - | - | - | - | - | - | - | - |
-| Prob109_fsm1 | - | - | - | - | - | - | - | - |
-| Prob110_fsm2 | - | - | - | - | - | - | - | - |
-| Prob111_fsm2s | - | - | - | - | - | - | - | - |
-| Prob113_2012_q1g | - | - | - | - | - | - | - | - |
-| Prob116_m2014_q3 | - | - | - | - | - | - | - | - |
-| Prob122_kmap4 | - | - | - | - | - | - | - | - |
-| Prob125_kmap3 | - | - | - | - | - | - | - | - |
-| Prob131_mt2015_q4 | - | - | - | - | - | - | - | - |
-| Prob132_always_if2 | - | - | - | - | - | - | - | - |
-| Prob135_m2014_q6b | - | - | - | - | - | - | - | - |
-| Prob001_zero | - | - | - | - | - | - | - | - |
-| Prob002_m2014_q4i | - | - | - | - | - | - | - | - |
-| Prob003_step_one | - | - | - | - | - | - | - | - |
-| Prob004_vector2 | - | - | - | - | - | - | - | - |
-| Prob006_vectorr | - | - | - | - | - | - | - | - |
-| Prob007_wire | - | - | - | - | - | - | - | - |
-| Prob008_m2014_q4h | - | - | - | - | - | - | - | - |
-| Prob015_vector1 | - | - | - | - | - | - | - | - |
-| Prob023_vector100r | - | - | - | - | - | - | - | - |
-| Prob028_m2014_q4a | - | - | - | - | - | - | - | - |
-| Prob032_vector0 | - | - | - | - | - | - | - | - |
-| Prob034_dff8 | - | - | - | - | - | - | - | - |
-| Prob042_vector4 | - | - | - | - | - | - | - | - |
-| Prob059_wire4 | - | - | - | - | - | - | - | - |
-| Prob064_vector3 | - | - | - | - | - | - | - | - |
-| Prob071_always_casez | - | - | - | - | - | - | - | - |
-| Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - |
-| Prob151_review2015_fsm | - | - | - | - | - | - | - | - |
-| Prob078_dualedge | - | - | - | - | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - | - | - | - | - |
-| Prob046_dff8p | - | - | - | - | - | - | - | - |
-| Prob031_dff | - | - | - | - | - | - | - | - |
+| Prob144_conwaylife | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob030_popcount255 | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob153_gshare | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob108_rule90 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob124_rule110 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob021_mux256to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob092_gatesv100 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob105_rotate100 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob115_shift18 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob018_mux256to1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob017_mux2to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob097_mux9to1v | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob052_gates100 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob055_conditional | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob141_count_clock | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob066_edgecapture | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob082_lfsr32 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob118_history_shift | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob154_fsm_ps2data | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob068_countbcd | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob123_bugs_addsubz | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob043_vector5 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob146_fsm_serialdata | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob080_timer | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob155_lemmings4 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob073_dff16e | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob126_circuit6 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob037_review2015_count1k | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob033_ece241_2014_q1c | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob114_bugs_case | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob143_fsm_onehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob076_always_case | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob137_fsm_serial | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob084_ece241_2013_q12 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob140_fsm_hdlc | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob149_ece241_2013_q4 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob044_vectorgates | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob094_gatesv | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob106_always_nolatches | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob046_dff8p | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob130_circuit5 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob133_2014_q3fsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob139_2013_q2bfsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob041_dff8r | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob045_edgedetect2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob047_dff8ar | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob054_edgedetect | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob062_bugs_mux2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob087_gates | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob136_m2014_q6 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob138_2012_q2fsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob016_m2014_q4j | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob121_2014_q3bfsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob152_lemmings3 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob086_lfsr5 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob096_review2015_fsmseq | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob148_2013_q2afsm | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob150_review2015_fsmonehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob035_count1to10 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob038_count15 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob040_count10 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob060_m2014_q4k | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob063_review2015_shiftcount | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob067_countslow | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob079_fsm3onehot | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob085_shift4 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob095_review2015_fsmshift | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob120_fsm3s | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob128_fsm_ps2 | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob142_lemmings2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob051_gates4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob072_thermostat | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob074_ece241_2014_q4 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob089_ece241_2014_q5a | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| Prob093_ece241_2014_q3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob100_fsm3comb | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob117_circuit9 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob119_fsm3 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob129_ece241_2013_q8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob009_popcount3 | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob024_hadd | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob025_reduction | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob027_fadd | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob036_ringer | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob058_alwaysblock2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob065_7420 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob070_ece241_2013_q2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob075_counter_2bc | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Prob077_wire_decl | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob078_dualedge | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob081_7458 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob088_ece241_2014_q5b | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob091_2012_q2b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob099_m2014_q6c | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob112_always_case2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob127_lemmings1 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob134_2014_q3c | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob147_circuit10 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob005_notgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob010_mt2015_q4a | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob011_norgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob012_xnorgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob013_m2014_q4e | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob014_andgate | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob019_m2014_q4f | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob020_mt2015_eq2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob022_mux2to1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob026_alwaysblock1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob029_m2014_q4g | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob039_always_if | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob048_m2014_q4c | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob049_m2014_q4b | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob050_kmap1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob053_m2014_q4d | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob056_ece241_2013_q7 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob057_kmap2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob061_2014_q4a | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob069_truthtable1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob083_mt2015_q4b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob090_circuit1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob098_circuit7 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob101_circuit4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob102_circuit3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob103_circuit2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob104_mt2015_muxdff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob107_fsm1s | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob109_fsm1 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob110_fsm2 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob111_fsm2s | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob113_2012_q1g | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob116_m2014_q3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob122_kmap4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob125_kmap3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob131_mt2015_q4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob132_always_if2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob135_m2014_q6b | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob145_circuit8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob001_zero | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob002_m2014_q4i | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob003_step_one | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob004_vector2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob006_vectorr | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob007_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob008_m2014_q4h | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob015_vector1 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob023_vector100r | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob028_m2014_q4a | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob031_dff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob032_vector0 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob034_dff8 | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob042_vector4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob059_wire4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob064_vector3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob071_always_casez | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
 
 </details>
 
@@ -757,6 +863,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | 12 | 145.1 | mismatch | extract |
 | Prob094_gatesv | - | - | - | - |
 | Prob106_always_nolatches | - | - | - | - |
+| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
 | Prob130_circuit5 | - | - | - | - |
 | Prob133_2014_q3fsm | - | - | - | - |
 | Prob139_2013_q2bfsm | - | - | - | - |
@@ -806,6 +913,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob070_ece241_2013_q2 | - | - | - | - |
 | Prob075_counter_2bc | - | - | - | - |
 | Prob077_wire_decl | - | - | - | - |
+| Prob078_dualedge | - | - | - | - |
 | Prob081_7458 | 4 | 47.5 | mismatch | extract |
 | Prob088_ece241_2014_q5b | - | - | - | - |
 | Prob091_2012_q2b | - | 40.0 | out of scope: stopped at pl... | equiv |
@@ -852,6 +960,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob131_mt2015_q4 | - | - | - | - |
 | Prob132_always_if2 | - | - | - | - |
 | Prob135_m2014_q6b | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - |
 | Prob001_zero | - | - | out of scope: stopped at pl... | equiv |
 | Prob002_m2014_q4i | - | - | out of scope: stopped at pl... | equiv |
 | Prob003_step_one | - | - | out of scope: stopped at pl... | equiv |
@@ -862,6 +971,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob015_vector1 | - | - | out of scope: stopped at pl... | equiv |
 | Prob023_vector100r | - | - | out of scope: stopped at pl... | equiv |
 | Prob028_m2014_q4a | - | - | - | - |
+| Prob031_dff | - | - | - | - |
 | Prob032_vector0 | - | - | out of scope: stopped at pl... | equiv |
 | Prob034_dff8 | - | 788.3 | out of scope: stopped at pl... | equiv |
 | Prob042_vector4 | - | - | out of scope: stopped at pl... | equiv |
@@ -870,10 +980,6 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob071_always_casez | - | - | - | - |
 | Prob156_review2015_fancytimer | - | - | - | - |
 | Prob151_review2015_fsm | - | - | - | - |
-| Prob078_dualedge | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - |
-| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
-| Prob031_dff | - | - | - | - |
 
 </details>
 
@@ -883,10 +989,18 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | what it does | suite | link | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|
+| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
+| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
+| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
 | stereovision2 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1846 | ✗ | ✗ |
 | bgm | Finance | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2663 | ✗ | ✗ |
+| LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5033 | ✗ | ✗ |
 | stereovision1 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2553 | ✗ | ✗ |
 | stereovision0 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3905 | ✗ | ✗ |
+| raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3178 | ✗ | ✗ |
+| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
+| or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5237 | ✗ | ✗ |
+| raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2978 | ✗ | ✗ |
 | b22 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 2751 | ✗ | ✗ |
 | blob_merge | Image Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1617 | ✗ | ✗ |
 | b17 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 940 | ✗ | ✗ |
@@ -895,20 +1009,22 @@ Rule: HDL (Verilog) with no testbench file.
 | diffeq1 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 56 | ✗ | ✗ |
 | b18 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1931 | ✗ | ✗ |
 | b19 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1993 | ✗ | ✗ |
-| or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5237 | ✗ | ✗ |
+| boundtop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2825 | ✗ | ✗ |
+| boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3053 | ✗ | ✗ |
 | b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 805 | ✗ | ✗ |
+| spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3072 | ✗ | ✗ |
+| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3352 | ✗ | ✗ |
 | mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6628 | ✗ | ✗ |
 | sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2171 | ✗ | ✗ |
 | mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 4348 | ✗ | ✗ |
-| raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2978 | ✗ | ✗ |
 | b14 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 904 | ✗ | ✗ |
-| boundtop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2825 | ✗ | ✗ |
 | b12 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 635 | ✗ | ✗ |
 | b11 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 138 | ✗ | ✗ |
 | mkPktMerge | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1535 | ✗ | ✗ |
+| ch_intrinsics_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 301 | ✗ | ✗ |
 | b05 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 444 | ✗ | ✗ |
-| ch_intrinsics | Memory Init | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 292 | ✗ | ✗ |
 | stereovision3 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1061 | ✗ | ✗ |
+| ch_intrinsics | Memory Init | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 292 | ✗ | ✗ |
 | diffeq2 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 63 | ✗ | ✗ |
 | b04 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 113 | ✗ | ✗ |
 | b07 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 125 | ✗ | ✗ |
@@ -926,24 +1042,25 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 21 | ✗ | ✗ |
 | single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5 | ✗ | ✗ |
 | single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3 | ✗ | ✗ |
-| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
-| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
-| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
-| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
-| LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5033 | ✗ | ✗ |
-| raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3178 | ✗ | ✗ |
-| spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3072 | ✗ | ✗ |
-| boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3053 | ✗ | ✗ |
-| ch_intrinsics_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 301 | ✗ | ✗ |
+| a-z80 | A-Z80 CPU | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5649 | ✗ | ✗ |
+| amber | Amber ARM-compatible core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5419 | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
 |---|---|---|---|---|---|---|---|---|---|---|
+| LU64PEEng | - | - | route | 131211 | 15299 | 37270 | 216 | 64/10372 | 71.2027 | 118 |
+| mcml | - | - | route | 75336 | 7421 | 51494 | 392 | 27/348 | 46.605 | 124 |
+| LU32PEEng | - | - | route | 66933 | 7915 | 19668 | 216 | 32/5251 | 70.3903 | 100 |
 | stereovision2 | - | - | - | 8426 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 |
-| bgm | - | - | - | - | - | - | - | - | - | - |
+| bgm | - | - | route | 25388 | 3074 | 5105 | 290 | 11/0 | 23.8936 | 90 |
+| LU8PEEng | - | - | route | 19051 | 2400 | 6224 | 216 | 8/1409 | 76.1243 | 84 |
 | stereovision1 | - | - | - | 6462 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 |
 | stereovision0 | - | - | - | 6887 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 |
+| raygentop_nolatches | - | - | route | 1693 | 758 | 1398 | 560 | 18/21 | 4.86647 | 58 |
+| arm_core | - | - | route | 10707 | 1310 | 3943 | 313 | 0/1192 | 24.503 | 98 |
+| or1200 | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 |
+| raygentop | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 |
 | b22 | - | - | - | - | - | - | - | - | - | - |
 | blob_merge | - | - | - | 6015 | 486 | 575 | 232 | 0/0 | 14.668 | 62 |
 | b17 | - | - | - | - | - | - | - | - | - | - |
@@ -952,20 +1069,22 @@ Rule: HDL (Verilog) with no testbench file.
 | diffeq1 | - | - | - | 294 | 31 | 193 | 258 | 5/0 | 17.2038 | 58 |
 | b18 | - | - | - | - | - | - | - | - | - | - |
 | b19 | - | - | - | - | - | - | - | - | - | - |
-| or1200 | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 |
+| boundtop | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 |
+| boundtop_nolatches | - | - | route | 378 | 378 | 209 | 468 | 0/32 | 2.3407 | 40 |
 | b15 | - | - | - | - | - | - | - | - | - | - |
+| spree | - | - | route | 669 | 144 | 200 | 164 | 1/128 | 12.1663 | 58 |
+| attiny_atmega_xmega_core | none | none | timing | 1973 | 186 | 373 | 2 | 1/0 | 14.924 | 66 |
 | mkDelayWorker32B | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 |
 | sha | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 |
 | mkSMAdapter4B | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 |
-| raygentop | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 |
 | b14 | - | - | - | - | - | - | - | - | - | - |
-| boundtop | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 |
 | b12 | - | - | - | - | - | - | - | - | - | - |
 | b11 | - | - | - | - | - | - | - | - | - | - |
 | mkPktMerge | - | - | - | 329 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 |
+| ch_intrinsics_nolatches | - | - | route | 128 | 245 | 82 | 229 | 0/8 | 2.09608 | 38 |
 | b05 | - | - | - | - | - | - | - | - | - | - |
-| ch_intrinsics | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 |
 | stereovision3 | - | - | - | 171 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 |
+| ch_intrinsics | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 |
 | diffeq2 | - | - | - | 198 | 22 | 96 | 162 | 5/0 | 13.5453 | 44 |
 | b04 | - | - | - | - | - | - | - | - | - | - |
 | b07 | - | - | - | - | - | - | - | - | - | - |
@@ -975,23 +1094,16 @@ Rule: HDL (Verilog) with no testbench file.
 | b03 | - | - | - | - | - | - | - | - | - | - |
 | b08 | - | - | - | - | - | - | - | - | - | - |
 | b06 | - | - | - | - | - | - | - | - | - | - |
-| multiclock_reader_writer | - | - | - | - | - | - | - | - | - | - |
+| multiclock_reader_writer | - | - | route | 11 | 6 | 11 | 4 | 0/0 | 1.45 | 18 |
 | b02 | - | - | - | - | - | - | - | - | - | - |
 | b01 | - | - | - | - | - | - | - | - | - | - |
-| multiclock_output_and_latch | - | - | - | - | - | - | - | - | - | - |
-| multiclock_separate_and_latch | - | - | - | - | - | - | - | - | - | - |
-| and_latch | - | - | - | - | - | - | - | - | - | - |
-| single_ff | - | - | - | - | - | - | - | - | - | - |
-| single_wire | - | - | - | - | - | - | - | - | - | - |
-| mcml | - | - | - | - | - | - | - | - | - | - |
-| arm_core | - | - | - | - | - | - | - | - | - | - |
-| LU64PEEng | - | - | - | - | - | - | - | - | - | - |
-| LU32PEEng | - | - | - | - | - | - | - | - | - | - |
-| LU8PEEng | - | - | - | - | - | - | - | - | - | - |
-| raygentop_nolatches | - | - | - | - | - | - | - | - | - | - |
-| spree | - | - | - | - | - | - | - | - | - | - |
-| boundtop_nolatches | - | - | - | - | - | - | - | - | - | - |
-| ch_intrinsics_nolatches | - | - | - | - | - | - | - | - | - | - |
+| multiclock_output_and_latch | - | - | route | 3 | 9 | 3 | 7 | 0/0 | 1.25967 | 20 |
+| multiclock_separate_and_latch | - | - | route | 2 | 10 | 2 | 8 | 0/0 | 0.807175 | 20 |
+| and_latch | - | - | route | 1 | 5 | 1 | 4 | 0/0 | 1.52719 | 20 |
+| single_ff | - | - | route | 0 | 4 | 1 | 3 | 0/0 | 1.45102 | 26 |
+| single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 |
+| a-z80 | none | none | none | - | - | - | - | - | - | - |
+| amber | none | none | none | - | - | - | - | - | - | - |
 
 </details>
 
@@ -999,10 +1111,18 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
+| LU64PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| mcml | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| LU32PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
 | stereovision2 | 431409/79 | 69596/24 | 48816/15 |
 | bgm | 327394/126 | 62083/31 | 46209/21 |
+| LU8PEEng | 245206/475 | 58986/161 | 43631/102 |
 | stereovision1 | 139252/27 | 38630/12 | 27709/7 |
 | stereovision0 | 42435/26 | 16352/7 | 14355/5 |
+| raygentop_nolatches | 66497/35 | 17928/19 | 12895/12 |
+| arm_core | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| or1200 | 53698/69 | 14002/44 | 10160/27 |
+| raygentop | 55714/35 | 12480/19 | 8947/12 |
 | b22 | 56695/105 | 8495/33 | 6234/20 |
 | blob_merge | 61064/78 | 8741/30 | 5264/18 |
 | b17 | 107358/80 | 7388/19 | 5240/12 |
@@ -1011,20 +1131,22 @@ Rule: HDL (Verilog) with no testbench file.
 | diffeq1 | 14398/101 | 4897/34 | 3585/23 |
 | b18 | 36964/105 | 4976/0 | 3500/0 |
 | b19 | 36964/105 | 4976/0 | 3500/0 |
-| or1200 | fail: or1200.v:3101:1: erro... | fail: or1200.v:3101:1: erro... | fail: or1200.v:3101:1: erro... |
+| boundtop | 14741/35 | 3101/7 | 2426/4 |
+| boundtop_nolatches | 18011/35 | 3235/7 | 2421/4 |
 | b15 | 26705/80 | 3326/19 | 2322/12 |
-| mkDelayWorker32B | fail: mkDelayWorker32B.v:15... | fail: mkDelayWorker32B.v:15... | fail: mkDelayWorker32B.v:15... |
+| spree | 11441/103 | 3289/29 | 2321/17 |
+| attiny_atmega_xmega_core | - | - | - |
+| mkDelayWorker32B | 28203/41 | 1812/6 | 1633/5 |
 | sha | 8125/79 | 2788/30 | 1583/20 |
-| mkSMAdapter4B | fail: mkSMAdapter4B.v:3391:... | fail: mkSMAdapter4B.v:3391:... | fail: mkSMAdapter4B.v:3391:... |
-| raygentop | fail: raygentop.v:571:1: er... | fail: raygentop.v:571:1: er... | fail: raygentop.v:571:1: er... |
+| mkSMAdapter4B | 11046/34 | 1929/12 | 1372/7 |
 | b14 | 9335/105 | 1352/32 | 984/20 |
-| boundtop | fail: boundtop.v:1653:1: er... | fail: boundtop.v:1653:1: er... | fail: boundtop.v:1653:1: er... |
 | b12 | 5026/26 | 673/8 | 484/5 |
 | b11 | 3924/39 | 515/14 | 357/9 |
-| mkPktMerge | fail: mkPktMerge.v:566:1: e... | fail: mkPktMerge.v:566:1: e... | fail: mkPktMerge.v:566:1: e... |
+| mkPktMerge | 1460/19 | 346/2 | 274/2 |
+| ch_intrinsics_nolatches | 639/8 | 225/3 | 213/3 |
 | b05 | 20479/98 | 306/12 | 196/8 |
-| ch_intrinsics | fail: ch_intrinsics.v:34:1:... | fail: ch_intrinsics.v:34:1:... | fail: ch_intrinsics.v:34:1:... |
 | stereovision3 | 2042/17 | 233/5 | 175/4 |
+| ch_intrinsics | 405/8 | 139/3 | 127/3 |
 | diffeq2 | 14387/93 | 162/22 | 105/13 |
 | b04 | 1782/54 | 133/6 | 104/4 |
 | b07 | 776/17 | 128/6 | 95/4 |
@@ -1042,15 +1164,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | 1/1 | 1/1 | 1/1 |
 | single_ff | 0/0 | 0/0 | 0/0 |
 | single_wire | 0/0 | 0/0 | 0/0 |
-| mcml | fail: mcml.v:1676:1: error:... | fail: mcml.v:1676:1: error:... | fail: mcml.v:1676:1: error:... |
-| arm_core | fail: timeout 900 s/fail: t... | fail: timeout 900 s/fail: t... | fail: timeout 900 s/fail: t... |
-| LU64PEEng | fail: LU64PEEng.v:3091:1: e... | fail: LU64PEEng.v:3091:1: e... | fail: LU64PEEng.v:3091:1: e... |
-| LU32PEEng | fail: LU32PEEng.v:2609:1: e... | fail: LU32PEEng.v:2609:1: e... | fail: LU32PEEng.v:2609:1: e... |
-| LU8PEEng | fail: LU8PEEng.v:2250:1: er... | fail: LU8PEEng.v:2250:1: er... | fail: LU8PEEng.v:2250:1: er... |
-| raygentop_nolatches | fail: raygentop_nolatches.v... | fail: raygentop_nolatches.v... | fail: raygentop_nolatches.v... |
-| spree | fail: spree.v:1720:1: error... | fail: spree.v:1720:1: error... | fail: spree.v:1720:1: error... |
-| boundtop_nolatches | fail: boundtop_nolatches.v:... | fail: boundtop_nolatches.v:... | fail: boundtop_nolatches.v:... |
-| ch_intrinsics_nolatches | fail: ch_intrinsics_nolatch... | fail: ch_intrinsics_nolatch... | fail: ch_intrinsics_nolatch... |
+| a-z80 | - | - | - |
+| amber | - | - | - |
 
 </details>
 
@@ -1058,10 +1173,18 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
+| LU64PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| mcml | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| LU32PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision2 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | bgm | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| LU8PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision1 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision0 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| raygentop_nolatches | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| arm_core | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| or1200 | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| raygentop | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b22 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ |
 | blob_merge | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ |
 | b17 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ |
@@ -1070,20 +1193,22 @@ Rule: HDL (Verilog) with no testbench file.
 | diffeq1 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | b18 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b19 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| or1200 | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| boundtop | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| boundtop_nolatches | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b15 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| spree | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| attiny_atmega_xmega_core | - | - | - | - | - | - | - | - |
 | mkDelayWorker32B | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | sha | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | mkSMAdapter4B | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
-| raygentop | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b14 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| boundtop | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b12 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | b11 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | mkPktMerge | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| ch_intrinsics_nolatches | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
 | b05 | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
-| ch_intrinsics | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
 | stereovision3 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| ch_intrinsics | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
 | diffeq2 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | b04 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | b07 | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
@@ -1101,15 +1226,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_ff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| mcml | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| arm_core | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
-| LU64PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| LU32PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| LU8PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| raygentop_nolatches | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| spree | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| boundtop_nolatches | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| ch_intrinsics_nolatches | ✓ | ✓ | ✗ | ✗ | ✓ | ✗ | ✓ | ✗ |
+| a-z80 | - | - | - | - | - | - | - | - |
+| amber | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1117,10 +1235,18 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
+| LU64PEEng | - | - | - | - |
+| mcml | - | - | - | - |
+| LU32PEEng | - | - | - | - |
 | stereovision2 | - | - | - | - |
 | bgm | - | - | - | - |
+| LU8PEEng | - | - | - | - |
 | stereovision1 | - | - | - | - |
 | stereovision0 | - | - | - | - |
+| raygentop_nolatches | - | - | - | - |
+| arm_core | - | - | - | - |
+| or1200 | - | - | - | - |
+| raygentop | - | - | - | - |
 | b22 | - | - | - | - |
 | blob_merge | - | - | - | - |
 | b17 | - | - | - | - |
@@ -1129,20 +1255,22 @@ Rule: HDL (Verilog) with no testbench file.
 | diffeq1 | - | - | - | - |
 | b18 | - | - | - | - |
 | b19 | - | - | - | - |
-| or1200 | - | - | - | - |
+| boundtop | - | - | - | - |
+| boundtop_nolatches | - | - | - | - |
 | b15 | - | - | - | - |
+| spree | - | - | - | - |
+| attiny_atmega_xmega_core | - | - | - | - |
 | mkDelayWorker32B | - | - | - | - |
 | sha | - | - | - | - |
 | mkSMAdapter4B | - | - | - | - |
-| raygentop | - | - | - | - |
 | b14 | - | - | - | - |
-| boundtop | - | - | - | - |
 | b12 | - | - | - | - |
 | b11 | - | - | - | - |
 | mkPktMerge | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | - | - |
 | b05 | - | - | - | - |
-| ch_intrinsics | - | - | - | - |
 | stereovision3 | - | - | - | - |
+| ch_intrinsics | - | - | - | - |
 | diffeq2 | - | - | - | - |
 | b04 | - | - | - | - |
 | b07 | - | - | - | - |
@@ -1160,15 +1288,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | - | - |
 | single_ff | - | - | - | - |
 | single_wire | - | - | - | - |
-| mcml | - | - | - | - |
-| arm_core | - | - | - | - |
-| LU64PEEng | - | - | - | - |
-| LU32PEEng | - | - | - | - |
-| LU8PEEng | - | - | - | - |
-| raygentop_nolatches | - | - | - | - |
-| spree | - | - | - | - |
-| boundtop_nolatches | - | - | - | - |
-| ch_intrinsics_nolatches | - | - | - | - |
+| a-z80 | - | - | - | - |
+| amber | - | - | - | - |
 
 </details>
 
@@ -1178,448 +1299,448 @@ Rule: BLIF netlist, no HDL.
 
 | design | what it does | suite | link | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|
-| clma | Bus interface | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s38584.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s38417 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex1010 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pdc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| spla | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| elliptic | Fifth Order Elliptic Filter | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frisc | RISC Microprocessor | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | ex1010 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| ex1010 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s38584.1 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s38584.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s38417 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s38417 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | pdc | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s298 | Finite state machine "from a PLD" | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| seq | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bigkey | Key encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pdc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | frisc | RISC Microprocessor | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| des | DES data encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| alu4 | ALU | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| diffeq | Differential Equation Solver | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frisc | RISC Microprocessor | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | elliptic | Fifth Order Elliptic Filter | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| elliptic | Fifth Order Elliptic Filter | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | spla | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| misex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dsip | Encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex5p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tseng | Bus controller | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i10 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| spla | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | apex2 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| apex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | des | DES data encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| apex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| des | DES data encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | apex4 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| apex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | seq | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| seq | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | alu4 | ALU | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| alu4 | ALU | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex3 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| misex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dsip | Encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| dsip | Encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i10 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C6288 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex5p | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| ex5p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| clma | Bus interface | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| clma | Bus interface | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tseng | Bus controller | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| tseng | Bus controller | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | cps | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | C7552 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex3 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| apex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dsip | Encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s298 | Finite state machine "from a PLD" | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| parker1986 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | pair | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C5315 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| diffeq | Differential Equation Solver | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| bigkey | Key encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s5378 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex3c | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C6288 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| k2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dalu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| parker1986 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | table5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | table3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex5p | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
+| k2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C5315 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | mm30a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cordic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s9234.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| clma | Bus interface | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| ex4p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s5378 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | C3540 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex3c | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s9234.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | scf | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tseng | Bus controller | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| bbrtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | sbc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ecc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| daio-rec | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dalu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | rot | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1488 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1238 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1494 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | vda | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ecc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | e64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| apex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex4p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1494 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1488 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1423 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbrtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| duke2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C2670 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| styr | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | planet | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | planet1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1238 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| daio-rec | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s1196 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C2670 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| duke2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sand | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| styr | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1423 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ph-decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| gcd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s953 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| t481 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm9b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| alu2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sand | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | too-lrg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C880 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s838 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd84 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C499 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ph-decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| alu2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | C1908 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s832 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| 9sym | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm9a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| clip | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm9b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | example2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bw | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C432 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s820 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| gcd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C1355 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm9a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s832 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| t481 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C880 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | mult32a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk16 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| 9sym | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s820 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s838.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| clip | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | keyb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd84 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sao2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s641 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s713 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | apex7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s510 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| C432 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pma | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | i4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | 9symml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s838.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sao2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s713 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| term1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s641 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pma | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk16 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mult16a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | tbk | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd73 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm4a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ttt2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C1355 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C499 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s400 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cht | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s344 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | s349 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| vg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbsse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| inc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s444 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s382 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s526n | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| 5xp1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mult16a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| b12 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s386 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cht | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| f51m | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s526 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| opus | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frg1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| unreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| my-adder | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s420.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| b9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mm4a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | o64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk14 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| comp | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s386 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| b9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mult16b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s420.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ttt2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s444 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bw | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | c8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | count | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | ldd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pcler8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| traffic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s400 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| frg1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd73 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s382 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbsse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s526n | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | lal | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mark1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| squar5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbara | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mult16b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sqrt8ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sqrt8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s526 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| vg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| my-adder | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pcler8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | cc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk15 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s208.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s420 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| comp | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| inc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| term1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mark1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| opus | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | sct | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pcle | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| b12 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| bbara | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| ex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | pm1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm162a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s208 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cmb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s208.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | tcon | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mux | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| beecount | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm150a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk512 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd53 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm163a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm85a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm138a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| unreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| i1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cordic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| f51m | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| pcle | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| 5xp1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s420 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| x2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sqrt8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| traffic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm162a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | cm42a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tav | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm151a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| z4ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cmb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s208 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm150a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| sqrt8ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm138a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm163a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk14 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| misex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s838 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| squar5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| beecount | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk15 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk512 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm85a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| dk17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | mc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| mux | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| tav | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | bbtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm152a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| con1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | dk27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | parity | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| z4ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | b1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm151a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| s27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| cm152a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | cm82a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | daio | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | lion | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| majority | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| rd53 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | C17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| xor5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| con1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | chain_cout_fanout | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| majority | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| xor5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 | shiftreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
 |---|---|---|---|---|---|---|---|---|---|---|
-| clma | - | - | - | - | - | - | - | - | - | - |
-| s38584.1 | - | - | - | - | - | - | - | - | - | - |
-| s38417 | - | - | - | - | - | - | - | - | - | - |
-| ex1010 | - | - | - | - | - | - | - | - | - | - |
-| pdc | - | - | - | - | - | - | - | - | - | - |
-| spla | - | - | - | - | - | - | - | - | - | - |
-| elliptic | - | - | - | - | - | - | - | - | - | - |
-| frisc | - | - | - | - | - | - | - | - | - | - |
 | ex1010 | - | - | - | 2777 | 314 | 0 | 20 | 0/0 | 9.8022 | 84 |
+| ex1010 | - | - | - | - | - | - | - | - | - | - |
 | s38584.1 | - | - | - | 2190 | 182 | 1141 | 343 | 0/0 | 4.65105 | 48 |
+| s38584.1 | - | - | - | - | - | - | - | - | - | - |
 | s38417 | - | - | - | 2189 | 179 | 1345 | 135 | 0/0 | 4.96812 | 42 |
+| s38417 | - | - | - | - | - | - | - | - | - | - |
 | pdc | - | - | - | 1973 | 176 | 0 | 56 | 0/0 | 7.42762 | 72 |
-| s298 | - | - | - | - | - | - | - | - | - | - |
-| apex2 | - | - | - | - | - | - | - | - | - | - |
-| seq | - | - | - | - | - | - | - | - | - | - |
-| bigkey | - | - | - | - | - | - | - | - | - | - |
+| pdc | - | - | - | - | - | - | - | - | - | - |
 | frisc | - | - | - | 1668 | 153 | 814 | 136 | 0/0 | 8.694 | 66 |
-| des | - | - | - | - | - | - | - | - | - | - |
-| alu4 | - | - | - | - | - | - | - | - | - | - |
-| diffeq | - | - | - | - | - | - | - | - | - | - |
+| frisc | - | - | - | - | - | - | - | - | - | - |
 | elliptic | - | - | - | 1463 | 137 | 884 | 245 | 0/0 | 7.59909 | 58 |
+| elliptic | - | - | - | - | - | - | - | - | - | - |
 | spla | - | - | - | 1445 | 131 | 0 | 62 | 0/0 | 6.39096 | 60 |
-| misex3 | - | - | - | - | - | - | - | - | - | - |
-| dsip | - | - | - | - | - | - | - | - | - | - |
-| apex4 | - | - | - | - | - | - | - | - | - | - |
-| ex5p | - | - | - | - | - | - | - | - | - | - |
-| tseng | - | - | - | - | - | - | - | - | - | - |
-| i10 | - | - | - | - | - | - | - | - | - | - |
+| spla | - | - | - | - | - | - | - | - | - | - |
 | apex2 | - | - | - | 992 | 92 | 0 | 42 | 0/0 | 5.89143 | 54 |
+| apex2 | - | - | - | - | - | - | - | - | - | - |
 | des | - | - | - | 901 | 77 | 0 | 501 | 0/0 | 4.68402 | 38 |
-| apex3 | - | - | - | - | - | - | - | - | - | - |
+| des | - | - | - | - | - | - | - | - | - | - |
 | apex4 | - | - | - | 865 | 80 | 0 | 28 | 0/0 | 5.74616 | 60 |
+| apex4 | - | - | - | - | - | - | - | - | - | - |
 | seq | - | - | - | 855 | 75 | 0 | 76 | 0/0 | 4.95078 | 54 |
+| seq | - | - | - | - | - | - | - | - | - | - |
 | alu4 | - | - | - | 818 | 68 | 0 | 22 | 0/0 | 5.0705 | 42 |
+| alu4 | - | - | - | - | - | - | - | - | - | - |
+| misex3 | - | - | - | 714 | 62 | 0 | 28 | 0/0 | 4.81741 | 48 |
+| misex3 | - | - | - | - | - | - | - | - | - | - |
+| dsip | - | - | - | 686 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 |
+| dsip | - | - | - | - | - | - | - | - | - | - |
+| s298 | - | - | - | 661 | 58 | 8 | 10 | 0/0 | 6.32231 | 46 |
+| s298 | - | - | - | - | - | - | - | - | - | - |
+| diffeq | - | - | - | 580 | 53 | 310 | 103 | 0/0 | 4.91464 | 42 |
+| diffeq | - | - | - | - | - | - | - | - | - | - |
+| bigkey | - | - | - | 572 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 |
+| bigkey | - | - | - | - | - | - | - | - | - | - |
+| apex3 | - | - | - | - | - | - | - | - | - | - |
+| i10 | - | - | - | - | - | - | - | - | - | - |
+| C6288 | - | - | - | - | - | - | - | - | - | - |
+| ex5p | - | - | - | 467 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 |
+| ex5p | - | - | - | - | - | - | - | - | - | - |
+| clma | - | - | - | 450 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 |
+| clma | - | - | - | - | - | - | - | - | - | - |
+| apex1 | - | - | - | - | - | - | - | - | - | - |
+| tseng | - | - | - | 407 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 |
+| tseng | - | - | - | - | - | - | - | - | - | - |
 | cps | - | - | - | - | - | - | - | - | - | - |
 | C7552 | - | - | - | - | - | - | - | - | - | - |
-| misex3 | - | - | - | 714 | 62 | 0 | 28 | 0/0 | 4.81741 | 48 |
-| apex1 | - | - | - | - | - | - | - | - | - | - |
-| dsip | - | - | - | 686 | 66 | 224 | 426 | 0/0 | 2.72755 | 34 |
-| s298 | - | - | - | 661 | 58 | 8 | 10 | 0/0 | 6.32231 | 46 |
-| parker1986 | - | - | - | - | - | - | - | - | - | - |
 | pair | - | - | - | - | - | - | - | - | - | - |
-| C5315 | - | - | - | - | - | - | - | - | - | - |
-| diffeq | - | - | - | 580 | 53 | 310 | 103 | 0/0 | 4.91464 | 42 |
-| bigkey | - | - | - | 572 | 52 | 224 | 460 | 0/0 | 2.59891 | 38 |
-| s5378 | - | - | - | - | - | - | - | - | - | - |
-| misex3c | - | - | - | - | - | - | - | - | - | - |
-| apex5 | - | - | - | - | - | - | - | - | - | - |
-| C6288 | - | - | - | - | - | - | - | - | - | - |
-| k2 | - | - | - | - | - | - | - | - | - | - |
-| dalu | - | - | - | - | - | - | - | - | - | - |
+| parker1986 | - | - | - | - | - | - | - | - | - | - |
 | table5 | - | - | - | - | - | - | - | - | - | - |
-| i8 | - | - | - | - | - | - | - | - | - | - |
 | table3 | - | - | - | - | - | - | - | - | - | - |
-| ex5p | - | - | - | 467 | 39 | 0 | 71 | 0/0 | 5.34702 | 48 |
+| k2 | - | - | - | - | - | - | - | - | - | - |
+| C5315 | - | - | - | - | - | - | - | - | - | - |
 | mm30a | - | - | - | - | - | - | - | - | - | - |
-| cordic | - | - | - | - | - | - | - | - | - | - |
-| s9234.1 | - | - | - | - | - | - | - | - | - | - |
-| clma | - | - | - | 450 | 82 | 26 | 465 | 0/0 | 5.41555 | 36 |
-| ex4p | - | - | - | - | - | - | - | - | - | - |
+| i8 | - | - | - | - | - | - | - | - | - | - |
+| s5378 | - | - | - | - | - | - | - | - | - | - |
 | C3540 | - | - | - | - | - | - | - | - | - | - |
+| misex3c | - | - | - | - | - | - | - | - | - | - |
+| s9234.1 | - | - | - | - | - | - | - | - | - | - |
 | scf | - | - | - | - | - | - | - | - | - | - |
-| tseng | - | - | - | 407 | 34 | 219 | 174 | 0/0 | 4.62879 | 48 |
-| bbrtas | - | - | - | - | - | - | - | - | - | - |
-| apex6 | - | - | - | - | - | - | - | - | - | - |
+| apex5 | - | - | - | - | - | - | - | - | - | - |
 | sbc | - | - | - | - | - | - | - | - | - | - |
-| frg2 | - | - | - | - | - | - | - | - | - | - |
-| x3 | - | - | - | - | - | - | - | - | - | - |
-| i9 | - | - | - | - | - | - | - | - | - | - |
-| ecc | - | - | - | - | - | - | - | - | - | - |
-| daio-rec | - | - | - | - | - | - | - | - | - | - |
+| dalu | - | - | - | - | - | - | - | - | - | - |
 | rot | - | - | - | - | - | - | - | - | - | - |
-| s1488 | - | - | - | - | - | - | - | - | - | - |
-| s1238 | - | - | - | - | - | - | - | - | - | - |
-| s1494 | - | - | - | - | - | - | - | - | - | - |
+| frg2 | - | - | - | - | - | - | - | - | - | - |
 | vda | - | - | - | - | - | - | - | - | - | - |
+| ecc | - | - | - | - | - | - | - | - | - | - |
 | e64 | - | - | - | - | - | - | - | - | - | - |
+| apex6 | - | - | - | - | - | - | - | - | - | - |
+| ex4p | - | - | - | - | - | - | - | - | - | - |
+| x3 | - | - | - | - | - | - | - | - | - | - |
+| s1494 | - | - | - | - | - | - | - | - | - | - |
+| s1488 | - | - | - | - | - | - | - | - | - | - |
+| s1423 | - | - | - | - | - | - | - | - | - | - |
+| bbrtas | - | - | - | - | - | - | - | - | - | - |
+| i9 | - | - | - | - | - | - | - | - | - | - |
+| duke2 | - | - | - | - | - | - | - | - | - | - |
+| C2670 | - | - | - | - | - | - | - | - | - | - |
+| styr | - | - | - | - | - | - | - | - | - | - |
 | planet | - | - | - | - | - | - | - | - | - | - |
 | planet1 | - | - | - | - | - | - | - | - | - | - |
+| s1238 | - | - | - | - | - | - | - | - | - | - |
+| daio-rec | - | - | - | - | - | - | - | - | - | - |
 | s1196 | - | - | - | - | - | - | - | - | - | - |
-| C2670 | - | - | - | - | - | - | - | - | - | - |
-| duke2 | - | - | - | - | - | - | - | - | - | - |
-| sand | - | - | - | - | - | - | - | - | - | - |
-| styr | - | - | - | - | - | - | - | - | - | - |
-| s1423 | - | - | - | - | - | - | - | - | - | - |
-| ph-decod | - | - | - | - | - | - | - | - | - | - |
-| gcd | - | - | - | - | - | - | - | - | - | - |
 | s953 | - | - | - | - | - | - | - | - | - | - |
-| t481 | - | - | - | - | - | - | - | - | - | - |
-| mm9b | - | - | - | - | - | - | - | - | - | - |
-| i7 | - | - | - | - | - | - | - | - | - | - |
-| alu2 | - | - | - | - | - | - | - | - | - | - |
-| s1 | - | - | - | - | - | - | - | - | - | - |
-| x4 | - | - | - | - | - | - | - | - | - | - |
+| sand | - | - | - | - | - | - | - | - | - | - |
 | too-lrg | - | - | - | - | - | - | - | - | - | - |
-| i6 | - | - | - | - | - | - | - | - | - | - |
-| C880 | - | - | - | - | - | - | - | - | - | - |
-| s838 | - | - | - | - | - | - | - | - | - | - |
-| rd84 | - | - | - | - | - | - | - | - | - | - |
+| C499 | - | - | - | - | - | - | - | - | - | - |
+| ph-decod | - | - | - | - | - | - | - | - | - | - |
+| alu2 | - | - | - | - | - | - | - | - | - | - |
 | C1908 | - | - | - | - | - | - | - | - | - | - |
-| s832 | - | - | - | - | - | - | - | - | - | - |
-| 9sym | - | - | - | - | - | - | - | - | - | - |
-| x1 | - | - | - | - | - | - | - | - | - | - |
-| mm9a | - | - | - | - | - | - | - | - | - | - |
-| clip | - | - | - | - | - | - | - | - | - | - |
+| mm9b | - | - | - | - | - | - | - | - | - | - |
 | example2 | - | - | - | - | - | - | - | - | - | - |
-| bw | - | - | - | - | - | - | - | - | - | - |
-| C432 | - | - | - | - | - | - | - | - | - | - |
-| ex1 | - | - | - | - | - | - | - | - | - | - |
-| s820 | - | - | - | - | - | - | - | - | - | - |
+| gcd | - | - | - | - | - | - | - | - | - | - |
+| C1355 | - | - | - | - | - | - | - | - | - | - |
+| x1 | - | - | - | - | - | - | - | - | - | - |
+| x4 | - | - | - | - | - | - | - | - | - | - |
+| mm9a | - | - | - | - | - | - | - | - | - | - |
+| s1 | - | - | - | - | - | - | - | - | - | - |
+| s832 | - | - | - | - | - | - | - | - | - | - |
+| t481 | - | - | - | - | - | - | - | - | - | - |
+| C880 | - | - | - | - | - | - | - | - | - | - |
 | mult32a | - | - | - | - | - | - | - | - | - | - |
-| dk16 | - | - | - | - | - | - | - | - | - | - |
+| 9sym | - | - | - | - | - | - | - | - | - | - |
+| s820 | - | - | - | - | - | - | - | - | - | - |
+| ex1 | - | - | - | - | - | - | - | - | - | - |
+| i5 | - | - | - | - | - | - | - | - | - | - |
+| i6 | - | - | - | - | - | - | - | - | - | - |
+| i7 | - | - | - | - | - | - | - | - | - | - |
+| s838.1 | - | - | - | - | - | - | - | - | - | - |
+| clip | - | - | - | - | - | - | - | - | - | - |
 | keyb | - | - | - | - | - | - | - | - | - | - |
+| i2 | - | - | - | - | - | - | - | - | - | - |
+| rd84 | - | - | - | - | - | - | - | - | - | - |
+| sao2 | - | - | - | - | - | - | - | - | - | - |
+| s641 | - | - | - | - | - | - | - | - | - | - |
+| s713 | - | - | - | - | - | - | - | - | - | - |
 | apex7 | - | - | - | - | - | - | - | - | - | - |
 | s510 | - | - | - | - | - | - | - | - | - | - |
+| C432 | - | - | - | - | - | - | - | - | - | - |
+| pma | - | - | - | - | - | - | - | - | - | - |
+| cse | - | - | - | - | - | - | - | - | - | - |
 | i4 | - | - | - | - | - | - | - | - | - | - |
 | 9symml | - | - | - | - | - | - | - | - | - | - |
-| s838.1 | - | - | - | - | - | - | - | - | - | - |
-| cse | - | - | - | - | - | - | - | - | - | - |
-| sao2 | - | - | - | - | - | - | - | - | - | - |
-| i5 | - | - | - | - | - | - | - | - | - | - |
-| s713 | - | - | - | - | - | - | - | - | - | - |
-| term1 | - | - | - | - | - | - | - | - | - | - |
-| s641 | - | - | - | - | - | - | - | - | - | - |
-| pma | - | - | - | - | - | - | - | - | - | - |
+| dk16 | - | - | - | - | - | - | - | - | - | - |
+| mult16a | - | - | - | - | - | - | - | - | - | - |
+| i3 | - | - | - | - | - | - | - | - | - | - |
 | tbk | - | - | - | - | - | - | - | - | - | - |
-| rd73 | - | - | - | - | - | - | - | - | - | - |
-| mm4a | - | - | - | - | - | - | - | - | - | - |
-| ttt2 | - | - | - | - | - | - | - | - | - | - |
-| C1355 | - | - | - | - | - | - | - | - | - | - |
-| C499 | - | - | - | - | - | - | - | - | - | - |
-| i2 | - | - | - | - | - | - | - | - | - | - |
-| s400 | - | - | - | - | - | - | - | - | - | - |
+| cht | - | - | - | - | - | - | - | - | - | - |
 | s344 | - | - | - | - | - | - | - | - | - | - |
 | s349 | - | - | - | - | - | - | - | - | - | - |
-| vg2 | - | - | - | - | - | - | - | - | - | - |
-| bbsse | - | - | - | - | - | - | - | - | - | - |
-| inc | - | - | - | - | - | - | - | - | - | - |
-| sse | - | - | - | - | - | - | - | - | - | - |
-| s444 | - | - | - | - | - | - | - | - | - | - |
-| ex6 | - | - | - | - | - | - | - | - | - | - |
-| s382 | - | - | - | - | - | - | - | - | - | - |
-| s526n | - | - | - | - | - | - | - | - | - | - |
-| 5xp1 | - | - | - | - | - | - | - | - | - | - |
-| mult16a | - | - | - | - | - | - | - | - | - | - |
-| b12 | - | - | - | - | - | - | - | - | - | - |
-| s386 | - | - | - | - | - | - | - | - | - | - |
-| cht | - | - | - | - | - | - | - | - | - | - |
-| f51m | - | - | - | - | - | - | - | - | - | - |
-| s526 | - | - | - | - | - | - | - | - | - | - |
-| opus | - | - | - | - | - | - | - | - | - | - |
-| frg1 | - | - | - | - | - | - | - | - | - | - |
-| misex2 | - | - | - | - | - | - | - | - | - | - |
-| unreg | - | - | - | - | - | - | - | - | - | - |
-| my-adder | - | - | - | - | - | - | - | - | - | - |
-| s420.1 | - | - | - | - | - | - | - | - | - | - |
-| b9 | - | - | - | - | - | - | - | - | - | - |
-| i3 | - | - | - | - | - | - | - | - | - | - |
+| mm4a | - | - | - | - | - | - | - | - | - | - |
 | o64 | - | - | - | - | - | - | - | - | - | - |
-| dk14 | - | - | - | - | - | - | - | - | - | - |
-| comp | - | - | - | - | - | - | - | - | - | - |
+| s386 | - | - | - | - | - | - | - | - | - | - |
+| b9 | - | - | - | - | - | - | - | - | - | - |
+| mult16b | - | - | - | - | - | - | - | - | - | - |
+| s420.1 | - | - | - | - | - | - | - | - | - | - |
+| ttt2 | - | - | - | - | - | - | - | - | - | - |
+| sse | - | - | - | - | - | - | - | - | - | - |
+| misex2 | - | - | - | - | - | - | - | - | - | - |
+| s444 | - | - | - | - | - | - | - | - | - | - |
+| bw | - | - | - | - | - | - | - | - | - | - |
 | c8 | - | - | - | - | - | - | - | - | - | - |
 | count | - | - | - | - | - | - | - | - | - | - |
 | ldd | - | - | - | - | - | - | - | - | - | - |
-| ex4 | - | - | - | - | - | - | - | - | - | - |
-| pcler8 | - | - | - | - | - | - | - | - | - | - |
-| traffic | - | - | - | - | - | - | - | - | - | - |
+| s400 | - | - | - | - | - | - | - | - | - | - |
+| frg1 | - | - | - | - | - | - | - | - | - | - |
+| rd73 | - | - | - | - | - | - | - | - | - | - |
+| s382 | - | - | - | - | - | - | - | - | - | - |
+| bbsse | - | - | - | - | - | - | - | - | - | - |
+| s526n | - | - | - | - | - | - | - | - | - | - |
 | lal | - | - | - | - | - | - | - | - | - | - |
-| mark1 | - | - | - | - | - | - | - | - | - | - |
-| squar5 | - | - | - | - | - | - | - | - | - | - |
-| bbara | - | - | - | - | - | - | - | - | - | - |
-| mult16b | - | - | - | - | - | - | - | - | - | - |
-| sqrt8ml | - | - | - | - | - | - | - | - | - | - |
-| sqrt8 | - | - | - | - | - | - | - | - | - | - |
+| s526 | - | - | - | - | - | - | - | - | - | - |
+| vg2 | - | - | - | - | - | - | - | - | - | - |
+| my-adder | - | - | - | - | - | - | - | - | - | - |
+| pcler8 | - | - | - | - | - | - | - | - | - | - |
 | cc | - | - | - | - | - | - | - | - | - | - |
-| dk15 | - | - | - | - | - | - | - | - | - | - |
-| s208.1 | - | - | - | - | - | - | - | - | - | - |
-| s420 | - | - | - | - | - | - | - | - | - | - |
+| comp | - | - | - | - | - | - | - | - | - | - |
+| inc | - | - | - | - | - | - | - | - | - | - |
+| term1 | - | - | - | - | - | - | - | - | - | - |
+| ex6 | - | - | - | - | - | - | - | - | - | - |
+| mark1 | - | - | - | - | - | - | - | - | - | - |
+| opus | - | - | - | - | - | - | - | - | - | - |
 | sct | - | - | - | - | - | - | - | - | - | - |
-| cu | - | - | - | - | - | - | - | - | - | - |
-| i1 | - | - | - | - | - | - | - | - | - | - |
-| misex1 | - | - | - | - | - | - | - | - | - | - |
-| pcle | - | - | - | - | - | - | - | - | - | - |
+| b12 | - | - | - | - | - | - | - | - | - | - |
+| bbara | - | - | - | - | - | - | - | - | - | - |
+| ex4 | - | - | - | - | - | - | - | - | - | - |
 | decod | - | - | - | - | - | - | - | - | - | - |
 | pm1 | - | - | - | - | - | - | - | - | - | - |
-| cm162a | - | - | - | - | - | - | - | - | - | - |
-| s208 | - | - | - | - | - | - | - | - | - | - |
-| cmb | - | - | - | - | - | - | - | - | - | - |
-| x2 | - | - | - | - | - | - | - | - | - | - |
+| s208.1 | - | - | - | - | - | - | - | - | - | - |
 | tcon | - | - | - | - | - | - | - | - | - | - |
-| dk17 | - | - | - | - | - | - | - | - | - | - |
-| mux | - | - | - | - | - | - | - | - | - | - |
-| beecount | - | - | - | - | - | - | - | - | - | - |
-| cm150a | - | - | - | - | - | - | - | - | - | - |
-| dk512 | - | - | - | - | - | - | - | - | - | - |
-| rd53 | - | - | - | - | - | - | - | - | - | - |
-| cm163a | - | - | - | - | - | - | - | - | - | - |
-| cm85a | - | - | - | - | - | - | - | - | - | - |
-| cm138a | - | - | - | - | - | - | - | - | - | - |
+| unreg | - | - | - | - | - | - | - | - | - | - |
+| i1 | - | - | - | - | - | - | - | - | - | - |
+| cordic | - | - | - | - | - | - | - | - | - | - |
+| cu | - | - | - | - | - | - | - | - | - | - |
+| f51m | - | - | - | - | - | - | - | - | - | - |
+| pcle | - | - | - | - | - | - | - | - | - | - |
+| 5xp1 | - | - | - | - | - | - | - | - | - | - |
+| s420 | - | - | - | - | - | - | - | - | - | - |
+| x2 | - | - | - | - | - | - | - | - | - | - |
+| sqrt8 | - | - | - | - | - | - | - | - | - | - |
+| traffic | - | - | - | - | - | - | - | - | - | - |
+| cm162a | - | - | - | - | - | - | - | - | - | - |
 | cm42a | - | - | - | - | - | - | - | - | - | - |
-| tav | - | - | - | - | - | - | - | - | - | - |
-| cm151a | - | - | - | - | - | - | - | - | - | - |
-| z4ml | - | - | - | - | - | - | - | - | - | - |
+| cmb | - | - | - | - | - | - | - | - | - | - |
+| s208 | - | - | - | - | - | - | - | - | - | - |
+| cm150a | - | - | - | - | - | - | - | - | - | - |
+| sqrt8ml | - | - | - | - | - | - | - | - | - | - |
+| cm138a | - | - | - | - | - | - | - | - | - | - |
+| cm163a | - | - | - | - | - | - | - | - | - | - |
+| dk14 | - | - | - | - | - | - | - | - | - | - |
+| misex1 | - | - | - | - | - | - | - | - | - | - |
+| s838 | - | - | - | - | - | - | - | - | - | - |
+| squar5 | - | - | - | - | - | - | - | - | - | - |
+| beecount | - | - | - | - | - | - | - | - | - | - |
+| dk15 | - | - | - | - | - | - | - | - | - | - |
+| dk512 | - | - | - | - | - | - | - | - | - | - |
+| cm85a | - | - | - | - | - | - | - | - | - | - |
+| dk17 | - | - | - | - | - | - | - | - | - | - |
 | mc | - | - | - | - | - | - | - | - | - | - |
+| mux | - | - | - | - | - | - | - | - | - | - |
+| tav | - | - | - | - | - | - | - | - | - | - |
 | bbtas | - | - | - | - | - | - | - | - | - | - |
-| cm152a | - | - | - | - | - | - | - | - | - | - |
-| s27 | - | - | - | - | - | - | - | - | - | - |
-| con1 | - | - | - | - | - | - | - | - | - | - |
 | dk27 | - | - | - | - | - | - | - | - | - | - |
 | parity | - | - | - | - | - | - | - | - | - | - |
+| z4ml | - | - | - | - | - | - | - | - | - | - |
 | b1 | - | - | - | - | - | - | - | - | - | - |
+| cm151a | - | - | - | - | - | - | - | - | - | - |
+| s27 | - | - | - | - | - | - | - | - | - | - |
+| cm152a | - | - | - | - | - | - | - | - | - | - |
 | cm82a | - | - | - | - | - | - | - | - | - | - |
 | daio | - | - | - | - | - | - | - | - | - | - |
 | lion | - | - | - | - | - | - | - | - | - | - |
-| majority | - | - | - | - | - | - | - | - | - | - |
+| rd53 | - | - | - | - | - | - | - | - | - | - |
 | C17 | - | - | - | - | - | - | - | - | - | - |
-| xor5 | - | - | - | - | - | - | - | - | - | - |
+| con1 | - | - | - | - | - | - | - | - | - | - |
 | chain_cout_fanout | - | - | - | - | - | - | - | - | - | - |
+| majority | - | - | - | - | - | - | - | - | - | - |
+| xor5 | - | - | - | - | - | - | - | - | - | - |
 | shiftreg | - | - | - | - | - | - | - | - | - | - |
 
 </details>
@@ -1628,225 +1749,225 @@ Rule: BLIF netlist, no HDL.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
-| clma | - | 8380/16 | - |
-| s38584.1 | - | 6269/9 | - |
-| s38417 | - | 6096/11 | - |
-| ex1010 | - | 4598/8 | - |
-| pdc | - | 4575/9 | - |
-| spla | - | 3690/8 | - |
-| elliptic | - | 3602/18 | - |
-| frisc | - | 3539/23 | - |
-| ex1010 | - | 4598/8 | - |
-| s38584.1 | - | 6269/9 | - |
-| s38417 | - | 6096/11 | - |
-| pdc | - | 4575/9 | - |
-| s298 | - | 1930/15 | - |
-| apex2 | - | 1878/8 | - |
-| seq | - | 1750/7 | - |
-| bigkey | - | 1707/3 | - |
-| frisc | - | 3539/23 | - |
-| des | - | 1591/6 | - |
-| alu4 | - | 1522/7 | - |
-| diffeq | - | 1494/14 | - |
-| elliptic | - | 3602/18 | - |
-| spla | - | 3690/8 | - |
-| misex3 | - | 1397/7 | - |
-| dsip | - | 1370/3 | - |
-| apex4 | - | 1261/6 | - |
-| ex5p | - | 1064/7 | - |
-| tseng | - | 1046/13 | - |
-| i10 | - | 995/13 | - |
-| apex2 | - | 1878/8 | - |
-| des | - | 1591/6 | - |
-| apex3 | - | 869/6 | - |
-| apex4 | - | 1261/6 | - |
-| seq | - | 1750/7 | - |
-| alu4 | - | 1522/7 | - |
-| cps | - | 756/5 | - |
-| C7552 | - | 739/10 | - |
-| misex3 | - | 1397/7 | - |
-| apex1 | - | 699/7 | - |
-| dsip | - | 1370/3 | - |
-| s298 | - | 1930/15 | - |
-| parker1986 | - | 660/13 | - |
-| pair | - | 647/7 | - |
-| C5315 | - | 620/10 | - |
-| diffeq | - | 1494/14 | - |
-| bigkey | - | 1707/3 | - |
-| s5378 | - | 571/6 | - |
-| misex3c | - | 549/6 | - |
-| apex5 | - | 534/5 | - |
-| C6288 | - | 527/28 | - |
-| k2 | - | 518/7 | - |
-| dalu | - | 500/6 | - |
-| table5 | - | 485/6 | - |
-| i8 | - | 481/5 | - |
-| table3 | - | 480/6 | - |
-| ex5p | - | 1064/7 | - |
-| mm30a | - | 467/58 | - |
-| cordic | - | 466/9 | - |
-| s9234.1 | - | 459/8 | - |
-| clma | - | 8380/16 | - |
-| ex4p | - | 444/5 | - |
-| C3540 | - | 431/12 | - |
-| scf | - | 416/5 | - |
-| tseng | - | 1046/13 | - |
-| bbrtas | - | 406/18 | - |
-| apex6 | - | 393/6 | - |
-| sbc | - | 384/5 | - |
-| frg2 | - | 379/6 | - |
-| x3 | - | 377/5 | - |
-| i9 | - | 376/5 | - |
-| ecc | - | 330/5 | - |
-| daio-rec | - | 311/7 | - |
-| rot | - | 307/8 | - |
-| s1488 | - | 296/4 | - |
-| s1238 | - | 292/8 | - |
-| s1494 | - | 292/5 | - |
-| vda | - | 291/6 | - |
-| e64 | - | 274/4 | - |
-| planet | - | 266/4 | - |
-| planet1 | - | 266/4 | - |
-| s1196 | - | 264/7 | - |
-| C2670 | - | 258/7 | - |
-| duke2 | - | 251/5 | - |
-| sand | - | 243/5 | - |
-| styr | - | 238/5 | - |
-| s1423 | - | 221/15 | - |
-| ph-decod | - | 219/6 | - |
-| gcd | - | 218/11 | - |
-| s953 | - | 214/5 | - |
-| t481 | - | 214/7 | - |
-| mm9b | - | 204/20 | - |
-| i7 | - | 203/2 | - |
-| alu2 | - | 197/10 | - |
-| s1 | - | 195/10 | - |
-| x4 | - | 194/3 | - |
-| too-lrg | - | 187/7 | - |
-| i6 | - | 182/2 | - |
-| C880 | - | 174/9 | - |
-| s838 | - | 167/8 | - |
-| rd84 | - | 157/6 | - |
-| C1908 | - | 145/10 | - |
-| s832 | - | 145/5 | - |
-| 9sym | - | 144/6 | - |
-| x1 | - | 143/4 | - |
-| mm9a | - | 142/17 | - |
-| clip | - | 140/5 | - |
-| example2 | - | 138/4 | - |
-| bw | - | 132/4 | - |
-| C432 | - | 124/11 | - |
-| ex1 | - | 124/4 | - |
-| s820 | - | 120/5 | - |
-| mult32a | - | 116/24 | - |
-| dk16 | - | 105/4 | - |
-| keyb | - | 103/5 | - |
-| apex7 | - | 102/5 | - |
-| s510 | - | 101/5 | - |
-| i4 | - | 98/5 | - |
-| 9symml | - | 97/6 | - |
-| s838.1 | - | 95/9 | - |
-| cse | - | 90/4 | - |
-| sao2 | - | 90/5 | - |
-| i5 | - | 88/6 | - |
-| s713 | - | 88/8 | - |
-| term1 | - | 88/5 | - |
-| s641 | - | 87/9 | - |
-| pma | - | 85/4 | - |
-| tbk | - | 84/8 | - |
-| rd73 | - | 83/5 | - |
-| mm4a | - | 78/10 | - |
-| ttt2 | - | 75/4 | - |
-| C1355 | - | 74/4 | - |
-| C499 | - | 74/4 | - |
-| i2 | - | 74/5 | - |
-| s400 | - | 69/4 | - |
-| s344 | - | 67/4 | - |
-| s349 | - | 67/4 | - |
-| vg2 | - | 67/4 | - |
-| bbsse | - | 64/6 | - |
-| inc | - | 64/4 | - |
-| sse | - | 64/6 | - |
-| s444 | - | 62/4 | - |
-| ex6 | - | 60/7 | - |
-| s382 | - | 60/4 | - |
-| s526n | - | 60/4 | - |
-| 5xp1 | - | 57/4 | - |
-| mult16a | - | 57/12 | - |
-| b12 | - | 56/4 | - |
-| s386 | - | 56/3 | - |
-| cht | - | 55/2 | - |
-| f51m | - | 54/4 | - |
-| s526 | - | 52/4 | - |
-| opus | - | 50/5 | - |
-| frg1 | - | 49/6 | - |
-| misex2 | - | 49/3 | - |
-| unreg | - | 48/2 | - |
-| my-adder | - | 47/16 | - |
-| s420.1 | - | 47/5 | - |
-| b9 | - | 46/3 | - |
-| i3 | - | 46/3 | - |
-| o64 | - | 46/4 | - |
-| dk14 | - | 43/7 | - |
-| comp | - | 40/5 | - |
-| c8 | - | 39/4 | - |
-| count | - | 39/5 | - |
-| ldd | - | 37/5 | - |
-| ex4 | - | 35/4 | - |
-| pcler8 | - | 35/4 | - |
-| traffic | - | 35/3 | - |
-| lal | - | 34/3 | - |
-| mark1 | - | 34/3 | - |
-| squar5 | - | 34/3 | - |
-| bbara | - | 33/3 | - |
-| mult16b | - | 31/1 | - |
-| sqrt8ml | - | 31/6 | - |
-| sqrt8 | - | 29/4 | - |
-| cc | - | 26/3 | - |
-| dk15 | - | 24/3 | - |
-| s208.1 | - | 24/4 | - |
-| s420 | - | 23/3 | - |
-| sct | - | 23/3 | - |
-| cu | - | 22/3 | - |
-| i1 | - | 21/3 | - |
-| misex1 | - | 21/3 | - |
-| pcle | - | 21/3 | - |
-| decod | - | 20/2 | - |
-| pm1 | - | 19/3 | - |
-| cm162a | - | 18/3 | - |
-| s208 | - | 18/3 | - |
-| cmb | - | 17/3 | - |
-| x2 | - | 17/3 | - |
-| tcon | - | 16/1 | - |
-| dk17 | - | 15/2 | - |
-| mux | - | 15/4 | - |
-| beecount | - | 14/2 | - |
-| cm150a | - | 14/3 | - |
-| dk512 | - | 14/2 | - |
-| rd53 | - | 12/4 | - |
-| cm163a | - | 11/3 | - |
-| cm85a | - | 11/3 | - |
-| cm138a | - | 10/2 | - |
-| cm42a | - | 10/1 | - |
-| tav | - | 9/2 | - |
-| cm151a | - | 8/3 | - |
-| z4ml | - | 8/3 | - |
-| mc | - | 7/2 | - |
-| bbtas | - | 6/2 | - |
-| cm152a | - | 6/3 | - |
-| s27 | - | 6/2 | - |
-| con1 | - | 5/2 | - |
-| dk27 | - | 5/1 | - |
-| parity | - | 5/2 | - |
-| b1 | - | 4/1 | - |
-| cm82a | - | 4/2 | - |
-| daio | - | 3/1 | - |
-| lion | - | 3/1 | - |
-| majority | - | 3/2 | - |
-| C17 | - | 2/1 | - |
-| xor5 | - | 2/2 | - |
-| chain_cout_fanout | - | 1/1 | - |
-| shiftreg | - | 0/0 | - |
+| ex1010 | 4598/8 | 4598/8 | 2777/6 |
+| ex1010 | 4598/8 | 4598/8 | 2777/6 |
+| s38584.1 | 6281/9 | 6269/9 | 2190/6 |
+| s38584.1 | 6281/9 | 6269/9 | 2190/6 |
+| s38417 | 6096/11 | 6096/11 | 2189/6 |
+| s38417 | 6096/11 | 6096/11 | 2189/6 |
+| pdc | 4575/9 | 4575/9 | 1973/7 |
+| pdc | 4575/9 | 4575/9 | 1973/7 |
+| frisc | 3539/23 | 3539/23 | 1668/12 |
+| frisc | 3539/23 | 3539/23 | 1668/12 |
+| elliptic | 3602/18 | 3602/18 | 1463/10 |
+| elliptic | 3602/18 | 3602/18 | 1463/10 |
+| spla | 3690/8 | 3690/8 | 1445/6 |
+| spla | 3690/8 | 3690/8 | 1445/6 |
+| apex2 | 1878/8 | 1878/8 | 992/6 |
+| apex2 | 1878/8 | 1878/8 | 992/6 |
+| des | 1591/6 | 1591/6 | 901/5 |
+| des | 1591/6 | 1591/6 | 901/5 |
+| apex4 | 1262/6 | 1261/6 | 865/5 |
+| apex4 | 1262/6 | 1261/6 | 865/5 |
+| seq | 1750/7 | 1750/7 | 855/5 |
+| seq | 1750/7 | 1750/7 | 855/5 |
+| alu4 | 1522/7 | 1522/7 | 818/5 |
+| alu4 | 1522/7 | 1522/7 | 818/5 |
+| misex3 | 1397/7 | 1397/7 | 714/5 |
+| misex3 | 1397/7 | 1397/7 | 714/5 |
+| dsip | 1370/3 | 1370/3 | 686/3 |
+| dsip | 1370/3 | 1370/3 | 686/3 |
+| s298 | 1930/15 | 1930/15 | 661/8 |
+| s298 | 1930/15 | 1930/15 | 661/8 |
+| diffeq | 1494/14 | 1494/14 | 580/8 |
+| diffeq | 1494/14 | 1494/14 | 580/8 |
+| bigkey | 1707/3 | 1707/3 | 572/3 |
+| bigkey | 1707/3 | 1707/3 | 572/3 |
+| apex3 | 869/6 | 869/6 | 540/5 |
+| i10 | 995/13 | 995/13 | 540/9 |
+| C6288 | 527/28 | 527/28 | 538/16 |
+| ex5p | 1064/7 | 1064/7 | 467/5 |
+| ex5p | 1064/7 | 1064/7 | 467/5 |
+| clma | 8381/16 | 8380/16 | 450/7 |
+| clma | 8381/16 | 8380/16 | 450/7 |
+| apex1 | 700/7 | 699/7 | 429/5 |
+| tseng | 1046/13 | 1046/13 | 407/7 |
+| tseng | 1046/13 | 1046/13 | 407/7 |
+| cps | 757/5 | 756/5 | 404/4 |
+| C7552 | 739/10 | 739/10 | 393/7 |
+| pair | 647/7 | 647/7 | 343/5 |
+| parker1986 | 660/13 | 660/13 | 339/8 |
+| table5 | 485/6 | 485/6 | 320/5 |
+| table3 | 480/6 | 480/6 | 297/5 |
+| k2 | 519/7 | 518/7 | 291/5 |
+| C5315 | 620/10 | 620/10 | 287/6 |
+| mm30a | 467/58 | 467/58 | 287/22 |
+| i8 | 481/5 | 481/5 | 272/4 |
+| s5378 | 576/6 | 571/6 | 261/3 |
+| C3540 | 431/12 | 431/12 | 259/8 |
+| misex3c | 549/6 | 549/6 | 239/5 |
+| s9234.1 | 461/8 | 459/8 | 238/5 |
+| scf | 418/5 | 416/5 | 235/4 |
+| apex5 | 535/5 | 534/5 | 203/4 |
+| sbc | 384/5 | 384/5 | 194/3 |
+| dalu | 500/6 | 500/6 | 188/4 |
+| rot | 307/8 | 307/8 | 187/5 |
+| frg2 | 379/6 | 379/6 | 186/4 |
+| vda | 291/6 | 291/6 | 180/4 |
+| ecc | 330/5 | 330/5 | 165/4 |
+| e64 | 274/4 | 274/4 | 153/3 |
+| apex6 | 393/6 | 393/6 | 152/4 |
+| ex4p | 445/5 | 444/5 | 151/4 |
+| x3 | 377/5 | 377/5 | 149/4 |
+| s1494 | 292/5 | 292/5 | 148/3 |
+| s1488 | 296/4 | 296/4 | 146/3 |
+| s1423 | 221/15 | 221/15 | 142/10 |
+| bbrtas | 406/18 | 406/18 | 135/9 |
+| i9 | 376/5 | 376/5 | 131/4 |
+| duke2 | 251/5 | 251/5 | 130/4 |
+| C2670 | 259/7 | 258/7 | 129/5 |
+| styr | 238/5 | 238/5 | 128/4 |
+| planet | 266/4 | 266/4 | 127/3 |
+| planet1 | 266/4 | 266/4 | 127/3 |
+| s1238 | 292/8 | 292/8 | 127/5 |
+| daio-rec | 311/7 | 311/7 | 123/4 |
+| s1196 | 264/7 | 264/7 | 123/5 |
+| s953 | 214/5 | 214/5 | 122/3 |
+| sand | 243/5 | 243/5 | 122/4 |
+| too-lrg | 187/7 | 187/7 | 105/4 |
+| C499 | 74/4 | 74/4 | 103/4 |
+| ph-decod | 219/6 | 219/6 | 101/4 |
+| alu2 | 197/10 | 197/10 | 98/7 |
+| C1908 | 145/10 | 145/10 | 93/6 |
+| mm9b | 204/20 | 204/20 | 92/9 |
+| example2 | 138/4 | 138/4 | 90/3 |
+| gcd | 218/11 | 218/11 | 90/5 |
+| C1355 | 74/4 | 74/4 | 86/4 |
+| x1 | 143/4 | 143/4 | 86/3 |
+| x4 | 194/3 | 194/3 | 86/3 |
+| mm9a | 142/17 | 142/17 | 84/8 |
+| s1 | 195/10 | 195/10 | 83/6 |
+| s832 | 145/5 | 145/5 | 81/3 |
+| t481 | 214/7 | 214/7 | 81/5 |
+| C880 | 174/9 | 174/9 | 78/6 |
+| mult32a | 116/24 | 116/24 | 76/14 |
+| 9sym | 144/6 | 144/6 | 75/4 |
+| s820 | 120/5 | 120/5 | 69/3 |
+| ex1 | 124/4 | 124/4 | 68/3 |
+| i5 | 88/6 | 88/6 | 67/4 |
+| i6 | 182/2 | 182/2 | 67/1 |
+| i7 | 203/2 | 203/2 | 67/1 |
+| s838.1 | 95/9 | 95/9 | 64/7 |
+| clip | 140/5 | 140/5 | 59/4 |
+| keyb | 103/5 | 103/5 | 58/4 |
+| i2 | 74/5 | 74/5 | 57/4 |
+| rd84 | 157/6 | 157/6 | 54/4 |
+| sao2 | 90/5 | 90/5 | 52/3 |
+| s641 | 87/9 | 87/9 | 51/4 |
+| s713 | 88/8 | 88/8 | 51/4 |
+| apex7 | 102/5 | 102/5 | 50/3 |
+| s510 | 101/5 | 101/5 | 49/3 |
+| C432 | 124/11 | 124/11 | 48/8 |
+| pma | 85/4 | 85/4 | 44/3 |
+| cse | 90/4 | 90/4 | 42/3 |
+| i4 | 98/5 | 98/5 | 42/3 |
+| 9symml | 97/6 | 97/6 | 40/4 |
+| dk16 | 105/4 | 105/4 | 39/3 |
+| mult16a | 57/12 | 57/12 | 39/7 |
+| i3 | 46/3 | 46/3 | 38/3 |
+| tbk | 84/8 | 84/8 | 38/6 |
+| cht | 55/2 | 55/2 | 36/1 |
+| s344 | 67/4 | 67/4 | 36/2 |
+| s349 | 67/4 | 67/4 | 36/2 |
+| mm4a | 78/10 | 78/10 | 35/5 |
+| o64 | 46/4 | 46/4 | 34/3 |
+| s386 | 56/3 | 56/3 | 33/2 |
+| b9 | 46/3 | 46/3 | 32/2 |
+| mult16b | 31/1 | 31/1 | 31/1 |
+| s420.1 | 47/5 | 47/5 | 31/4 |
+| ttt2 | 75/4 | 75/4 | 31/3 |
+| sse | 64/6 | 64/6 | 30/4 |
+| misex2 | 49/3 | 49/3 | 29/2 |
+| s444 | 62/4 | 62/4 | 29/3 |
+| bw | 132/4 | 132/4 | 28/1 |
+| c8 | 39/4 | 39/4 | 28/2 |
+| count | 39/5 | 39/5 | 28/4 |
+| ldd | 37/5 | 37/5 | 28/3 |
+| s400 | 69/4 | 69/4 | 28/3 |
+| frg1 | 49/6 | 49/6 | 27/4 |
+| rd73 | 83/5 | 83/5 | 27/3 |
+| s382 | 60/4 | 60/4 | 27/3 |
+| bbsse | 64/6 | 64/6 | 26/4 |
+| s526n | 60/4 | 60/4 | 26/3 |
+| lal | 34/3 | 34/3 | 25/2 |
+| s526 | 52/4 | 52/4 | 25/3 |
+| vg2 | 67/4 | 67/4 | 25/3 |
+| my-adder | 47/16 | 47/16 | 24/8 |
+| pcler8 | 35/4 | 35/4 | 24/3 |
+| cc | 26/3 | 26/3 | 21/2 |
+| comp | 40/5 | 40/5 | 21/4 |
+| inc | 64/4 | 64/4 | 21/2 |
+| term1 | 88/5 | 88/5 | 20/3 |
+| ex6 | 60/7 | 60/7 | 19/3 |
+| mark1 | 37/3 | 34/3 | 19/2 |
+| opus | 50/5 | 50/5 | 19/3 |
+| sct | 23/3 | 23/3 | 19/2 |
+| b12 | 56/4 | 56/4 | 18/2 |
+| bbara | 33/3 | 33/3 | 18/2 |
+| ex4 | 35/4 | 35/4 | 17/2 |
+| decod | 20/2 | 20/2 | 16/1 |
+| pm1 | 19/3 | 19/3 | 16/2 |
+| s208.1 | 24/4 | 24/4 | 16/3 |
+| tcon | 16/1 | 16/1 | 16/1 |
+| unreg | 48/2 | 48/2 | 16/1 |
+| i1 | 21/3 | 21/3 | 15/2 |
+| cordic | 466/9 | 466/9 | 14/6 |
+| cu | 22/3 | 22/3 | 14/2 |
+| f51m | 54/4 | 54/4 | 14/3 |
+| pcle | 21/3 | 21/3 | 14/2 |
+| 5xp1 | 57/4 | 57/4 | 13/2 |
+| s420 | 23/3 | 23/3 | 13/2 |
+| x2 | 17/3 | 17/3 | 13/2 |
+| sqrt8 | 29/4 | 29/4 | 12/3 |
+| traffic | 35/3 | 35/3 | 11/2 |
+| cm162a | 18/3 | 18/3 | 10/2 |
+| cm42a | 10/1 | 10/1 | 10/1 |
+| cmb | 17/3 | 17/3 | 10/2 |
+| s208 | 18/3 | 18/3 | 10/2 |
+| cm150a | 14/3 | 14/3 | 9/3 |
+| sqrt8ml | 31/6 | 31/6 | 9/2 |
+| cm138a | 10/2 | 10/2 | 8/1 |
+| cm163a | 11/3 | 11/3 | 8/2 |
+| dk14 | 43/7 | 43/7 | 8/1 |
+| misex1 | 21/3 | 21/3 | 8/2 |
+| s838 | 167/8 | 167/8 | 8/2 |
+| squar5 | 34/3 | 34/3 | 8/1 |
+| beecount | 14/2 | 14/2 | 7/1 |
+| dk15 | 24/3 | 24/3 | 7/1 |
+| dk512 | 14/2 | 14/2 | 7/1 |
+| cm85a | 11/3 | 11/3 | 6/2 |
+| dk17 | 15/2 | 15/2 | 6/1 |
+| mc | 7/2 | 7/2 | 6/1 |
+| mux | 15/4 | 15/4 | 6/3 |
+| tav | 9/2 | 9/2 | 6/1 |
+| bbtas | 6/2 | 6/2 | 5/1 |
+| dk27 | 5/1 | 5/1 | 5/1 |
+| parity | 5/2 | 5/2 | 5/2 |
+| z4ml | 8/3 | 8/3 | 5/2 |
+| b1 | 4/1 | 4/1 | 4/1 |
+| cm151a | 8/3 | 8/3 | 4/2 |
+| s27 | 6/2 | 6/2 | 4/1 |
+| cm152a | 6/3 | 6/3 | 3/2 |
+| cm82a | 4/2 | 4/2 | 3/1 |
+| daio | 3/1 | 3/1 | 3/1 |
+| lion | 3/1 | 3/1 | 3/1 |
+| rd53 | 12/4 | 12/4 | 3/1 |
+| C17 | 2/1 | 2/1 | 2/1 |
+| con1 | 5/2 | 5/2 | 2/1 |
+| chain_cout_fanout | 2/18 | 1/1 | 1/1 |
+| majority | 3/2 | 3/2 | 1/1 |
+| xor5 | 2/2 | 2/2 | 1/1 |
+| shiftreg | 0/0 | 0/0 | 0/0 |
 
 </details>
 
@@ -1854,225 +1975,225 @@ Rule: BLIF netlist, no HDL.
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
-| clma | - | - | - | - | - | - | - | - |
-| s38584.1 | - | - | - | - | - | - | - | - |
-| s38417 | - | - | - | - | - | - | - | - |
-| ex1010 | - | - | - | - | - | - | - | - |
-| pdc | - | - | - | - | - | - | - | - |
-| spla | - | - | - | - | - | - | - | - |
-| elliptic | - | - | - | - | - | - | - | - |
-| frisc | - | - | - | - | - | - | - | - |
-| ex1010 | - | - | - | - | - | - | - | - |
-| s38584.1 | - | - | - | - | - | - | - | - |
-| s38417 | - | - | - | - | - | - | - | - |
-| pdc | - | - | - | - | - | - | - | - |
-| s298 | - | - | - | - | - | - | - | - |
-| apex2 | - | - | - | - | - | - | - | - |
-| seq | - | - | - | - | - | - | - | - |
-| bigkey | - | - | - | - | - | - | - | - |
-| frisc | - | - | - | - | - | - | - | - |
-| des | - | - | - | - | - | - | - | - |
-| alu4 | - | - | - | - | - | - | - | - |
-| diffeq | - | - | - | - | - | - | - | - |
-| elliptic | - | - | - | - | - | - | - | - |
-| spla | - | - | - | - | - | - | - | - |
-| misex3 | - | - | - | - | - | - | - | - |
-| dsip | - | - | - | - | - | - | - | - |
-| apex4 | - | - | - | - | - | - | - | - |
-| ex5p | - | - | - | - | - | - | - | - |
-| tseng | - | - | - | - | - | - | - | - |
-| i10 | - | - | - | - | - | - | - | - |
-| apex2 | - | - | - | - | - | - | - | - |
-| des | - | - | - | - | - | - | - | - |
-| apex3 | - | - | - | - | - | - | - | - |
-| apex4 | - | - | - | - | - | - | - | - |
-| seq | - | - | - | - | - | - | - | - |
-| alu4 | - | - | - | - | - | - | - | - |
-| cps | - | - | - | - | - | - | - | - |
-| C7552 | - | - | - | - | - | - | - | - |
-| misex3 | - | - | - | - | - | - | - | - |
-| apex1 | - | - | - | - | - | - | - | - |
-| dsip | - | - | - | - | - | - | - | - |
-| s298 | - | - | - | - | - | - | - | - |
-| parker1986 | - | - | - | - | - | - | - | - |
-| pair | - | - | - | - | - | - | - | - |
-| C5315 | - | - | - | - | - | - | - | - |
-| diffeq | - | - | - | - | - | - | - | - |
-| bigkey | - | - | - | - | - | - | - | - |
-| s5378 | - | - | - | - | - | - | - | - |
-| misex3c | - | - | - | - | - | - | - | - |
-| apex5 | - | - | - | - | - | - | - | - |
-| C6288 | - | - | - | - | - | - | - | - |
-| k2 | - | - | - | - | - | - | - | - |
-| dalu | - | - | - | - | - | - | - | - |
-| table5 | - | - | - | - | - | - | - | - |
-| i8 | - | - | - | - | - | - | - | - |
-| table3 | - | - | - | - | - | - | - | - |
-| ex5p | - | - | - | - | - | - | - | - |
-| mm30a | - | - | - | - | - | - | - | - |
-| cordic | - | - | - | - | - | - | - | - |
-| s9234.1 | - | - | - | - | - | - | - | - |
-| clma | - | - | - | - | - | - | - | - |
-| ex4p | - | - | - | - | - | - | - | - |
-| C3540 | - | - | - | - | - | - | - | - |
-| scf | - | - | - | - | - | - | - | - |
-| tseng | - | - | - | - | - | - | - | - |
-| bbrtas | - | - | - | - | - | - | - | - |
-| apex6 | - | - | - | - | - | - | - | - |
-| sbc | - | - | - | - | - | - | - | - |
-| frg2 | - | - | - | - | - | - | - | - |
-| x3 | - | - | - | - | - | - | - | - |
-| i9 | - | - | - | - | - | - | - | - |
-| ecc | - | - | - | - | - | - | - | - |
-| daio-rec | - | - | - | - | - | - | - | - |
-| rot | - | - | - | - | - | - | - | - |
-| s1488 | - | - | - | - | - | - | - | - |
-| s1238 | - | - | - | - | - | - | - | - |
-| s1494 | - | - | - | - | - | - | - | - |
-| vda | - | - | - | - | - | - | - | - |
-| e64 | - | - | - | - | - | - | - | - |
-| planet | - | - | - | - | - | - | - | - |
-| planet1 | - | - | - | - | - | - | - | - |
-| s1196 | - | - | - | - | - | - | - | - |
-| C2670 | - | - | - | - | - | - | - | - |
-| duke2 | - | - | - | - | - | - | - | - |
-| sand | - | - | - | - | - | - | - | - |
-| styr | - | - | - | - | - | - | - | - |
-| s1423 | - | - | - | - | - | - | - | - |
-| ph-decod | - | - | - | - | - | - | - | - |
-| gcd | - | - | - | - | - | - | - | - |
-| s953 | - | - | - | - | - | - | - | - |
-| t481 | - | - | - | - | - | - | - | - |
-| mm9b | - | - | - | - | - | - | - | - |
-| i7 | - | - | - | - | - | - | - | - |
-| alu2 | - | - | - | - | - | - | - | - |
-| s1 | - | - | - | - | - | - | - | - |
-| x4 | - | - | - | - | - | - | - | - |
-| too-lrg | - | - | - | - | - | - | - | - |
-| i6 | - | - | - | - | - | - | - | - |
-| C880 | - | - | - | - | - | - | - | - |
-| s838 | - | - | - | - | - | - | - | - |
-| rd84 | - | - | - | - | - | - | - | - |
-| C1908 | - | - | - | - | - | - | - | - |
-| s832 | - | - | - | - | - | - | - | - |
-| 9sym | - | - | - | - | - | - | - | - |
-| x1 | - | - | - | - | - | - | - | - |
-| mm9a | - | - | - | - | - | - | - | - |
-| clip | - | - | - | - | - | - | - | - |
-| example2 | - | - | - | - | - | - | - | - |
-| bw | - | - | - | - | - | - | - | - |
-| C432 | - | - | - | - | - | - | - | - |
-| ex1 | - | - | - | - | - | - | - | - |
-| s820 | - | - | - | - | - | - | - | - |
-| mult32a | - | - | - | - | - | - | - | - |
-| dk16 | - | - | - | - | - | - | - | - |
-| keyb | - | - | - | - | - | - | - | - |
-| apex7 | - | - | - | - | - | - | - | - |
-| s510 | - | - | - | - | - | - | - | - |
-| i4 | - | - | - | - | - | - | - | - |
-| 9symml | - | - | - | - | - | - | - | - |
-| s838.1 | - | - | - | - | - | - | - | - |
-| cse | - | - | - | - | - | - | - | - |
-| sao2 | - | - | - | - | - | - | - | - |
-| i5 | - | - | - | - | - | - | - | - |
-| s713 | - | - | - | - | - | - | - | - |
-| term1 | - | - | - | - | - | - | - | - |
-| s641 | - | - | - | - | - | - | - | - |
-| pma | - | - | - | - | - | - | - | - |
-| tbk | - | - | - | - | - | - | - | - |
-| rd73 | - | - | - | - | - | - | - | - |
-| mm4a | - | - | - | - | - | - | - | - |
-| ttt2 | - | - | - | - | - | - | - | - |
-| C1355 | - | - | - | - | - | - | - | - |
-| C499 | - | - | - | - | - | - | - | - |
-| i2 | - | - | - | - | - | - | - | - |
-| s400 | - | - | - | - | - | - | - | - |
-| s344 | - | - | - | - | - | - | - | - |
-| s349 | - | - | - | - | - | - | - | - |
-| vg2 | - | - | - | - | - | - | - | - |
-| bbsse | - | - | - | - | - | - | - | - |
-| inc | - | - | - | - | - | - | - | - |
-| sse | - | - | - | - | - | - | - | - |
-| s444 | - | - | - | - | - | - | - | - |
-| ex6 | - | - | - | - | - | - | - | - |
-| s382 | - | - | - | - | - | - | - | - |
-| s526n | - | - | - | - | - | - | - | - |
-| 5xp1 | - | - | - | - | - | - | - | - |
-| mult16a | - | - | - | - | - | - | - | - |
-| b12 | - | - | - | - | - | - | - | - |
-| s386 | - | - | - | - | - | - | - | - |
-| cht | - | - | - | - | - | - | - | - |
-| f51m | - | - | - | - | - | - | - | - |
-| s526 | - | - | - | - | - | - | - | - |
-| opus | - | - | - | - | - | - | - | - |
-| frg1 | - | - | - | - | - | - | - | - |
-| misex2 | - | - | - | - | - | - | - | - |
-| unreg | - | - | - | - | - | - | - | - |
-| my-adder | - | - | - | - | - | - | - | - |
-| s420.1 | - | - | - | - | - | - | - | - |
-| b9 | - | - | - | - | - | - | - | - |
-| i3 | - | - | - | - | - | - | - | - |
-| o64 | - | - | - | - | - | - | - | - |
-| dk14 | - | - | - | - | - | - | - | - |
-| comp | - | - | - | - | - | - | - | - |
-| c8 | - | - | - | - | - | - | - | - |
-| count | - | - | - | - | - | - | - | - |
-| ldd | - | - | - | - | - | - | - | - |
-| ex4 | - | - | - | - | - | - | - | - |
-| pcler8 | - | - | - | - | - | - | - | - |
-| traffic | - | - | - | - | - | - | - | - |
-| lal | - | - | - | - | - | - | - | - |
-| mark1 | - | - | - | - | - | - | - | - |
-| squar5 | - | - | - | - | - | - | - | - |
-| bbara | - | - | - | - | - | - | - | - |
-| mult16b | - | - | - | - | - | - | - | - |
-| sqrt8ml | - | - | - | - | - | - | - | - |
-| sqrt8 | - | - | - | - | - | - | - | - |
-| cc | - | - | - | - | - | - | - | - |
-| dk15 | - | - | - | - | - | - | - | - |
-| s208.1 | - | - | - | - | - | - | - | - |
-| s420 | - | - | - | - | - | - | - | - |
-| sct | - | - | - | - | - | - | - | - |
-| cu | - | - | - | - | - | - | - | - |
-| i1 | - | - | - | - | - | - | - | - |
-| misex1 | - | - | - | - | - | - | - | - |
-| pcle | - | - | - | - | - | - | - | - |
-| decod | - | - | - | - | - | - | - | - |
-| pm1 | - | - | - | - | - | - | - | - |
-| cm162a | - | - | - | - | - | - | - | - |
-| s208 | - | - | - | - | - | - | - | - |
-| cmb | - | - | - | - | - | - | - | - |
-| x2 | - | - | - | - | - | - | - | - |
-| tcon | - | - | - | - | - | - | - | - |
-| dk17 | - | - | - | - | - | - | - | - |
-| mux | - | - | - | - | - | - | - | - |
-| beecount | - | - | - | - | - | - | - | - |
-| cm150a | - | - | - | - | - | - | - | - |
-| dk512 | - | - | - | - | - | - | - | - |
-| rd53 | - | - | - | - | - | - | - | - |
-| cm163a | - | - | - | - | - | - | - | - |
-| cm85a | - | - | - | - | - | - | - | - |
-| cm138a | - | - | - | - | - | - | - | - |
-| cm42a | - | - | - | - | - | - | - | - |
-| tav | - | - | - | - | - | - | - | - |
-| cm151a | - | - | - | - | - | - | - | - |
-| z4ml | - | - | - | - | - | - | - | - |
-| mc | - | - | - | - | - | - | - | - |
-| bbtas | - | - | - | - | - | - | - | - |
-| cm152a | - | - | - | - | - | - | - | - |
-| s27 | - | - | - | - | - | - | - | - |
-| con1 | - | - | - | - | - | - | - | - |
-| dk27 | - | - | - | - | - | - | - | - |
-| parity | - | - | - | - | - | - | - | - |
-| b1 | - | - | - | - | - | - | - | - |
-| cm82a | - | - | - | - | - | - | - | - |
-| daio | - | - | - | - | - | - | - | - |
-| lion | - | - | - | - | - | - | - | - |
-| majority | - | - | - | - | - | - | - | - |
-| C17 | - | - | - | - | - | - | - | - |
-| xor5 | - | - | - | - | - | - | - | - |
-| chain_cout_fanout | - | - | - | - | - | - | - | - |
-| shiftreg | - | - | - | - | - | - | - | - |
+| ex1010 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex1010 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s38584.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s38584.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s38417 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s38417 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pdc | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pdc | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| frisc | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| frisc | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| elliptic | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| elliptic | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| spla | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| spla | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| des | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| des | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| seq | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| seq | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| alu4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| alu4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| misex3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| misex3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dsip | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dsip | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s298 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s298 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| diffeq | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| diffeq | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bigkey | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bigkey | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i10 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C6288 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex5p | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex5p | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| clma | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| clma | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| tseng | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| tseng | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cps | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C7552 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pair | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| parker1986 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| table5 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| table3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| k2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C5315 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mm30a | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i8 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s5378 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C3540 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| misex3c | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s9234.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| scf | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex5 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sbc | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dalu | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| rot | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| frg2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| vda | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ecc | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| e64 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex6 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex4p | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| x3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1494 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1488 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1423 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bbrtas | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i9 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| duke2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C2670 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| styr | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| planet | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| planet1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1238 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| daio-rec | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1196 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s953 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sand | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| too-lrg | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C499 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ph-decod | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| alu2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C1908 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mm9b | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| example2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| gcd | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C1355 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| x1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| x4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mm9a | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s832 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| t481 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C880 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mult32a | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| 9sym | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s820 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i5 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i6 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i7 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s838.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| clip | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| keyb | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| rd84 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sao2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s641 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s713 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| apex7 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s510 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C432 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pma | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cse | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i4 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| 9symml | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk16 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mult16a | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i3 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| tbk | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cht | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s344 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s349 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mm4a | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| o64 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s386 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| b9 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mult16b | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s420.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ttt2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sse | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| misex2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s444 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bw | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| c8 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| count | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ldd | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s400 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| frg1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| rd73 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s382 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bbsse | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s526n | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| lal | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s526 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| vg2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| my-adder | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pcler8 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cc | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| comp | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| inc | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| term1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex6 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mark1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| opus | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sct | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| b12 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bbara | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| ex4 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| decod | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pm1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s208.1 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| tcon | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| unreg | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| i1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cordic | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cu | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| f51m | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| pcle | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| 5xp1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s420 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| x2 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sqrt8 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| traffic | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm162a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm42a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cmb | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s208 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm150a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| sqrt8ml | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm138a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm163a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk14 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| misex1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s838 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| squar5 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| beecount | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk15 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk512 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm85a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk17 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mc | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| mux | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| tav | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| bbtas | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| dk27 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| parity | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| z4ml | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| b1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm151a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| s27 | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm152a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| cm82a | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| daio | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| lion | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| rd53 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| C17 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| con1 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| chain_cout_fanout | ✓ | ✗ | ✗ | ✓ | n/a | n/a | ✗ | ✗ |
+| majority | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| xor5 | ✗ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
+| shiftreg | ✓ | ✗ | ✗ | ✗ | n/a | n/a | ✗ | ✗ |
 
 </details>
 
@@ -2080,224 +2201,224 @@ Rule: BLIF netlist, no HDL.
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
-| clma | - | - | - | - |
+| ex1010 | - | - | - | - |
+| ex1010 | - | - | - | - |
+| s38584.1 | - | - | - | - |
 | s38584.1 | - | - | - | - |
 | s38417 | - | - | - | - |
-| ex1010 | - | - | - | - |
+| s38417 | - | - | - | - |
 | pdc | - | - | - | - |
-| spla | - | - | - | - |
-| elliptic | - | - | - | - |
+| pdc | - | - | - | - |
 | frisc | - | - | - | - |
-| ex1010 | - | - | - | - |
-| s38584.1 | - | - | - | - |
-| s38417 | - | - | - | - |
-| pdc | - | - | - | - |
-| s298 | - | - | - | - |
+| frisc | - | - | - | - |
+| elliptic | - | - | - | - |
+| elliptic | - | - | - | - |
+| spla | - | - | - | - |
+| spla | - | - | - | - |
 | apex2 | - | - | - | - |
-| seq | - | - | - | - |
-| bigkey | - | - | - | - |
-| frisc | - | - | - | - |
+| apex2 | - | - | - | - |
 | des | - | - | - | - |
+| des | - | - | - | - |
+| apex4 | - | - | - | - |
+| apex4 | - | - | - | - |
+| seq | - | - | - | - |
+| seq | - | - | - | - |
 | alu4 | - | - | - | - |
-| diffeq | - | - | - | - |
-| elliptic | - | - | - | - |
-| spla | - | - | - | - |
+| alu4 | - | - | - | - |
+| misex3 | - | - | - | - |
 | misex3 | - | - | - | - |
 | dsip | - | - | - | - |
-| apex4 | - | - | - | - |
-| ex5p | - | - | - | - |
-| tseng | - | - | - | - |
-| i10 | - | - | - | - |
-| apex2 | - | - | - | - |
-| des | - | - | - | - |
+| dsip | - | - | - | - |
+| s298 | - | - | - | - |
+| s298 | - | - | - | - |
+| diffeq | - | - | - | - |
+| diffeq | - | - | - | - |
+| bigkey | - | - | - | - |
+| bigkey | - | - | - | - |
 | apex3 | - | - | - | - |
-| apex4 | - | - | - | - |
-| seq | - | - | - | - |
-| alu4 | - | - | - | - |
+| i10 | - | - | - | - |
+| C6288 | - | - | - | - |
+| ex5p | - | - | - | - |
+| ex5p | - | - | - | - |
+| clma | - | - | - | - |
+| clma | - | - | - | - |
+| apex1 | - | - | - | - |
+| tseng | - | - | - | - |
+| tseng | - | - | - | - |
 | cps | - | - | - | - |
 | C7552 | - | - | - | - |
-| misex3 | - | - | - | - |
-| apex1 | - | - | - | - |
-| dsip | - | - | - | - |
-| s298 | - | - | - | - |
-| parker1986 | - | - | - | - |
 | pair | - | - | - | - |
-| C5315 | - | - | - | - |
-| diffeq | - | - | - | - |
-| bigkey | - | - | - | - |
-| s5378 | - | - | - | - |
-| misex3c | - | - | - | - |
-| apex5 | - | - | - | - |
-| C6288 | - | - | - | - |
-| k2 | - | - | - | - |
-| dalu | - | - | - | - |
+| parker1986 | - | - | - | - |
 | table5 | - | - | - | - |
-| i8 | - | - | - | - |
 | table3 | - | - | - | - |
-| ex5p | - | - | - | - |
+| k2 | - | - | - | - |
+| C5315 | - | - | - | - |
 | mm30a | - | - | - | - |
-| cordic | - | - | - | - |
-| s9234.1 | - | - | - | - |
-| clma | - | - | - | - |
-| ex4p | - | - | - | - |
+| i8 | - | - | - | - |
+| s5378 | - | - | - | - |
 | C3540 | - | - | - | - |
+| misex3c | - | - | - | - |
+| s9234.1 | - | - | - | - |
 | scf | - | - | - | - |
-| tseng | - | - | - | - |
-| bbrtas | - | - | - | - |
-| apex6 | - | - | - | - |
+| apex5 | - | - | - | - |
 | sbc | - | - | - | - |
-| frg2 | - | - | - | - |
-| x3 | - | - | - | - |
-| i9 | - | - | - | - |
-| ecc | - | - | - | - |
-| daio-rec | - | - | - | - |
+| dalu | - | - | - | - |
 | rot | - | - | - | - |
-| s1488 | - | - | - | - |
-| s1238 | - | - | - | - |
-| s1494 | - | - | - | - |
+| frg2 | - | - | - | - |
 | vda | - | - | - | - |
+| ecc | - | - | - | - |
 | e64 | - | - | - | - |
+| apex6 | - | - | - | - |
+| ex4p | - | - | - | - |
+| x3 | - | - | - | - |
+| s1494 | - | - | - | - |
+| s1488 | - | - | - | - |
+| s1423 | - | - | - | - |
+| bbrtas | - | - | - | - |
+| i9 | - | - | - | - |
+| duke2 | - | - | - | - |
+| C2670 | - | - | - | - |
+| styr | - | - | - | - |
 | planet | - | - | - | - |
 | planet1 | - | - | - | - |
+| s1238 | - | - | - | - |
+| daio-rec | - | - | - | - |
 | s1196 | - | - | - | - |
-| C2670 | - | - | - | - |
-| duke2 | - | - | - | - |
-| sand | - | - | - | - |
-| styr | - | - | - | - |
-| s1423 | - | - | - | - |
-| ph-decod | - | - | - | - |
-| gcd | - | - | - | - |
 | s953 | - | - | - | - |
-| t481 | - | - | - | - |
-| mm9b | - | - | - | - |
-| i7 | - | - | - | - |
-| alu2 | - | - | - | - |
-| s1 | - | - | - | - |
-| x4 | - | - | - | - |
+| sand | - | - | - | - |
 | too-lrg | - | - | - | - |
-| i6 | - | - | - | - |
-| C880 | - | - | - | - |
-| s838 | - | - | - | - |
-| rd84 | - | - | - | - |
+| C499 | - | - | - | - |
+| ph-decod | - | - | - | - |
+| alu2 | - | - | - | - |
 | C1908 | - | - | - | - |
-| s832 | - | - | - | - |
-| 9sym | - | - | - | - |
-| x1 | - | - | - | - |
-| mm9a | - | - | - | - |
-| clip | - | - | - | - |
+| mm9b | - | - | - | - |
 | example2 | - | - | - | - |
-| bw | - | - | - | - |
-| C432 | - | - | - | - |
-| ex1 | - | - | - | - |
-| s820 | - | - | - | - |
+| gcd | - | - | - | - |
+| C1355 | - | - | - | - |
+| x1 | - | - | - | - |
+| x4 | - | - | - | - |
+| mm9a | - | - | - | - |
+| s1 | - | - | - | - |
+| s832 | - | - | - | - |
+| t481 | - | - | - | - |
+| C880 | - | - | - | - |
 | mult32a | - | - | - | - |
-| dk16 | - | - | - | - |
+| 9sym | - | - | - | - |
+| s820 | - | - | - | - |
+| ex1 | - | - | - | - |
+| i5 | - | - | - | - |
+| i6 | - | - | - | - |
+| i7 | - | - | - | - |
+| s838.1 | - | - | - | - |
+| clip | - | - | - | - |
 | keyb | - | - | - | - |
+| i2 | - | - | - | - |
+| rd84 | - | - | - | - |
+| sao2 | - | - | - | - |
+| s641 | - | - | - | - |
+| s713 | - | - | - | - |
 | apex7 | - | - | - | - |
 | s510 | - | - | - | - |
+| C432 | - | - | - | - |
+| pma | - | - | - | - |
+| cse | - | - | - | - |
 | i4 | - | - | - | - |
 | 9symml | - | - | - | - |
-| s838.1 | - | - | - | - |
-| cse | - | - | - | - |
-| sao2 | - | - | - | - |
-| i5 | - | - | - | - |
-| s713 | - | - | - | - |
-| term1 | - | - | - | - |
-| s641 | - | - | - | - |
-| pma | - | - | - | - |
+| dk16 | - | - | - | - |
+| mult16a | - | - | - | - |
+| i3 | - | - | - | - |
 | tbk | - | - | - | - |
-| rd73 | - | - | - | - |
-| mm4a | - | - | - | - |
-| ttt2 | - | - | - | - |
-| C1355 | - | - | - | - |
-| C499 | - | - | - | - |
-| i2 | - | - | - | - |
-| s400 | - | - | - | - |
+| cht | - | - | - | - |
 | s344 | - | - | - | - |
 | s349 | - | - | - | - |
-| vg2 | - | - | - | - |
-| bbsse | - | - | - | - |
-| inc | - | - | - | - |
-| sse | - | - | - | - |
-| s444 | - | - | - | - |
-| ex6 | - | - | - | - |
-| s382 | - | - | - | - |
-| s526n | - | - | - | - |
-| 5xp1 | - | - | - | - |
-| mult16a | - | - | - | - |
-| b12 | - | - | - | - |
-| s386 | - | - | - | - |
-| cht | - | - | - | - |
-| f51m | - | - | - | - |
-| s526 | - | - | - | - |
-| opus | - | - | - | - |
-| frg1 | - | - | - | - |
-| misex2 | - | - | - | - |
-| unreg | - | - | - | - |
-| my-adder | - | - | - | - |
-| s420.1 | - | - | - | - |
-| b9 | - | - | - | - |
-| i3 | - | - | - | - |
+| mm4a | - | - | - | - |
 | o64 | - | - | - | - |
-| dk14 | - | - | - | - |
-| comp | - | - | - | - |
+| s386 | - | - | - | - |
+| b9 | - | - | - | - |
+| mult16b | - | - | - | - |
+| s420.1 | - | - | - | - |
+| ttt2 | - | - | - | - |
+| sse | - | - | - | - |
+| misex2 | - | - | - | - |
+| s444 | - | - | - | - |
+| bw | - | - | - | - |
 | c8 | - | - | - | - |
 | count | - | - | - | - |
 | ldd | - | - | - | - |
-| ex4 | - | - | - | - |
-| pcler8 | - | - | - | - |
-| traffic | - | - | - | - |
+| s400 | - | - | - | - |
+| frg1 | - | - | - | - |
+| rd73 | - | - | - | - |
+| s382 | - | - | - | - |
+| bbsse | - | - | - | - |
+| s526n | - | - | - | - |
 | lal | - | - | - | - |
-| mark1 | - | - | - | - |
-| squar5 | - | - | - | - |
-| bbara | - | - | - | - |
-| mult16b | - | - | - | - |
-| sqrt8ml | - | - | - | - |
-| sqrt8 | - | - | - | - |
+| s526 | - | - | - | - |
+| vg2 | - | - | - | - |
+| my-adder | - | - | - | - |
+| pcler8 | - | - | - | - |
 | cc | - | - | - | - |
-| dk15 | - | - | - | - |
-| s208.1 | - | - | - | - |
-| s420 | - | - | - | - |
+| comp | - | - | - | - |
+| inc | - | - | - | - |
+| term1 | - | - | - | - |
+| ex6 | - | - | - | - |
+| mark1 | - | - | - | - |
+| opus | - | - | - | - |
 | sct | - | - | - | - |
-| cu | - | - | - | - |
-| i1 | - | - | - | - |
-| misex1 | - | - | - | - |
-| pcle | - | - | - | - |
+| b12 | - | - | - | - |
+| bbara | - | - | - | - |
+| ex4 | - | - | - | - |
 | decod | - | - | - | - |
 | pm1 | - | - | - | - |
-| cm162a | - | - | - | - |
-| s208 | - | - | - | - |
-| cmb | - | - | - | - |
-| x2 | - | - | - | - |
+| s208.1 | - | - | - | - |
 | tcon | - | - | - | - |
-| dk17 | - | - | - | - |
-| mux | - | - | - | - |
-| beecount | - | - | - | - |
-| cm150a | - | - | - | - |
-| dk512 | - | - | - | - |
-| rd53 | - | - | - | - |
-| cm163a | - | - | - | - |
-| cm85a | - | - | - | - |
-| cm138a | - | - | - | - |
+| unreg | - | - | - | - |
+| i1 | - | - | - | - |
+| cordic | - | - | - | - |
+| cu | - | - | - | - |
+| f51m | - | - | - | - |
+| pcle | - | - | - | - |
+| 5xp1 | - | - | - | - |
+| s420 | - | - | - | - |
+| x2 | - | - | - | - |
+| sqrt8 | - | - | - | - |
+| traffic | - | - | - | - |
+| cm162a | - | - | - | - |
 | cm42a | - | - | - | - |
-| tav | - | - | - | - |
-| cm151a | - | - | - | - |
-| z4ml | - | - | - | - |
+| cmb | - | - | - | - |
+| s208 | - | - | - | - |
+| cm150a | - | - | - | - |
+| sqrt8ml | - | - | - | - |
+| cm138a | - | - | - | - |
+| cm163a | - | - | - | - |
+| dk14 | - | - | - | - |
+| misex1 | - | - | - | - |
+| s838 | - | - | - | - |
+| squar5 | - | - | - | - |
+| beecount | - | - | - | - |
+| dk15 | - | - | - | - |
+| dk512 | - | - | - | - |
+| cm85a | - | - | - | - |
+| dk17 | - | - | - | - |
 | mc | - | - | - | - |
+| mux | - | - | - | - |
+| tav | - | - | - | - |
 | bbtas | - | - | - | - |
-| cm152a | - | - | - | - |
-| s27 | - | - | - | - |
-| con1 | - | - | - | - |
 | dk27 | - | - | - | - |
 | parity | - | - | - | - |
+| z4ml | - | - | - | - |
 | b1 | - | - | - | - |
+| cm151a | - | - | - | - |
+| s27 | - | - | - | - |
+| cm152a | - | - | - | - |
 | cm82a | - | - | - | - |
 | daio | - | - | - | - |
 | lion | - | - | - | - |
-| majority | - | - | - | - |
+| rd53 | - | - | - | - |
 | C17 | - | - | - | - |
-| xor5 | - | - | - | - |
+| con1 | - | - | - | - |
 | chain_cout_fanout | - | - | - | - |
+| majority | - | - | - | - |
+| xor5 | - | - | - | - |
 | shiftreg | - | - | - | - |
 
 </details>
@@ -2309,6 +2430,7 @@ Rule: BLIF netlist, no HDL.
 - **brisc-v**: BRISC-V microcontroller (Arduino-on-RISC-V, Quartus project revert_timer). Upstream https://github.com/qiany21/Arduino-on-RISC-V.git at 1d5b591081511a8161b843d003ca7b80bad7fc45. Licence: MIT (Copyright (c) 2021 qiany21).
 - **itc99**: ITC'99 (RTL Verilog, b01-b22 without b16). Upstream https://github.com/ccsl-uaegean/ITC99-RTL-Verilog at 8e6a23da036b7442ef4ea410c679d4cf21830a65. Licence: GPL-3.0 (the LICENSE file of this repository); the terms of the original ITC'99 distribution were not read.
 - **mcnc20**: MCNC / LGSynth91 circuits as VTR ships them (4-LUT mapped BLIF, circuits.txt). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: none-stated (data/meta/licences.toml rule mcnc); VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.
+- **opencores**: OpenCores stable Verilog projects (24 designs: Peter's 2026-11-04 list without gng, DES, survey additions, verilog_cordic_core, mips_16). Upstream https://opencores.org/projects at none. Licence: per project, as the source files and the OpenCores project page state (see the licence rows of measures.tsv and docs/benchmarks/opencores.md); LGPL, GPL, Apache-2.0, BSD-style and none-stated all occur.
 - **verilogeval**: VerilogEval problems (reference solutions of the spec-to-rtl dataset) with the Gate-Breaker Yosys netlists. Upstream https://github.com/NMSU-PEARL/verilog-eval.git at d60f0b10458746e2fefc2a98fa2455b77a32e8be. Licence: MIT (Copyright (c) 2023-2024 NVIDIA Research Projects).
 - **vtr-blif**: VTR blif/2 and blif/4: ISCAS-85, ISCAS-89 and MCNC mapped to 2-input and 4-input LUTs. Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: not read: the licence of the individual ISCAS/MCNC files has not been checked.
 - **vtr-verilog**: VTR Verilog benchmarks (top-level files of vtr_flow/benchmarks/verilog). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: per design, as each file states (see licence_rule in designs.tsv and data/meta/licences.toml); VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.

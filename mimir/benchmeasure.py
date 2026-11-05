@@ -465,7 +465,8 @@ def measure_design(binary: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
         return rows
     files = " ".join(str(f) for f in _verilog_files(suite, d))
     flags = "--auto-blackbox " if d.format == "verilog-project" else ""
-    read = f"read_verilog --nolatches --vtr-compat {flags}{files}"
+    compat = "" if any(f.suffix == ".sv" for f in _verilog_files(suite, d)) else "--vtr-compat "
+    read = f"read_verilog --nolatches {compat}{flags}{files}"
     soft_read = f"read_arch {arch}; {read}"
     prop = f"read_arch {arch}; {read}; stats; {FRONT}; stats; hardmap; stats"
     rc, text = run_odin(binary, d.top, prop)
