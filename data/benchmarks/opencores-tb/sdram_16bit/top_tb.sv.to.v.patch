@@ -1,0 +1,193 @@
+--- a/testbench/top_tb.sv
++++ b/top_tb.v
+@@ -1,27 +1,35 @@
++// tb_origin: upstream-fixed (Verilog-2005 port of testbench/top_tb.sv + simulation.svh of OpenCores sdram_16bit)
++// Port notes: the simulation.svh macros are written out (no `timescale inside a module, no `__FILE__,
++// no string stringification); the 10 ms run length is #100000000 in the 100 ps unit; the waveform dump
++// is dropped. Added: at the end of the run a "PASS" line with the response counts, which needs at
++// least 1000 responses and 100 reads of previously written words, else "FAIL". The timeout assertion (100000 cycles
++// without an accepted request) is kept. Run with -DMAX_ADDRESS=8192 -DPART=IS42VM16400K.
+ `timescale 100ps/100ps
+-
+-//-----------------------------------------------------------------
+-// Module
+-//-----------------------------------------------------------------
+ module top_tb ;
+ 
+-//-----------------------------------------------------------------
+-// Simulation
+-//-----------------------------------------------------------------
+-`include "simulation.svh"
+-
+-`CLOCK_GEN(clk, 200)
+-`RESET_GEN(rst, 200)
+-
+-`ifdef TRACE
+-    `TB_VCD(top_tb, "waveform.vcd")
+-`endif
+-
+-`TB_RUN_FOR(10ms)
+-
+-//-----------------------------------------------------------------
+-// Registers / Wires
+-//-----------------------------------------------------------------
++reg clk;
++initial begin
++   clk <= 0;
++   forever #100 clk = ~clk;
++end
++
++reg rst;
++initial begin
++   rst <= 1;
++   #200
++   rst <= 0;
++end
++
++// TB_RUN_FOR(10ms)
++initial begin
++   #100000000;
++   if (u_master.failed == 0 && u_master.resp_cnt >= 1000 && u_master.rd_defined >= 100)
++      $display("PASS top_tb responses=%0d reads_checked=%0d reads_of_written_words=%0d writes=%0d", u_master.resp_cnt, u_master.rd_checked, u_master.rd_defined, u_master.wr_done);
++   else
++      $display("FAIL top_tb responses=%0d reads_checked=%0d failed=%0d", u_master.resp_cnt, u_master.rd_checked, u_master.failed);
++   $finish;
++end
++
+ wire [31:0] addr;
+ wire [31:0] data_w;
+ wire [31:0] data_r;
+@@ -33,7 +41,6 @@
+ wire        stall;
+ wire        ack;
+ 
+-// SDRAM Interface
+ wire          sdram_clk;
+ wire          sdram_cke;
+ wire          sdram_cs;
+@@ -45,11 +52,6 @@
+ wire [1:0]    sdram_ba;
+ wire [15:0]   sdram_data;
+ 
+-//-----------------------------------------------------------------
+-// Instantiation
+-//-----------------------------------------------------------------
+-
+-// Wishbone master
+ wb_master
+ #(
+     .MIN_ADDRESS(0),
+@@ -61,8 +63,6 @@
+ (
+     .clk_i(clk),
+     .rst_i(rst),
+-
+-    // Wishbone I/F
+     .addr_o(addr),
+     .data_o(data_w),
+     .data_i(data_r),
+@@ -75,18 +75,15 @@
+     .ack_i(ack)
+ );
+ 
+-// SDRAM Controller
+ sdram
+-#( 
++#(
+     .SDRAM_START_DELAY(1000),
+-    .SDRAM_TARGET("SIMULATION") 
++    .SDRAM_TARGET("SIMULATION")
+ )
+ u_dut
+ (
+     .clk_i(clk),
+     .rst_i(rst),
+-
+-    // Wishbone I/F
+     .addr_i(addr),
+     .data_i(data_w),
+     .data_o(data_r),
+@@ -96,8 +93,6 @@
+     .we_i(we),
+     .stall_o(stall),
+     .ack_o(ack),
+-
+-    // SDRAM Interface
+     .sdram_clk_o(sdram_clk),
+     .sdram_cke_o(sdram_cke),
+     .sdram_cs_o(sdram_cs),
+@@ -110,51 +105,38 @@
+     .sdram_data_io(sdram_data)
+ );
+ 
+-// SDRAM
+ `PART
+ u_ram
+ (
+-    .dq(sdram_data), 
+-    .addr(sdram_addr), 
+-    .ba(sdram_ba), 
+-    .clk(sdram_clk), 
+-    .cke(sdram_cke), 
+-    .csb(sdram_cs), 
+-    .rasb(sdram_ras), 
+-    .casb(sdram_cas), 
+-    .web(sdram_we), 
++    .dq(sdram_data),
++    .addr(sdram_addr),
++    .ba(sdram_ba),
++    .clk(sdram_clk),
++    .cke(sdram_cke),
++    .csb(sdram_cs),
++    .rasb(sdram_ras),
++    .casb(sdram_cas),
++    .web(sdram_we),
+     .dqm(sdram_dqm)
+ );
+ 
+-//-------------------------------------------------------------------
+-// Debug
+-//-------------------------------------------------------------------
+-integer perf_cycles;
+-integer perf_resps;
+-
+-initial
++// TB_TIMEOUT(clk, rst, stb && !stall, 100000)
++integer v_timeout_cycles;
++always @(posedge rst or posedge clk)
++if (rst)
++    v_timeout_cycles <= 0;
++else
+ begin
+-    perf_cycles = 0;
+-    perf_resps  = 0;
+-end
+-
+-always @ (posedge clk)
+-begin
+-    perf_cycles = perf_cycles + 1;
+-    if (ack)
+-        perf_resps  = perf_resps + 1;
+-
+-    if (perf_cycles == 50000)
++    if (stb && !stall)
++        v_timeout_cycles <= 0;
++    else
+     begin
+-        $display("Transfer Rate = %dMB/s\n", ((perf_resps * 4) * 1000) / 1048576);
+-        perf_resps = 0;
+-        perf_cycles = 0;
++        v_timeout_cycles <= v_timeout_cycles + 1;
++        if (!(v_timeout_cycles < 100000)) begin
++            $display("FAIL: top_tb timeout, no accepted request for 100000 cycles");
++            $finish;
++        end
+     end
+ end
+ 
+-//-----------------------------------------------------------------
+-// Test bench timeout
+-//-----------------------------------------------------------------
+-`TB_TIMEOUT(clk, rst, stb && !stall, 100000)
+-
+ endmodule

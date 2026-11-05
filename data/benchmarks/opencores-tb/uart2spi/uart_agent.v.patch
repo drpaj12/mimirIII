@@ -1,0 +1,14 @@
+# tb_origin: upstream-fixed. Patch against verif/tb/uart_agent.v of OpenCores uart2spi (upstream licence: LGPL 2.1 or later).
+# Reason: task read_char_chk declares scalar `input expected_data;` and then `reg [7:0] expected_data;`, which iverilog rejects
+# (Scalar port expected_data has a vectored net declaration). The fix gives the input its width.
+--- a/verif/tb/uart_agent.v
++++ b/verif/tb/uart_agent.v
+@@ -133,7 +133,7 @@
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+ task read_char_chk;
+-input 	expected_data;
++input [7:0] expected_data;
+ 
+ integer i;
+ reg	[7:0] expected_data;

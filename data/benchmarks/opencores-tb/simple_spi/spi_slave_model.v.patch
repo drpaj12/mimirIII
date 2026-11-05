@@ -1,0 +1,19 @@
+# tb_origin: upstream-fixed. Patch against bench/verilog/spi_slave_model.v of OpenCores simple_spi
+# (upstream licence applies: the notice in the upstream file header, Copyright 2004 Richard Herveille).
+# Reason: the module header has `;` where `,` is needed and a missing comma after `sck`, so the file
+# does not parse in iverilog (syntax error at the port list). The fix only changes the port list punctuation.
+--- a/bench/verilog/spi_slave_model.v
++++ b/bench/verilog/spi_slave_model.v
+@@ -54,9 +54,9 @@
+ `include "timescale.v"
+ 
+ module spi_slave_model (
+-	input  wire csn;
+-	input  wire sck
+-	input  wire di;
++	input  wire csn,
++	input  wire sck,
++	input  wire di,
+ 	output wire do
+ );
+ 

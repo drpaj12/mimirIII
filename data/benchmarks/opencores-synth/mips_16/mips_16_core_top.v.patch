@@ -1,0 +1,28 @@
+--- a/rtl/mips_16_core_top.v
++++ b/rtl/mips_16_core_top.v
+@@ -20,7 +20,12 @@
+ 	input						clk,
+ 	input						rst,
+ 
+-	output	[`PC_WIDTH-1:0]		pc
++	output	[`PC_WIDTH-1:0]		pc,
++	// mimir synthesis variant: observation outputs so synthesis keeps the datapath
++	output						dbg_wb_en,
++	output	[2:0]				dbg_wb_dest,
++	output	[15:0]				dbg_wb_data,
++	output	[37:0]				dbg_ex_pipeline
+ );
+ 	wire 						pipeline_stall_n ;
+ 	wire	[5:0]				branch_offset_imm;
+@@ -114,6 +119,11 @@
+ 		.pipeline_stall_n		(pipeline_stall_n)
+ 	);
+ 	
++	assign dbg_wb_en = reg_write_en;
++	assign dbg_wb_dest = reg_write_dest;
++	assign dbg_wb_data = reg_write_data;
++	assign dbg_ex_pipeline = EX_pipeline_reg_out;
++	
+ endmodule 
+ 
+ 

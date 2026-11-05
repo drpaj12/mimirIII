@@ -7,9 +7,9 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | tier | rule | designs |
 |---|---|---|
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
-| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 1 |
+| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 22 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
-| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 52 |
+| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 55 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
 
 | suite | designs |
@@ -17,10 +17,11 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | brisc-v | 1 |
 | itc99 | 21 |
 | mcnc20 | 20 |
+| opencores | 24 |
 | verilogeval | 156 |
 | vtr-blif | 199 |
 | vtr-verilog | 31 |
-| total | 428 |
+| total | 452 |
 
 ## T1 HDL + testbench, larger
 
@@ -28,13 +29,55 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | what it does | suite | link | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|
+| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3790 | ✓ | ✗ |
+| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4900 | ✓ | ✗ |
+| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12270 | ✓ | ✗ |
+| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12433 | ✓ | ✗ |
+| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 618 | ✓ | ✗ |
+| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 499 | ✓ | ✗ |
+| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4366 | ✓ | ✗ |
+| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2061 | ✓ | ✗ |
+| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 379 | ✓ | ✗ |
+| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 695 | ✓ | ✗ |
+| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 633 | ✓ | ✗ |
+| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1556 | ✓ | ✗ |
+| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 456 | ✓ | ✗ |
+| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1311 | ✓ | ✗ |
+| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 253 | ✓ | ✗ |
+| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 945 | ✓ | ✗ |
 | quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | MIT | 4349 | ✓ | ✓ |
+| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3929 | ✓ | ✗ |
+| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2055 | ✓ | ✗ |
+| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 769 | ✓ | ✗ |
+| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 764 | ✓ | ✗ |
+| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 741 | ✓ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
 |---|---|---|---|---|---|---|---|---|---|---|
+| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 |
+| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 |
+| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 |
+| usbhostslave | pass | fail | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 |
+| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 |
+| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 |
+| reed_solomon_decoder | pass | pass | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 |
+| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 |
+| verilog_cordic_core | pass | refused | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 |
+| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 |
+| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 |
+| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 |
+| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 |
+| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 |
+| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 |
+| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 |
 | quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - |
+| sdr_ctrl | pass | fail | none | - | - | - | - | - | - | - |
+| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - |
+| i2cslave | fail | refused | none | - | - | - | - | - | - | - |
+| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - |
+| sdram_16bit | pass | refused | map | - | - | - | - | - | - | - |
 
 </details>
 
@@ -42,7 +85,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
+| dblclockfft | - | - | - |
+| vga_lcd | - | - | - |
+| ethmac | - | - | - |
+| usbhostslave | - | - | - |
+| sha3_high | - | - | - |
+| sha3_low | - | - | - |
+| reed_solomon_decoder | - | - | - |
+| des | - | - | - |
+| verilog_cordic_core | - | - | - |
+| wb_lcd | - | - | - |
+| spi | - | - | - |
+| i2c | - | - | - |
+| simple_spi | - | - | - |
+| ca_prng | - | - | - |
+| mmuart | - | - | - |
+| mips_16 | - | - | - |
 | quartus_project_revert_timer | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| sdr_ctrl | - | - | - |
+| pipelined_fft_256 | - | - | - |
+| i2cslave | - | - | - |
+| tiny_aes | - | - | - |
+| sdram_16bit | - | - | - |
 
 </details>
 
@@ -50,7 +114,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
+| dblclockfft | - | - | - | - | - | - | - | - |
+| vga_lcd | - | - | - | - | - | - | - | - |
+| ethmac | - | - | - | - | - | - | - | - |
+| usbhostslave | - | - | - | - | - | - | - | - |
+| sha3_high | - | - | - | - | - | - | - | - |
+| sha3_low | - | - | - | - | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - | - | - | - | - |
+| des | - | - | - | - | - | - | - | - |
+| verilog_cordic_core | - | - | - | - | - | - | - | - |
+| wb_lcd | - | - | - | - | - | - | - | - |
+| spi | - | - | - | - | - | - | - | - |
+| i2c | - | - | - | - | - | - | - | - |
+| simple_spi | - | - | - | - | - | - | - | - |
+| ca_prng | - | - | - | - | - | - | - | - |
+| mmuart | - | - | - | - | - | - | - | - |
+| mips_16 | - | - | - | - | - | - | - | - |
 | quartus_project_revert_timer | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
+| sdr_ctrl | - | - | - | - | - | - | - | - |
+| pipelined_fft_256 | - | - | - | - | - | - | - | - |
+| i2cslave | - | - | - | - | - | - | - | - |
+| tiny_aes | - | - | - | - | - | - | - | - |
+| sdram_16bit | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -58,7 +143,28 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
+| dblclockfft | - | - | - | - |
+| vga_lcd | - | - | - | - |
+| ethmac | - | - | - | - |
+| usbhostslave | - | - | - | - |
+| sha3_high | - | - | - | - |
+| sha3_low | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - |
+| des | - | - | - | - |
+| verilog_cordic_core | - | - | - | - |
+| wb_lcd | - | - | - | - |
+| spi | - | - | - | - |
+| i2c | - | - | - | - |
+| simple_spi | - | - | - | - |
+| ca_prng | - | - | - | - |
+| mmuart | - | - | - | - |
+| mips_16 | - | - | - | - |
 | quartus_project_revert_timer | - | - | - | - |
+| sdr_ctrl | - | - | - | - |
+| pipelined_fft_256 | - | - | - | - |
+| i2cslave | - | - | - | - |
+| tiny_aes | - | - | - | - |
+| sdram_16bit | - | - | - | - |
 
 </details>
 
@@ -907,6 +1013,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3053 | ✗ | ✗ |
 | b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 805 | ✗ | ✗ |
 | spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3072 | ✗ | ✗ |
+| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3352 | ✗ | ✗ |
 | mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6628 | ✗ | ✗ |
 | sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2171 | ✗ | ✗ |
 | mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 4348 | ✗ | ✗ |
@@ -935,6 +1042,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 21 | ✗ | ✗ |
 | single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5 | ✗ | ✗ |
 | single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3 | ✗ | ✗ |
+| a-z80 | A-Z80 CPU | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5649 | ✗ | ✗ |
+| amber | Amber ARM-compatible core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5419 | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -964,6 +1073,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | - | - | route | 378 | 378 | 209 | 468 | 0/32 | 2.3407 | 40 |
 | b15 | - | - | - | - | - | - | - | - | - | - |
 | spree | - | - | route | 669 | 144 | 200 | 164 | 1/128 | 12.1663 | 58 |
+| attiny_atmega_xmega_core | none | none | timing | 1973 | 186 | 373 | 2 | 1/0 | 14.924 | 66 |
 | mkDelayWorker32B | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 |
 | sha | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 |
 | mkSMAdapter4B | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 |
@@ -992,6 +1102,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | route | 1 | 5 | 1 | 4 | 0/0 | 1.52719 | 20 |
 | single_ff | - | - | route | 0 | 4 | 1 | 3 | 0/0 | 1.45102 | 26 |
 | single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 |
+| a-z80 | none | none | none | - | - | - | - | - | - | - |
+| amber | none | none | none | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1023,6 +1135,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | 18011/35 | 3235/7 | 2421/4 |
 | b15 | 26705/80 | 3326/19 | 2322/12 |
 | spree | 11441/103 | 3289/29 | 2321/17 |
+| attiny_atmega_xmega_core | - | - | - |
 | mkDelayWorker32B | 28203/41 | 1812/6 | 1633/5 |
 | sha | 8125/79 | 2788/30 | 1583/20 |
 | mkSMAdapter4B | 11046/34 | 1929/12 | 1372/7 |
@@ -1051,6 +1164,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | 1/1 | 1/1 | 1/1 |
 | single_ff | 0/0 | 0/0 | 0/0 |
 | single_wire | 0/0 | 0/0 | 0/0 |
+| a-z80 | - | - | - |
+| amber | - | - | - |
 
 </details>
 
@@ -1082,6 +1197,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b15 | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | spree | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| attiny_atmega_xmega_core | - | - | - | - | - | - | - | - |
 | mkDelayWorker32B | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | sha | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | mkSMAdapter4B | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
@@ -1110,6 +1226,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_ff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| a-z80 | - | - | - | - | - | - | - | - |
+| amber | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1141,6 +1259,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | - | - | - | - |
 | b15 | - | - | - | - |
 | spree | - | - | - | - |
+| attiny_atmega_xmega_core | - | - | - | - |
 | mkDelayWorker32B | - | - | - | - |
 | sha | - | - | - | - |
 | mkSMAdapter4B | - | - | - | - |
@@ -1169,6 +1288,8 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | - | - |
 | single_ff | - | - | - | - |
 | single_wire | - | - | - | - |
+| a-z80 | - | - | - | - |
+| amber | - | - | - | - |
 
 </details>
 
@@ -2309,6 +2430,7 @@ Rule: BLIF netlist, no HDL.
 - **brisc-v**: BRISC-V microcontroller (Arduino-on-RISC-V, Quartus project revert_timer). Upstream https://github.com/qiany21/Arduino-on-RISC-V.git at 1d5b591081511a8161b843d003ca7b80bad7fc45. Licence: MIT (Copyright (c) 2021 qiany21).
 - **itc99**: ITC'99 (RTL Verilog, b01-b22 without b16). Upstream https://github.com/ccsl-uaegean/ITC99-RTL-Verilog at 8e6a23da036b7442ef4ea410c679d4cf21830a65. Licence: GPL-3.0 (the LICENSE file of this repository); the terms of the original ITC'99 distribution were not read.
 - **mcnc20**: MCNC / LGSynth91 circuits as VTR ships them (4-LUT mapped BLIF, circuits.txt). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: none-stated (data/meta/licences.toml rule mcnc); VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.
+- **opencores**: OpenCores stable Verilog projects (24 designs: Peter's 2026-11-04 list without gng, DES, survey additions, verilog_cordic_core, mips_16). Upstream https://opencores.org/projects at none. Licence: per project, as the source files and the OpenCores project page state (see the licence rows of measures.tsv and docs/benchmarks/opencores.md); LGPL, GPL, Apache-2.0, BSD-style and none-stated all occur.
 - **verilogeval**: VerilogEval problems (reference solutions of the spec-to-rtl dataset) with the Gate-Breaker Yosys netlists. Upstream https://github.com/NMSU-PEARL/verilog-eval.git at d60f0b10458746e2fefc2a98fa2455b77a32e8be. Licence: MIT (Copyright (c) 2023-2024 NVIDIA Research Projects).
 - **vtr-blif**: VTR blif/2 and blif/4: ISCAS-85, ISCAS-89 and MCNC mapped to 2-input and 4-input LUTs. Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: not read: the licence of the individual ISCAS/MCNC files has not been checked.
 - **vtr-verilog**: VTR Verilog benchmarks (top-level files of vtr_flow/benchmarks/verilog). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: per design, as each file states (see licence_rule in designs.tsv and data/meta/licences.toml); VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.

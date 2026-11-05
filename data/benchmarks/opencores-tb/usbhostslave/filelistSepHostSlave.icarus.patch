@@ -1,0 +1,27 @@
+# tb_origin: upstream-fixed. Patch against sim/filelistSepHostSlave.icarus of OpenCores usbhostslave (upstream licence: LGPL 2.1 or later).
+# Reason: the list was written on Windows and names files with the wrong letter case (directControl.v vs directcontrol.v, ...);
+# on a case-sensitive file system iverilog cannot open them. Only file-name case changes; no RTL or bench file is touched.
+--- a/sim/filelistSepHostSlave.icarus
++++ b/sim/filelistSepHostSlave.icarus
+@@ -5,17 +5,17 @@
+ ../RTL/buffers/RxFifo.v
+ ../RTL/buffers/TxFifo.v
+ ../RTL/busInterface/wishBoneBI.v
+-../RTL/hostController/directControl.v
+-../RTL/hostController/getPacket.v
++../RTL/hostController/directcontrol.v
++../RTL/hostController/getpacket.v
+ ../RTL/hostController/hctxportarbiter.v
+ ../RTL/hostController/hostcontroller.v
+ ../RTL/hostController/rxStatusMonitor.v
+-../RTL/hostController/sendPacket.v
++../RTL/hostController/sendpacket.v
+ ../RTL/hostController/sendpacketarbiter.v
+ ../RTL/hostController/sendpacketcheckpreamble.v
+ ../RTL/hostController/sofcontroller.v
+ ../RTL/hostController/softransmit.v
+-../RTL/hostController/speedctrlMux.v
++../RTL/hostController/speedCtrlMux.v
+ ../RTL/hostController/usbHostControl.v
+ ../RTL/hostController/USBHostControlBI.v
+ ../RTL/hostSlaveMux/hostSlaveMux.v
