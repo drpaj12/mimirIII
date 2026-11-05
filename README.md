@@ -114,32 +114,32 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 
 Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
-| design | what it does | suite | link | licence | LOC | tb | vec |
-|---|---|---|---|---|---|---|---|
-| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3790 | ✓ | ✗ |
-| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4900 | ✓ | ✗ |
-| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12270 | ✓ | ✗ |
-| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 12433 | ✓ | ✗ |
-| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 618 | ✓ | ✗ |
-| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 499 | ✓ | ✗ |
-| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 4366 | ✓ | ✗ |
-| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2061 | ✓ | ✗ |
-| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3929 | ✓ | ✗ |
-| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 379 | ✓ | ✗ |
-| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 695 | ✓ | ✗ |
-| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2583 | ✓ | ✗ |
-| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 945 | ✓ | ✗ |
-| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 633 | ✓ | ✗ |
-| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1556 | ✓ | ✗ |
-| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 741 | ✓ | ✗ |
-| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 769 | ✓ | ✗ |
-| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 456 | ✓ | ✗ |
-| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 1311 | ✓ | ✗ |
-| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 253 | ✓ | ✗ |
-| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 945 | ✓ | ✗ |
-| quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | MIT | 4349 | ✓ | ✓ |
-| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 2055 | ✓ | ✗ |
-| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 764 | ✓ | ✗ |
+| design | what it does | suite | link | view | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|---|
+| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3790 | ✓ | ✗ |
+| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 4900 | ✓ | ✗ |
+| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 12270 | ✓ | ✗ |
+| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 12433 | ✓ | ✗ |
+| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 618 | ✓ | ✗ |
+| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 499 | ✓ | ✗ |
+| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 4366 | ✓ | ✗ |
+| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2061 | ✓ | ✗ |
+| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3929 | ✓ | ✗ |
+| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 379 | ✓ | ✗ |
+| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 695 | ✓ | ✗ |
+| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2583 | ✓ | ✗ |
+| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 945 | ✓ | ✗ |
+| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 633 | ✓ | ✗ |
+| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 1556 | ✓ | ✗ |
+| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 741 | ✓ | ✗ |
+| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 769 | ✓ | ✗ |
+| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 456 | ✓ | ✗ |
+| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 1311 | ✓ | ✗ |
+| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 253 | ✓ | ✗ |
+| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 945 | ✓ | ✗ |
+| quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | - | MIT | 4349 | ✓ | ✓ |
+| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2055 | ✓ | ✗ |
+| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 764 | ✓ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -271,164 +271,164 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 Rule: HDL with a testbench and under 200 Verilog lines.
 
-| design | what it does | suite | link | licence | LOC | tb | vec |
-|---|---|---|---|---|---|---|---|
-| Prob144_conwaylife | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
-| Prob030_popcount255 | a population count circuit for a 255-bit input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob153_gshare | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (using xor) into a 7-bit index | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 49 | ✓ | ✓ |
-| Prob108_rule90 | Rule 90, a one-dimensional cellular automaton with interesting properties | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob124_rule110 | Rule 110, a one-dimensional cellular automaton with interesting properties (such as being Turing-complete) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
-| Prob021_mux256to1v | a 4-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob092_gatesv100 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob105_rotate100 | a 100-bit left/right rotator, with synchronous load and left/right enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob115_shift18 | a 64-bit arithmetic shift register, with synchronous load | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 24 | ✓ | ✓ |
-| Prob018_mux256to1 | a 1-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob017_mux2to1v | a 2-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob097_mux9to1v | a 16-bit wide, 9-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
-| Prob052_gates100 | a combinational circuit with 100 inputs, in[99:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob055_conditional | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob141_count_clock | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 47 | ✓ | ✓ |
-| Prob066_edgecapture | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob082_lfsr32 | a 32-bit Galois LFSR with taps at bit positions 32, 22, 2, and 1 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob118_history_shift | a 32-bit global history shift register, including support for rolling back state in response to a pipeline flush caused by a branch misprediction | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob154_fsm_ps2data | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 42 | ✓ | ✓ |
-| Prob068_countbcd | a 4-digit BCD (binary-coded decimal) counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob123_bugs_addsubz | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob043_vector5 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob146_fsm_serialdata | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
-| Prob080_timer | a timer that counts down for a given number of clock cycles, then asserts a signal to indicate that the given duration has elapsed | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob155_lemmings4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 60 | ✓ | ✓ |
-| Prob073_dff16e | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
-| Prob126_circuit6 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob037_review2015_count1k | a counter that counts from 0 to 999, inclusive, with a period of 1000 cycles | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob033_ece241_2014_q1c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob114_bugs_case | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
-| Prob143_fsm_onehot | the state transition logic and output logic portions of the state machine (but not the state flip-flops) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob076_always_case | a 6-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
-| Prob137_fsm_serial | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
-| Prob084_ece241_2013_q12 | a circuit for an 8x1 memory, where writing to the memory is accomplished by shifting-in bits, and reading is "random access", as in a typical RAM | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob140_fsm_hdlc | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
-| Prob149_ece241_2013_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
-| Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob094_gatesv | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob106_always_nolatches | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob130_circuit5 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob133_2014_q3fsm | a finite state machine with inputs s and w | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
-| Prob139_2013_q2bfsm | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
-| Prob041_dff8r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob045_edgedetect2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob047_dff8ar | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob054_edgedetect | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob062_bugs_mux2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob087_gates | a combinational circuit with two inputs, a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
-| Prob136_m2014_q6 | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D Assume all sequential logic is triggered on the positive edge of the clock | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 33 | ✓ | ✓ |
-| Prob138_2012_q2fsm | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B (0) --0--> D C (0) --1--> E C (0) --0--> D D (0) --1--> F D (0) --0--> A E (1) --1--> E E (1) --0--> D F (1) --1--> C F (1) --0--> D Reset resets into state A and is synchronous active-high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
-| Prob016_m2014_q4j | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob121_2014_q3bfsm | a finite-state machine with the state-assigned table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
-| Prob152_lemmings3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 48 | ✓ | ✓ |
-| Prob086_lfsr5 | a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
-| Prob096_review2015_fsmseq | a finite-state machine that searches for the sequence 1101 in an input bit stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob148_2013_q2afsm | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A -------r0=1-------> B A -----r0=0,r1=1----> C A --r0=0,r1=0,r2=0--> D B (g0=1) -------r0=1-------> B B (g0=1) -------r0=0-------> A C (g1=1) -------r1=1-------> C C (g1=1) -------r1=0-------> A Resetn is an active-low synchronous reset that resets into state A | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
-| Prob150_review2015_fsmonehot | the following Moore state machine with 3 input (d, done_counting, ack) and 3 outputs (shift_ena, counting, done) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob035_count1to10 | a decade counter that counts 1 through 10, inclusive | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob038_count15 | a 4-bit binary counter that counts from 0 through 15, inclusive, with a period of 16 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob040_count10 | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob060_m2014_q4k | a shift register with four D flops | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob063_review2015_shiftcount | a four-bit shift register that also acts as a down counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob067_countslow | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob079_fsm3onehot | the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob085_shift4 | a 4-bit shift register (right shift), with asynchronous positive edge triggered areset, synchronous active high signals load, and enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob095_review2015_fsmshift | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob120_fsm3s | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob128_fsm_ps2 | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
-| Prob142_lemmings2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 36 | ✓ | ✓ |
-| Prob051_gates4 | a combinational circuit with four inputs, in[3:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob072_thermostat | a heating/cooling thermostat controller which controls both a heater (during winter) and an air conditioner (during summer) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob074_ece241_2014_q4 | a finite state machine with the following behavior | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob089_ece241_2014_q5a | a one-input one-output serial 2's complementer Moore state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
-| Prob093_ece241_2014_q3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob100_fsm3comb | the following is the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
-| Prob117_circuit9 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob119_fsm3 | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob129_ece241_2013_q8 | a Mealy-type finite state machine that recognizes the sequence "101" on an input signal named x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
-| Prob009_popcount3 | a "population count" circuit that counts the number of '1's in the input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob024_hadd | a half adder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob025_reduction | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob027_fadd | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob036_ringer | a circuit to control a cellphone's ringer and vibration motor | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob058_alwaysblock2 | an XOR gate three ways, using an assign statement (output out_assign), a combinational always block (output out_always_comb), and a clocked always block (output out_always_ff) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob065_7420 | the same functionality as the 7420 chip | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2, 7, or 15 appears on the inputs, and a logic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
-| Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2's complementer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob099_m2014_q6c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob112_always_case2 | a priority encoder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob127_lemmings1 | a simple game called Lemmings which involves critters with fairly simple brains | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
-| Prob134_2014_q3c | the output logic and next state logic for an FSM using the table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 36 | ✓ | ✓ |
-| Prob147_circuit10 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob005_notgate | a NOT gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob010_mt2015_q4a | the boolean function z = (x^y) & x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob011_norgate | a NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob012_xnorgate | an XNOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob013_m2014_q4e | a 2-input NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob014_andgate | a 2-input AND gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob019_m2014_q4f | the following circuit in Verilog | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob020_mt2015_eq2 | a circuit that has two 2-bit inputs A[1:0] and B[1:0], and produces an output z | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob022_mux2to1 | a one-bit wide, 2-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob026_alwaysblock1 | an AND gate using both an assign statement and a combinational always block | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob029_m2014_q4g | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob039_always_if | a 2-to-1 mux that chooses between a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob048_m2014_q4c | a simple D flip flop with active high synchronous reset (reset output to 0) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob049_m2014_q4b | a D flip flop, positive edge triggered, with an asynchronous reset "ar" | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob050_kmap1 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob053_m2014_q4d | the following circuit: A D flip-flop takes as input the output of a two-input XOR | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
-| Prob056_ece241_2013_q7 | a JK flip-flop with the following truth table | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob057_kmap2 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob061_2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob069_truthtable1 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob083_mt2015_q4b | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob090_circuit1 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob098_circuit7 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob101_circuit4 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob102_circuit3 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob103_circuit2 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob104_mt2015_muxdff | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob107_fsm1s | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
-| Prob109_fsm1 | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1--> B A (0) --0--> B A (0) --1--> A It should asynchronously reset into state B if reset if high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
-| Prob110_fsm2 | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob111_fsm2s | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob113_2012_q1g | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob116_m2014_q3 | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob122_kmap4 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
-| Prob125_kmap3 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
-| Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D The FSM should be implemented using three flip-flops and state codes y = 000, 001, ..., 101 for states A, B, ..., F, respectively | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
-| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
-| Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
-| Prob003_step_one | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
-| Prob004_vector2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob006_vectorr | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob007_wire | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob008_m2014_q4h | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) into lower [7:0] and upper [15:8] bytes | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
-| Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob032_vector0 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob034_dff8 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob042_vector4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob059_wire4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob064_vector3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
-| Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
-| Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
+| design | what it does | suite | link | view | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|---|
+| Prob144_conwaylife | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 37 | ✓ | ✓ |
+| Prob030_popcount255 | a population count circuit for a 255-bit input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob153_gshare | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (using xor) into a 7-bit index | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 49 | ✓ | ✓ |
+| Prob108_rule90 | Rule 90, a one-dimensional cellular automaton with interesting properties | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob124_rule110 | Rule 110, a one-dimensional cellular automaton with interesting properties (such as being Turing-complete) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 22 | ✓ | ✓ |
+| Prob021_mux256to1v | a 4-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob092_gatesv100 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob105_rotate100 | a 100-bit left/right rotator, with synchronous load and left/right enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob115_shift18 | a 64-bit arithmetic shift register, with synchronous load | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 24 | ✓ | ✓ |
+| Prob018_mux256to1 | a 1-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob017_mux2to1v | a 2-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob097_mux9to1v | a 16-bit wide, 9-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 32 | ✓ | ✓ |
+| Prob052_gates100 | a combinational circuit with 100 inputs, in[99:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob055_conditional | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob141_count_clock | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob141_count_clock/) | MIT | 47 | ✓ | ✓ |
+| Prob066_edgecapture | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob082_lfsr32 | a 32-bit Galois LFSR with taps at bit positions 32, 22, 2, and 1 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob118_history_shift | a 32-bit global history shift register, including support for rolling back state in response to a pipeline flush caused by a branch misprediction | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob154_fsm_ps2data | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 42 | ✓ | ✓ |
+| Prob068_countbcd | a 4-digit BCD (binary-coded decimal) counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob123_bugs_addsubz | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob123_bugs_addsubz/) | MIT | 19 | ✓ | ✓ |
+| Prob043_vector5 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob043_vector5/) | MIT | 14 | ✓ | ✓ |
+| Prob146_fsm_serialdata | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 46 | ✓ | ✓ |
+| Prob080_timer | a timer that counts down for a given number of clock cycles, then asserts a signal to indicate that the given duration has elapsed | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob155_lemmings4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 60 | ✓ | ✓ |
+| Prob073_dff16e | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 22 | ✓ | ✓ |
+| Prob126_circuit6 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob037_review2015_count1k | a counter that counts from 0 to 999, inclusive, with a period of 1000 cycles | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob033_ece241_2014_q1c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob114_bugs_case | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 31 | ✓ | ✓ |
+| Prob143_fsm_onehot | the state transition logic and output logic portions of the state machine (but not the state flip-flops) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob076_always_case | a 6-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 26 | ✓ | ✓ |
+| Prob137_fsm_serial | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 38 | ✓ | ✓ |
+| Prob084_ece241_2013_q12 | a circuit for an 8x1 memory, where writing to the memory is accomplished by shifting-in bits, and reading is "random access", as in a typical RAM | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 21 | ✓ | ✓ |
+| Prob140_fsm_hdlc | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 37 | ✓ | ✓ |
+| Prob149_ece241_2013_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 46 | ✓ | ✓ |
+| Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob094_gatesv | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob106_always_nolatches | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 21 | ✓ | ✓ |
+| Prob046_dff8p | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob130_circuit5 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 21 | ✓ | ✓ |
+| Prob133_2014_q3fsm | a finite state machine with inputs s and w | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 35 | ✓ | ✓ |
+| Prob139_2013_q2bfsm | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 38 | ✓ | ✓ |
+| Prob041_dff8r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob045_edgedetect2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob047_dff8ar | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob054_edgedetect | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob062_bugs_mux2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob087_gates | a combinational circuit with two inputs, a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 23 | ✓ | ✓ |
+| Prob136_m2014_q6 | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D Assume all sequential logic is triggered on the positive edge of the clock | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 33 | ✓ | ✓ |
+| Prob138_2012_q2fsm | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B (0) --0--> D C (0) --1--> E C (0) --0--> D D (0) --1--> F D (0) --0--> A E (1) --1--> E E (1) --0--> D F (1) --1--> C F (1) --0--> D Reset resets into state A and is synchronous active-high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 31 | ✓ | ✓ |
+| Prob016_m2014_q4j | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob016_m2014_q4j/) | MIT | 11 | ✓ | ✓ |
+| Prob121_2014_q3bfsm | a finite-state machine with the state-assigned table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 31 | ✓ | ✓ |
+| Prob152_lemmings3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 48 | ✓ | ✓ |
+| Prob086_lfsr5 | a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 23 | ✓ | ✓ |
+| Prob096_review2015_fsmseq | a finite-state machine that searches for the sequence 1101 in an input bit stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 30 | ✓ | ✓ |
+| Prob148_2013_q2afsm | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A -------r0=1-------> B A -----r0=0,r1=1----> C A --r0=0,r1=0,r2=0--> D B (g0=1) -------r0=1-------> B B (g0=1) -------r0=0-------> A C (g1=1) -------r1=1-------> C C (g1=1) -------r1=0-------> A Resetn is an active-low synchronous reset that resets into state A | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 35 | ✓ | ✓ |
+| Prob150_review2015_fsmonehot | the following Moore state machine with 3 input (d, done_counting, ack) and 3 outputs (shift_ena, counting, done) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob150_review2015_fsmonehot/) | MIT | 30 | ✓ | ✓ |
+| Prob035_count1to10 | a decade counter that counts 1 through 10, inclusive | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob038_count15 | a 4-bit binary counter that counts from 0 through 15, inclusive, with a period of 16 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob040_count10 | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob060_m2014_q4k | a shift register with four D flops | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob063_review2015_shiftcount | a four-bit shift register that also acts as a down counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob067_countslow | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 20 | ✓ | ✓ |
+| Prob079_fsm3onehot | the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 19 | ✓ | ✓ |
+| Prob085_shift4 | a 4-bit shift register (right shift), with asynchronous positive edge triggered areset, synchronous active high signals load, and enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob085_shift4/) | MIT | 21 | ✓ | ✓ |
+| Prob095_review2015_fsmshift | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 29 | ✓ | ✓ |
+| Prob120_fsm3s | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 30 | ✓ | ✓ |
+| Prob128_fsm_ps2 | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 32 | ✓ | ✓ |
+| Prob142_lemmings2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 36 | ✓ | ✓ |
+| Prob051_gates4 | a combinational circuit with four inputs, in[3:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob072_thermostat | a heating/cooling thermostat controller which controls both a heater (during winter) and an air conditioner (during summer) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob074_ece241_2014_q4 | a finite state machine with the following behavior | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob089_ece241_2014_q5a | a one-input one-output serial 2's complementer Moore state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 26 | ✓ | ✓ |
+| Prob093_ece241_2014_q3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob100_fsm3comb | the following is the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 23 | ✓ | ✓ |
+| Prob117_circuit9 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob119_fsm3 | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 30 | ✓ | ✓ |
+| Prob129_ece241_2013_q8 | a Mealy-type finite state machine that recognizes the sequence "101" on an input signal named x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 37 | ✓ | ✓ |
+| Prob009_popcount3 | a "population count" circuit that counts the number of '1's in the input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob009_popcount3/) | MIT | 10 | ✓ | ✓ |
+| Prob024_hadd | a half adder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob024_hadd/) | MIT | 12 | ✓ | ✓ |
+| Prob025_reduction | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob025_reduction/) | MIT | 10 | ✓ | ✓ |
+| Prob027_fadd | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob036_ringer | a circuit to control a cellphone's ringer and vibration motor | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob058_alwaysblock2 | an XOR gate three ways, using an assign statement (output out_assign), a combinational always block (output out_always_comb), and a clocked always block (output out_always_ff) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob065_7420 | the same functionality as the 7420 chip | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 19 | ✓ | ✓ |
+| Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2, 7, or 15 appears on the inputs, and a logic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 19 | ✓ | ✓ |
+| Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 22 | ✓ | ✓ |
+| Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 21 | ✓ | ✓ |
+| Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2's complementer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob099_m2014_q6c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob112_always_case2 | a priority encoder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 30 | ✓ | ✓ |
+| Prob127_lemmings1 | a simple game called Lemmings which involves critters with fairly simple brains | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 31 | ✓ | ✓ |
+| Prob134_2014_q3c | the output logic and next state logic for an FSM using the table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 36 | ✓ | ✓ |
+| Prob147_circuit10 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob005_notgate | a NOT gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob010_mt2015_q4a | the boolean function z = (x^y) & x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob010_mt2015_q4a/) | MIT | 11 | ✓ | ✓ |
+| Prob011_norgate | a NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob011_norgate/) | MIT | 11 | ✓ | ✓ |
+| Prob012_xnorgate | an XNOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/verilogeval-Prob012_xnorgate/) | MIT | 11 | ✓ | ✓ |
+| Prob013_m2014_q4e | a 2-input NOR gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob014_andgate | a 2-input AND gate | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob019_m2014_q4f | the following circuit in Verilog | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob020_mt2015_eq2 | a circuit that has two 2-bit inputs A[1:0] and B[1:0], and produces an output z | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob022_mux2to1 | a one-bit wide, 2-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob026_alwaysblock1 | an AND gate using both an assign statement and a combinational always block | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob029_m2014_q4g | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob039_always_if | a 2-to-1 mux that chooses between a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob048_m2014_q4c | a simple D flip flop with active high synchronous reset (reset output to 0) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob049_m2014_q4b | a D flip flop, positive edge triggered, with an asynchronous reset "ar" | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob050_kmap1 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob053_m2014_q4d | the following circuit: A D flip-flop takes as input the output of a two-input XOR | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 16 | ✓ | ✓ |
+| Prob056_ece241_2013_q7 | a JK flip-flop with the following truth table | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob057_kmap2 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob061_2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob069_truthtable1 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob083_mt2015_q4b | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob090_circuit1 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob098_circuit7 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob101_circuit4 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob102_circuit3 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob103_circuit2 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 13 | ✓ | ✓ |
+| Prob104_mt2015_muxdff | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob107_fsm1s | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 28 | ✓ | ✓ |
+| Prob109_fsm1 | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1--> B A (0) --0--> B A (0) --1--> A It should asynchronously reset into state B if reset if high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 28 | ✓ | ✓ |
+| Prob110_fsm2 | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 29 | ✓ | ✓ |
+| Prob111_fsm2s | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 29 | ✓ | ✓ |
+| Prob113_2012_q1g | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 29 | ✓ | ✓ |
+| Prob116_m2014_q3 | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 29 | ✓ | ✓ |
+| Prob122_kmap4 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 32 | ✓ | ✓ |
+| Prob125_kmap3 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 32 | ✓ | ✓ |
+| Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 25 | ✓ | ✓ |
+| Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D The FSM should be implemented using three flip-flops and state codes y = 000, 001, ..., 101 for states A, B, ..., F, respectively | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 27 | ✓ | ✓ |
+| Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 17 | ✓ | ✓ |
+| Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 9 | ✓ | ✓ |
+| Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 9 | ✓ | ✓ |
+| Prob003_step_one | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 9 | ✓ | ✓ |
+| Prob004_vector2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob006_vectorr | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob007_wire | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob008_m2014_q4h | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) into lower [7:0] and upper [15:8] bytes | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 11 | ✓ | ✓ |
+| Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 12 | ✓ | ✓ |
+| Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob032_vector0 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 14 | ✓ | ✓ |
+| Prob034_dff8 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob042_vector4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 10 | ✓ | ✓ |
+| Prob059_wire4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 15 | ✓ | ✓ |
+| Prob064_vector3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 18 | ✓ | ✓ |
+| Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 22 | ✓ | ✓ |
+| Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 78 | ✓ | ✓ |
+| Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | - | MIT | 56 | ✓ | ✓ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -1088,63 +1088,63 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 Rule: HDL (Verilog) with no testbench file.
 
-| design | what it does | suite | link | licence | LOC | tb | vec |
-|---|---|---|---|---|---|---|---|
-| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
-| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
-| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
-| stereovision2 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1846 | ✗ | ✗ |
-| bgm | Finance | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2663 | ✗ | ✗ |
-| LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5033 | ✗ | ✗ |
-| stereovision1 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2553 | ✗ | ✗ |
-| stereovision0 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3905 | ✗ | ✗ |
-| raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3178 | ✗ | ✗ |
-| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
-| or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5237 | ✗ | ✗ |
-| raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2978 | ✗ | ✗ |
-| b22 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 2751 | ✗ | ✗ |
-| blob_merge | Image Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1617 | ✗ | ✗ |
-| b17 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 940 | ✗ | ✗ |
-| b20 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1842 | ✗ | ✗ |
-| b21 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1853 | ✗ | ✗ |
-| diffeq1 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 56 | ✗ | ✗ |
-| b18 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1931 | ✗ | ✗ |
-| b19 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 1993 | ✗ | ✗ |
-| boundtop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2825 | ✗ | ✗ |
-| boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3053 | ✗ | ✗ |
-| b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 805 | ✗ | ✗ |
-| spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3072 | ✗ | ✗ |
-| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 3352 | ✗ | ✗ |
-| mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6628 | ✗ | ✗ |
-| sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2171 | ✗ | ✗ |
-| mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 4348 | ✗ | ✗ |
-| b14 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 904 | ✗ | ✗ |
-| b12 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 635 | ✗ | ✗ |
-| b11 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 138 | ✗ | ✗ |
-| mkPktMerge | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1535 | ✗ | ✗ |
-| ch_intrinsics_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 301 | ✗ | ✗ |
-| b05 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 444 | ✗ | ✗ |
-| stereovision3 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1061 | ✗ | ✗ |
-| ch_intrinsics | Memory Init | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 292 | ✗ | ✗ |
-| diffeq2 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 63 | ✗ | ✗ |
-| b04 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 113 | ✗ | ✗ |
-| b07 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 125 | ✗ | ✗ |
-| b13 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 320 | ✗ | ✗ |
-| b09 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 91 | ✗ | ✗ |
-| b10 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 178 | ✗ | ✗ |
-| b03 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 133 | ✗ | ✗ |
-| b08 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 88 | ✗ | ✗ |
-| b06 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 130 | ✗ | ✗ |
-| multiclock_reader_writer | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 61 | ✗ | ✗ |
-| b02 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 74 | ✗ | ✗ |
-| b01 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 117 | ✗ | ✗ |
-| multiclock_output_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 63 | ✗ | ✗ |
-| multiclock_separate_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 53 | ✗ | ✗ |
-| and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 21 | ✗ | ✗ |
-| single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5 | ✗ | ✗ |
-| single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3 | ✗ | ✗ |
-| a-z80 | A-Z80 CPU | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5649 | ✗ | ✗ |
-| amber | Amber ARM-compatible core | [opencores](#sources) | [repo](https://opencores.org/projects) | per project | 5419 | ✗ | ✗ |
+| design | what it does | suite | link | view | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|---|
+| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 6043 | ✗ | ✗ |
+| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 24507 | ✗ | ✗ |
+| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 5497 | ✗ | ✗ |
+| stereovision2 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 1846 | ✗ | ✗ |
+| bgm | Finance | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 2663 | ✗ | ✗ |
+| LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 5033 | ✗ | ✗ |
+| stereovision1 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 2553 | ✗ | ✗ |
+| stereovision0 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3905 | ✗ | ✗ |
+| raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3178 | ✗ | ✗ |
+| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 8211 | ✗ | ✗ |
+| or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 5237 | ✗ | ✗ |
+| raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 2978 | ✗ | ✗ |
+| b22 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 2751 | ✗ | ✗ |
+| blob_merge | Image Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 1617 | ✗ | ✗ |
+| b17 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 940 | ✗ | ✗ |
+| b20 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 1842 | ✗ | ✗ |
+| b21 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 1853 | ✗ | ✗ |
+| diffeq1 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 56 | ✗ | ✗ |
+| b18 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 1931 | ✗ | ✗ |
+| b19 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 1993 | ✗ | ✗ |
+| boundtop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 2825 | ✗ | ✗ |
+| boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3053 | ✗ | ✗ |
+| b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 805 | ✗ | ✗ |
+| spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3072 | ✗ | ✗ |
+| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3352 | ✗ | ✗ |
+| mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 6628 | ✗ | ✗ |
+| sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/vtr-verilog-sha/) | per design | 2171 | ✗ | ✗ |
+| mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 4348 | ✗ | ✗ |
+| b14 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 904 | ✗ | ✗ |
+| b12 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 635 | ✗ | ✗ |
+| b11 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 138 | ✗ | ✗ |
+| mkPktMerge | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 1535 | ✗ | ✗ |
+| ch_intrinsics_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 301 | ✗ | ✗ |
+| b05 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 444 | ✗ | ✗ |
+| stereovision3 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 1061 | ✗ | ✗ |
+| ch_intrinsics | Memory Init | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/vtr-verilog-ch_intrinsics/) | per design | 292 | ✗ | ✗ |
+| diffeq2 | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 63 | ✗ | ✗ |
+| b04 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 113 | ✗ | ✗ |
+| b07 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 125 | ✗ | ✗ |
+| b13 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 320 | ✗ | ✗ |
+| b09 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 91 | ✗ | ✗ |
+| b10 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 178 | ✗ | ✗ |
+| b03 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 133 | ✗ | ✗ |
+| b08 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 88 | ✗ | ✗ |
+| b06 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 130 | ✗ | ✗ |
+| multiclock_reader_writer | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 61 | ✗ | ✗ |
+| b02 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 74 | ✗ | ✗ |
+| b01 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 117 | ✗ | ✗ |
+| multiclock_output_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 63 | ✗ | ✗ |
+| multiclock_separate_and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 53 | ✗ | ✗ |
+| and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 21 | ✗ | ✗ |
+| single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 5 | ✗ | ✗ |
+| single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3 | ✗ | ✗ |
+| a-z80 | A-Z80 CPU | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5649 | ✗ | ✗ |
+| amber | Amber ARM-compatible core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5419 | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -1400,227 +1400,227 @@ Rule: HDL (Verilog) with no testbench file.
 
 Rule: BLIF netlist, no HDL.
 
-| design | what it does | suite | link | licence | LOC | tb | vec |
-|---|---|---|---|---|---|---|---|
-| ex1010 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| ex1010 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s38584.1 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s38584.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s38417 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s38417 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pdc | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| pdc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frisc | RISC Microprocessor | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| frisc | RISC Microprocessor | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| elliptic | Fifth Order Elliptic Filter | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| elliptic | Fifth Order Elliptic Filter | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| spla | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| spla | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex2 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| apex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| des | DES data encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| des | DES data encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex4 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| apex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| seq | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| seq | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| alu4 | ALU | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| alu4 | ALU | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex3 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| misex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dsip | Encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| dsip | Encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s298 | Finite state machine "from a PLD" | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| s298 | Finite state machine "from a PLD" | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| diffeq | Differential Equation Solver | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| diffeq | Differential Equation Solver | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bigkey | Key encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| bigkey | Key encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i10 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C6288 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex5p | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| ex5p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| clma | Bus interface | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| clma | Bus interface | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tseng | Bus controller | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | none-stated | - | ✗ | ✗ |
-| tseng | Bus controller | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cps | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C7552 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pair | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| parker1986 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| table5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| table3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| k2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C5315 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm30a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s5378 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C3540 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex3c | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s9234.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| scf | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sbc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dalu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rot | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| vda | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ecc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| e64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex4p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1494 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1488 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1423 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbrtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| duke2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C2670 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| styr | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| planet | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| planet1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1238 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| daio-rec | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1196 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s953 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sand | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| too-lrg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C499 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ph-decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| alu2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C1908 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm9b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| example2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| gcd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C1355 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm9a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s832 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| t481 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C880 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mult32a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| 9sym | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s820 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s838.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| clip | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| keyb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd84 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sao2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s641 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s713 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| apex7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s510 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C432 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pma | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| 9symml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk16 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mult16a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tbk | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cht | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s344 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s349 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mm4a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| o64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s386 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| b9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mult16b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s420.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ttt2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s444 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bw | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| c8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| count | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ldd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s400 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| frg1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd73 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s382 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbsse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s526n | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| lal | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s526 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| vg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| my-adder | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pcler8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| comp | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| inc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| term1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mark1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| opus | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sct | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| b12 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbara | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| ex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pm1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s208.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tcon | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| unreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| i1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cordic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| f51m | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| pcle | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| 5xp1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s420 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| x2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sqrt8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| traffic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm162a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm42a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cmb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s208 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm150a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| sqrt8ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm138a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm163a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk14 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| misex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s838 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| squar5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| beecount | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk15 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk512 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm85a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| mux | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| tav | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| bbtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| dk27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| parity | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| z4ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| b1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm151a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| s27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm152a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| cm82a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| daio | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| lion | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| rd53 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| C17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| con1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| chain_cout_fanout | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| majority | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| xor5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
-| shiftreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | not read | - | ✗ | ✗ |
+| design | what it does | suite | link | view | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|---|
+| ex1010 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| ex1010 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s38584.1 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| s38584.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s38417 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| s38417 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pdc | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| pdc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| frisc | RISC Microprocessor | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| frisc | RISC Microprocessor | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| elliptic | Fifth Order Elliptic Filter | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| elliptic | Fifth Order Elliptic Filter | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| spla | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| spla | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex2 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| apex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| des | DES data encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| des | DES data encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex4 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| apex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| seq | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| seq | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| alu4 | ALU | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| alu4 | ALU | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| misex3 | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| misex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dsip | Encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| dsip | Encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| s298 | Finite state machine "from a PLD" | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| diffeq | Differential Equation Solver | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| bigkey | Key encryption circuit | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i10 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C6288 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ex5p | - | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| ex5p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| clma | Bus interface | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| clma | Bus interface | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| tseng | Bus controller | [mcnc20](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | none-stated | - | ✗ | ✗ |
+| tseng | Bus controller | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cps | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C7552 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pair | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| parker1986 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| table5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| table3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| k2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C5315 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mm30a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s5378 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C3540 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| misex3c | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s9234.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| scf | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sbc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dalu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| rot | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| frg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| vda | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ecc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| e64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ex4p | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| x3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1494 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1488 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1423 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bbrtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| duke2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C2670 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| styr | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| planet | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| planet1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1238 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| daio-rec | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1196 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s953 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sand | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| too-lrg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C499 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ph-decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| alu2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C1908 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mm9b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| example2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| gcd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C1355 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| x1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| x4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mm9a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s832 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| t481 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C880 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mult32a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| 9sym | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s820 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s838.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| clip | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| keyb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| rd84 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sao2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s641 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s713 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| apex7 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s510 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C432 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pma | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| 9symml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk16 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mult16a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i3 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| tbk | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cht | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s344 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s349 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mm4a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| o64 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s386 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| b9 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mult16b | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s420.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ttt2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| misex2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s444 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bw | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| c8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| count | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ldd | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s400 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| frg1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| rd73 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s382 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bbsse | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s526n | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| lal | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s526 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| vg2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| my-adder | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pcler8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| comp | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| inc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| term1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ex6 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mark1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| opus | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sct | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| b12 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bbara | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| ex4 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| decod | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pm1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s208.1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| tcon | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| unreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| i1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cordic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cu | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| f51m | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| pcle | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| 5xp1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s420 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| x2 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sqrt8 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| traffic | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm162a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm42a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cmb | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s208 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm150a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| sqrt8ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm138a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm163a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk14 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| misex1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s838 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| squar5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| beecount | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk15 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk512 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm85a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mc | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| mux | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| tav | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| bbtas | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| dk27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| parity | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| z4ml | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| b1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm151a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| s27 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm152a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| cm82a | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| daio | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| lion | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| rd53 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| C17 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| con1 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| chain_cout_fanout | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| majority | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| xor5 | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
+| shiftreg | - | [vtr-blif](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read | - | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
