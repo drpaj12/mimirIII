@@ -12,18 +12,19 @@ if TYPE_CHECKING:
     from mimir.benchcat import Row
 
 CSS = """
-body{font:13px/1.35 system-ui,sans-serif;margin:8px;color:#222}
+body{font:12px/1.3 system-ui,sans-serif;margin:8px;color:#222}
 #bar{margin:4px 0}
 #top,#wrap{overflow-x:auto}
 #top{height:16px;overflow-y:hidden}
 #wrap{max-height:80vh;overflow-y:auto;border:1px solid #bbb}
 table{border-collapse:separate;border-spacing:0;white-space:nowrap}
-th,td{padding:2px 6px;border-bottom:1px solid #ddd;border-right:1px solid #eee}
+th,td{vertical-align:top;padding:2px 6px;border-bottom:1px solid #ddd;border-right:1px solid #eee}
 th{position:sticky;top:0;background:#eef;cursor:pointer;z-index:2;user-select:none}
 td:first-child,th:first-child{position:sticky;left:0;background:#fff;z-index:1}
 th:first-child{background:#eef;z-index:3}
 tr:hover td{background:#fffbe0}
 td.num{text-align:right}
+td.txt{white-space:normal;min-width:18em;max-width:50em}
 """
 
 JS = """
@@ -49,8 +50,11 @@ document.getElementById('q').oninput=e=>{
 """
 
 
+TEXT_COLS = {"desc", "note", "status", "prov", "tb"}
+
+
 def _td(col: str, value: str, num: bool) -> str:
-    cls = ' class="num"' if num else ""
+    cls = ' class="num"' if num else ' class="txt"' if col in TEXT_COLS else ""
     if col == "link" and value.startswith("http"):
         v = escape(value, quote=True)
         return f'<td{cls}><a href="{v}">{v}</a></td>'

@@ -216,6 +216,26 @@ class DescTest(unittest.TestCase):
         self.assertEqual(m.group(1) if m else "", "a 4-bit adder")
 
 
+class FullTextTest(unittest.TestCase):
+    def test_no_truncation(self) -> None:
+        long = "x" * 400
+        self.assertEqual(benchmeasure._clean(long + " | y"), long + " / y")
+        for col in ("status", "desc", "note", "prov", "tb"):
+            self.assertEqual(benchcat._md(col, None, long), long)  # type: ignore[arg-type]
+
+    def test_repo_cells_not_cut(self) -> None:
+        repo = Path(__file__).resolve().parent.parent
+        meas = bench.read_tsv(repo / "data" / "benchmarks" / "measures.tsv", 5)
+        from_source = {r[3] for r in meas if r[3].endswith("...")}
+        text = (repo / "docs" / "benchmarks" / "catalogue.md").read_text("utf-8")
+        for line in text.splitlines():
+            if not line.startswith("|"):
+                continue
+            for cell in (c.strip() for c in line.strip("|").split("|")):
+                if cell.endswith("..."):
+                    self.assertIn(cell, from_source)
+
+
 class OdinParseTest(unittest.TestCase):
     def test_properties(self) -> None:
         p = benchmeasure.properties(LOG)
