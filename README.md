@@ -974,12 +974,16 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | what it does | suite | link | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|
+| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
+| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
+| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
 | stereovision2 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 1846 | ✗ | ✗ |
 | bgm | Finance | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2663 | ✗ | ✗ |
 | LU8PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5033 | ✗ | ✗ |
 | stereovision1 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2553 | ✗ | ✗ |
 | stereovision0 | Computer Vision | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3905 | ✗ | ✗ |
 | raygentop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3178 | ✗ | ✗ |
+| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
 | or1200 | Soft Processor | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5237 | ✗ | ✗ |
 | raygentop | Ray Tracing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 2978 | ✗ | ✗ |
 | b22 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | GPL-3.0 | 2751 | ✗ | ✗ |
@@ -1022,21 +1026,21 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 21 | ✗ | ✗ |
 | single_ff | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5 | ✗ | ✗ |
 | single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 3 | ✗ | ✗ |
-| mcml | Medical Physics | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 24507 | ✗ | ✗ |
-| arm_core | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 8211 | ✗ | ✗ |
-| LU64PEEng | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 6043 | ✗ | ✗ |
-| LU32PEEng | Math | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | per design | 5497 | ✗ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w |
 |---|---|---|---|---|---|---|---|---|---|---|
+| LU64PEEng | - | - | route | 131211 | 15299 | 37270 | 216 | 64/10372 | 71.2027 | 118 |
+| mcml | - | - | route | 75336 | 7421 | 51494 | 392 | 27/348 | 46.605 | 124 |
+| LU32PEEng | - | - | route | 66933 | 7915 | 19668 | 216 | 32/5251 | 70.3903 | 100 |
 | stereovision2 | - | - | - | 8426 | 1689 | 15573 | 331 | 468/0 | 13.2648 | 90 |
-| bgm | - | - | - | - | - | - | - | - | - | - |
-| LU8PEEng | - | - | - | - | - | - | - | - | - | - |
+| bgm | - | - | route | 25388 | 3074 | 5105 | 290 | 11/0 | 23.8936 | 90 |
+| LU8PEEng | - | - | route | 19051 | 2400 | 6224 | 216 | 8/1409 | 76.1243 | 84 |
 | stereovision1 | - | - | - | 6462 | 758 | 10315 | 278 | 152/0 | 5.72613 | 76 |
 | stereovision0 | - | - | - | 6887 | 702 | 11458 | 366 | 0/0 | 3.8277 | 52 |
-| raygentop_nolatches | - | - | - | - | - | - | - | - | - | - |
+| raygentop_nolatches | - | - | route | 1693 | 758 | 1398 | 560 | 18/21 | 4.86647 | 58 |
+| arm_core | - | - | route | 10707 | 1310 | 3943 | 313 | 0/1192 | 24.503 | 98 |
 | or1200 | - | - | - | 2473 | 237 | 672 | 782 | 1/64 | 8.74562 | 82 |
 | raygentop | - | - | - | 1195 | 127 | 946 | 560 | 15/21 | 5.43116 | 56 |
 | b22 | - | - | - | - | - | - | - | - | - | - |
@@ -1048,9 +1052,9 @@ Rule: HDL (Verilog) with no testbench file.
 | b18 | - | - | - | - | - | - | - | - | - | - |
 | b19 | - | - | - | - | - | - | - | - | - | - |
 | boundtop | - | - | - | 572 | 41 | 383 | 468 | 0/32 | 3.06393 | 40 |
-| boundtop_nolatches | - | - | - | - | - | - | - | - | - | - |
+| boundtop_nolatches | - | - | route | 378 | 378 | 209 | 468 | 0/32 | 2.3407 | 40 |
 | b15 | - | - | - | - | - | - | - | - | - | - |
-| spree | - | - | - | - | - | - | - | - | - | - |
+| spree | - | - | route | 669 | 144 | 200 | 164 | 1/128 | 12.1663 | 58 |
 | mkDelayWorker32B | - | - | - | 2057 | 63 | 34 | 1066 | 0/1336 | 6.8227 | 38 |
 | sha | - | - | - | 1290 | 142 | 893 | 74 | 0/0 | 9.86096 | 64 |
 | mkSMAdapter4B | - | - | - | 1200 | 118 | 639 | 403 | 0/153 | 6.19734 | 48 |
@@ -1058,7 +1062,7 @@ Rule: HDL (Verilog) with no testbench file.
 | b12 | - | - | - | - | - | - | - | - | - | - |
 | b11 | - | - | - | - | - | - | - | - | - | - |
 | mkPktMerge | - | - | - | 329 | 19 | 18 | 467 | 0/459 | 4.09815 | 36 |
-| ch_intrinsics_nolatches | - | - | - | - | - | - | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | route | 128 | 245 | 82 | 229 | 0/8 | 2.09608 | 38 |
 | b05 | - | - | - | - | - | - | - | - | - | - |
 | stereovision3 | - | - | - | 171 | 15 | 120 | 53 | 0/0 | 2.63369 | 30 |
 | ch_intrinsics | - | - | - | 192 | 12 | 82 | 229 | 0/8 | 2.12094 | 38 |
@@ -1071,18 +1075,14 @@ Rule: HDL (Verilog) with no testbench file.
 | b03 | - | - | - | - | - | - | - | - | - | - |
 | b08 | - | - | - | - | - | - | - | - | - | - |
 | b06 | - | - | - | - | - | - | - | - | - | - |
-| multiclock_reader_writer | - | - | - | - | - | - | - | - | - | - |
+| multiclock_reader_writer | - | - | route | 11 | 6 | 11 | 4 | 0/0 | 1.45 | 18 |
 | b02 | - | - | - | - | - | - | - | - | - | - |
 | b01 | - | - | - | - | - | - | - | - | - | - |
-| multiclock_output_and_latch | - | - | - | - | - | - | - | - | - | - |
-| multiclock_separate_and_latch | - | - | - | - | - | - | - | - | - | - |
-| and_latch | - | - | - | - | - | - | - | - | - | - |
-| single_ff | - | - | - | - | - | - | - | - | - | - |
-| single_wire | - | - | - | - | - | - | - | - | - | - |
-| mcml | - | - | - | - | - | - | - | - | - | - |
-| arm_core | - | - | - | - | - | - | - | - | - | - |
-| LU64PEEng | - | - | - | - | - | - | - | - | - | - |
-| LU32PEEng | - | - | - | - | - | - | - | - | - | - |
+| multiclock_output_and_latch | - | - | route | 3 | 9 | 3 | 7 | 0/0 | 1.25967 | 20 |
+| multiclock_separate_and_latch | - | - | route | 2 | 10 | 2 | 8 | 0/0 | 0.807175 | 20 |
+| and_latch | - | - | route | 1 | 5 | 1 | 4 | 0/0 | 1.52719 | 20 |
+| single_ff | - | - | route | 0 | 4 | 1 | 3 | 0/0 | 1.45102 | 26 |
+| single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 |
 
 </details>
 
@@ -1090,12 +1090,16 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
+| LU64PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| mcml | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| LU32PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
 | stereovision2 | 431409/79 | 69596/24 | 48816/15 |
 | bgm | 327394/126 | 62083/31 | 46209/21 |
 | LU8PEEng | 245206/475 | 58986/161 | 43631/102 |
 | stereovision1 | 139252/27 | 38630/12 | 27709/7 |
 | stereovision0 | 42435/26 | 16352/7 | 14355/5 |
 | raygentop_nolatches | 66497/35 | 17928/19 | 12895/12 |
+| arm_core | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
 | or1200 | 53698/69 | 14002/44 | 10160/27 |
 | raygentop | 55714/35 | 12480/19 | 8947/12 |
 | b22 | 56695/105 | 8495/33 | 6234/20 |
@@ -1138,10 +1142,6 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | 1/1 | 1/1 | 1/1 |
 | single_ff | 0/0 | 0/0 | 0/0 |
 | single_wire | 0/0 | 0/0 | 0/0 |
-| mcml | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
-| arm_core | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
-| LU64PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
-| LU32PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
 
 </details>
 
@@ -1149,12 +1149,16 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
+| LU64PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| mcml | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| LU32PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision2 | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | bgm | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | LU8PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision1 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | stereovision0 | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | raygentop_nolatches | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
+| arm_core | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | or1200 | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | raygentop | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 | b22 | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ |
@@ -1197,10 +1201,6 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_ff | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | single_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| mcml | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| arm_core | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
-| LU64PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
-| LU32PEEng | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ |
 
 </details>
 
@@ -1208,12 +1208,16 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
+| LU64PEEng | - | - | - | - |
+| mcml | - | - | - | - |
+| LU32PEEng | - | - | - | - |
 | stereovision2 | - | - | - | - |
 | bgm | - | - | - | - |
 | LU8PEEng | - | - | - | - |
 | stereovision1 | - | - | - | - |
 | stereovision0 | - | - | - | - |
 | raygentop_nolatches | - | - | - | - |
+| arm_core | - | - | - | - |
 | or1200 | - | - | - | - |
 | raygentop | - | - | - | - |
 | b22 | - | - | - | - |
@@ -1256,10 +1260,6 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | - | - |
 | single_ff | - | - | - | - |
 | single_wire | - | - | - | - |
-| mcml | - | - | - | - |
-| arm_core | - | - | - | - |
-| LU64PEEng | - | - | - | - |
-| LU32PEEng | - | - | - | - |
 
 </details>
 

@@ -7174,6 +7174,15 @@ vtr-verilog	LU32PEEng	l6_depth	fail: too big for now (timeout 900 s, last finish
 vtr-verilog	LU32PEEng	l6_luts	fail: too big for now (timeout 900 s, last finished pass levelize)	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU32PEEng	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	LU32PEEng	vec	0	no testbench
+vtr-verilog	LU32PEEng	vtr_blocks	7915	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_cpd	70.3903	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_cw	100	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_ffs	19668	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_luts	66933	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_mem	5251	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_mult	32	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_pins	216	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU32PEEng	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	LU64PEEng	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU64PEEng	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU64PEEng	chk_fsm	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7190,6 +7199,15 @@ vtr-verilog	LU64PEEng	l6_depth	fail: too big for now (timeout 900 s, last finish
 vtr-verilog	LU64PEEng	l6_luts	fail: too big for now (timeout 900 s, last finished pass levelize)	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU64PEEng	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	LU64PEEng	vec	0	no testbench
+vtr-verilog	LU64PEEng	vtr_blocks	15299	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_cpd	71.2027	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_cw	118	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_ffs	37270	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_luts	131211	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_mem	10372	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_mult	64	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_pins	216	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU64PEEng	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	LU8PEEng	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU8PEEng	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU8PEEng	chk_fsm	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7207,6 +7225,15 @@ vtr-verilog	LU8PEEng	l6_depth	102	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e
 vtr-verilog	LU8PEEng	l6_luts	43631	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	LU8PEEng	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	LU8PEEng	vec	0	no testbench
+vtr-verilog	LU8PEEng	vtr_blocks	2400	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_cpd	76.1243	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_cw	84	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_ffs	6224	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_luts	19051	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_mem	1409	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_mult	8	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_pins	216	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	LU8PEEng	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	and_latch	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	and_latch	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	and_latch	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7223,6 +7250,15 @@ vtr-verilog	and_latch	l6_depth	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7
 vtr-verilog	and_latch	l6_luts	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	and_latch	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	and_latch	vec	0	no testbench
+vtr-verilog	and_latch	vtr_blocks	5	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_cpd	1.52719	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_cw	20	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_ffs	1	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_luts	1	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_pins	4	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	and_latch	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	arm_core	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	arm_core	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	arm_core	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7239,6 +7275,15 @@ vtr-verilog	arm_core	l6_depth	fail: too big for now (timeout 900 s, last finishe
 vtr-verilog	arm_core	l6_luts	fail: too big for now (timeout 900 s, last finished pass levelize)	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	arm_core	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	arm_core	vec	0	no testbench
+vtr-verilog	arm_core	vtr_blocks	1310	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_cpd	24.503	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_cw	98	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_ffs	3943	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_luts	10707	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_mem	1192	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_pins	313	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	arm_core	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	bgm	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	bgm	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	bgm	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7256,6 +7301,15 @@ vtr-verilog	bgm	l6_depth	21	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f
 vtr-verilog	bgm	l6_luts	46209	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	bgm	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	bgm	vec	0	no testbench
+vtr-verilog	bgm	vtr_blocks	3074	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_cpd	23.8936	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_cw	90	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_ffs	5105	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_luts	25388	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_mult	11	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_pins	290	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	bgm	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	blob_merge	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	blob_merge	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	blob_merge	chk_fsm	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7322,6 +7376,15 @@ vtr-verilog	boundtop_nolatches	l6_depth	4	odin3 odin3 1.2.0 (ABI 7) commit 4c91e
 vtr-verilog	boundtop_nolatches	l6_luts	2421	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	boundtop_nolatches	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	boundtop_nolatches	vec	0	no testbench
+vtr-verilog	boundtop_nolatches	vtr_blocks	378	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_cpd	2.3407	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_cw	40	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_ffs	209	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_luts	378	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_mem	32	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_pins	468	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	boundtop_nolatches	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	ch_intrinsics	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	ch_intrinsics	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	ch_intrinsics	chk_fsm	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7363,6 +7426,15 @@ vtr-verilog	ch_intrinsics_nolatches	l6_depth	3	odin3 odin3 1.2.0 (ABI 7) commit 
 vtr-verilog	ch_intrinsics_nolatches	l6_luts	213	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	ch_intrinsics_nolatches	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	ch_intrinsics_nolatches	vec	0	no testbench
+vtr-verilog	ch_intrinsics_nolatches	vtr_blocks	245	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_cpd	2.09608	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_cw	38	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_ffs	82	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_luts	128	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_mem	8	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_pins	229	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	ch_intrinsics_nolatches	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	diffeq1	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	diffeq1	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	diffeq1	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7430,6 +7502,15 @@ vtr-verilog	mcml	l6_depth	fail: too big for now (timeout 900 s, last finished pa
 vtr-verilog	mcml	l6_luts	fail: too big for now (timeout 900 s, last finished pass levelize)	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	mcml	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	mcml	vec	0	no testbench
+vtr-verilog	mcml	vtr_blocks	7421	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_cpd	46.605	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_cw	124	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_ffs	51494	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_luts	75336	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_mem	348	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_mult	27	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_pins	392	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	mcml	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	mkDelayWorker32B	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	mkDelayWorker32B	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	mkDelayWorker32B	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7521,6 +7602,15 @@ vtr-verilog	multiclock_output_and_latch	l6_depth	1	odin3 odin3 1.2.0 (ABI 7) com
 vtr-verilog	multiclock_output_and_latch	l6_luts	5	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_output_and_latch	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	multiclock_output_and_latch	vec	0	no testbench
+vtr-verilog	multiclock_output_and_latch	vtr_blocks	9	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_cpd	1.25967	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_cw	20	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_ffs	3	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_luts	3	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_pins	7	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_output_and_latch	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	multiclock_reader_writer	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_reader_writer	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_reader_writer	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7537,6 +7627,15 @@ vtr-verilog	multiclock_reader_writer	l6_depth	1	odin3 odin3 1.2.0 (ABI 7) commit
 vtr-verilog	multiclock_reader_writer	l6_luts	10	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_reader_writer	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	multiclock_reader_writer	vec	0	no testbench
+vtr-verilog	multiclock_reader_writer	vtr_blocks	6	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_cpd	1.45	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_cw	18	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_ffs	11	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_luts	11	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_pins	4	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_reader_writer	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	multiclock_separate_and_latch	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_separate_and_latch	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_separate_and_latch	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7553,6 +7652,15 @@ vtr-verilog	multiclock_separate_and_latch	l6_depth	1	odin3 odin3 1.2.0 (ABI 7) c
 vtr-verilog	multiclock_separate_and_latch	l6_luts	3	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	multiclock_separate_and_latch	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	multiclock_separate_and_latch	vec	0	no testbench
+vtr-verilog	multiclock_separate_and_latch	vtr_blocks	10	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_cpd	0.807175	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_cw	20	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_ffs	2	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_luts	2	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_pins	8	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	multiclock_separate_and_latch	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	or1200	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	or1200	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	or1200	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7619,6 +7727,15 @@ vtr-verilog	raygentop_nolatches	l6_depth	12	odin3 odin3 1.2.0 (ABI 7) commit 4c9
 vtr-verilog	raygentop_nolatches	l6_luts	12895	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	raygentop_nolatches	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	raygentop_nolatches	vec	0	no testbench
+vtr-verilog	raygentop_nolatches	vtr_blocks	758	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_cpd	4.86647	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_cw	58	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_ffs	1398	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_luts	1693	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_mem	21	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_mult	18	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_pins	560	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	raygentop_nolatches	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	sha	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	sha	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	sha	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7660,6 +7777,15 @@ vtr-verilog	single_ff	l6_depth	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7
 vtr-verilog	single_ff	l6_luts	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	single_ff	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	single_ff	vec	0	no testbench
+vtr-verilog	single_ff	vtr_blocks	4	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_cpd	1.45102	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_cw	26	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_ffs	1	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_luts	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_pins	3	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_ff	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	single_wire	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	single_wire	chk_bbx	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	single_wire	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7676,6 +7802,15 @@ vtr-verilog	single_wire	l6_depth	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303
 vtr-verilog	single_wire	l6_luts	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	single_wire	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	single_wire	vec	0	no testbench
+vtr-verilog	single_wire	vtr_blocks	2	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_cpd	0.20678	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_cw	26	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_ffs	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_luts	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_mem	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_mult	0	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_pins	2	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	single_wire	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	spree	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	spree	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	spree	chk_fsm	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -7692,6 +7827,15 @@ vtr-verilog	spree	l6_depth	17	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c43
 vtr-verilog	spree	l6_luts	2321	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	spree	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	spree	vec	0	no testbench
+vtr-verilog	spree	vtr_blocks	144	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_cpd	12.1663	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_cw	58	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_ffs	200	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_luts	669	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_mem	128	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_mult	1	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_pins	164	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
+vtr-verilog	spree	vtr_stage	route	odin3-flow rel-main2 vpr min channel width seed 1 k6_frac_N10_frac_chain_mem32K_40nm
 vtr-verilog	stereovision0	chk_add	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	stereovision0	chk_bbx	1	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
 vtr-verilog	stereovision0	chk_fsm	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)

@@ -87,7 +87,7 @@ def measure_design(odin3: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
         if (tool / FLOW_REL).is_file():
             break
         tool = tool.parent
-    argv = ["python3", "-I", str(tool / FLOW_REL), "--odin3", str(odin3), "--out", str(out)]
+    argv = [str(tool / FLOW_REL), "--odin3", str(odin3), "--out", str(out)]
     if d.top not in ("", "-"):
         argv += ["--top", d.top]
     argv.append(str(bench.source_path(suite, d)))

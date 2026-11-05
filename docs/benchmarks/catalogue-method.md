@@ -55,7 +55,14 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
   above. The same 15 Verilog designs are also in the store under `norns-r1r2`, `norns-r3` (arm
   `stock/seed`) and `norns-r4`; one sample is shown per design, and the e10-base one is the rule because it
   is the only run with all 35 designs, one flow and one architecture. The 16 other `vtr-verilog` designs
-  have no VPR record in the store (`-` until a VPR run).
+  have no VPR record in the store; they were run with `mimir bench measure vpr`: `odin3-flow` (Odin III
+  `rel-main2`, then VPR at the minimum channel width, same architecture, seed 1, VTR commit as above) in one
+  `heavy-run` slot, smallest source first. luts = `.names` with two or more inputs of the mapped BLIF
+  (`odin3-flow` `luts`, not `struct.n_comb`), blocks = `Netlist num_blocks` of `vpr.out`, cpd and
+  channel width from VTR's parse; FFs, pins, hard blocks from the BLIF as above. `vtr_stage` is `route`
+  when the flow finished; a design that hits the 3600 s Odin III or 7200 s VPR step limit or the 6 GB
+  slot cap is recorded `<step>: too big for now (...)` in `vtr_stage` and `fail: ...` in the other VTR
+  columns. Nothing hit a limit in this run.
 - 6-LUT count of the 150 VerilogEval designs with a Loki record: Loki floor `f2` (`lower; abc --lut 6`
   after the same front passes as the 6-LUT run here, store source `loki:loki-veval-exp/dataset`, metric
   `loki.luts`). The Odin III version of that run is not recorded. A fresh Odin III 6-LUT run never
