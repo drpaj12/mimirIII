@@ -84,7 +84,7 @@ class CatalogueTest(unittest.TestCase):
         first = (out.read_text(), (idx / "catalogue.tsv").read_text())
         benchcat.generate(idx, out, "legend")
         self.assertEqual(first, (out.read_text(), (idx / "catalogue.tsv").read_text()))
-        row = "| a | - | [s1](#sources) | [repo](https://example.org/s1) | MIT | 7 | - | - |"
+        row = "| a | - | [s1](#sources) | [repo](https://example.org/s1) | - | MIT | 7 | - | - |"
         self.assertIn(row, first[0])
         self.assertIn("| 12 |", first[0])
         self.assertNotIn("/home", first[0])
@@ -149,6 +149,34 @@ odin3: info: stats: module t: cell adder 8
 
 def mk(design: str, loc: str, fmt: str = "verilog", **vals: str) -> benchcat.Row:
     return benchcat.Row(0, 0, "s", design, fmt, "t", loc, ["s"], dict(vals))
+
+
+class ViewTest(unittest.TestCase):
+    def test_view_links_from_config(self) -> None:
+        rows = [mk("a", "10"), mk("b", "10")]
+        with tempfile.TemporaryDirectory() as d:
+            idx = Path(d)
+            benchcat.attach_views(rows, idx)  # no heimdall.toml: nothing linked
+            self.assertEqual([r.view for r in rows], ["-", "-"])
+            (idx / "heimdall.toml").write_text(
+                'heimdall_base_url = "https://h.example/x"\npages = ["s:a"]\n', encoding="utf-8"
+            )
+            benchcat.attach_views(rows, idx)
+            self.assertEqual(rows[0].view, "https://h.example/x/s-a/")
+            self.assertEqual(rows[1].view, "-")
+            (idx / "heimdall.toml").write_text('heimdall_base_url = ""\npages = ["s:b"]\n')
+            rows[0].view = "-"
+            benchcat.attach_views(rows, idx)
+            self.assertEqual(rows[1].view, "-")
+
+    def test_view_column_md_and_html(self) -> None:
+        from mimir import benchcathtml
+
+        row = mk("a", "10")
+        row.view = "https://h.example/x/s-a/"
+        self.assertEqual(benchcat._md("view", row, row.view), "[view](https://h.example/x/s-a/)")
+        self.assertIn('id="a"', benchcathtml.render([row]))
+        self.assertIn(">view</a>", benchcathtml.render([row]))
 
 
 class TierTest(unittest.TestCase):

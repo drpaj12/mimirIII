@@ -1,0 +1,20 @@
+# Designs that have a Heimdall III page (the 3D provenance viewer, https://github.com/drpaj12/heimdallIII).
+# The catalogue shows a `view` link for each. Peter uploads the built site to this URL; an empty
+# base URL hides every link. Page names are `<section>-<design>` under the base URL.
+heimdall_base_url = "https://drpeterjamieson.com/RESEARCH/HEIMDALL/"
+pages = [
+  "verilogeval:Prob010_mt2015_q4a",
+  "verilogeval:Prob011_norgate",
+  "verilogeval:Prob012_xnorgate",
+  "verilogeval:Prob009_popcount3",
+  "verilogeval:Prob024_hadd",
+  "verilogeval:Prob025_reduction",
+  "verilogeval:Prob150_review2015_fsmonehot",
+  "verilogeval:Prob016_m2014_q4j",
+  "verilogeval:Prob085_shift4",
+  "verilogeval:Prob123_bugs_addsubz",
+  "verilogeval:Prob043_vector5",
+  "verilogeval:Prob141_count_clock",
+  "vtr-verilog:ch_intrinsics",
+  "vtr-verilog:sha",
+]

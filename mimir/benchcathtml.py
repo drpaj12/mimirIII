@@ -55,9 +55,9 @@ TEXT_COLS = {"desc", "note", "status", "prov", "tb"}
 
 def _td(col: str, value: str, num: bool) -> str:
     cls = ' class="num"' if num else ' class="txt"' if col in TEXT_COLS else ""
-    if col == "link" and value.startswith("http"):
+    if col in ("link", "view") and value.startswith("http"):
         v = escape(value, quote=True)
-        return f'<td{cls}><a href="{v}">{v}</a></td>'
+        return f'<td{cls}><a href="{v}">{"view" if col == "view" else v}</a></td>'
     return f"<td{cls}>{escape(value)}</td>"
 
 
@@ -79,7 +79,7 @@ def render(rows: list[Row]) -> str:
             except ValueError:
                 num = False
             cells.append(_td(c, v, num))
-        body.append("<tr>" + "".join(cells) + "</tr>")
+        body.append(f'<tr id="{escape(r.design, quote=True)}">' + "".join(cells) + "</tr>")
     return (
         '<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8">'
         "<title>Mimir benchmark catalogue</title>"

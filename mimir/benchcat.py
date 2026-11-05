@@ -11,6 +11,7 @@ filled by guess: a key with no measures row is `-`."""
 from __future__ import annotations
 
 import re
+import tomllib
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -65,6 +66,7 @@ class Row:
     vals: dict[str, str]
     link: str = "-"
     licence: str = "-"
+    view: str = "-"  # Heimdall III page of the design, or "-"
 
 
 class CatalogueError(Exception):
@@ -204,7 +206,8 @@ def attach_sources(rows: list[Row], suites: dict[str, bench.Suite]) -> None:
 # (id, label): every displayed column; GROUPS pick ids for the narrow tables, HTML shows all
 LABELS = {
     "design": "design", "desc": "what it does", "suite": "suite", "link": "link",
-    "licence": "licence", "fmt": "format", "top": "top", "loc": "LOC", "tb": "tb", "vec": "vec",
+    "licence": "licence", "view": "view", "fmt": "format", "top": "top", "loc": "LOC",
+    "tb": "tb", "vec": "vec",
     "iv": "iverilog", "osim": "Odin sim", "stage": "VTR stage", "luts": "LUTs", "blocks": "blocks",
     "ffs": "FFs", "pins": "pins", "hard": "mult/mem", "cpd": "cpd ns", "cw": "chan w",
     "gates": "gates/d", "l4": "4-LUT/d", "l6": "6-LUT/d",
@@ -213,7 +216,7 @@ LABELS = {
     "prov": "status", "note": "note",
 }
 GROUPS = {
-    "Overview": ["design", "desc", "suite", "link", "licence", "loc", "tb", "vec"],
+    "Overview": ["design", "desc", "suite", "link", "view", "licence", "loc", "tb", "vec"],
     "Flow and VTR QoR": ["design", "iv", "osim", "stage", "luts", "blocks", "ffs", "pins", "hard",
                          "cpd", "cw", "prov", "note"],
     "LUT forms": ["design", "gates", "l4", "l6"],
@@ -229,7 +232,7 @@ def fields(row: Row, html: bool = False) -> dict[str, str]:
     tb = row.vals.get("tb", "-")
     out = {
         "design": row.design, "desc": g["desc"], "suite": row.section, "link": row.link,
-        "licence": row.licence, "fmt": row.format, "top": row.top, "loc": row.loc,
+        "licence": row.licence, "view": row.view, "fmt": row.format, "top": row.top, "loc": row.loc,
         "tb": tb if html else (NO if tb == "0" else YES if tb != "-" else "-"),
         "vec": g["vec"], "iv": g["sim_iverilog"], "osim": g["sim_odin"], "stage": g["vtr_stage"],
         "luts": g["vtr_luts"], "blocks": g["vtr_blocks"], "ffs": g["vtr_ffs"],
@@ -249,6 +252,8 @@ def _md(col: str, row: Row, v: str) -> str:
         return f"[{v}](#sources)"
     if col == "link":
         return f"[repo]({v})" if v.startswith("http") else v
+    if col == "view":
+        return f"[view]({v})" if v.startswith("http") else v
     return v
 
 
@@ -396,11 +401,35 @@ def fill_counts(rows: list[Row]) -> dict[str, tuple[int, int]]:
     return {k: (sum(1 for r in rows if k in r.vals), len(rows)) for k in KEYS}
 
 
+HEIMDALL = "heimdall.toml"
+
+
+def load_heimdall(idx: Path) -> tuple[str, set[str]]:
+    """`(base_url, pages)` from `heimdall.toml`: pages are `section:design` of the designs that
+    have a Heimdall III page. No file or an empty base URL: no page is linked."""
+    path = idx / HEIMDALL
+    if not path.is_file():
+        return "", set()
+    data = tomllib.loads(path.read_text(encoding="utf-8"))
+    return str(data.get("heimdall_base_url", "")), set(data.get("pages", []))
+
+
+def attach_views(rows: list[Row], idx: Path) -> None:
+    base, pages = load_heimdall(idx)
+    if not base:
+        return
+    base = base if base.endswith("/") else base + "/"
+    for r in rows:
+        if f"{r.section}:{r.design}" in pages:
+            r.view = f"{base}{r.section}-{r.design}/"
+
+
 def generate(idx: Path, out_md: Path, legend: str, readme: Path | None = None) -> list[Row]:
     suites = bench.load_suites(idx)
     designs = bench.load_designs(idx)
     rows = build_rows(designs, load_measures(idx))
     attach_sources(rows, suites)
+    attach_views(rows, idx)
     out_md.parent.mkdir(parents=True, exist_ok=True)
     out_md.write_text(render_md(suites, rows, legend), encoding="utf-8", newline="\n")
     bench.write_tsv(idx / "catalogue.tsv", TSV_HEAD, render_tsv_rows(rows))
