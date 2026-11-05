@@ -121,12 +121,10 @@ def collect_store_extra(idx: Path, db: Path) -> list[Row]:
 
 PROMPT_RE = re.compile(r"[Tt]he module should implement (.*?)\.(?:\s|$)")
 VTR_DOC = "doc/src/vtr/benchmarks.rst"
-DESC_MAX = 80
 
 
 def _clean(text: str) -> str:
-    text = " ".join(text.replace("|", "/").split())
-    return text if len(text) <= DESC_MAX else text[: DESC_MAX - 3].rstrip() + "..."
+    return " ".join(text.replace("|", "/").split())
 
 
 def vtr_domains(rst: str) -> dict[str, str]:

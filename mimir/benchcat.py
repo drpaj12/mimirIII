@@ -243,17 +243,12 @@ def fields(row: Row, html: bool = False) -> dict[str, str]:
     return out
 
 
-MD_MAX = 30
-
-
 def _md(col: str, row: Row, v: str) -> str:
     v = v.replace("|", "/")
     if col == "suite":
         return f"[{v}](#sources)"
     if col == "link":
         return f"[repo]({v})" if v.startswith("http") else v
-    if col not in ("design", "desc", "note") and len(v) > MD_MAX:
-        return v[: MD_MAX - 3] + "..."
     return v
 
 

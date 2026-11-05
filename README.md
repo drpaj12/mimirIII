@@ -145,30 +145,30 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | status | note |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | sim re-run 2026-11-05; VTR ... | sim_odin: parses and elaborates, did not finish within the sim time limit |
-| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | sim re-run 2026-11-05; VTR ... | sim_odin: test_bench_top.v:558: unsupported: real number |
-| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_ethernet.v:1071: unsupported: x/z literal (the simulator is 2-state) |
-| usbhostslave | pass | refused | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | sim re-run 2026-11-05; VTR ... | sim_odin: sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state) |
-| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR ... | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
-| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR ... | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
-| reed_solomon_decoder | pass | fail | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR ... | sim_odin: parses and elaborates, did not finish within the sim time limit |
-| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR ... | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
+| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_bench_top.v:558: unsupported: real number |
+| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_ethernet.v:1071: unsupported: x/z literal (the simulator is 2-state) |
+| usbhostslave | pass | refused | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state) |
+| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| reed_solomon_decoder | pass | fail | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
 | sdr_ctrl | pass | refused | timing | 1710 | 170 | 1130 | 8 | 0/0 | 5.57435 | 50 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
-| verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR ... | - |
-| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | sim re-run 2026-11-05; VTR ... | - |
+| verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
+| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
 | uart2spi | - | refused | timing | 685 | 67 | 422 | 22 | 0/0 | 3.30854 | 36 | re-run 2026-11-05 (VTR, sim) | upstream bench (upstream-fixed) with flash model; sim_odin: tb_top.v:51: unsupported: real number |
 | mips_16_noxarm | - | - | timing | 639 | 54 | 247 | 68 | 0/0 | 5.72277 | 42 | re-run 2026-11-05 (VTR) | mips_16 variant without the ALU_NC x arm; datapath no longer folds; no testbench run on the variant |
-| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state) |
-| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | sim re-run 2026-11-05; VTR ... | sim_odin: tst_bench_top.v:194: unsupported: x/z literal (the simulator is 2-state) |
+| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state) |
+| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tst_bench_top.v:194: unsupported: x/z literal (the simulator is 2-state) |
 | sdram_16bit | pass | fail | timing | 281 | 24 | 182 | 130 | 0/0 | 4.01425 | 44 | re-run 2026-11-05 (VTR, sim) | --vendor-prims: IOBUF/ODDR2 built as soft logic, data_io split to _i/_o/_oe; VPR done. sim_odin: simulation.svh:19:37: error: syntax: '`__FILE__' is a SystemVerilog macro operator; not Verilog-2005 (Phase 5) |
 | i2cslave | fail | refused | timing | 198 | 18 | 139 | 11 | 0/0 | 2.21504 | 32 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sda; iverilog testbench fails (timeout); sim_odin: testHarness.v:89: unsupported: x/z literal (the simulator is 2-state) |
-| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | sim re-run 2026-11-05; VTR ... | sim_odin: tst_bench_top.v:305: unsupported: x/z literal (the simulator is 2-state) |
-| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | sim re-run 2026-11-05; VTR ... | sim_odin: tb_ca_prng.v:147: unsupported: task |
-| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | sim re-run 2026-11-05; VTR ... | - |
-| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | sim re-run 2026-11-05; VTR ... | 71 LUTs: ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
+| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tst_bench_top.v:305: unsupported: x/z literal (the simulator is 2-state) |
+| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_ca_prng.v:147: unsupported: task |
+| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
+| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | sim re-run 2026-11-05; VTR provisional (rel-main2) | 71 LUTs: ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
 | quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - | - | - |
-| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR ... | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
-| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR ... | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
+| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
+| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
 
 </details>
 
@@ -197,7 +197,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | ca_prng | - | - | - |
 | mmuart | - | - | - |
 | mips_16 | - | - | - |
-| quartus_project_revert_timer | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| quartus_project_revert_timer | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
 | pipelined_fft_256 | - | - | - |
 | tiny_aes | - | - | - |
 
@@ -275,9 +275,9 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 |---|---|---|---|---|---|---|---|
 | Prob144_conwaylife | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
 | Prob030_popcount255 | a population count circuit for a 255-bit input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob153_gshare | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (usi... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 49 | ✓ | ✓ |
+| Prob153_gshare | a gshare branch predictor with 7-bit pc and 7-bit global history, hashed (using xor) into a 7-bit index | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 49 | ✓ | ✓ |
 | Prob108_rule90 | Rule 90, a one-dimensional cellular automaton with interesting properties | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
-| Prob124_rule110 | Rule 110, a one-dimensional cellular automaton with interesting properties (s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
+| Prob124_rule110 | Rule 110, a one-dimensional cellular automaton with interesting properties (such as being Turing-complete) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob021_mux256to1v | a 4-bit wide, 256-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob092_gatesv100 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob105_rotate100 | a 100-bit left/right rotator, with synchronous load and left/right enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
@@ -290,23 +290,23 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob141_count_clock | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 47 | ✓ | ✓ |
 | Prob066_edgecapture | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
 | Prob082_lfsr32 | a 32-bit Galois LFSR with taps at bit positions 32, 22, 2, and 1 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob118_history_shift | a 32-bit global history shift register, including support for rolling back st... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob154_fsm_ps2data | a finite state machine that will search for message boundaries when given an... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 42 | ✓ | ✓ |
+| Prob118_history_shift | a 32-bit global history shift register, including support for rolling back state in response to a pipeline flush caused by a branch misprediction | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob154_fsm_ps2data | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 42 | ✓ | ✓ |
 | Prob068_countbcd | a 4-digit BCD (binary-coded decimal) counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
 | Prob123_bugs_addsubz | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
 | Prob043_vector5 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
 | Prob146_fsm_serialdata | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
-| Prob080_timer | a timer that counts down for a given number of clock cycles, then asserts a s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
+| Prob080_timer | a timer that counts down for a given number of clock cycles, then asserts a signal to indicate that the given duration has elapsed | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob155_lemmings4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 60 | ✓ | ✓ |
 | Prob073_dff16e | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob126_circuit6 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
 | Prob037_review2015_count1k | a counter that counts from 0 to 999, inclusive, with a period of 1000 cycles | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob033_ece241_2014_q1c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
 | Prob114_bugs_case | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
-| Prob143_fsm_onehot | the state transition logic and output logic portions of the state machine (bu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob143_fsm_onehot | the state transition logic and output logic portions of the state machine (but not the state flip-flops) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob076_always_case | a 6-to-1 multiplexer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
 | Prob137_fsm_serial | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 38 | ✓ | ✓ |
-| Prob084_ece241_2013_q12 | a circuit for an 8x1 memory, where writing to the memory is accomplished by s... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob084_ece241_2013_q12 | a circuit for an 8x1 memory, where writing to the memory is accomplished by shifting-in bits, and reading is "random access", as in a typical RAM | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob140_fsm_hdlc | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
 | Prob149_ece241_2013_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 46 | ✓ | ✓ |
 | Prob044_vectorgates | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
@@ -322,49 +322,49 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob054_edgedetect | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob062_bugs_mux2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob087_gates | a combinational circuit with two inputs, a and b | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
-| Prob136_m2014_q6 | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 33 | ✓ | ✓ |
-| Prob138_2012_q2fsm | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
+| Prob136_m2014_q6 | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D Assume all sequential logic is triggered on the positive edge of the clock | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 33 | ✓ | ✓ |
+| Prob138_2012_q2fsm | the state machine shown below: A (0) --1--> B A (0) --0--> A B (0) --1--> C B (0) --0--> D C (0) --1--> E C (0) --0--> D D (0) --1--> F D (0) --0--> A E (1) --1--> E E (1) --0--> D F (1) --1--> C F (1) --0--> D Reset resets into state A and is synchronous active-high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
 | Prob016_m2014_q4j | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob121_2014_q3bfsm | a finite-state machine with the state-assigned table shown below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 31 | ✓ | ✓ |
 | Prob152_lemmings3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 48 | ✓ | ✓ |
 | Prob086_lfsr5 | a 5-bit maximal-length Galois LFSR with taps at bit positions 5 and 3 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
-| Prob096_review2015_fsmseq | a finite-state machine that searches for the sequence 1101 in an input bit st... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob148_2013_q2afsm | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
-| Prob150_review2015_fsmonehot | the following Moore state machine with 3 input (d, done_counting, ack) and 3... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob096_review2015_fsmseq | a finite-state machine that searches for the sequence 1101 in an input bit stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob148_2013_q2afsm | the FSM described by the state diagram shown below: A --r0=0,r1=0,r2=0--> A A -------r0=1-------> B A -----r0=0,r1=1----> C A --r0=0,r1=0,r2=0--> D B (g0=1) -------r0=1-------> B B (g0=1) -------r0=0-------> A C (g1=1) -------r1=1-------> C C (g1=1) -------r1=0-------> A Resetn is an active-low synchronous reset that resets into state A | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 35 | ✓ | ✓ |
+| Prob150_review2015_fsmonehot | the following Moore state machine with 3 input (d, done_counting, ack) and 3 outputs (shift_ena, counting, done) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
 | Prob035_count1to10 | a decade counter that counts 1 through 10, inclusive | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
-| Prob038_count15 | a 4-bit binary counter that counts from 0 through 15, inclusive, with a perio... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
+| Prob038_count15 | a 4-bit binary counter that counts from 0 through 15, inclusive, with a period of 16 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob040_count10 | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob060_m2014_q4k | a shift register with four D flops | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
 | Prob063_review2015_shiftcount | a four-bit shift register that also acts as a down counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob067_countslow | a decade counter that counts from 0 through 9, inclusive, with a period of 10 | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 20 | ✓ | ✓ |
-| Prob079_fsm3onehot | the state transition table for a Moore state machine with one input, one outp... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob085_shift4 | a 4-bit shift register (right shift), with asynchronous positive edge trigger... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
+| Prob079_fsm3onehot | the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob085_shift4 | a 4-bit shift register (right shift), with asynchronous positive edge triggered areset, synchronous active high signals load, and enable | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
 | Prob095_review2015_fsmshift | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob120_fsm3s | a Moore state machine with the following state transition table with one inpu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob128_fsm_ps2 | a finite state machine that will search for message boundaries when given an... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
+| Prob120_fsm3s | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob128_fsm_ps2 | a finite state machine that will search for message boundaries when given an input byte stream | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
 | Prob142_lemmings2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 36 | ✓ | ✓ |
 | Prob051_gates4 | a combinational circuit with four inputs, in[3:0] | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob072_thermostat | a heating/cooling thermostat controller which controls both a heater (during... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
+| Prob072_thermostat | a heating/cooling thermostat controller which controls both a heater (during winter) and an air conditioner (during summer) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob074_ece241_2014_q4 | a finite state machine with the following behavior | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob089_ece241_2014_q5a | a one-input one-output serial 2's complementer Moore state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 26 | ✓ | ✓ |
 | Prob093_ece241_2014_q3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
-| Prob100_fsm3comb | the following is the state transition table for a Moore state machine with on... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
+| Prob100_fsm3comb | the following is the state transition table for a Moore state machine with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 23 | ✓ | ✓ |
 | Prob117_circuit9 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
-| Prob119_fsm3 | a Moore state machine with the following state transition table with one inpu... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
-| Prob129_ece241_2013_q8 | a Mealy-type finite state machine that recognizes the sequence "101" on an in... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
+| Prob119_fsm3 | a Moore state machine with the following state transition table with one input, one output, and four states | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
+| Prob129_ece241_2013_q8 | a Mealy-type finite state machine that recognizes the sequence "101" on an input signal named x | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 37 | ✓ | ✓ |
 | Prob009_popcount3 | a "population count" circuit that counts the number of '1's in the input vector | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
 | Prob024_hadd | a half adder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
 | Prob025_reduction | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
 | Prob027_fadd | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob036_ringer | a circuit to control a cellphone's ringer and vibration motor | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
-| Prob058_alwaysblock2 | an XOR gate three ways, using an assign statement (output out_assign), a comb... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob058_alwaysblock2 | an XOR gate three ways, using an assign statement (output out_assign), a combinational always block (output out_always_comb), and a clocked always block (output out_always_ff) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob065_7420 | the same functionality as the 7420 chip | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
-| Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2,... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
+| Prob070_ece241_2013_q2 | a digital system with four inputs (a,b,c,d) that generates a logic-1 when 2, 7, or 15 appears on the inputs, and a logic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 19 | ✓ | ✓ |
 | Prob075_counter_2bc | a two-bit saturating counter | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
 | Prob077_wire_decl | the following circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob078_dualedge | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob081_7458 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 21 | ✓ | ✓ |
-| Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2'... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
+| Prob088_ece241_2014_q5b | the following Mealy finite-state machine which is an implementation of the 2's complementer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
 | Prob091_2012_q2b | the state output logic for this finite-state machine | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob099_m2014_q6c | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob112_always_case2 | a priority encoder | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 30 | ✓ | ✓ |
@@ -386,7 +386,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob048_m2014_q4c | a simple D flip flop with active high synchronous reset (reset output to 0) | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob049_m2014_q4b | a D flip flop, positive edge triggered, with an asynchronous reset "ar" | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob050_kmap1 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
-| Prob053_m2014_q4d | the following circuit: A D flip-flop takes as input the output of a two-input... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
+| Prob053_m2014_q4d | the following circuit: A D flip-flop takes as input the output of a two-input XOR | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 16 | ✓ | ✓ |
 | Prob056_ece241_2013_q7 | a JK flip-flop with the following truth table | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob057_kmap2 | the circuit described by the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob061_2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
@@ -399,16 +399,16 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob103_circuit2 | a combinational circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 13 | ✓ | ✓ |
 | Prob104_mt2015_muxdff | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob107_fsm1s | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
-| Prob109_fsm1 | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1-->... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
-| Prob110_fsm2 | a Moore state machine with two states, two inputs, and one output according t... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
-| Prob111_fsm2s | a Moore state machine with two states, two inputs, and one output according t... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob109_fsm1 | a Moore machine with the diagram described below: B (1) --0--> A B (1) --1--> B A (0) --0--> B A (0) --1--> A It should asynchronously reset into state B if reset if high | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 28 | ✓ | ✓ |
+| Prob110_fsm2 | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
+| Prob111_fsm2s | a Moore state machine with two states, two inputs, and one output according to diagram described below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
 | Prob113_2012_q1g | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
 | Prob116_m2014_q3 | the function f shown in the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 29 | ✓ | ✓ |
 | Prob122_kmap4 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
 | Prob125_kmap3 | the Karnaugh map below | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 32 | ✓ | ✓ |
 | Prob131_mt2015_q4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob132_always_if2 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 25 | ✓ | ✓ |
-| Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
+| Prob135_m2014_q6b | the state machine shown below: A (0) --0--> B A (0) --1--> A B (0) --0--> C B (0) --1--> D C (0) --0--> E C (0) --1--> D D (0) --0--> F D (0) --1--> A E (1) --0--> E E (1) --1--> D F (1) --0--> C F (1) --1--> D The FSM should be implemented using three flip-flops and state codes y = 000, 001, ..., 101 for states A, B, ..., F, respectively | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 27 | ✓ | ✓ |
 | Prob145_circuit8 | a sequential circuit | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 17 | ✓ | ✓ |
 | Prob001_zero | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
 | Prob002_m2014_q4i | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 9 | ✓ | ✓ |
@@ -417,7 +417,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob006_vectorr | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
 | Prob007_wire | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
 | Prob008_m2014_q4h | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 10 | ✓ | ✓ |
-| Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) int... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
+| Prob015_vector1 | a combinational circuit that splits an input half-word (16 bits, [15:0] ) into lower [7:0] and upper [15:8] bytes | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 11 | ✓ | ✓ |
 | Prob023_vector100r | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 12 | ✓ | ✓ |
 | Prob028_m2014_q4a | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 14 | ✓ | ✓ |
 | Prob031_dff | a single D flip-flop | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
@@ -427,8 +427,8 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob059_wire4 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 15 | ✓ | ✓ |
 | Prob064_vector3 | - | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 18 | ✓ | ✓ |
 | Prob071_always_casez | a priority encoder for an 8-bit input | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 22 | ✓ | ✓ |
-| Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
-| Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2... | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
+| Prob156_review2015_fancytimer | a timer with one input that: (1) is started when a particular input pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 78 | ✓ | ✓ |
+| Prob151_review2015_fsm | a timer that: (1) is started when a particular pattern (1101) is detected, (2) shifts in 4 more bits to determine the duration to delay, (3) waits for the counters to finish counting, and (4) notifies the user and waits for the user to acknowledge the timer | [verilogeval](#sources) | [repo](https://github.com/NMSU-PEARL/verilog-eval.git) | MIT | 56 | ✓ | ✓ |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -751,8 +751,8 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob059_wire4 | 0/0 | 0/0 | 0/0 |
 | Prob064_vector3 | 0/0 | 0/0 | 0/0 |
 | Prob071_always_casez | 0/0 | 0/0 | 0/0 |
-| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
-| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported/fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported |
 
 </details>
 
@@ -914,8 +914,8 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob059_wire4 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | Prob064_vector3 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | Prob071_always_casez | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... | fail: read_slang: ..Prob156... |
-| Prob151_review2015_fsm | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... | fail: read_slang: ..Prob151... |
+| Prob156_review2015_fancytimer | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob156_review2015_fancytimer_ref.sv:25:17: an explicit 4-bit cast is not supported |
+| Prob151_review2015_fsm | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported | fail: read_slang: ..Prob151_review2015_fsm_ref.sv:21:17: an explicit 4-bit cast is not supported |
 
 </details>
 
@@ -929,11 +929,11 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob108_rule90 | - | - | - | - |
 | Prob124_rule110 | - | - | - | - |
 | Prob021_mux256to1v | - | - | - | - |
-| Prob092_gatesv100 | - | 6531.3 | out of scope: stopped at pl... | equiv |
+| Prob092_gatesv100 | - | 6531.3 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob105_rotate100 | 873 | 18955.7 | match | lvs |
 | Prob115_shift18 | 703 | 13934.6 | match | lvs |
 | Prob018_mux256to1 | 506 | 7847.5 | match | lvs |
-| Prob017_mux2to1v | - | 4144.0 | out of scope: stopped at pl... | equiv |
+| Prob017_mux2to1v | - | 4144.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob097_mux9to1v | 187 | 3178.0 | match | lvs |
 | Prob052_gates100 | 318 | 5172.5 | match | lvs |
 | Prob055_conditional | 159 | 2499.9 | match | lvs |
@@ -941,7 +941,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob066_edgecapture | - | - | - | - |
 | Prob082_lfsr32 | - | - | - | - |
 | Prob118_history_shift | - | - | - | - |
-| Prob154_fsm_ps2data | - | 2876.5 | out of scope: stopped at pl... | equiv |
+| Prob154_fsm_ps2data | - | 2876.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob068_countbcd | - | - | - | - |
 | Prob123_bugs_addsubz | - | - | - | - |
 | Prob043_vector5 | 25 | 420.4 | mismatch | extract |
@@ -962,14 +962,14 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob044_vectorgates | 12 | 145.1 | mismatch | extract |
 | Prob094_gatesv | - | - | - | - |
 | Prob106_always_nolatches | - | - | - | - |
-| Prob046_dff8p | - | - | out of scope: stopped at eq... | map |
+| Prob046_dff8p | - | - | out of scope: stopped at equiv (equiv header.check.detail: absolute or home path in 'equiv-c) | map |
 | Prob130_circuit5 | - | - | - | - |
 | Prob133_2014_q3fsm | - | - | - | - |
 | Prob139_2013_q2bfsm | - | - | - | - |
 | Prob041_dff8r | - | - | - | - |
-| Prob045_edgedetect2 | - | 1594.0 | out of scope: stopped at pl... | equiv |
+| Prob045_edgedetect2 | - | 1594.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob047_dff8ar | - | - | - | - |
-| Prob054_edgedetect | - | 1559.0 | out of scope: stopped at pl... | equiv |
+| Prob054_edgedetect | - | 1559.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob062_bugs_mux2 | - | - | - | - |
 | Prob087_gates | 10 | 93.8 | mismatch | extract |
 | Prob136_m2014_q6 | - | - | - | - |
@@ -997,7 +997,7 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob072_thermostat | - | - | - | - |
 | Prob074_ece241_2014_q4 | - | - | - | - |
 | Prob089_ece241_2014_q5a | - | - | - | - |
-| Prob093_ece241_2014_q3 | - | 42.5 | out of scope: stopped at pl... | equiv |
+| Prob093_ece241_2014_q3 | - | 42.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob100_fsm3comb | 4 | 45.0 | mismatch | extract |
 | Prob117_circuit9 | - | - | - | - |
 | Prob119_fsm3 | - | - | - | - |
@@ -1006,16 +1006,16 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob024_hadd | - | - | - | - |
 | Prob025_reduction | - | - | - | - |
 | Prob027_fadd | - | - | - | - |
-| Prob036_ringer | - | 17.5 | out of scope: stopped at pl... | equiv |
+| Prob036_ringer | - | 17.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob058_alwaysblock2 | - | - | - | - |
-| Prob065_7420 | - | 17.5 | out of scope: stopped at pl... | equiv |
+| Prob065_7420 | - | 17.5 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob070_ece241_2013_q2 | - | - | - | - |
 | Prob075_counter_2bc | - | - | - | - |
 | Prob077_wire_decl | - | - | - | - |
 | Prob078_dualedge | - | - | - | - |
 | Prob081_7458 | 4 | 47.5 | mismatch | extract |
 | Prob088_ece241_2014_q5b | - | - | - | - |
-| Prob091_2012_q2b | - | 40.0 | out of scope: stopped at pl... | equiv |
+| Prob091_2012_q2b | - | 40.0 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob099_m2014_q6c | - | - | - | - |
 | Prob112_always_case2 | 5 | 50.0 | mismatch | extract |
 | Prob127_lemmings1 | - | - | - | - |
@@ -1060,22 +1060,22 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 | Prob132_always_if2 | - | - | - | - |
 | Prob135_m2014_q6b | - | - | - | - |
 | Prob145_circuit8 | - | - | - | - |
-| Prob001_zero | - | - | out of scope: stopped at pl... | equiv |
-| Prob002_m2014_q4i | - | - | out of scope: stopped at pl... | equiv |
-| Prob003_step_one | - | - | out of scope: stopped at pl... | equiv |
-| Prob004_vector2 | - | - | out of scope: stopped at pl... | equiv |
-| Prob006_vectorr | - | - | out of scope: stopped at pl... | equiv |
-| Prob007_wire | - | - | out of scope: stopped at pl... | equiv |
-| Prob008_m2014_q4h | - | - | out of scope: stopped at pl... | equiv |
-| Prob015_vector1 | - | - | out of scope: stopped at pl... | equiv |
-| Prob023_vector100r | - | - | out of scope: stopped at pl... | equiv |
+| Prob001_zero | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob002_m2014_q4i | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob003_step_one | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob004_vector2 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob006_vectorr | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob007_wire | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob008_m2014_q4h | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob015_vector1 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob023_vector100r | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob028_m2014_q4a | - | - | - | - |
 | Prob031_dff | - | - | - | - |
-| Prob032_vector0 | - | - | out of scope: stopped at pl... | equiv |
-| Prob034_dff8 | - | 788.3 | out of scope: stopped at pl... | equiv |
-| Prob042_vector4 | - | - | out of scope: stopped at pl... | equiv |
-| Prob059_wire4 | - | - | out of scope: stopped at pl... | equiv |
-| Prob064_vector3 | - | - | out of scope: stopped at pl... | equiv |
+| Prob032_vector0 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob034_dff8 | - | 788.3 | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob042_vector4 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob059_wire4 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
+| Prob064_vector3 | - | - | out of scope: stopped at place (openroad failed (rc 1); see openroad.log) | equiv |
 | Prob071_always_casez | - | - | - | - |
 | Prob156_review2015_fancytimer | - | - | - | - |
 | Prob151_review2015_fsm | - | - | - | - |
@@ -1212,16 +1212,16 @@ Rule: HDL (Verilog) with no testbench file.
 
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
-| LU64PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
-| mcml | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
-| LU32PEEng | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| LU64PEEng | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
+| mcml | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
+| LU32PEEng | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
 | stereovision2 | 431409/79 | 69596/24 | 48816/15 |
 | bgm | 327394/126 | 62083/31 | 46209/21 |
 | LU8PEEng | 245206/475 | 58986/161 | 43631/102 |
 | stereovision1 | 139252/27 | 38630/12 | 27709/7 |
 | stereovision0 | 42435/26 | 16352/7 | 14355/5 |
 | raygentop_nolatches | 66497/35 | 17928/19 | 12895/12 |
-| arm_core | fail: too big for now (time... | fail: too big for now (time... | fail: too big for now (time... |
+| arm_core | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
 | or1200 | 53698/69 | 14002/44 | 10160/27 |
 | raygentop | 55714/35 | 12480/19 | 8947/12 |
 | b22 | 56695/105 | 8495/33 | 6234/20 |
