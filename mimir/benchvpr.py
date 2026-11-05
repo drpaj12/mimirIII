@@ -106,7 +106,7 @@ def measure_design(odin3: Path, vtr: Path, suite: bench.Suite, d: bench.Design,
 
 def collect_vpr(idx: Path, odin3: Path, vtr: Path, suite_id: str, out_root: Path,
                 limit: int | None, sink: Callable[[list[Row]], None],
-                retry_failed: bool = False) -> int:
+                retry_failed: bool = False, runner: Callable[..., int] | None = None) -> int:
     """Run VPR for the designs of `suite_id` that have no `vtr_luts` row yet (a store record
     counts), smallest source first; `sink` gets the rows of each design. Returns the number run."""
     rows = bench.read_tsv(benchcat.measures_path(idx), 5)
@@ -120,6 +120,6 @@ def collect_vpr(idx: Path, odin3: Path, vtr: Path, suite_id: str, out_root: Path
                   key=lambda d: (d.bytes, d.design))
     n = 0
     for d in todo[:limit]:
-        sink(measure_design(odin3, vtr, su, d, out_root))
+        sink(measure_design(odin3, vtr, su, d, out_root, runner))
         n += 1
     return n

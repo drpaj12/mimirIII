@@ -63,8 +63,10 @@ class VprTest(unittest.TestCase):
     def test_collect_skips_done_and_retries(self) -> None:
         seen: list[list[str]] = []
         n = benchvpr.collect_vpr(self.idx, Path("/x/build/odin3"), Path("/v"), "s1", self.out,
-                                 None, lambda rows: seen.append(rows[0]))
+                                 None, lambda rows: seen.append(rows[0]),
+                                 runner=ok_runner())
         self.assertEqual(n, 1)
+        self.assertEqual(seen[0][3], "route")
 
 
 if __name__ == "__main__":
