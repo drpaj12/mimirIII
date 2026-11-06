@@ -62,27 +62,27 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | what it does | suite | link | view | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|---|
-| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3790 | ✓ | ✗ |
-| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 4900 | ✓ | ✗ |
+| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-dblclockfft/) | per project | 3790 | ✓ | ✗ |
+| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-vga_lcd/) | per project | 4900 | ✓ | ✗ |
 | ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 12270 | ✓ | ✗ |
-| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 12433 | ✓ | ✗ |
-| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 618 | ✓ | ✗ |
-| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 499 | ✓ | ✗ |
-| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 4366 | ✓ | ✗ |
-| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2061 | ✓ | ✗ |
-| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3929 | ✓ | ✗ |
-| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 379 | ✓ | ✗ |
-| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 695 | ✓ | ✗ |
-| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2583 | ✓ | ✗ |
-| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 945 | ✓ | ✗ |
-| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 633 | ✓ | ✗ |
-| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 1556 | ✓ | ✗ |
-| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 741 | ✓ | ✗ |
-| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 769 | ✓ | ✗ |
-| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 456 | ✓ | ✗ |
-| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 1311 | ✓ | ✗ |
-| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 253 | ✓ | ✗ |
-| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 945 | ✓ | ✗ |
+| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-usbhostslave/) | per project | 12433 | ✓ | ✗ |
+| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
+| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
+| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-reed_solomon_decoder/) | per project | 4366 | ✓ | ✗ |
+| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-des/) | per project | 2061 | ✓ | ✗ |
+| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdr_ctrl/) | per project | 3929 | ✓ | ✗ |
+| verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-verilog_cordic_core/) | per project | 379 | ✓ | ✗ |
+| wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-wb_lcd/) | per project | 695 | ✓ | ✗ |
+| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-uart2spi/) | per project | 2583 | ✓ | ✗ |
+| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16_noxarm/) | per project | 945 | ✓ | ✗ |
+| spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-spi/) | per project | 633 | ✓ | ✗ |
+| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2c/) | per project | 1556 | ✓ | ✗ |
+| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdram_16bit/) | per project | 741 | ✓ | ✗ |
+| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2cslave/) | per project | 769 | ✓ | ✗ |
+| simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-simple_spi/) | per project | 456 | ✓ | ✗ |
+| ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-ca_prng/) | per project | 1311 | ✓ | ✗ |
+| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mmuart/) | per project | 253 | ✓ | ✗ |
+| mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16/) | per project | 945 | ✓ | ✗ |
 | quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | - | MIT | 4349 | ✓ | ✓ |
 | pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2055 | ✓ | ✗ |
 | tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 764 | ✓ | ✗ |
@@ -1056,7 +1056,7 @@ Rule: HDL (Verilog) with no testbench file.
 | boundtop_nolatches | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3053 | ✗ | ✗ |
 | b15 | - | [itc99](#sources) | [repo](https://github.com/ccsl-uaegean/ITC99-RTL-Verilog) | - | GPL-3.0 | 805 | ✗ | ✗ |
 | spree | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3072 | ✗ | ✗ |
-| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 3352 | ✗ | ✗ |
+| attiny_atmega_xmega_core | Attiny Atmega Xmega core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-attiny_atmega_xmega_core/) | per project | 3352 | ✗ | ✗ |
 | mkDelayWorker32B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 6628 | ✗ | ✗ |
 | sha | Cryptography | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/vtr-verilog-sha/) | per design | 2171 | ✗ | ✗ |
 | mkSMAdapter4B | Packet Processing | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 4348 | ✗ | ✗ |
