@@ -16,5 +16,5 @@ Run (iverilog 2005 mode) in a copy of the project where `rtl/` also sits under `
 
     iverilog -g2005 -o sim.vvp -c file.f && vvp -n sim.vvp          # run in verif/run
 
-Odin III: not run. The bench uses includes, tasks, fork/join and a behavioural flash model, which the sim_tb
-subset does not accept (from the sim_tb documentation, not tried here).
+Odin III 1.5.0: refused at `tb_top.v:51` (`#(XTAL_CLK_PERIOD/2.0)`, a `real` delay). Behind it the bench needs
+fork/join, events, `disable` and a function (the flash model), not implemented in `sim_tb`.

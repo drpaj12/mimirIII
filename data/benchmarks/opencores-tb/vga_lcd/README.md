@@ -30,7 +30,6 @@ Run (iverilog 2005 mode); in a directory holding `rtl/verilog/*.v` and the patch
 
     iverilog -g2005 -I . -s test -o sim.vvp $(ls *.v | grep -v '^tests.v$') && vvp -n sim.vvp
 
-Odin III: refused. `sim_tb --top test test_bench_top.v` stops with
-`test_bench_top.v:116: unsupported: compiler directive` (the bench uses `ifdef`, `define`, `include`, tasks,
-hierarchical writes and several modules; none are in the sim_tb subset). The DUT alone reads with
-`--top vga_enh_top`.
+Odin III 1.5.0: refused. `sim_tb --top test test_bench_top.v` stops with
+`test_bench_top.v:569: unsupported: real` (`always #2.4 clk = ~clk`; `real` delays and timescale-precision ticks are
+not implemented). The DUT alone reads with `--top vga_enh_top`.

@@ -30,5 +30,13 @@ Run (iverilog), in a directory with all `rtl/*.v`, `tb_mips_16.v` and the `.prog
     python3 gen_mips_programs.py .      # or use the committed files
     iverilog -g2005 -I . -s tb_mips_16 -o sim.vvp *.v && vvp sim.vvp
 
-Odin III: refused, `tb_mips_16.v:15: unsupported: compiler directive` (`include`; the bench also writes the
-ROM through a hierarchical path, outside the sim_tb subset).
+Odin III 1.5.0 passes: `PASS tb_mips_16 checks=34 errors=0`, text equal except `$display` lines inside the DUT RTL (Odin III simulates the synthesized DUT; RTL
+`$display` does not run): 1 line at time 0 (`ERROR: Unknown Instruction: xxxx`, `ID_stage.v:206`), after the `INFO` lines
+and vvp `WARNING` lines are removed (about 2 s, release build). The
+flow, in the run directory with the RTL and the `.prog` / `.exp` files:
+
+    odin3 -p "read_verilog --case-xz-never <the RTL files>; proc; lower --keep-sel --keep-mem; sim_tb --top tb_mips_16 --max-time 100000000 --out run.txt tb_mips_16.v"
+
+`--case-xz-never` makes the x bits of the ALU's `3'bxxx` case item match nothing (IEEE simulation); `--keep-mem`
+keeps the ROM and register file addressable for the bench's `$readmemb` and hierarchical reads. No `opt`: it folds
+register 0.
