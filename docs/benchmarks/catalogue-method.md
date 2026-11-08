@@ -148,3 +148,23 @@ pass <name>)` and the pass goes on with the next design.
   mapped BLIF blobs (up to 5x lower where the BLIF has many buffers, e.g. mkDelayWorker32B 2057 to 436).
 - `OpenCores: designs to pick from` (top of `catalogue.md`): one row per OpenCores design, tier then size.
 - uart2spi added (RTL from the candidates survey clone); `mips_16_noxarm` re-run: 639 LUTs, 247 FFs.
+
+## Power columns (Bifrost III, 2026-11-08)
+
+Purpose: hub B Q1.2 (can recorded activity feed a power estimate of the placed and routed design), measure =
+power. Collector: `mimir bench measure power --root <dir of <design>/power.json> --label <run name>`; the
+`power.json` files are written by `wyrd power run` (Wyrd repo, `docs/specs/2026-11-06-bifrost-power-design.md`).
+Columns (energy per clock cycle = power x the clock period of its own target, so FPGA and ASIC compare as
+energy, not power; compare trends, not absolute pJ across technologies):
+- `pw_src`: where the switching activity came from: `iverilog-gate` (the design's testbench on the
+  post-synthesis netlist, in iverilog), `odin3-sim` (Odin III `sim_tb --vcd-all`), `ace2` (vectorless: ACE2
+  with its defaults, primary-input static probability 0.5 and switching activity 0.2, seed 1).
+- `pw_fpga_pjc`: FPGA energy per clock cycle in pJ (VPR `--power`, PTM 45 nm, channel width 100, the k6 40 nm
+  architecture; the clock period is VPR's critical path). `pw_freq_mhz`: that frequency in MHz.
+- `pw_asic_pjc`: ASIC energy per clock cycle in pJ (OpenROAD/OpenSTA, sky130_fd_sc_hd tt 1.8 V, placement
+  parasitics, at the testbench clock period given in `pw_note`). `-` where there is no silicon run or no
+  gate-level testbench for it.
+- `pw_note`: matched-net fraction (nets of the netlist that took a measured activity; the rest take the mean),
+  testbench cycles or the ACE2 defaults, the ASIC clock.
+`-` = not run. Known limit: VPR's power model has no `adder` model, so soft-adder carry chains add no power in
+the FPGA figure.
