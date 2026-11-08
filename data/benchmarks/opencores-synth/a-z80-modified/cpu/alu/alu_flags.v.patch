@@ -1,0 +1,109 @@
+--- a/cpu/alu/alu_flags.v
++++ b/cpu/alu/alu_flags.v
+@@ -1,3 +1,8 @@
++// MODIFIED (mimir a-z80-modified) FILE HEADER:
++//   This is the mimir variant a-z80-modified of the upstream A-Z80 core: the bidirectional/tri-state internal data buses are replaced by one-way signals and AND-OR muxes selected by the existing enables.
++//   The upstream project (OpenCores a-z80) is unchanged; this file is produced from it by a patch kept in the mimir repo.
++//   alu_flags: db split into db_in (read) and db_out (flags onto the bus, 0 when ctl_flags_oe is off).
++
+ // Copyright (C) 1991-2013 Altera Corporation
+ // Your use of Altera Corporation's design tools, logic functions 
+ // and other software and tools, and its AMPP partner logic 
+@@ -55,7 +60,8 @@
+ 	flags_nf,
+ 	flags_cf_latch,
+ 	flags_hf2,
+-	db
++	db_in,
++	db_out	// MODIFIED (mimir a-z80-modified): inout db split into db_in and db_out
+ );
+ 
+ 
+@@ -97,7 +103,8 @@
+ output wire	flags_nf;
+ output wire	flags_cf_latch;
+ output reg	flags_hf2;
+-inout wire	[7:0] db;
++input wire	[7:0] db_in;
++output wire	[7:0] db_out;	// MODIFIED (mimir a-z80-modified): inout db split
+ 
+ reg	flags_xf;
+ reg	flags_yf;
+@@ -159,19 +166,19 @@
+ 
+ 
+ 
+-assign	SYNTHESIZED_WIRE_10 = db[7] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_10 = db_in[7] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_17 = alu_xf_out & ctl_flags_alu;
+ 
+-assign	SYNTHESIZED_WIRE_20 = db[2] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_20 = db_in[2] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_19 = pf_sel & ctl_flags_alu;
+ 
+-assign	SYNTHESIZED_WIRE_2 = db[1] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_2 = db_in[1] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_23 = DFFE_inst_latch_hf ^ ctl_flags_hf_cpl;
+ 
+-assign	SYNTHESIZED_WIRE_22 = db[0] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_22 = db_in[0] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_21 = ctl_flags_alu & alu_core_cf_out;
+ 
+@@ -200,7 +207,7 @@
+ 
+ assign	SYNTHESIZED_WIRE_29 = ctl_flags_cf2_we & nhold_clk_wait;
+ 
+-assign	SYNTHESIZED_WIRE_12 = db[6] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_12 = db_in[6] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_34 = SYNTHESIZED_WIRE_9 | SYNTHESIZED_WIRE_10;
+ 
+@@ -218,33 +225,33 @@
+ 
+ assign	SYNTHESIZED_WIRE_26 = SYNTHESIZED_WIRE_21 | SYNTHESIZED_WIRE_22;
+ 
+-assign	db[7] = ctl_flags_oe ? DFFE_inst_latch_sf : 1'bz;
++assign	db_out[7] = ctl_flags_oe ? DFFE_inst_latch_sf : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	SYNTHESIZED_WIRE_14 = db[5] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_14 = db_in[5] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+-assign	db[6] = ctl_flags_oe ? SYNTHESIZED_WIRE_39 : 1'bz;
++assign	db_out[6] = ctl_flags_oe ? SYNTHESIZED_WIRE_39 : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[5] = ctl_flags_oe ? flags_yf : 1'bz;
++assign	db_out[5] = ctl_flags_oe ? flags_yf : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[4] = ctl_flags_oe ? SYNTHESIZED_WIRE_23 : 1'bz;
++assign	db_out[4] = ctl_flags_oe ? SYNTHESIZED_WIRE_23 : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[3] = ctl_flags_oe ? flags_xf : 1'bz;
++assign	db_out[3] = ctl_flags_oe ? flags_xf : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[2] = ctl_flags_oe ? DFFE_inst_latch_pf : 1'bz;
++assign	db_out[2] = ctl_flags_oe ? DFFE_inst_latch_pf : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[1] = ctl_flags_oe ? DFFE_inst_latch_nf : 1'bz;
++assign	db_out[1] = ctl_flags_oe ? DFFE_inst_latch_nf : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+-assign	db[0] = ctl_flags_oe ? SYNTHESIZED_WIRE_24 : 1'bz;
++assign	db_out[0] = ctl_flags_oe ? SYNTHESIZED_WIRE_24 : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+ assign	SYNTHESIZED_WIRE_13 = alu_yf_out & ctl_flags_alu;
+ 
+ assign	SYNTHESIZED_WIRE_0 = ctl_flags_cf_set | SYNTHESIZED_WIRE_25;
+ 
+-assign	SYNTHESIZED_WIRE_16 = db[4] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_16 = db_in[4] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ assign	SYNTHESIZED_WIRE_15 = alu_core_cf_out & ctl_flags_alu;
+ 
+-assign	SYNTHESIZED_WIRE_18 = db[3] & ctl_flags_bus;
++assign	SYNTHESIZED_WIRE_18 = db_in[3] & ctl_flags_bus;	// MODIFIED (mimir a-z80-modified): reads db_in
+ 
+ 
+ always@(posedge clk)

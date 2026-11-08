@@ -7,7 +7,7 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | tier | rule | designs |
 |---|---|---|
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
-| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 24 |
+| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 25 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
 | T3 HDL, no testbench | HDL (Verilog) with no testbench file | 55 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
@@ -17,11 +17,11 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | brisc-v | 1 |
 | itc99 | 21 |
 | mcnc20 | 20 |
-| opencores | 26 |
+| opencores | 27 |
 | verilogeval | 156 |
 | vtr-blif | 199 |
 | vtr-verilog | 31 |
-| total | 454 |
+| total | 455 |
 
 ## OpenCores: designs to pick from
 
@@ -36,6 +36,7 @@ Sorted by tier, then size (LUTs, else lines). LUTs = `.names` with two or more i
 | sha3_high | T1 | 7824 | 2211 | ✓ | pass | refused | timing | 9.22457 | - | - | 0 | 0 | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
 | sha3_low | T1 | 5035 | 2244 | ✓ | pass | refused | timing | 4.44096 | running | running | 0 | 0 | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
 | reed_solomon_decoder | T1 | 4690 | 2882 | ✓ | pass | fail | timing | 6.14868 | - | - | 120 | 0 | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| a-z80-modified | T1 | 2016 | 365 | ✓ | pass | none | timing | 11.3704 | - | - | 0 | 0 | - | 2026-11-08 (rel-v150) | modified: mux-driven internal data bus; bidirectional nets split into one-way signals, D split into D_in/D_out/D_oe, pins_oe exported; every changed line commented; matches upstream a-z80 under iverilog on 5 programs |
 | des | T1 | 1877 | 1984 | ✓ | pass | refused | timing | 3.70378 | lvs | 516945.8 | 0 | 0 | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
 | sdr_ctrl | T1 | 1710 | 1130 | ✓ | pass | refused | timing | 5.57435 | - | - | 0 | 0 | - | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
 | verilog_cordic_core | T1 | 1153 | 765 | ✓ | pass | pass | timing | 4.1275 | lvs | 188396.9 | 0 | 0 | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
@@ -53,7 +54,7 @@ Sorted by tier, then size (LUTs, else lines). LUTs = `.names` with two or more i
 | pipelined_fft_256 | T1 | - | - | ✓ | pass | fail | none | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
 | tiny_aes | T1 | - | - | ✓ | pass | refused | elab | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
 | attiny_atmega_xmega_core | T3 | 1973 | 373 | ✗ | none | none | timing | 14.924 | - | - | 0 | 1 | - | provisional (rel-main2) | - |
-| a-z80 | T3 | - | - | ✗ | none | none | none | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them) |
+| a-z80 | T3 | - | - | ✗ | none | none | none | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them); see a-z80-modified (mux-driven bus variant, same flow, runs) |
 | amber | T3 | - | - | ✗ | none | none | map | - | - | - | - | - | - | re-run 2026-11-05 (VTR) | generic_sram_byte_en fixed (#345); next stop: lower: module 'a23_core': '$mem' '$c2032' would create 28238599 nodes (cap 16777216) |
 
 ## T1 HDL + testbench, larger
@@ -69,6 +70,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
 | sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
 | reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-reed_solomon_decoder/) | per project | 4366 | ✓ | ✗ |
+| a-z80-modified | A-Z80 CPU (modified: mux-driven internal data bus, no tri-state) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5649 | ✓ | ✗ |
 | des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-des/) | per project | 2061 | ✓ | ✗ |
 | sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdr_ctrl/) | per project | 3929 | ✓ | ✗ |
 | verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-verilog_cordic_core/) | per project | 379 | ✓ | ✗ |
@@ -98,6 +100,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
 | sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
 | reed_solomon_decoder | pass | fail | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| a-z80-modified | pass | none | timing | 2016 | 193 | 365 | 48 | 0/0 | 11.3704 | 68 | 2026-11-08 (rel-v150) | modified: mux-driven internal data bus; bidirectional nets split into one-way signals, D split into D_in/D_out/D_oe, pins_oe exported; every changed line commented; matches upstream a-z80 under iverilog on 5 programs |
 | des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
 | sdr_ctrl | pass | refused | timing | 1710 | 170 | 1130 | 8 | 0/0 | 5.57435 | 50 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
 | verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
@@ -129,6 +132,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | - | - | - |
 | sha3_low | - | - | - |
 | reed_solomon_decoder | - | - | - |
+| a-z80-modified | - | - | - |
 | des | - | - | - |
 | sdr_ctrl | - | - | - |
 | verilog_cordic_core | - | - | - |
@@ -160,6 +164,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | - | - | - | - | - | - | - | - |
 | sha3_low | - | - | - | - | - | - | - | - |
 | reed_solomon_decoder | - | - | - | - | - | - | - | - |
+| a-z80-modified | - | - | - | - | - | - | - | - |
 | des | - | - | - | - | - | - | - | - |
 | sdr_ctrl | - | - | - | - | - | - | - | - |
 | verilog_cordic_core | - | - | - | - | - | - | - | - |
@@ -191,6 +196,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | - | - | - | - |
 | sha3_low | running | running | running | running |
 | reed_solomon_decoder | - | - | - | - |
+| a-z80-modified | - | - | - | - |
 | des | 26124 | 516945.8 | match | lvs |
 | sdr_ctrl | - | - | - | - |
 | verilog_cordic_core | 10158 | 188396.9 | match | lvs |
@@ -1145,7 +1151,7 @@ Rule: HDL (Verilog) with no testbench file.
 | and_latch | - | - | route | 1 | 5 | 1 | 4 | 0/0 | 1.52719 | 20 | - | - |
 | single_ff | - | - | route | 0 | 4 | 1 | 3 | 0/0 | 1.45102 | 26 | - | - |
 | single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 | - | - |
-| a-z80 | none | none | none | - | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them) |
+| a-z80 | none | none | none | - | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them); see a-z80-modified (mux-driven bus variant, same flow, runs) |
 | amber | none | none | map | - | - | - | - | - | - | - | re-run 2026-11-05 (VTR) | generic_sram_byte_en fixed (#345); next stop: lower: module 'a23_core': '$mem' '$c2032' would create 28238599 nodes (cap 16777216) |
 
 </details>
