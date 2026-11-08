@@ -32,8 +32,8 @@ Run (iverilog), `p/` holding `wb_master.v top_tb.v IS42VM16400K.v sdram.v`:
 
     iverilog -g2005 -DMAX_ADDRESS=8192 -DPART=IS42VM16400K -s top_tb -o sim.vvp p/*.v && vvp sim.vvp
 
-Odin III: not run to the end. `read_verilog sdram.v` stops with
-`sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined` (also `IOBUF`): the DUT instance
-in the testbench sets `SDRAM_TARGET("SIMULATION")`, a parameter override on the DUT instance, which the
-sim_tb subset does not accept, and the default target needs Xilinx primitives. With `--auto-blackbox` the
-read passes and `sim_tb` of the testbench is refused: `top_tb.v:58: unsupported: compiler directive` (the `MAX_ADDRESS` macro; the testbench also has an inout bus, tasks and a model with delays).
+Odin III 1.5.0: not run to the end. `read_verilog sdram.v` stops with
+`sdram.v:689:5: error: unresolved_module: module 'ODDR2' is not defined` (also `IOBUF`; `read_verilog --vendor-prims`
+supplies behavioural models for these). The compiler directives of the bench are handled now; `sim_tb` of the
+memory model stops at `IS42VM16400K.v:58` (`parameter tAC3 = 5.5;`, a `real`). The other constructs of the bench
+(DUT parameter override, `inout` bus, `specify`, SystemVerilog) were not reached.

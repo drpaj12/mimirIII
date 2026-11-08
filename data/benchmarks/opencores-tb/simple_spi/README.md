@@ -23,5 +23,10 @@ Run (iverilog 2005 mode; `do` is a keyword in SystemVerilog):
 
 (the patch is made with `a/bench/verilog/` paths: apply with `-p1` from a tree that has `bench/verilog/`).
 iverilog prints two "procedural continuous assignments" warnings for the bench's `force`.
-Odin III `sim_tb` refuses the bench: `tst_bench_top.v:50: unsupported: compiler directive`
-(it also uses tasks, `force` and a DUT parameter override, none in the sim_tb subset).
+Odin III 1.5.0 passes, text equal to iverilog (about 2 s, release build; `force`, testbench-side modules
+`wb_master_model` / `spi_slave_model` and the `include` directives are supported). In a directory with the patched
+bench, `timescale.v`, `fifo4.v`, `simple_spi_top.v`:
+
+    odin3 -p "read_verilog fifo4.v simple_spi_top.v; proc; opt; lower --keep-sel --async keep; sim_tb --out run.txt -I . tst_bench_top.v wb_master_model.v spi_slave_model.v"
+
+`lower --async keep` is needed: the bench pulses the asynchronous reset for less than one clock edge.

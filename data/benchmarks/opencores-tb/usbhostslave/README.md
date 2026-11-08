@@ -16,6 +16,6 @@ Run (iverilog 2005 mode), in a copy of the project with the patched file list, f
 
     iverilog -g2005 -o testHarness -cfilelistSepHostSlave.icarus && vvp testHarness
 
-Odin III: not run to the end. Reading the RTL list without include directories stops at
-`include_not_found: 'timescale.v'`; the bench uses includes, tasks and hierarchical references, outside
-the sim_tb subset (not tried further).
+Odin III 1.5.0: refused at `sepHostSlaveTestHarness.v:49` (`@*`). Behind it the bench has ten `defparam` onto DUT
+instances and uses macros defined in the RTL's `_h.v` headers, so those headers must be listed first with
+`-I` / `-f`. Not run to the end.
