@@ -844,7 +844,7 @@ mcnc20	tseng	vtr_mult	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_pins	174	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 opencores	a-z80	desc	A-Z80 CPU	https://opencores.org/projects/a-z80
 opencores	a-z80	licence	GPL-2.0 in license.txt; several files carry an Altera header; OpenCores page says LGPL: mismatch, flagged	license.txt:1-2; cpu/alu/alu.v:1-10 of opencores.org/ocsvn/a-z80/a-z80/trunk svn r22
-opencores	a-z80	note	needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them)	r3 reruns, odin3 1.4.0 (19f5c918) rel-main3, 2026-11-05
+opencores	a-z80	note	needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them); see a-z80-modified (mux-driven bus variant, same flow, runs)	r3 reruns, odin3 1.4.0 (19f5c918) rel-main3, 2026-11-05
 opencores	a-z80	oc_design_done	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80	oc_fpga_proven	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80	oc_stage	stable	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
@@ -858,6 +858,31 @@ opencores	a-z80	vec	0	not scanned
 opencores	a-z80	vtr_maxrss_kb	40000	/usr/bin/time over the run steps
 opencores	a-z80	vtr_msg	coremodules.vh:404:10: error: net 'db1[0]' is driven by inout port 'db' of instance 'alu_flags_' and by logic at coremodules.vh:325:10; internal tri-state nets are not supported (D3)	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
 opencores	a-z80	vtr_stage	none	odin3-flow (odin3 map + VPR, k6_frac_N10_frac_chain_mem32K_40nm, seed 1)
+opencores	a-z80-modified	desc	A-Z80 CPU (modified: mux-driven internal data bus, no tri-state)	https://opencores.org/projects/a-z80
+opencores	a-z80-modified	licence	GPL-2.0 in license.txt; several files carry an Altera header; OpenCores page says LGPL: mismatch, flagged	license.txt:1-2; cpu/alu/alu.v:1-10 of opencores.org/ocsvn/a-z80/a-z80/trunk svn r22
+opencores	a-z80-modified	note	modified: mux-driven internal data bus; bidirectional nets split into one-way signals, D split into D_in/D_out/D_oe, pins_oe exported; every changed line commented; matches upstream a-z80 under iverilog on 5 programs	data/benchmarks/opencores-synth/README.md (a-z80-modified)
+opencores	a-z80-modified	oc_design_done	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80-modified	oc_fpga_proven	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80-modified	oc_stage	stable	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
+opencores	a-z80-modified	prov	2026-11-08 (rel-v150)	status label, 2026-11-08; odin3 1.5.0 build/rel-v150
+opencores	a-z80-modified	sim_iverilog	pass	data/benchmarks/opencores-tb/a-z80: upstream vs modified, 5 programs, 0 pin-trace mismatches, one-driver check 0 violations (2026-11-08)
+opencores	a-z80-modified	sim_odin	none	no testbench for Odin III sim_tb on this design
+opencores	a-z80-modified	src_rev	opencores.org/ocsvn/a-z80/a-z80/trunk svn r22	https://opencores.org/projects/a-z80; tree hash = sha256 of sorted 'relpath sha256' lines of the 39 RTL files read
+opencores	a-z80-modified	synth_origin	mimir-patched	data/benchmarks/opencores-synth/a-z80-modified (15 patches; upstream clone untouched)
+opencores	a-z80-modified	tb	data/benchmarks/opencores-tb/a-z80	compare bench of the a-z80-modified lane (upstream models tb_ram/tb_io/tb_iorq are read from the upstream clone)
+opencores	a-z80-modified	tb_origin	mimir-written	compare bench + project RAM/IO models, hello_world program of the project and mimir-written programs
+opencores	a-z80-modified	vec	0	not scanned
+opencores	a-z80-modified	vtr_blocks	193	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_cpd	11.3704	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_cw	68	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_ffs	365	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_luts	2016	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_maxrss_kb	120764	/usr/bin/time over the run steps
+opencores	a-z80-modified	vtr_mem	0	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_mult	0	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_note	synthesised from the mimir-patched variant a-z80-modified; 0 tri-state warnings and no $tribuf cells in the Odin III log; Fmax 87.95 MHz (1/crit_path); odin3 59.6 s + VPR 16.2 s, wall 76.5 s on a loaded host; pins = 14 in + 34 out (D split, A, pins_oe)	odin3-flow summary.json (az80-runs/flow-mod), 2026-11-08
+opencores	a-z80-modified	vtr_pins	48	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
+opencores	a-z80-modified	vtr_stage	timing	odin3-flow + VPR seed 1, k6_frac_N10_frac_chain_mem32K_40nm, odin3 1.5.0 (78ab7e2c) build/rel-v150, 2026-11-08 (az80-runs/flow-mod)
 opencores	amber	desc	Amber ARM-compatible core	https://opencores.org/projects/amber
 opencores	amber	licence	LGPL-2.1+ (OpenCores page: LGPL)	hw/vlog/amber23/a23_core.v:24-28 of github.com/freecores/amber git 9b995cc298ec
 opencores	amber	note	generic_sram_byte_en fixed (#345); next stop: lower: module 'a23_core': '$mem' '$c2032' would create 28238599 nodes (cap 16777216)	r3 reruns, odin3 1.4.0 (19f5c918) rel-main3, 2026-11-05

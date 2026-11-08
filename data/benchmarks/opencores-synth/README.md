@@ -75,3 +75,31 @@ bus/bus_control.v 43, bus/control_pins_n.v 29, bus/data_pins.v 84, bus/data_swit
 registers/reg_file.v 457, registers/reg_latch.v 60, toplevel/core.vh 52, toplevel/coremodules.vh 86,
 toplevel/z80_top_direct_n.v 44 (1476 in all). Not patched, not part of the flow: `toplevel/z80_top_ifc_n.sv`,
 `bus/data_pins_lattice.v`, the project's own SystemVerilog benches (they use the `db` port names).
+
+### Equivalence and one-driver check (step 3, `opencores-tb/a-z80/`, iverilog 2012 mode)
+
+`run_all.sh` builds upstream and the patched copy, runs both with identical stimulus on the same program and compares
+the pin trace (cycle, clock, `A`, `D`, `nM1 nMREQ nIORQ nRD nWR nRFSH nHALT nBUSACK`, `x` and `z` included) at both
+clock edges. Stimulus: reset, a second reset mid-run, two INT pulses, two NMI pulses, two WAIT windows, two BUSRQ
+windows. RAM, I/O and interrupt-vector models are the project's own (`tb_ram.sv`, `tb_io.sv`, `tb_iorq.sv`).
+
+| program | clock edges compared | mismatches | one-driver violations |
+| --- | --- | --- | --- |
+| `hello` (the project's hello_world / IM2 interrupt test, `ram.hexdump`) | 199999 | 0 | 0 |
+| `prog2` (mimir hand-assembled: loads, 8/16-bit ALU, DAA, rotates, CB, IX/IY, stack, exchanges, block ops, I/O, IM1) | 199999 | 0 | 0 |
+| `rand1`, `rand2`, `rand3` (seeded random straight-line programs, `mkrand.py`) | 99999 each | 0 | 0 |
+
+Together the five programs fetch 243 distinct values on the M1 bus cycle (opcodes and prefixed second bytes). The
+one-driver check (`chk_onedrv.svh`, in the bench, not in the RTL) samples both clock edges and counts, per connected
+component of the segment graph, the active driver enables: at most 1 in every sample (all 800k samples); no switch
+path enabled in both directions; the five ALU internal bus enables are never active together.
+The project's FUSE test vectors (`test_fuse.vh`) force upstream port names (`reg_latch.db`, `ir.db`) and are not run on
+the variant.
+
+### Flow (step 4)
+
+`odin3-flow` + VPR seed 1, arch `k6_frac_N10_frac_chain_mem32K_40nm`, `build/rel-v150` (odin3 1.5.0, commit 78ab7e2c),
+one design in a 4 GB memory scope: completes. 2016 LUTs, 365 FFs, 193 CLBs, 48 pins, channel width 68, critical path
+11.3704 ns (87.95 MHz), Odin III 59.6 s, VPR 16.2 s, wall 76.5 s on a loaded host, peak RSS 120764 KB. The Odin III log
+has no tri-state warning and no `$tribuf` cell (`read_verilog; proc; opt; flatten; tristate` also reads it clean);
+the upstream refuses the same flow at the first internal `inout` (rel-v150: 83 tri-state warnings, then `lower` fails).
