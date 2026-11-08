@@ -38,4 +38,6 @@ pages = [
   "opencores:usbhostslave",
   "opencores:vga_lcd",
   "opencores:dblclockfft",
+  "opencores:ethmac",
+  "opencores:pipelined_fft_256",
 ]
