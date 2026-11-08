@@ -1,0 +1,60 @@
+--- a/cpu/registers/reg_latch.v
++++ b/cpu/registers/reg_latch.v
+@@ -1,3 +1,8 @@
++// MODIFIED (mimir a-z80-modified) FILE HEADER:
++//   This is the mimir variant a-z80-modified of the upstream A-Z80 core: the bidirectional/tri-state internal data buses are replaced by one-way signals and AND-OR muxes selected by the existing enables.
++//   The upstream project (OpenCores a-z80) is unchanged; this file is produced from it by a patch kept in the mimir repo.
++//   reg_latch: db split into db_in and db_out (0 when oe is off).
++
+ // Copyright (C) 1991-2013 Altera Corporation
+ // Your use of Altera Corporation's design tools, logic functions 
+ // and other software and tools, and its AMPP partner logic 
+@@ -20,35 +25,37 @@
+ 	we,
+ 	oe,
+ 	clk,
+-	db
++	db_in,
++	db_out	// MODIFIED (mimir a-z80-modified): inout db split
+ );
+ 
+ 
+ input wire	we;
+ input wire	oe;
+ input wire	clk;
+-inout wire	[7:0] db;
++input wire	[7:0] db_in;
++output wire	[7:0] db_out;	// MODIFIED (mimir a-z80-modified): inout db split
+ 
+ reg	[7:0] latch;
+ 
+ 
+ 
+ 
+-assign	db[7] = oe ? latch[7] : 1'bz;
+-assign	db[6] = oe ? latch[6] : 1'bz;
+-assign	db[5] = oe ? latch[5] : 1'bz;
+-assign	db[4] = oe ? latch[4] : 1'bz;
+-assign	db[3] = oe ? latch[3] : 1'bz;
+-assign	db[2] = oe ? latch[2] : 1'bz;
+-assign	db[1] = oe ? latch[1] : 1'bz;
+-assign	db[0] = oe ? latch[0] : 1'bz;
++assign	db_out[7] = oe ? latch[7] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[6] = oe ? latch[6] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[5] = oe ? latch[5] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[4] = oe ? latch[4] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[3] = oe ? latch[3] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[2] = oe ? latch[2] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[1] = oe ? latch[1] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
++assign	db_out[0] = oe ? latch[0] : 1'b0;	// MODIFIED (mimir a-z80-modified): tri-state 'z' replaced by 0; the value is OR-combined with the other sources by a mux in core.vh (one driver active per cycle)
+ 
+ 
+ always@(posedge clk)
+ begin
+ if (we)
+ 	begin
+-	latch[7:0] <= db[7:0];
++	latch[7:0] <= db_in[7:0];	// MODIFIED (mimir a-z80-modified): reads db_in
+ 	end
+ end
+ 

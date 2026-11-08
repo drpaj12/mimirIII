@@ -1,0 +1,29 @@
+--- a/cpu/bus/control_pins_n.v
++++ b/cpu/bus/control_pins_n.v
+@@ -1,3 +1,8 @@
++// MODIFIED (mimir a-z80-modified) FILE HEADER:
++//   This is the mimir variant a-z80-modified of the upstream A-Z80 core: the bidirectional/tri-state internal data buses are replaced by one-way signals and AND-OR muxes selected by the existing enables.
++//   The upstream project (OpenCores a-z80) is unchanged; this file is produced from it by a patch kept in the mimir repo.
++//   control_pins_n: nMREQ/nIORQ/nRD/nWR always carry their value; pin_control_oe (input kept) is exported as pins_oe at the top.
++
+ // Copyright (C) 1991-2013 Altera Corporation
+ // Your use of Altera Corporation's design tools, logic functions 
+ // and other software and tools, and its AMPP partner logic 
+@@ -86,13 +91,13 @@
+ 
+ 
+ 
+-assign	pin_nMREQ = pin_control_oe ? nMREQ_out : 1'bz;
++assign	pin_nMREQ = nMREQ_out;	// MODIFIED (mimir a-z80-modified): pin tri-state removed; the output enable is exported as pins_oe by the top module
+ 
+-assign	pin_nIORQ = pin_control_oe ? nIORQ_out : 1'bz;
++assign	pin_nIORQ = nIORQ_out;	// MODIFIED (mimir a-z80-modified): pin tri-state removed; the output enable is exported as pins_oe by the top module
+ 
+-assign	pin_nRD = pin_control_oe ? nRD_out : 1'bz;
++assign	pin_nRD = nRD_out;	// MODIFIED (mimir a-z80-modified): pin tri-state removed; the output enable is exported as pins_oe by the top module
+ 
+-assign	pin_nWR = pin_control_oe ? nWR_out : 1'bz;
++assign	pin_nWR = nWR_out;	// MODIFIED (mimir a-z80-modified): pin tri-state removed; the output enable is exported as pins_oe by the top module
+ 
+ assign	busrq =  ~pin_nBUSRQ;
+ 

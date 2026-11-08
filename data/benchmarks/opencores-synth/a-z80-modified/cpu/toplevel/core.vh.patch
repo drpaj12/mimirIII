@@ -1,0 +1,52 @@
+--- a/cpu/toplevel/core.vh
++++ b/cpu/toplevel/core.vh
+@@ -1,3 +1,8 @@
++// MODIFIED (mimir a-z80-modified) FILE HEADER:
++//   This is the mimir variant a-z80-modified of the upstream A-Z80 core: the bidirectional/tri-state internal data buses are replaced by one-way signals and AND-OR muxes selected by the existing enables.
++//   The upstream project (OpenCores a-z80) is unchanged; this file is produced from it by a patch kept in the mimir repo.
++//   core.vh: the db0/db1/db2 segments are wires carrying the resolved value; the former switches and tri-state drivers are one-way muxes below.
++
+ //============================================================================
+ // A-Z80 core, instantiates and connects all internal blocks.
+ //
+@@ -20,6 +25,13 @@
+ wire [7:0] db0;         // Segment connecting data pins and IR
+ wire [7:0] db1;         // Segment leading to the ALU
+ wire [7:0] db2;         // Segment with msb part of the register address-side interface
++wire [7:0] dp_db_out, bc_db_out, ac_db_out, af_db_out, alu_db_out;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [7:0] rf_lo_ds_out, rf_hi_ds_out, rf_lo_ds_in, rf_hi_ds_in;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [7:0] rf_lo_as_v, rf_hi_as_v;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [15:0] al_abus_out;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [7:0] sw1_up_out, sw1_down_out, sw2_up_out, sw2_down_out;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [7:0] db0_noalu, db2_noalu;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
++wire [7:0] l_s0, l_s1, m_s1_to_s0, m_s1_to_s2, m_s2_to_s1;	// MODIFIED (mimir a-z80-modified): one-way driver / message wires of the muxed internal data bus
+ 
+ wire [7:0] db_hi_as;    // Register file data bus segment high byte
+ wire [7:0] db_lo_as;    // Register file data bus segment low byte
+@@ -33,10 +45,22 @@
+ `include "coremodules.vh"
+ 
+ // Data path within the CPU in various forms, ending with data pins
+-data_switch sw2_( .sw_up_en(bus_sw_2u), .sw_down_en(bus_sw_2d), .db_up(db1[7:0]), .db_down(db2[7:0]) );
+-
+-// Data switch SW1 with the data mask
+-data_switch_mask sw1_( .sw_mask543_en(bus_sw_mask543_en), .sw_up_en(bus_sw_1u), .sw_down_en(bus_sw_1d), .db_up(db0[7:0]), .db_down(db1[7:0]) );
++// Data path within the CPU: the three segments are now plain wires holding the value of the segment.
++// Each is the OR of the gated sources reachable through the (one-way) switch paths; the upstream tri-state nets resolved the same way.
++assign l_s0 = dp_db_out | bc_db_out;	// sources local to db0: data pins register, FF/00 constant driver	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign l_s1 = ac_db_out | af_db_out;	// sources local to db1: DAA/66 constant, flags	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign m_s1_to_s0 = l_s1 | rf_lo_ds_out | sw2_up_out;	// everything db1 offers to db0 (sources on db1 and beyond sw2/reg_file)	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign m_s1_to_s2 = l_s1 | rf_lo_ds_out | sw1_down_out;	// everything db1 offers to db2	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign m_s2_to_s1 = alu_db_out | rf_hi_ds_out;	// everything db2 offers to db1	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign db0 = l_s0 | sw1_up_out;	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign db1 = l_s1 | rf_lo_ds_out | sw1_down_out | sw2_up_out;	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign db2 = alu_db_out | rf_hi_ds_out | sw2_down_out;	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign rf_lo_ds_in = l_s1 | sw1_down_out | sw2_up_out;	// db1 value as seen by reg_file (without its own driver: no comb loop)	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign rf_hi_ds_in = alu_db_out | sw2_down_out;	// db2 value as seen by reg_file (without its own driver)	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign db2_noalu = rf_hi_ds_out | sw2_down_out;	// db2 without the ALU driver: the shifter input (the upstream shifter+ALU driver loop is never enabled)	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++assign db0_noalu = l_s0 | (bus_sw_1u ? (l_s1 | rf_lo_ds_out | (bus_sw_2u ? rf_hi_ds_out : 8'b0)) : 8'b0);	// db0 without the ALU path: the bit-select input	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++data_switch sw2_( .sw_up_en(bus_sw_2u), .sw_down_en(bus_sw_2d), .db_up_in(m_s1_to_s2), .db_down_in(m_s2_to_s1), .db_up_out(sw2_up_out), .db_down_out(sw2_down_out) );	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
++data_switch_mask sw1_( .sw_mask543_en(bus_sw_mask543_en), .sw_up_en(bus_sw_1u), .sw_down_en(bus_sw_1d), .db_up_in(l_s0), .db_down_in(m_s1_to_s0), .db_up_out(sw1_up_out), .db_down_out(sw1_down_out) );	// MODIFIED (mimir a-z80-modified): tri-state net becomes a mux of one-way messages
+ 
+ /* This SystemVerilog-style code is kept for future reference
+ // Control block

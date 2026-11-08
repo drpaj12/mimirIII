@@ -1,0 +1,44 @@
+--- a/cpu/toplevel/z80_top_direct_n.v
++++ b/cpu/toplevel/z80_top_direct_n.v
+@@ -1,3 +1,8 @@
++// MODIFIED (mimir a-z80-modified) FILE HEADER:
++//   This is the mimir variant a-z80-modified of the upstream A-Z80 core: the bidirectional/tri-state internal data buses are replaced by one-way signals and AND-OR muxes selected by the existing enables.
++//   The upstream project (OpenCores a-z80) is unchanged; this file is produced from it by a patch kept in the mimir repo.
++//   z80_top_direct_n: D is split into D_in/D_out/D_oe and the output enable of A/nMREQ/nIORQ/nRD/nWR is exported as pins_oe. Wrap them back to pins in a bench.
++
+ //============================================================================
+ // Z80 Top level using the direct module declaration
+ //============================================================================
+@@ -21,13 +26,17 @@
+ 
+     input wire CLK,
+     output wire [15:0] A,
+-    inout wire [7:0] D
++    input wire [7:0] D_in,
++    output wire [7:0] D_out,
++    output wire D_oe,
++    output wire pins_oe	// MODIFIED (mimir a-z80-modified): chip data bus split into D_in/D_out/D_oe; pins_oe = enable of the A, nMREQ, nIORQ, nRD, nWR outputs (high-Z on the original chip)
+ );
+ 
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ // Include core A-Z80 level connecting all internal modules
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ `include "core.vh"
++assign pins_oe = pin_control_oe;	// MODIFIED (mimir a-z80-modified): exported enable for the address and control output pins (replaces their z state)
+ 
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ // Address, Data and Control bus drivers connecting to external pins
+@@ -46,8 +55,11 @@
+     .ctl_bus_db_we  (ctl_bus_db_we),
+     .ctl_bus_db_oe  (ctl_bus_db_oe),
+     .clk            (clk),
+-    .db             (db0),
+-    .D              (D)
++    .db_in          (db0),
++    .db_out         (dp_db_out),	// MODIFIED (mimir a-z80-modified): data_pins db split
++    .D_in           (D_in),
++    .D_out          (D_out),
++    .D_oe           (D_oe)	// MODIFIED (mimir a-z80-modified): data_pins D split
+ );
+ 
+ control_pins_n control_pins_(
