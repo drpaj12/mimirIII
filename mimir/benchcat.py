@@ -33,6 +33,7 @@ KEYS = (
     + ["g_gates", "g_depth", "l4_luts", "l4_depth", "l6_luts", "l6_depth"]
     + ["si_cells", "si_area", "si_lvs", "si_stage"]
     + ["pw_src", "pw_fpga_pjc", "pw_asic_pjc", "pw_freq_mhz", "pw_note"]
+    + ["pw_vl_p1", "pw_vl_d", "pw_vl_nets", "pw_vl_src"]
     + ["prov", "note"]
 )
 CHECK_KEYS = {f"chk_{c}" for c in CHECKS} | {"vec", "sim_iverilog", "sim_odin"}
@@ -216,6 +217,8 @@ LABELS = {
     "cells": "cells", "area": "core um2", "lvs": "LVS", "sstage": "Si stage",
     "pwsrc": "activity", "pwf": "FPGA pJ/cycle", "pwa": "ASIC pJ/cycle", "pwmhz": "FPGA MHz",
     "pwnote": "power note",
+    "vlp1": "vectorless mean P1", "vld": "vectorless mean density", "vlnets": "vectorless nets",
+    "vlsrc": "vectorless source",
     "prov": "status", "note": "note",
 }
 GROUPS = {
@@ -225,7 +228,7 @@ GROUPS = {
     "LUT forms": ["design", "gates", "l4", "l6"],
     "Properties": ["design", *CHECKS],
     "Silicon": ["design", "cells", "area", "lvs", "sstage"],
-    "Power": ["design", "pwsrc", "pwf", "pwa", "pwmhz", "pwnote"],
+    "Power": ["design", "pwsrc", "pwf", "pwa", "pwmhz", "pwnote", "vlp1", "vld", "vlnets", "vlsrc"],
 }
 
 
@@ -246,6 +249,8 @@ def fields(row: Row, html: bool = False) -> dict[str, str]:
         "cells": g["si_cells"], "area": g["si_area"], "lvs": g["si_lvs"], "sstage": g["si_stage"],
         "pwsrc": g["pw_src"], "pwf": g["pw_fpga_pjc"], "pwa": g["pw_asic_pjc"],
         "pwmhz": g["pw_freq_mhz"], "pwnote": g["pw_note"],
+        "vlp1": g["pw_vl_p1"], "vld": g["pw_vl_d"], "vlnets": g["pw_vl_nets"],
+        "vlsrc": g["pw_vl_src"],
         "prov": g["prov"], "note": g["note"],
         **{c: g[f"chk_{c}"] for c in CHECKS},
     }
@@ -293,10 +298,12 @@ def _summary(rows: list[Row]) -> list[str]:
 
 def sub_tables(rows: list[Row]) -> dict[str, list[str]]:
     """One narrow table per group; every table has the same rows in the same order and
-    `design` as its first column. The Power table appears only where a row has a power run."""
+    `design` as its first column. The Power table appears only where a row has a power run or a
+    vectorless activity."""
     out: dict[str, list[str]] = {}
     for name, cols in GROUPS.items():
-        if name == "Power" and not any("pw_src" in r.vals for r in rows):
+        has_pw = any(k in r.vals for r in rows for k in ("pw_src", "pw_vl_p1"))
+        if name == "Power" and not has_pw:
             continue  # no power run among these rows: no empty table
         head = [LABELS[c] for c in cols]
         lines = ["| " + " | ".join(head) + " |", "|" + "---|" * len(cols)]

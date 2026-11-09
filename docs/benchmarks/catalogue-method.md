@@ -6,7 +6,7 @@ value, the source says where it came from). Collectors: `mimir bench measure vtr
 runs are added by `mimir bench measure odin` (Phase 2, below). Empty cell `-` = not run, `n/a` = does not
 apply, `fail: <reason>` = the tool failed. No value is estimated.
 
-Rows: 429 = one per design of `designs.tsv`, except that `vtr-blif-k2` and `vtr-blif-k4` hold the same
+Rows: 513 = one per design of `designs.tsv`, except that `vtr-blif-k2` and `vtr-blif-k4` hold the same
 circuits and are one section, one row per circuit name present in either (rule: equal design name; 199
 names; format column says `blif (k2,k4)`). Values for a joined row are looked up in k4 first, then k2.
 
@@ -169,7 +169,17 @@ energy, not power; compare trends, not absolute pJ across technologies):
 `-` = not run. Known limit: VPR's power model has no `adder` model, so soft-adder carry chains add no power in
 the FPGA figure.
 `--suite S` resolves a directory name that exists in several suites to S (`des` is in four; the Bifrost run is the
-OpenCores one: `--suite opencores`). The 15 Odin III micro designs (`bm_*`) of the power runs are not a registered
-suite, so they have no catalogue row; registering them is a follow-up. A column for the Odin III vectorless
-(`activity` pass, source `odin3-vectorless`) activity statistics is a follow-up too: the measures table has no
-key for it yet.
+OpenCores one: `--suite opencores`). The 15 Odin III micro designs (`bm_*`) of the power runs are the
+suite `odin3-micro` (all 58 `bm_*.v` of the VTR odin_ii regression micro directory are registered; the 15 have power
+rows and Heimdall III pages).
+
+## Vectorless activity columns (Odin III, 2026-11-09)
+
+Collector: `mimir bench measure activity --root <dir of <design>/odin3-activity.json> --label <run and Odin III version>`.
+The files are `odin3 activity --name-style hash --json` of the design's mapped netlist (Odin III 1.6.0, rel-v160;
+analytic, no vectors; primary inputs P1 0.5, density 0.2). Columns (table group `Power`):
+- `pw_vl_p1`, `pw_vl_d`: mean P1 and mean transition density over all nets of the file (primary inputs included),
+  4 decimals. `pw_vl_nets`: the net count. `pw_vl_src`: source label and the primary-input settings.
+The measures `source` field names the run, the Odin III version and the file. These are activity statistics, not
+a power claim; the power columns above stay Bifrost's (power tracks area; no new power claim is made here).
+Filled for the 53 designs that have an `odin3-vectorless` result among the Heimdall III pages.

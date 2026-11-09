@@ -9,7 +9,7 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and the VTR flow reaches `route` with timing (`vtr_stage`) | 0 |
 | T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 25 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
-| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 55 |
+| T3 HDL, no testbench | HDL (Verilog) with no testbench file | 113 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
 
 | suite | designs |
@@ -17,11 +17,12 @@ One sortable, filterable table with a top scrollbar: [catalogue.html](https://dr
 | brisc-v | 1 |
 | itc99 | 21 |
 | mcnc20 | 20 |
+| odin3-micro | 58 |
 | opencores | 27 |
 | verilogeval | 156 |
 | vtr-blif | 199 |
 | vtr-verilog | 31 |
-| total | 455 |
+| total | 513 |
 
 ## OpenCores: designs to pick from
 
@@ -219,33 +220,33 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 <details><summary>Power</summary>
 
-| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
-|---|---|---|---|---|---|
-| dblclockfft | ace2 | 3355 | - | 194.4 | matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| vga_lcd | - | - | - | - | - |
-| ethmac | - | - | - | - | - |
-| usbhostslave | ace2 | 245.8 | - | 195.9 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| sha3_high | - | - | - | - | - |
-| sha3_low | - | - | - | - | - |
-| reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| a-z80-modified | - | - | - | - | - |
-| des | ace2 | 211.9 | - | 266.1 | matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
-| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz |
-| uart2spi | ace2 | 22.81 | - | 313.4 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| mips_16_noxarm | ace2 | 26.02 | - | 177.4 | matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| i2c | ace2 | 12.54 | - | 354.5 | matched 0.679; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| sdram_16bit | ace2 | 14.92 | - | 255.5 | matched 0.710; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| i2cslave | ace2 | 4.717 | - | 424.6 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| simple_spi | ace2 | 5.936 | - | 403.6 | matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| ca_prng | ace2 | 9.149 | - | 444.8 | matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| mmuart | iverilog-gate | 4.713 | 5.14 | 438.4 | matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
-| mips_16 | ace2 | 4.934 | - | 248.7 | matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| quartus_project_revert_timer | - | - | - | - | - |
-| pipelined_fft_256 | ace2 | 530.5 | - | 145.8 | matched 0.729; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| tiny_aes | - | - | - | - | - |
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
+|---|---|---|---|---|---|---|---|---|---|
+| dblclockfft | ace2 | 3355 | - | 194.4 | matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3748 | 0.2488 | 107891 | odin3-vectorless; PI p=0.5 density=0.2 |
+| vga_lcd | - | - | - | - | - | 0.4581 | 0.0286 | 42029 | odin3-vectorless; PI p=0.5 density=0.2 |
+| ethmac | - | - | - | - | - | 0.4207 | 0.0424 | 28038 | odin3-vectorless; PI p=0.5 density=0.2 |
+| usbhostslave | ace2 | 245.8 | - | 195.9 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3768 | 0.0022 | 18504 | odin3-vectorless; PI p=0.5 density=0.2 |
+| sha3_high | - | - | - | - | - | 0.2999 | 0.0056 | 10106 | odin3-vectorless; PI p=0.5 density=0.2 |
+| sha3_low | - | - | - | - | - | 0.2196 | 0.0059 | 7317 | odin3-vectorless; PI p=0.5 density=0.2 |
+| reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2050 | 0.0398 | 10999 | odin3-vectorless; PI p=0.5 density=0.2 |
+| a-z80-modified | - | - | - | - | - | 0.4294 | 0.0466 | 2422 | odin3-vectorless; PI p=0.5 density=0.2 |
+| des | ace2 | 211.9 | - | 266.1 | matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5022 | 0.4074 | 3983 | odin3-vectorless; PI p=0.5 density=0.2 |
+| sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3670 | 0.0827 | 3671 | odin3-vectorless; PI p=0.5 density=0.2 |
+| verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3492 | 0.3300 | 3669 | odin3-vectorless; PI p=0.5 density=0.2 |
+| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz | 0.4208 | 0.0276 | 1906 | odin3-vectorless; PI p=0.5 density=0.2 |
+| uart2spi | ace2 | 22.81 | - | 313.4 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2642 | 0.0798 | 1357 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mips_16_noxarm | ace2 | 26.02 | - | 177.4 | matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2118 | 0.0384 | 950 | odin3-vectorless; PI p=0.5 density=0.2 |
+| spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2627 | 0.0441 | 1009 | odin3-vectorless; PI p=0.5 density=0.2 |
+| i2c | ace2 | 12.54 | - | 354.5 | matched 0.679; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3587 | 0.0753 | 630 | odin3-vectorless; PI p=0.5 density=0.2 |
+| sdram_16bit | ace2 | 14.92 | - | 255.5 | matched 0.710; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2784 | 0.0736 | 639 | odin3-vectorless; PI p=0.5 density=0.2 |
+| i2cslave | ace2 | 4.717 | - | 424.6 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4340 | 0.0238 | 376 | odin3-vectorless; PI p=0.5 density=0.2 |
+| simple_spi | ace2 | 5.936 | - | 403.6 | matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3012 | 0.0481 | 417 | odin3-vectorless; PI p=0.5 density=0.2 |
+| ca_prng | ace2 | 9.149 | - | 444.8 | matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3939 | 0.2985 | 243 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mmuart | iverilog-gate | 4.713 | 5.14 | 438.4 | matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3157 | 0.0474 | 411 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mips_16 | ace2 | 4.934 | - | 248.7 | matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.1383 | 0.0898 | 181 | odin3-vectorless; PI p=0.5 density=0.2 |
+| quartus_project_revert_timer | - | - | - | - | - | - | - | - | - |
+| pipelined_fft_256 | ace2 | 530.5 | - | 145.8 | matched 0.729; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4925 | 0.2054 | 21009 | odin3-vectorless; PI p=0.5 density=0.2 |
+| tiny_aes | - | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1066,164 +1067,164 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 <details><summary>Power</summary>
 
-| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
-|---|---|---|---|---|---|
-| Prob144_conwaylife | - | - | - | - | - |
-| Prob030_popcount255 | - | - | - | - | - |
-| Prob153_gshare | - | - | - | - | - |
-| Prob108_rule90 | - | - | - | - | - |
-| Prob124_rule110 | - | - | - | - | - |
-| Prob021_mux256to1v | - | - | - | - | - |
-| Prob092_gatesv100 | - | - | - | - | - |
-| Prob105_rotate100 | - | - | - | - | - |
-| Prob115_shift18 | - | - | - | - | - |
-| Prob018_mux256to1 | - | - | - | - | - |
-| Prob017_mux2to1v | - | - | - | - | - |
-| Prob097_mux9to1v | - | - | - | - | - |
-| Prob052_gates100 | - | - | - | - | - |
-| Prob055_conditional | - | - | - | - | - |
-| Prob141_count_clock | ace2 | 2.054 | - | 471.7 | matched 0.807; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob066_edgecapture | - | - | - | - | - |
-| Prob082_lfsr32 | - | - | - | - | - |
-| Prob118_history_shift | - | - | - | - | - |
-| Prob154_fsm_ps2data | - | - | - | - | - |
-| Prob068_countbcd | - | - | - | - | - |
-| Prob123_bugs_addsubz | ace2 | 1.528 | - | 387.7 | matched 0.935; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob043_vector5 | ace2 | 1.707 | - | 857.2 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob146_fsm_serialdata | - | - | - | - | - |
-| Prob080_timer | - | - | - | - | - |
-| Prob155_lemmings4 | - | - | - | - | - |
-| Prob073_dff16e | - | - | - | - | - |
-| Prob126_circuit6 | - | - | - | - | - |
-| Prob037_review2015_count1k | - | - | - | - | - |
-| Prob033_ece241_2014_q1c | - | - | - | - | - |
-| Prob114_bugs_case | - | - | - | - | - |
-| Prob143_fsm_onehot | - | - | - | - | - |
-| Prob076_always_case | - | - | - | - | - |
-| Prob137_fsm_serial | - | - | - | - | - |
-| Prob084_ece241_2013_q12 | - | - | - | - | - |
-| Prob140_fsm_hdlc | - | - | - | - | - |
-| Prob149_ece241_2013_q4 | - | - | - | - | - |
-| Prob044_vectorgates | - | - | - | - | - |
-| Prob094_gatesv | - | - | - | - | - |
-| Prob106_always_nolatches | - | - | - | - | - |
-| Prob046_dff8p | - | - | - | - | - |
-| Prob130_circuit5 | - | - | - | - | - |
-| Prob133_2014_q3fsm | - | - | - | - | - |
-| Prob139_2013_q2bfsm | - | - | - | - | - |
-| Prob041_dff8r | - | - | - | - | - |
-| Prob045_edgedetect2 | - | - | - | - | - |
-| Prob047_dff8ar | - | - | - | - | - |
-| Prob054_edgedetect | - | - | - | - | - |
-| Prob062_bugs_mux2 | - | - | - | - | - |
-| Prob087_gates | - | - | - | - | - |
-| Prob136_m2014_q6 | - | - | - | - | - |
-| Prob138_2012_q2fsm | - | - | - | - | - |
-| Prob016_m2014_q4j | ace2 | 0.6545 | - | 653.3 | matched 0.900; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob121_2014_q3bfsm | - | - | - | - | - |
-| Prob152_lemmings3 | - | - | - | - | - |
-| Prob086_lfsr5 | - | - | - | - | - |
-| Prob096_review2015_fsmseq | - | - | - | - | - |
-| Prob148_2013_q2afsm | - | - | - | - | - |
-| Prob150_review2015_fsmonehot | ace2 | 0.7253 | - | 958.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob035_count1to10 | - | - | - | - | - |
-| Prob038_count15 | - | - | - | - | - |
-| Prob040_count10 | - | - | - | - | - |
-| Prob060_m2014_q4k | - | - | - | - | - |
-| Prob063_review2015_shiftcount | - | - | - | - | - |
-| Prob067_countslow | - | - | - | - | - |
-| Prob079_fsm3onehot | - | - | - | - | - |
-| Prob085_shift4 | ace2 | 0.6309 | - | 1650.0 | matched 0.733; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob095_review2015_fsmshift | - | - | - | - | - |
-| Prob120_fsm3s | - | - | - | - | - |
-| Prob128_fsm_ps2 | - | - | - | - | - |
-| Prob142_lemmings2 | - | - | - | - | - |
-| Prob051_gates4 | - | - | - | - | - |
-| Prob072_thermostat | - | - | - | - | - |
-| Prob074_ece241_2014_q4 | - | - | - | - | - |
-| Prob089_ece241_2014_q5a | - | - | - | - | - |
-| Prob093_ece241_2014_q3 | - | - | - | - | - |
-| Prob100_fsm3comb | - | - | - | - | - |
-| Prob117_circuit9 | - | - | - | - | - |
-| Prob119_fsm3 | - | - | - | - | - |
-| Prob129_ece241_2013_q8 | - | - | - | - | - |
-| Prob009_popcount3 | ace2 | 0.9534 | - | 453.3 | matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob024_hadd | ace2 | 0.4248 | - | 743.6 | matched 0.923; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob025_reduction | ace2 | 0.5859 | - | 834.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob027_fadd | - | - | - | - | - |
-| Prob036_ringer | - | - | - | - | - |
-| Prob058_alwaysblock2 | - | - | - | - | - |
-| Prob065_7420 | - | - | - | - | - |
-| Prob070_ece241_2013_q2 | - | - | - | - | - |
-| Prob075_counter_2bc | - | - | - | - | - |
-| Prob077_wire_decl | - | - | - | - | - |
-| Prob078_dualedge | - | - | - | - | - |
-| Prob081_7458 | - | - | - | - | - |
-| Prob088_ece241_2014_q5b | - | - | - | - | - |
-| Prob091_2012_q2b | - | - | - | - | - |
-| Prob099_m2014_q6c | - | - | - | - | - |
-| Prob112_always_case2 | - | - | - | - | - |
-| Prob127_lemmings1 | - | - | - | - | - |
-| Prob134_2014_q3c | - | - | - | - | - |
-| Prob147_circuit10 | - | - | - | - | - |
-| Prob005_notgate | - | - | - | - | - |
-| Prob010_mt2015_q4a | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob011_norgate | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob012_xnorgate | ace2 | 0.3922 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| Prob013_m2014_q4e | - | - | - | - | - |
-| Prob014_andgate | - | - | - | - | - |
-| Prob019_m2014_q4f | - | - | - | - | - |
-| Prob020_mt2015_eq2 | - | - | - | - | - |
-| Prob022_mux2to1 | - | - | - | - | - |
-| Prob026_alwaysblock1 | - | - | - | - | - |
-| Prob029_m2014_q4g | - | - | - | - | - |
-| Prob039_always_if | - | - | - | - | - |
-| Prob048_m2014_q4c | - | - | - | - | - |
-| Prob049_m2014_q4b | - | - | - | - | - |
-| Prob050_kmap1 | - | - | - | - | - |
-| Prob053_m2014_q4d | - | - | - | - | - |
-| Prob056_ece241_2013_q7 | - | - | - | - | - |
-| Prob057_kmap2 | - | - | - | - | - |
-| Prob061_2014_q4a | - | - | - | - | - |
-| Prob069_truthtable1 | - | - | - | - | - |
-| Prob083_mt2015_q4b | - | - | - | - | - |
-| Prob090_circuit1 | - | - | - | - | - |
-| Prob098_circuit7 | - | - | - | - | - |
-| Prob101_circuit4 | - | - | - | - | - |
-| Prob102_circuit3 | - | - | - | - | - |
-| Prob103_circuit2 | - | - | - | - | - |
-| Prob104_mt2015_muxdff | - | - | - | - | - |
-| Prob107_fsm1s | - | - | - | - | - |
-| Prob109_fsm1 | - | - | - | - | - |
-| Prob110_fsm2 | - | - | - | - | - |
-| Prob111_fsm2s | - | - | - | - | - |
-| Prob113_2012_q1g | - | - | - | - | - |
-| Prob116_m2014_q3 | - | - | - | - | - |
-| Prob122_kmap4 | - | - | - | - | - |
-| Prob125_kmap3 | - | - | - | - | - |
-| Prob131_mt2015_q4 | - | - | - | - | - |
-| Prob132_always_if2 | - | - | - | - | - |
-| Prob135_m2014_q6b | - | - | - | - | - |
-| Prob145_circuit8 | - | - | - | - | - |
-| Prob001_zero | - | - | - | - | - |
-| Prob002_m2014_q4i | - | - | - | - | - |
-| Prob003_step_one | - | - | - | - | - |
-| Prob004_vector2 | - | - | - | - | - |
-| Prob006_vectorr | - | - | - | - | - |
-| Prob007_wire | - | - | - | - | - |
-| Prob008_m2014_q4h | - | - | - | - | - |
-| Prob015_vector1 | - | - | - | - | - |
-| Prob023_vector100r | - | - | - | - | - |
-| Prob028_m2014_q4a | - | - | - | - | - |
-| Prob031_dff | - | - | - | - | - |
-| Prob032_vector0 | - | - | - | - | - |
-| Prob034_dff8 | - | - | - | - | - |
-| Prob042_vector4 | - | - | - | - | - |
-| Prob059_wire4 | - | - | - | - | - |
-| Prob064_vector3 | - | - | - | - | - |
-| Prob071_always_casez | - | - | - | - | - |
-| Prob156_review2015_fancytimer | - | - | - | - | - |
-| Prob151_review2015_fsm | - | - | - | - | - |
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
+|---|---|---|---|---|---|---|---|---|---|
+| Prob144_conwaylife | - | - | - | - | - | - | - | - | - |
+| Prob030_popcount255 | - | - | - | - | - | - | - | - | - |
+| Prob153_gshare | - | - | - | - | - | - | - | - | - |
+| Prob108_rule90 | - | - | - | - | - | - | - | - | - |
+| Prob124_rule110 | - | - | - | - | - | - | - | - | - |
+| Prob021_mux256to1v | - | - | - | - | - | - | - | - | - |
+| Prob092_gatesv100 | - | - | - | - | - | - | - | - | - |
+| Prob105_rotate100 | - | - | - | - | - | - | - | - | - |
+| Prob115_shift18 | - | - | - | - | - | - | - | - | - |
+| Prob018_mux256to1 | - | - | - | - | - | - | - | - | - |
+| Prob017_mux2to1v | - | - | - | - | - | - | - | - | - |
+| Prob097_mux9to1v | - | - | - | - | - | - | - | - | - |
+| Prob052_gates100 | - | - | - | - | - | - | - | - | - |
+| Prob055_conditional | - | - | - | - | - | - | - | - | - |
+| Prob141_count_clock | ace2 | 2.054 | - | 471.7 | matched 0.807; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.1719 | 0.0321 | 143 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob066_edgecapture | - | - | - | - | - | - | - | - | - |
+| Prob082_lfsr32 | - | - | - | - | - | - | - | - | - |
+| Prob118_history_shift | - | - | - | - | - | - | - | - | - |
+| Prob154_fsm_ps2data | - | - | - | - | - | - | - | - | - |
+| Prob068_countbcd | - | - | - | - | - | - | - | - | - |
+| Prob123_bugs_addsubz | ace2 | 1.528 | - | 387.7 | matched 0.935; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4844 | 0.2779 | 59 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob043_vector5 | ace2 | 1.707 | - | 857.2 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5968 | 0.2387 | 31 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob146_fsm_serialdata | - | - | - | - | - | - | - | - | - |
+| Prob080_timer | - | - | - | - | - | - | - | - | - |
+| Prob155_lemmings4 | - | - | - | - | - | - | - | - | - |
+| Prob073_dff16e | - | - | - | - | - | - | - | - | - |
+| Prob126_circuit6 | - | - | - | - | - | - | - | - | - |
+| Prob037_review2015_count1k | - | - | - | - | - | - | - | - | - |
+| Prob033_ece241_2014_q1c | - | - | - | - | - | - | - | - | - |
+| Prob114_bugs_case | - | - | - | - | - | - | - | - | - |
+| Prob143_fsm_onehot | - | - | - | - | - | - | - | - | - |
+| Prob076_always_case | - | - | - | - | - | - | - | - | - |
+| Prob137_fsm_serial | - | - | - | - | - | - | - | - | - |
+| Prob084_ece241_2013_q12 | - | - | - | - | - | - | - | - | - |
+| Prob140_fsm_hdlc | - | - | - | - | - | - | - | - | - |
+| Prob149_ece241_2013_q4 | - | - | - | - | - | - | - | - | - |
+| Prob044_vectorgates | - | - | - | - | - | - | - | - | - |
+| Prob094_gatesv | - | - | - | - | - | - | - | - | - |
+| Prob106_always_nolatches | - | - | - | - | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - | - | - | - | - |
+| Prob130_circuit5 | - | - | - | - | - | - | - | - | - |
+| Prob133_2014_q3fsm | - | - | - | - | - | - | - | - | - |
+| Prob139_2013_q2bfsm | - | - | - | - | - | - | - | - | - |
+| Prob041_dff8r | - | - | - | - | - | - | - | - | - |
+| Prob045_edgedetect2 | - | - | - | - | - | - | - | - | - |
+| Prob047_dff8ar | - | - | - | - | - | - | - | - | - |
+| Prob054_edgedetect | - | - | - | - | - | - | - | - | - |
+| Prob062_bugs_mux2 | - | - | - | - | - | - | - | - | - |
+| Prob087_gates | - | - | - | - | - | - | - | - | - |
+| Prob136_m2014_q6 | - | - | - | - | - | - | - | - | - |
+| Prob138_2012_q2fsm | - | - | - | - | - | - | - | - | - |
+| Prob016_m2014_q4j | ace2 | 0.6545 | - | 653.3 | matched 0.900; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4618 | 0.2275 | 27 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob121_2014_q3bfsm | - | - | - | - | - | - | - | - | - |
+| Prob152_lemmings3 | - | - | - | - | - | - | - | - | - |
+| Prob086_lfsr5 | - | - | - | - | - | - | - | - | - |
+| Prob096_review2015_fsmseq | - | - | - | - | - | - | - | - | - |
+| Prob148_2013_q2afsm | - | - | - | - | - | - | - | - | - |
+| Prob150_review2015_fsmonehot | ace2 | 0.7253 | - | 958.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5156 | 0.1990 | 21 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob035_count1to10 | - | - | - | - | - | - | - | - | - |
+| Prob038_count15 | - | - | - | - | - | - | - | - | - |
+| Prob040_count10 | - | - | - | - | - | - | - | - | - |
+| Prob060_m2014_q4k | - | - | - | - | - | - | - | - | - |
+| Prob063_review2015_shiftcount | - | - | - | - | - | - | - | - | - |
+| Prob067_countslow | - | - | - | - | - | - | - | - | - |
+| Prob079_fsm3onehot | - | - | - | - | - | - | - | - | - |
+| Prob085_shift4 | ace2 | 0.6309 | - | 1650.0 | matched 0.733; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3299 | 0.3136 | 16 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob095_review2015_fsmshift | - | - | - | - | - | - | - | - | - |
+| Prob120_fsm3s | - | - | - | - | - | - | - | - | - |
+| Prob128_fsm_ps2 | - | - | - | - | - | - | - | - | - |
+| Prob142_lemmings2 | - | - | - | - | - | - | - | - | - |
+| Prob051_gates4 | - | - | - | - | - | - | - | - | - |
+| Prob072_thermostat | - | - | - | - | - | - | - | - | - |
+| Prob074_ece241_2014_q4 | - | - | - | - | - | - | - | - | - |
+| Prob089_ece241_2014_q5a | - | - | - | - | - | - | - | - | - |
+| Prob093_ece241_2014_q3 | - | - | - | - | - | - | - | - | - |
+| Prob100_fsm3comb | - | - | - | - | - | - | - | - | - |
+| Prob117_circuit9 | - | - | - | - | - | - | - | - | - |
+| Prob119_fsm3 | - | - | - | - | - | - | - | - | - |
+| Prob129_ece241_2013_q8 | - | - | - | - | - | - | - | - | - |
+| Prob009_popcount3 | ace2 | 0.9534 | - | 453.3 | matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3631 | 0.1479 | 21 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob024_hadd | ace2 | 0.4248 | - | 743.6 | matched 0.923; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3958 | 0.1317 | 12 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob025_reduction | ace2 | 0.5859 | - | 834.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.2527 | 10 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob027_fadd | - | - | - | - | - | - | - | - | - |
+| Prob036_ringer | - | - | - | - | - | - | - | - | - |
+| Prob058_alwaysblock2 | - | - | - | - | - | - | - | - | - |
+| Prob065_7420 | - | - | - | - | - | - | - | - | - |
+| Prob070_ece241_2013_q2 | - | - | - | - | - | - | - | - | - |
+| Prob075_counter_2bc | - | - | - | - | - | - | - | - | - |
+| Prob077_wire_decl | - | - | - | - | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - | - | - | - | - |
+| Prob081_7458 | - | - | - | - | - | - | - | - | - |
+| Prob088_ece241_2014_q5b | - | - | - | - | - | - | - | - | - |
+| Prob091_2012_q2b | - | - | - | - | - | - | - | - | - |
+| Prob099_m2014_q6c | - | - | - | - | - | - | - | - | - |
+| Prob112_always_case2 | - | - | - | - | - | - | - | - | - |
+| Prob127_lemmings1 | - | - | - | - | - | - | - | - | - |
+| Prob134_2014_q3c | - | - | - | - | - | - | - | - | - |
+| Prob147_circuit10 | - | - | - | - | - | - | - | - | - |
+| Prob005_notgate | - | - | - | - | - | - | - | - | - |
+| Prob010_mt2015_q4a | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4167 | 0.1933 | 3 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob011_norgate | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4167 | 0.1933 | 3 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob012_xnorgate | ace2 | 0.3922 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.2400 | 3 | odin3-vectorless; PI p=0.5 density=0.2 |
+| Prob013_m2014_q4e | - | - | - | - | - | - | - | - | - |
+| Prob014_andgate | - | - | - | - | - | - | - | - | - |
+| Prob019_m2014_q4f | - | - | - | - | - | - | - | - | - |
+| Prob020_mt2015_eq2 | - | - | - | - | - | - | - | - | - |
+| Prob022_mux2to1 | - | - | - | - | - | - | - | - | - |
+| Prob026_alwaysblock1 | - | - | - | - | - | - | - | - | - |
+| Prob029_m2014_q4g | - | - | - | - | - | - | - | - | - |
+| Prob039_always_if | - | - | - | - | - | - | - | - | - |
+| Prob048_m2014_q4c | - | - | - | - | - | - | - | - | - |
+| Prob049_m2014_q4b | - | - | - | - | - | - | - | - | - |
+| Prob050_kmap1 | - | - | - | - | - | - | - | - | - |
+| Prob053_m2014_q4d | - | - | - | - | - | - | - | - | - |
+| Prob056_ece241_2013_q7 | - | - | - | - | - | - | - | - | - |
+| Prob057_kmap2 | - | - | - | - | - | - | - | - | - |
+| Prob061_2014_q4a | - | - | - | - | - | - | - | - | - |
+| Prob069_truthtable1 | - | - | - | - | - | - | - | - | - |
+| Prob083_mt2015_q4b | - | - | - | - | - | - | - | - | - |
+| Prob090_circuit1 | - | - | - | - | - | - | - | - | - |
+| Prob098_circuit7 | - | - | - | - | - | - | - | - | - |
+| Prob101_circuit4 | - | - | - | - | - | - | - | - | - |
+| Prob102_circuit3 | - | - | - | - | - | - | - | - | - |
+| Prob103_circuit2 | - | - | - | - | - | - | - | - | - |
+| Prob104_mt2015_muxdff | - | - | - | - | - | - | - | - | - |
+| Prob107_fsm1s | - | - | - | - | - | - | - | - | - |
+| Prob109_fsm1 | - | - | - | - | - | - | - | - | - |
+| Prob110_fsm2 | - | - | - | - | - | - | - | - | - |
+| Prob111_fsm2s | - | - | - | - | - | - | - | - | - |
+| Prob113_2012_q1g | - | - | - | - | - | - | - | - | - |
+| Prob116_m2014_q3 | - | - | - | - | - | - | - | - | - |
+| Prob122_kmap4 | - | - | - | - | - | - | - | - | - |
+| Prob125_kmap3 | - | - | - | - | - | - | - | - | - |
+| Prob131_mt2015_q4 | - | - | - | - | - | - | - | - | - |
+| Prob132_always_if2 | - | - | - | - | - | - | - | - | - |
+| Prob135_m2014_q6b | - | - | - | - | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - | - | - | - | - |
+| Prob001_zero | - | - | - | - | - | - | - | - | - |
+| Prob002_m2014_q4i | - | - | - | - | - | - | - | - | - |
+| Prob003_step_one | - | - | - | - | - | - | - | - | - |
+| Prob004_vector2 | - | - | - | - | - | - | - | - | - |
+| Prob006_vectorr | - | - | - | - | - | - | - | - | - |
+| Prob007_wire | - | - | - | - | - | - | - | - | - |
+| Prob008_m2014_q4h | - | - | - | - | - | - | - | - | - |
+| Prob015_vector1 | - | - | - | - | - | - | - | - | - |
+| Prob023_vector100r | - | - | - | - | - | - | - | - | - |
+| Prob028_m2014_q4a | - | - | - | - | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - | - | - | - | - |
+| Prob032_vector0 | - | - | - | - | - | - | - | - | - |
+| Prob034_dff8 | - | - | - | - | - | - | - | - | - |
+| Prob042_vector4 | - | - | - | - | - | - | - | - | - |
+| Prob059_wire4 | - | - | - | - | - | - | - | - | - |
+| Prob064_vector3 | - | - | - | - | - | - | - | - | - |
+| Prob071_always_casez | - | - | - | - | - | - | - | - | - |
+| Prob156_review2015_fancytimer | - | - | - | - | - | - | - | - | - |
+| Prob151_review2015_fsm | - | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1288,6 +1289,64 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | - | [vtr-verilog](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | per design | 3 | ✗ | ✗ |
 | a-z80 | A-Z80 CPU | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5649 | ✗ | ✗ |
 | amber | Amber ARM-compatible core | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5419 | ✗ | ✗ |
+| bm_expr_all_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 194 | - | - |
+| bm_dag3_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 141 | - | - |
+| bm_stmt_all_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 136 | - | - |
+| bm_dag3_lpm_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 135 | - | - |
+| bm_dag3_lpm_log_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 134 | - | - |
+| bm_dag3_log_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 132 | - | - |
+| bm_dag1_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 130 | - | - |
+| bm_dag4_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 130 | - | - |
+| bm_dag1_log_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 122 | - | - |
+| bm_base_multiply | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 101 | - | - |
+| bm_arithmetic_unused_bits | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 97 | - | - |
+| bm_stmt_compare_padding | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 94 | - | - |
+| bm_functional_test | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 90 | - | - |
+| bm_if_collapse | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 86 | - | - |
+| bm_dag2_log_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 85 | - | - |
+| bm_dag2_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 83 | - | - |
+| bm_if_common | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 78 | - | - |
+| bm_if_reset | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_if_reset/) | not read per file | 69 | - | - |
+| bm_match1_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 60 | - | - |
+| bm_match2_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 60 | - | - |
+| bm_match4_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 60 | - | - |
+| bm_match5_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 59 | - | - |
+| bm_lpm_all | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_lpm_all/) | not read per file | 53 | - | - |
+| bm_lpm_concat | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 53 | - | - |
+| bm_match3_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 53 | - | - |
+| bm_match6_str_arch | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 46 | - | - |
+| bm_tester | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 45 | - | - |
+| bm_mod | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 34 | - | - |
+| bm_DL_16_1_mux | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_16_1_mux/) | not read per file | 33 | - | - |
+| bm_DL_4_16_encoder | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 32 | - | - |
+| bm_dag3_log | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 32 | - | - |
+| bm_dag3_lpm | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 32 | - | - |
+| bm_dag3_lpm_log | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 32 | - | - |
+| bm_dag1_log | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_dag1_log/) | not read per file | 30 | - | - |
+| bm_dag1_lpm | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 30 | - | - |
+| bm_dag2_log | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_dag2_log/) | not read per file | 29 | - | - |
+| bm_dag2_lpm | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 29 | - | - |
+| bm_DL_4_bit_comparator | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_4_bit_comparator/) | not read per file | 27 | - | - |
+| bm_DL_4_bit_shift_register | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_4_bit_shift_register/) | not read per file | 27 | - | - |
+| bm_add_lpm | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 24 | - | - |
+| bm_and_log | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 24 | - | - |
+| bm_DL_BCD_7_segment_without_x | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 23 | - | - |
+| bm_DL_BCD_adder | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_BCD_adder/) | not read per file | 22 | - | - |
+| bm_DL_four_bit_adder_continuous_assign | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 21 | - | - |
+| bm_my_D_latch1 | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_my_D_latch1/) | not read per file | 21 | - | - |
+| bm_DL_74381_ALU | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_74381_ALU/) | not read per file | 20 | - | - |
+| bm_DL_2_4_encoder | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_2_4_encoder/) | not read per file | 18 | - | - |
+| bm_DL_structural_logic2 | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 16 | - | - |
+| bm_DL_2_cascaded_flip_flops | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 14 | - | - |
+| bm_DL_Dff_w_synch_reset | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_Dff_w_synch_reset/) | not read per file | 14 | - | - |
+| bm_DL_logic_w_Dff | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 14 | - | - |
+| bm_DL_logic_w_Dff2 | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 14 | - | - |
+| bm_DL_structural_logic | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 13 | - | - |
+| bm_DL_D_flipflop | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_D_flipflop/) | not read per file | 11 | - | - |
+| bm_DL_behavioural_full_adder | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_behavioural_full_adder/) | not read per file | 11 | - | - |
+| bm_DL_4_1_mux | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 10 | - | - |
+| bm_my_D_latch2 | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | - | not read per file | 10 | - | - |
+| bm_DL_2_1_mux | - | [odin3-micro](#sources) | [repo](https://github.com/verilog-to-routing/vtr-verilog-to-routing) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/odin3-micro-bm_DL_2_1_mux/) | not read per file | 9 | - | - |
 
 <details><summary>Flow and VTR QoR</summary>
 
@@ -1348,6 +1407,64 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | - | - | route | 0 | 2 | 0 | 2 | 0/0 | 0.20678 | 26 | - | - |
 | a-z80 | none | none | none | - | - | - | - | - | - | - | provisional (rel-main2) | needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them); see a-z80-modified (mux-driven bus variant, same flow, runs) |
 | amber | none | none | map | - | - | - | - | - | - | - | re-run 2026-11-05 (VTR) | generic_sram_byte_en fixed (#345); next stop: lower: module 'a23_core': '$mem' '$c2032' would create 28238599 nodes (cap 16777216) |
+| bm_expr_all_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_stmt_all_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_log_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag1_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag4_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag1_log_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_base_multiply | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_arithmetic_unused_bits | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_stmt_compare_padding | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_functional_test | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_if_collapse | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag2_log_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag2_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_if_common | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_if_reset | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match1_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match2_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match4_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match5_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_lpm_all | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_lpm_concat | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match3_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_match6_str_arch | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_tester | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_mod | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_16_1_mux | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_4_16_encoder | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_log | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag1_log | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag1_lpm | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag2_log | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_dag2_lpm | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_4_bit_comparator | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_4_bit_shift_register | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_add_lpm | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_and_log | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_7_segment_without_x | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_adder | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_four_bit_adder_continuous_assign | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_my_D_latch1 | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_74381_ALU | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_2_4_encoder | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_structural_logic2 | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_2_cascaded_flip_flops | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_Dff_w_synch_reset | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_logic_w_Dff | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_logic_w_Dff2 | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_structural_logic | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_D_flipflop | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_behavioural_full_adder | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_4_1_mux | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_my_D_latch2 | - | - | - | - | - | - | - | - | - | - | - | - |
+| bm_DL_2_1_mux | - | - | - | - | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1410,6 +1527,64 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | 0/0 | 0/0 | 0/0 |
 | a-z80 | - | - | - |
 | amber | - | - | - |
+| bm_expr_all_mod | - | - | - |
+| bm_dag3_mod | - | - | - |
+| bm_stmt_all_mod | - | - | - |
+| bm_dag3_lpm_mod | - | - | - |
+| bm_dag3_lpm_log_mod | - | - | - |
+| bm_dag3_log_mod | - | - | - |
+| bm_dag1_mod | - | - | - |
+| bm_dag4_mod | - | - | - |
+| bm_dag1_log_mod | - | - | - |
+| bm_base_multiply | - | - | - |
+| bm_arithmetic_unused_bits | - | - | - |
+| bm_stmt_compare_padding | - | - | - |
+| bm_functional_test | - | - | - |
+| bm_if_collapse | - | - | - |
+| bm_dag2_log_mod | - | - | - |
+| bm_dag2_mod | - | - | - |
+| bm_if_common | - | - | - |
+| bm_if_reset | - | - | - |
+| bm_match1_str_arch | - | - | - |
+| bm_match2_str_arch | - | - | - |
+| bm_match4_str_arch | - | - | - |
+| bm_match5_str_arch | - | - | - |
+| bm_lpm_all | - | - | - |
+| bm_lpm_concat | - | - | - |
+| bm_match3_str_arch | - | - | - |
+| bm_match6_str_arch | - | - | - |
+| bm_tester | - | - | - |
+| bm_mod | - | - | - |
+| bm_DL_16_1_mux | - | - | - |
+| bm_DL_4_16_encoder | - | - | - |
+| bm_dag3_log | - | - | - |
+| bm_dag3_lpm | - | - | - |
+| bm_dag3_lpm_log | - | - | - |
+| bm_dag1_log | - | - | - |
+| bm_dag1_lpm | - | - | - |
+| bm_dag2_log | - | - | - |
+| bm_dag2_lpm | - | - | - |
+| bm_DL_4_bit_comparator | - | - | - |
+| bm_DL_4_bit_shift_register | - | - | - |
+| bm_add_lpm | - | - | - |
+| bm_and_log | - | - | - |
+| bm_DL_BCD_7_segment_without_x | - | - | - |
+| bm_DL_BCD_adder | - | - | - |
+| bm_DL_four_bit_adder_continuous_assign | - | - | - |
+| bm_my_D_latch1 | - | - | - |
+| bm_DL_74381_ALU | - | - | - |
+| bm_DL_2_4_encoder | - | - | - |
+| bm_DL_structural_logic2 | - | - | - |
+| bm_DL_2_cascaded_flip_flops | - | - | - |
+| bm_DL_Dff_w_synch_reset | - | - | - |
+| bm_DL_logic_w_Dff | - | - | - |
+| bm_DL_logic_w_Dff2 | - | - | - |
+| bm_DL_structural_logic | - | - | - |
+| bm_DL_D_flipflop | - | - | - |
+| bm_DL_behavioural_full_adder | - | - | - |
+| bm_DL_4_1_mux | - | - | - |
+| bm_my_D_latch2 | - | - | - |
+| bm_DL_2_1_mux | - | - | - |
 
 </details>
 
@@ -1472,6 +1647,64 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | a-z80 | - | - | - | - | - | - | - | - |
 | amber | - | - | - | - | - | - | - | - |
+| bm_expr_all_mod | - | - | - | - | - | - | - | - |
+| bm_dag3_mod | - | - | - | - | - | - | - | - |
+| bm_stmt_all_mod | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_mod | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log_mod | - | - | - | - | - | - | - | - |
+| bm_dag3_log_mod | - | - | - | - | - | - | - | - |
+| bm_dag1_mod | - | - | - | - | - | - | - | - |
+| bm_dag4_mod | - | - | - | - | - | - | - | - |
+| bm_dag1_log_mod | - | - | - | - | - | - | - | - |
+| bm_base_multiply | - | - | - | - | - | - | - | - |
+| bm_arithmetic_unused_bits | - | - | - | - | - | - | - | - |
+| bm_stmt_compare_padding | - | - | - | - | - | - | - | - |
+| bm_functional_test | - | - | - | - | - | - | - | - |
+| bm_if_collapse | - | - | - | - | - | - | - | - |
+| bm_dag2_log_mod | - | - | - | - | - | - | - | - |
+| bm_dag2_mod | - | - | - | - | - | - | - | - |
+| bm_if_common | - | - | - | - | - | - | - | - |
+| bm_if_reset | - | - | - | - | - | - | - | - |
+| bm_match1_str_arch | - | - | - | - | - | - | - | - |
+| bm_match2_str_arch | - | - | - | - | - | - | - | - |
+| bm_match4_str_arch | - | - | - | - | - | - | - | - |
+| bm_match5_str_arch | - | - | - | - | - | - | - | - |
+| bm_lpm_all | - | - | - | - | - | - | - | - |
+| bm_lpm_concat | - | - | - | - | - | - | - | - |
+| bm_match3_str_arch | - | - | - | - | - | - | - | - |
+| bm_match6_str_arch | - | - | - | - | - | - | - | - |
+| bm_tester | - | - | - | - | - | - | - | - |
+| bm_mod | - | - | - | - | - | - | - | - |
+| bm_DL_16_1_mux | - | - | - | - | - | - | - | - |
+| bm_DL_4_16_encoder | - | - | - | - | - | - | - | - |
+| bm_dag3_log | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log | - | - | - | - | - | - | - | - |
+| bm_dag1_log | - | - | - | - | - | - | - | - |
+| bm_dag1_lpm | - | - | - | - | - | - | - | - |
+| bm_dag2_log | - | - | - | - | - | - | - | - |
+| bm_dag2_lpm | - | - | - | - | - | - | - | - |
+| bm_DL_4_bit_comparator | - | - | - | - | - | - | - | - |
+| bm_DL_4_bit_shift_register | - | - | - | - | - | - | - | - |
+| bm_add_lpm | - | - | - | - | - | - | - | - |
+| bm_and_log | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_7_segment_without_x | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_adder | - | - | - | - | - | - | - | - |
+| bm_DL_four_bit_adder_continuous_assign | - | - | - | - | - | - | - | - |
+| bm_my_D_latch1 | - | - | - | - | - | - | - | - |
+| bm_DL_74381_ALU | - | - | - | - | - | - | - | - |
+| bm_DL_2_4_encoder | - | - | - | - | - | - | - | - |
+| bm_DL_structural_logic2 | - | - | - | - | - | - | - | - |
+| bm_DL_2_cascaded_flip_flops | - | - | - | - | - | - | - | - |
+| bm_DL_Dff_w_synch_reset | - | - | - | - | - | - | - | - |
+| bm_DL_logic_w_Dff | - | - | - | - | - | - | - | - |
+| bm_DL_logic_w_Dff2 | - | - | - | - | - | - | - | - |
+| bm_DL_structural_logic | - | - | - | - | - | - | - | - |
+| bm_DL_D_flipflop | - | - | - | - | - | - | - | - |
+| bm_DL_behavioural_full_adder | - | - | - | - | - | - | - | - |
+| bm_DL_4_1_mux | - | - | - | - | - | - | - | - |
+| bm_my_D_latch2 | - | - | - | - | - | - | - | - |
+| bm_DL_2_1_mux | - | - | - | - | - | - | - | - |
 
 </details>
 
@@ -1534,68 +1767,184 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | - | - | - | - |
 | a-z80 | - | - | - | - |
 | amber | - | - | - | - |
+| bm_expr_all_mod | - | - | - | - |
+| bm_dag3_mod | - | - | - | - |
+| bm_stmt_all_mod | - | - | - | - |
+| bm_dag3_lpm_mod | - | - | - | - |
+| bm_dag3_lpm_log_mod | - | - | - | - |
+| bm_dag3_log_mod | - | - | - | - |
+| bm_dag1_mod | - | - | - | - |
+| bm_dag4_mod | - | - | - | - |
+| bm_dag1_log_mod | - | - | - | - |
+| bm_base_multiply | - | - | - | - |
+| bm_arithmetic_unused_bits | - | - | - | - |
+| bm_stmt_compare_padding | - | - | - | - |
+| bm_functional_test | - | - | - | - |
+| bm_if_collapse | - | - | - | - |
+| bm_dag2_log_mod | - | - | - | - |
+| bm_dag2_mod | - | - | - | - |
+| bm_if_common | - | - | - | - |
+| bm_if_reset | - | - | - | - |
+| bm_match1_str_arch | - | - | - | - |
+| bm_match2_str_arch | - | - | - | - |
+| bm_match4_str_arch | - | - | - | - |
+| bm_match5_str_arch | - | - | - | - |
+| bm_lpm_all | - | - | - | - |
+| bm_lpm_concat | - | - | - | - |
+| bm_match3_str_arch | - | - | - | - |
+| bm_match6_str_arch | - | - | - | - |
+| bm_tester | - | - | - | - |
+| bm_mod | - | - | - | - |
+| bm_DL_16_1_mux | - | - | - | - |
+| bm_DL_4_16_encoder | - | - | - | - |
+| bm_dag3_log | - | - | - | - |
+| bm_dag3_lpm | - | - | - | - |
+| bm_dag3_lpm_log | - | - | - | - |
+| bm_dag1_log | - | - | - | - |
+| bm_dag1_lpm | - | - | - | - |
+| bm_dag2_log | - | - | - | - |
+| bm_dag2_lpm | - | - | - | - |
+| bm_DL_4_bit_comparator | - | - | - | - |
+| bm_DL_4_bit_shift_register | - | - | - | - |
+| bm_add_lpm | - | - | - | - |
+| bm_and_log | - | - | - | - |
+| bm_DL_BCD_7_segment_without_x | - | - | - | - |
+| bm_DL_BCD_adder | - | - | - | - |
+| bm_DL_four_bit_adder_continuous_assign | - | - | - | - |
+| bm_my_D_latch1 | - | - | - | - |
+| bm_DL_74381_ALU | - | - | - | - |
+| bm_DL_2_4_encoder | - | - | - | - |
+| bm_DL_structural_logic2 | - | - | - | - |
+| bm_DL_2_cascaded_flip_flops | - | - | - | - |
+| bm_DL_Dff_w_synch_reset | - | - | - | - |
+| bm_DL_logic_w_Dff | - | - | - | - |
+| bm_DL_logic_w_Dff2 | - | - | - | - |
+| bm_DL_structural_logic | - | - | - | - |
+| bm_DL_D_flipflop | - | - | - | - |
+| bm_DL_behavioural_full_adder | - | - | - | - |
+| bm_DL_4_1_mux | - | - | - | - |
+| bm_my_D_latch2 | - | - | - | - |
+| bm_DL_2_1_mux | - | - | - | - |
 
 </details>
 
 <details><summary>Power</summary>
 
-| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
-|---|---|---|---|---|---|
-| LU64PEEng | - | - | - | - | - |
-| mcml | - | - | - | - | - |
-| LU32PEEng | - | - | - | - | - |
-| stereovision2 | - | - | - | - | - |
-| bgm | - | - | - | - | - |
-| LU8PEEng | - | - | - | - | - |
-| stereovision1 | - | - | - | - | - |
-| stereovision0 | - | - | - | - | - |
-| raygentop_nolatches | - | - | - | - | - |
-| arm_core | - | - | - | - | - |
-| or1200 | - | - | - | - | - |
-| raygentop | - | - | - | - | - |
-| b22 | - | - | - | - | - |
-| blob_merge | - | - | - | - | - |
-| b17 | - | - | - | - | - |
-| b20 | - | - | - | - | - |
-| b21 | - | - | - | - | - |
-| diffeq1 | - | - | - | - | - |
-| b18 | - | - | - | - | - |
-| b19 | - | - | - | - | - |
-| boundtop | - | - | - | - | - |
-| boundtop_nolatches | - | - | - | - | - |
-| b15 | - | - | - | - | - |
-| spree | - | - | - | - | - |
-| attiny_atmega_xmega_core | ace2 | 147.7 | - | 62.0 | matched 0.848; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| mkDelayWorker32B | - | - | - | - | - |
-| sha | ace2 | 94.86 | - | 97.9 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| mkSMAdapter4B | - | - | - | - | - |
-| b14 | - | - | - | - | - |
-| b12 | - | - | - | - | - |
-| b11 | - | - | - | - | - |
-| mkPktMerge | - | - | - | - | - |
-| ch_intrinsics_nolatches | - | - | - | - | - |
-| b05 | - | - | - | - | - |
-| stereovision3 | - | - | - | - | - |
-| ch_intrinsics | ace2 | 4.822 | - | 634.8 | matched 0.745; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
-| diffeq2 | - | - | - | - | - |
-| b04 | - | - | - | - | - |
-| b07 | - | - | - | - | - |
-| b13 | - | - | - | - | - |
-| b09 | - | - | - | - | - |
-| b10 | - | - | - | - | - |
-| b03 | - | - | - | - | - |
-| b08 | - | - | - | - | - |
-| b06 | - | - | - | - | - |
-| multiclock_reader_writer | - | - | - | - | - |
-| b02 | - | - | - | - | - |
-| b01 | - | - | - | - | - |
-| multiclock_output_and_latch | - | - | - | - | - |
-| multiclock_separate_and_latch | - | - | - | - | - |
-| and_latch | - | - | - | - | - |
-| single_ff | - | - | - | - | - |
-| single_wire | - | - | - | - | - |
-| a-z80 | - | - | - | - | - |
-| amber | - | - | - | - | - |
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
+|---|---|---|---|---|---|---|---|---|---|
+| LU64PEEng | - | - | - | - | - | - | - | - | - |
+| mcml | - | - | - | - | - | - | - | - | - |
+| LU32PEEng | - | - | - | - | - | - | - | - | - |
+| stereovision2 | - | - | - | - | - | - | - | - | - |
+| bgm | - | - | - | - | - | - | - | - | - |
+| LU8PEEng | - | - | - | - | - | - | - | - | - |
+| stereovision1 | - | - | - | - | - | - | - | - | - |
+| stereovision0 | - | - | - | - | - | - | - | - | - |
+| raygentop_nolatches | - | - | - | - | - | - | - | - | - |
+| arm_core | - | - | - | - | - | - | - | - | - |
+| or1200 | - | - | - | - | - | - | - | - | - |
+| raygentop | - | - | - | - | - | - | - | - | - |
+| b22 | - | - | - | - | - | - | - | - | - |
+| blob_merge | - | - | - | - | - | - | - | - | - |
+| b17 | - | - | - | - | - | - | - | - | - |
+| b20 | - | - | - | - | - | - | - | - | - |
+| b21 | - | - | - | - | - | - | - | - | - |
+| diffeq1 | - | - | - | - | - | - | - | - | - |
+| b18 | - | - | - | - | - | - | - | - | - |
+| b19 | - | - | - | - | - | - | - | - | - |
+| boundtop | - | - | - | - | - | - | - | - | - |
+| boundtop_nolatches | - | - | - | - | - | - | - | - | - |
+| b15 | - | - | - | - | - | - | - | - | - |
+| spree | - | - | - | - | - | - | - | - | - |
+| attiny_atmega_xmega_core | ace2 | 147.7 | - | 62.0 | matched 0.848; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3643 | 0.0315 | 2946 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mkDelayWorker32B | - | - | - | - | - | - | - | - | - |
+| sha | ace2 | 94.86 | - | 97.9 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.0981 | 0.0720 | 2864 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mkSMAdapter4B | - | - | - | - | - | - | - | - | - |
+| b14 | - | - | - | - | - | - | - | - | - |
+| b12 | - | - | - | - | - | - | - | - | - |
+| b11 | - | - | - | - | - | - | - | - | - |
+| mkPktMerge | - | - | - | - | - | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | - | - | - | - | - | - | - |
+| b05 | - | - | - | - | - | - | - | - | - |
+| stereovision3 | - | - | - | - | - | - | - | - | - |
+| ch_intrinsics | ace2 | 4.822 | - | 634.8 | matched 0.745; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3758 | 0.0861 | 384 | odin3-vectorless; PI p=0.5 density=0.2 |
+| diffeq2 | - | - | - | - | - | - | - | - | - |
+| b04 | - | - | - | - | - | - | - | - | - |
+| b07 | - | - | - | - | - | - | - | - | - |
+| b13 | - | - | - | - | - | - | - | - | - |
+| b09 | - | - | - | - | - | - | - | - | - |
+| b10 | - | - | - | - | - | - | - | - | - |
+| b03 | - | - | - | - | - | - | - | - | - |
+| b08 | - | - | - | - | - | - | - | - | - |
+| b06 | - | - | - | - | - | - | - | - | - |
+| multiclock_reader_writer | - | - | - | - | - | - | - | - | - |
+| b02 | - | - | - | - | - | - | - | - | - |
+| b01 | - | - | - | - | - | - | - | - | - |
+| multiclock_output_and_latch | - | - | - | - | - | - | - | - | - |
+| multiclock_separate_and_latch | - | - | - | - | - | - | - | - | - |
+| and_latch | - | - | - | - | - | - | - | - | - |
+| single_ff | - | - | - | - | - | - | - | - | - |
+| single_wire | - | - | - | - | - | - | - | - | - |
+| a-z80 | - | - | - | - | - | - | - | - | - |
+| amber | - | - | - | - | - | - | - | - | - |
+| bm_expr_all_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag3_mod | - | - | - | - | - | - | - | - | - |
+| bm_stmt_all_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag3_log_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag1_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag4_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag1_log_mod | - | - | - | - | - | - | - | - | - |
+| bm_base_multiply | - | - | - | - | - | - | - | - | - |
+| bm_arithmetic_unused_bits | - | - | - | - | - | - | - | - | - |
+| bm_stmt_compare_padding | - | - | - | - | - | - | - | - | - |
+| bm_functional_test | - | - | - | - | - | - | - | - | - |
+| bm_if_collapse | - | - | - | - | - | - | - | - | - |
+| bm_dag2_log_mod | - | - | - | - | - | - | - | - | - |
+| bm_dag2_mod | - | - | - | - | - | - | - | - | - |
+| bm_if_common | - | - | - | - | - | - | - | - | - |
+| bm_if_reset | ace2 | 0.5673 | - | 1317.0 | matched 0.769; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3393 | 0.2951 | 14 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_match1_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_match2_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_match4_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_match5_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_lpm_all | ace2 | 30.17 | - | 275.0 | matched 0.994; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4856 | 0.2902 | 643 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_lpm_concat | - | - | - | - | - | - | - | - | - |
+| bm_match3_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_match6_str_arch | - | - | - | - | - | - | - | - | - |
+| bm_tester | - | - | - | - | - | - | - | - | - |
+| bm_mod | - | - | - | - | - | - | - | - | - |
+| bm_DL_16_1_mux | ace2 | 1.007 | - | 535.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.2284 | 27 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_4_16_encoder | - | - | - | - | - | - | - | - | - |
+| bm_dag3_log | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm | - | - | - | - | - | - | - | - | - |
+| bm_dag3_lpm_log | - | - | - | - | - | - | - | - | - |
+| bm_dag1_log | ace2 | 0.7585 | - | 1007.0 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5625 | 0.1950 | 8 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_dag1_lpm | - | - | - | - | - | - | - | - | - |
+| bm_dag2_log | ace2 | 0.7557 | - | 1007.0 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4375 | 0.1950 | 8 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_dag2_lpm | - | - | - | - | - | - | - | - | - |
+| bm_DL_4_bit_comparator | ace2 | 0.6357 | - | 816.6 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4327 | 0.2160 | 13 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_4_bit_shift_register | ace2 | 0.6832 | - | 1321.6 | matched 0.714; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.3647 | 15 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_add_lpm | - | - | - | - | - | - | - | - | - |
+| bm_and_log | - | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_7_segment_without_x | - | - | - | - | - | - | - | - | - |
+| bm_DL_BCD_adder | ace2 | 2.59 | - | 229.0 | matched 0.952; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4081 | 0.2512 | 59 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_four_bit_adder_continuous_assign | - | - | - | - | - | - | - | - | - |
+| bm_my_D_latch1 | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4375 | 0.1950 | 4 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_74381_ALU | ace2 | 1.49 | - | 389.1 | matched 0.930; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4916 | 0.2374 | 54 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_2_4_encoder | ace2 | 0.44 | - | 1267.0 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2857 | 0.1554 | 7 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_structural_logic2 | - | - | - | - | - | - | - | - | - |
+| bm_DL_2_cascaded_flip_flops | - | - | - | - | - | - | - | - | - |
+| bm_DL_Dff_w_synch_reset | ace2 | 0.3853 | - | 1836.1 | matched 0.750; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4000 | 0.5520 | 5 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_logic_w_Dff | - | - | - | - | - | - | - | - | - |
+| bm_DL_logic_w_Dff2 | - | - | - | - | - | - | - | - | - |
+| bm_DL_structural_logic | - | - | - | - | - | - | - | - | - |
+| bm_DL_D_flipflop | ace2 | 0.3643 | - | 1836.1 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.8000 | 3 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_behavioural_full_adder | ace2 | 0.9528 | - | 453.3 | matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3631 | 0.1479 | 21 | odin3-vectorless; PI p=0.5 density=0.2 |
+| bm_DL_4_1_mux | - | - | - | - | - | - | - | - | - |
+| bm_my_D_latch2 | - | - | - | - | - | - | - | - | - |
+| bm_DL_2_1_mux | ace2 | 0.4039 | - | 1272.7 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5000 | 0.2150 | 4 | odin3-vectorless; PI p=0.5 density=0.2 |
 
 </details>
 
@@ -2736,6 +3085,7 @@ Rule: BLIF netlist, no HDL.
 - **brisc-v**: BRISC-V microcontroller (Arduino-on-RISC-V, Quartus project revert_timer). Upstream https://github.com/qiany21/Arduino-on-RISC-V.git at 1d5b591081511a8161b843d003ca7b80bad7fc45. Licence: MIT (Copyright (c) 2021 qiany21).
 - **itc99**: ITC'99 (RTL Verilog, b01-b22 without b16). Upstream https://github.com/ccsl-uaegean/ITC99-RTL-Verilog at 8e6a23da036b7442ef4ea410c679d4cf21830a65. Licence: GPL-3.0 (the LICENSE file of this repository); the terms of the original ITC'99 distribution were not read.
 - **mcnc20**: MCNC / LGSynth91 circuits as VTR ships them (4-LUT mapped BLIF, circuits.txt). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: none-stated (data/meta/licences.toml rule mcnc); VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.
+- **odin3-micro**: Odin III micro benchmarks (the bm_* files of the VTR odin_ii regression micro directory, copied into odin3 tests/micro). Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: not read per file; VTR LICENSE.md: MIT unless otherwise noted, in particular the benchmark circuits.
 - **opencores**: OpenCores stable Verilog projects (24 designs: Peter's 2026-11-04 list without gng, DES, survey additions, verilog_cordic_core, mips_16). Upstream https://opencores.org/projects at none. Licence: per project, as the source files and the OpenCores project page state (see the licence rows of measures.tsv and docs/benchmarks/opencores.md); LGPL, GPL, Apache-2.0, BSD-style and none-stated all occur.
 - **verilogeval**: VerilogEval problems (reference solutions of the spec-to-rtl dataset) with the Gate-Breaker Yosys netlists. Upstream https://github.com/NMSU-PEARL/verilog-eval.git at d60f0b10458746e2fefc2a98fa2455b77a32e8be. Licence: MIT (Copyright (c) 2023-2024 NVIDIA Research Projects).
 - **vtr-blif**: VTR blif/2 and blif/4: ISCAS-85, ISCAS-89 and MCNC mapped to 2-input and 4-input LUTs. Upstream https://github.com/verilog-to-routing/vtr-verilog-to-routing at 3c9a4d23b27d187bd67c79dc01a18ff1ffc21d9b. Licence: not read: the licence of the individual ISCAS/MCNC files has not been checked.
