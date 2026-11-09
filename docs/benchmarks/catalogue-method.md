@@ -79,7 +79,7 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
 
 | tier | rule |
 |---|---|
-| T0 whole flow | T1 rule, and `sim_iverilog` = 1 and `sim_odin` = 1 and `vtr_stage` = `route` |
+| T0 whole flow | T1 rule, and `sim_iverilog` = `pass` and `sim_odin` = `pass` and `vtr_stage` = `route` |
 | T1 HDL + testbench, larger | format Verilog, a testbench file (`tb` not 0), LOC >= 200 |
 | T2 HDL + testbench, small | format Verilog, a testbench file, LOC < 200 |
 | T3 HDL, no testbench | format Verilog, no testbench file |
@@ -88,8 +88,8 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
 Size threshold: 200 Verilog lines (`lines` of `designs.tsv`; a project is its total). Within a tier: rows
 with a testbench first, then rows with a LUT count before rows with only LOC; LUT count = `l6_luts`, else
 `vtr_luts`, else `l4_luts`; largest first; design name breaks ties (then suite). Keys the T0 rule needs, to be
-written by the opencores intake lane or any later collector: `sim_iverilog` (1 = the design's own testbench
-passes in iverilog, 0 = fails, `fail: reason`), `sim_odin` (1 = passes in Odin III `sim_tb`/`run_testbenches`),
+written by the opencores intake lane or any later collector: `sim_iverilog` (`pass` = the design's own testbench
+passes in iverilog; `fail`, `none` = no testbench, `refused`; as stored in `measures.tsv`), `sim_odin` (`pass` = passes in Odin III `sim_tb`/`run_testbenches`; same values),
 `vtr_stage` (deepest VTR stage reached: `synth`, `pack`, `place`, `route`; `route` means routed with timing
 analysis). `catalogue.tsv` has `tier` and `rank` as its first two columns.
 

@@ -251,14 +251,14 @@ class ViewTest(unittest.TestCase):
 
 class TierTest(unittest.TestCase):
     def test_tier_rules(self) -> None:
-        full = {"tb": "x/tb.v", "sim_iverilog": "1", "sim_odin": "1", "vtr_stage": "route"}
+        full = {"tb": "x/tb.v", "sim_iverilog": "pass", "sim_odin": "pass", "vtr_stage": "route"}
         cases = [
             (mk("a", "-", "blif (k4)"), 4),
             (mk("b", "500"), 3),
             (mk("c", "50", tb="x.sv"), 2),
             (mk("d", "500", tb="x.v"), 1),
             (mk("e", "500", **full), 0),
-            (mk("f", "500", **{**full, "sim_odin": "0"}), 1),
+            (mk("f", "500", **{**full, "sim_odin": "refused"}), 1),
             (mk("g", "500", **{**full, "vtr_stage": "place"}), 1),
             (mk("h", "50", **full), 2),
             (mk("i", "199", tb="x.v"), 2),

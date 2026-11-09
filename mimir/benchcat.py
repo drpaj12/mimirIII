@@ -45,7 +45,7 @@ LOC_BIG = 200  # Verilog lines at or above which a design counts as larger
 STAGE_DONE = "route"  # deepest VTR stage the T0 rule needs (routed, timing analysed)
 TIERS = {
     0: ("T0 whole flow", f"HDL with its own testbench, {LOC_BIG}+ Verilog lines, the testbench "
-        f"passes in iverilog (`sim_iverilog`=1) and in Odin III simulation (`sim_odin`=1), and "
+        f"passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and "
         f"the VTR flow reaches `{STAGE_DONE}` with timing (`vtr_stage`)"),
     1: ("T1 HDL + testbench, larger", f"HDL with a testbench and {LOC_BIG}+ Verilog lines "
         "(and not T0)"),
@@ -151,7 +151,7 @@ def tier_of(row: Row) -> int:
     loc = _num(row.loc)
     if loc is None or loc < LOC_BIG:
         return 2
-    whole = (row.vals.get("sim_iverilog") == "1" and row.vals.get("sim_odin") == "1"
+    whole = (row.vals.get("sim_iverilog") == "pass" and row.vals.get("sim_odin") == "pass"
              and row.vals.get("vtr_stage") == STAGE_DONE)
     return 0 if whole else 1
 
