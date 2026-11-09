@@ -40,4 +40,5 @@ pages = [
   "opencores:dblclockfft",
   "opencores:ethmac",
   "opencores:pipelined_fft_256",
+  "opencores:a-z80-modified",
 ]
