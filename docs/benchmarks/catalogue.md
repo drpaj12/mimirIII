@@ -229,7 +229,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_low | - | - | - | - | - |
 | reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | a-z80-modified | - | - | - | - | - |
-| des | - | - | - | - | - |
+| des | ace2 | 211.9 | - | 266.1 | matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
 | wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz |

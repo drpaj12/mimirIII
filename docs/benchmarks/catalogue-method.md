@@ -168,3 +168,8 @@ energy, not power; compare trends, not absolute pJ across technologies):
   testbench cycles or the ACE2 defaults, the ASIC clock.
 `-` = not run. Known limit: VPR's power model has no `adder` model, so soft-adder carry chains add no power in
 the FPGA figure.
+`--suite S` resolves a directory name that exists in several suites to S (`des` is in four; the Bifrost run is the
+OpenCores one: `--suite opencores`). The 15 Odin III micro designs (`bm_*`) of the power runs are not a registered
+suite, so they have no catalogue row; registering them is a follow-up. A column for the Odin III vectorless
+(`activity` pass, source `odin3-vectorless`) activity statistics is a follow-up too: the measures table has no
+key for it yet.

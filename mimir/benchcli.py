@@ -224,7 +224,8 @@ def _cmd_measure(args: argparse.Namespace) -> int:
     elif args.kind == "vtr":
         rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
     elif args.kind == "power":
-        rows = benchmeasure.collect_power(idx, Path(args.root), args.label)
+        rows = benchmeasure.collect_power(idx, Path(args.root), args.label,
+                                          args.suite or "")
     elif args.kind == "silicon":
         rows = benchmeasure.collect_silicon(idx, Path(args.root), args.label)
     else:
@@ -302,7 +303,8 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
-    p.add_argument("--suite", help="odin: suite id")
+    p.add_argument("--suite", help="odin: suite id; power: suite that wins a name found in "
+                   "several suites")
     p.add_argument("--limit", type=int, help="odin: at most N designs")
     p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")

@@ -254,9 +254,9 @@ def power_rows(suite: str, design: str, res: Mapping[str, Any], label: str) -> l
     return [[suite, design, k, v, label] for k, v, _ in keys]
 
 
-def collect_power(idx: Path, root: Path, label: str) -> list[Row]:
+def collect_power(idx: Path, root: Path, label: str, suite: str = "") -> list[Row]:
     """`<root>/<design>/power.json` of every registered design that has one. A design name in
-    several suites is skipped (the directory cannot say which)."""
+    several suites is skipped (the directory cannot say which) unless `suite` is one of them."""
     by_name: dict[str, list[str]] = {}
     for d in bench.load_designs(idx):
         by_name.setdefault(d.design, []).append(d.suite)
@@ -264,6 +264,8 @@ def collect_power(idx: Path, root: Path, label: str) -> list[Row]:
     for pj in sorted(root.glob("*/power.json")):
         name = pj.parent.name
         suites = by_name.get(name, [])
+        if len(suites) > 1 and suite in suites:
+            suites = [suite]
         if len(suites) != 1:
             continue
         res = json.loads(pj.read_text(encoding="utf-8"))
