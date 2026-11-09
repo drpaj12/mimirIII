@@ -79,7 +79,7 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
 
 | tier | rule |
 |---|---|
-| T0 whole flow | T1 rule, and `sim_iverilog` = 1 and `sim_odin` = 1 and `vtr_stage` = `route` |
+| T0 whole flow | T1 rule, and `sim_iverilog` = `pass` and `sim_odin` = `pass` and `vtr_stage` = `route` or `timing` |
 | T1 HDL + testbench, larger | format Verilog, a testbench file (`tb` not 0), LOC >= 200 |
 | T2 HDL + testbench, small | format Verilog, a testbench file, LOC < 200 |
 | T3 HDL, no testbench | format Verilog, no testbench file |
@@ -88,10 +88,10 @@ Read-only inputs: store `e10.db`, blob store, `ql13-out`, the external checkouts
 Size threshold: 200 Verilog lines (`lines` of `designs.tsv`; a project is its total). Within a tier: rows
 with a testbench first, then rows with a LUT count before rows with only LOC; LUT count = `l6_luts`, else
 `vtr_luts`, else `l4_luts`; largest first; design name breaks ties (then suite). Keys the T0 rule needs, to be
-written by the opencores intake lane or any later collector: `sim_iverilog` (1 = the design's own testbench
-passes in iverilog, 0 = fails, `fail: reason`), `sim_odin` (1 = passes in Odin III `sim_tb`/`run_testbenches`),
-`vtr_stage` (deepest VTR stage reached: `synth`, `pack`, `place`, `route`; `route` means routed with timing
-analysis). `catalogue.tsv` has `tier` and `rank` as its first two columns.
+written by the opencores intake lane or any later collector: `sim_iverilog` (`pass` = the design's own testbench
+passes in iverilog; `fail`, `none` = no testbench, `refused`; as stored in `measures.tsv`), `sim_odin` (`pass` = passes in Odin III `sim_tb`/`run_testbenches`; same values),
+`vtr_stage` (deepest VTR stage reached: `elab`, `map`, `route`, `timing`; `route` and `timing` both mean routed with
+timing analysis: `route` is written by `bench measure vpr`, `timing` by the odin3-flow collectors; `none` = failed). `catalogue.tsv` has `tier` and `rank` as its first two columns.
 
 `desc` (what it does) sources: VerilogEval, the sentence after "The module should implement" in
 `<problem>_prompt.txt`; VTR Verilog, the Domain column of the VTR 7.0 benchmark table in the VTR docs
@@ -186,3 +186,13 @@ analytic, no vectors; primary inputs P1 0.5, density 0.2). Columns (table group 
 The measures `source` field names the run, the Odin III version and the file. These are activity statistics, not
 a power claim; the power columns above stay Bifrost's (power tracks area; no new power claim is made here).
 Filled for the 53 designs that have an `odin3-vectorless` result among the Heimdall III pages.
+
+## Tier fix and Odin III 1.6.0 re-measure (2026-11-09)
+
+- The T0 rule compared `sim_iverilog` and `sim_odin` with `1` and `vtr_stage` with `route`; `measures.tsv` stores
+  `pass` / `fail` / `none` / `refused` and the odin3-flow collectors write `timing` for a routed run with timing, so
+  T0 was always empty. The rule now reads the stored values: `pass`, `pass`, and `route` or `timing`.
+- `sim_odin` of every Verilog design with a testbench and 200+ lines was re-run with Odin III 1.6.0 (commit
+  `d0649167`, `rel-v160`): `sim_tb` of the project testbench, 1800 s limit (1200 s for dblclockfft and wb_lcd, which passed in 1171 s and 61 s); the
+  `source` field of each row names the run. `sim_iverilog` does not depend on Odin III and is unchanged.
+  There is no `mimir bench measure` collector for `sim_odin`; the rows are written by the run scripts of the OpenCores lane.
