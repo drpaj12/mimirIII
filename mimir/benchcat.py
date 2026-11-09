@@ -42,11 +42,12 @@ TSV_HEAD = (["tier", "rank", "section", "design", "format", "top", "loc", "membe
 
 # Tiers (rule uses measured columns only, never the suite name).
 LOC_BIG = 200  # Verilog lines at or above which a design counts as larger
-STAGE_DONE = "route"  # deepest VTR stage the T0 rule needs (routed, timing analysed)
+STAGE_DONE = "route"  # what `mimir bench measure vpr` writes: routed, timing analysed
+ROUTED = (STAGE_DONE, "timing")  # `timing` = the odin3-flow collectors' word for the same state
 TIERS = {
     0: ("T0 whole flow", f"HDL with its own testbench, {LOC_BIG}+ Verilog lines, the testbench "
         f"passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and "
-        f"the VTR flow reaches `{STAGE_DONE}` with timing (`vtr_stage`)"),
+        "the VTR flow routes it and analyses timing (`vtr_stage` = `route` or `timing`)"),
     1: ("T1 HDL + testbench, larger", f"HDL with a testbench and {LOC_BIG}+ Verilog lines "
         "(and not T0)"),
     2: ("T2 HDL + testbench, small", f"HDL with a testbench and under {LOC_BIG} Verilog lines"),
@@ -152,7 +153,7 @@ def tier_of(row: Row) -> int:
     if loc is None or loc < LOC_BIG:
         return 2
     whole = (row.vals.get("sim_iverilog") == "pass" and row.vals.get("sim_odin") == "pass"
-             and row.vals.get("vtr_stage") == STAGE_DONE)
+             and row.vals.get("vtr_stage") in ROUTED)
     return 0 if whole else 1
 
 

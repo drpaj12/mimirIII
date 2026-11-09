@@ -260,6 +260,8 @@ class TierTest(unittest.TestCase):
             (mk("e", "500", **full), 0),
             (mk("f", "500", **{**full, "sim_odin": "refused"}), 1),
             (mk("g", "500", **{**full, "vtr_stage": "place"}), 1),
+            (mk("k", "500", **{**full, "vtr_stage": "timing"}), 0),
+            (mk("l", "500", **{**full, "vtr_stage": "map"}), 1),
             (mk("h", "50", **full), 2),
             (mk("i", "199", tb="x.v"), 2),
             (mk("j", "200", tb="x.v"), 1),
