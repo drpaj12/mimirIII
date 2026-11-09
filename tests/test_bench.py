@@ -87,8 +87,8 @@ class Registry(unittest.TestCase):
     def test_committed_index_is_consistent(self) -> None:
         self.assertEqual(bench.check(), [])
         suites = bench.load_suites()
-        want = ["brisc-v", "itc99", "mcnc20", "opencores", "verilogeval", "vtr-blif-k2",
-                "vtr-blif-k4", "vtr-verilog"]
+        want = ["brisc-v", "itc99", "mcnc20", "odin3-micro", "opencores", "verilogeval",
+                "vtr-blif-k2", "vtr-blif-k4", "vtr-verilog"]
         self.assertEqual(sorted(suites), want)
         for s in suites.values():
             self.assertTrue(s.licence and s.licence_source and s.commit and s.upstream, s.id)
@@ -100,7 +100,7 @@ class Registry(unittest.TestCase):
 
     def test_unchecked_suites_hold_no_netlists(self) -> None:
         unchecked = {s.id for s in bench.load_suites().values() if s.hosting == "unchecked"}
-        self.assertEqual(unchecked, {"opencores", "vtr-blif-k2", "vtr-blif-k4"})
+        self.assertEqual(unchecked, {"odin3-micro", "opencores", "vtr-blif-k2", "vtr-blif-k4"})
         self.assertFalse([n for n in bench.load_netlists() if n.suite in unchecked])
 
     def test_norns_base_is_35_designs(self) -> None:

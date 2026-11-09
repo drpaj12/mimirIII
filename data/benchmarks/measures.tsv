@@ -842,6 +842,126 @@ mcnc20	tseng	vtr_luts	391	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif: .names wit
 mcnc20	tseng	vtr_mem	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_mult	0	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
 mcnc20	tseng	vtr_pins	174	blob e6b0e05a7794 flow odin3-1.2.0-k6-blif
+odin3-micro	bm_DL_16_1_mux	pw_fpga_pjc	1.007	power-runs-2026-11-08/bm_DL_16_1_mux/power.json
+odin3-micro	bm_DL_16_1_mux	pw_freq_mhz	535.9	power-runs-2026-11-08/bm_DL_16_1_mux/power.json
+odin3-micro	bm_DL_16_1_mux	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_16_1_mux/power.json
+odin3-micro	bm_DL_16_1_mux	pw_src	ace2	power-runs-2026-11-08/bm_DL_16_1_mux/power.json
+odin3-micro	bm_DL_16_1_mux	pw_vl_d	0.2284	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_16_1_mux/odin3-activity.json
+odin3-micro	bm_DL_16_1_mux	pw_vl_nets	27	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_16_1_mux/odin3-activity.json
+odin3-micro	bm_DL_16_1_mux	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_16_1_mux/odin3-activity.json
+odin3-micro	bm_DL_16_1_mux	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_16_1_mux/odin3-activity.json
+odin3-micro	bm_DL_2_1_mux	pw_fpga_pjc	0.4039	power-runs-2026-11-08/bm_DL_2_1_mux/power.json
+odin3-micro	bm_DL_2_1_mux	pw_freq_mhz	1272.7	power-runs-2026-11-08/bm_DL_2_1_mux/power.json
+odin3-micro	bm_DL_2_1_mux	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_2_1_mux/power.json
+odin3-micro	bm_DL_2_1_mux	pw_src	ace2	power-runs-2026-11-08/bm_DL_2_1_mux/power.json
+odin3-micro	bm_DL_2_1_mux	pw_vl_d	0.2150	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_1_mux/odin3-activity.json
+odin3-micro	bm_DL_2_1_mux	pw_vl_nets	4	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_1_mux/odin3-activity.json
+odin3-micro	bm_DL_2_1_mux	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_1_mux/odin3-activity.json
+odin3-micro	bm_DL_2_1_mux	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_1_mux/odin3-activity.json
+odin3-micro	bm_DL_2_4_encoder	pw_fpga_pjc	0.44	power-runs-2026-11-08/bm_DL_2_4_encoder/power.json
+odin3-micro	bm_DL_2_4_encoder	pw_freq_mhz	1267.0	power-runs-2026-11-08/bm_DL_2_4_encoder/power.json
+odin3-micro	bm_DL_2_4_encoder	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_2_4_encoder/power.json
+odin3-micro	bm_DL_2_4_encoder	pw_src	ace2	power-runs-2026-11-08/bm_DL_2_4_encoder/power.json
+odin3-micro	bm_DL_2_4_encoder	pw_vl_d	0.1554	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_4_encoder/odin3-activity.json
+odin3-micro	bm_DL_2_4_encoder	pw_vl_nets	7	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_4_encoder/odin3-activity.json
+odin3-micro	bm_DL_2_4_encoder	pw_vl_p1	0.2857	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_4_encoder/odin3-activity.json
+odin3-micro	bm_DL_2_4_encoder	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_2_4_encoder/odin3-activity.json
+odin3-micro	bm_DL_4_bit_comparator	pw_fpga_pjc	0.6357	power-runs-2026-11-08/bm_DL_4_bit_comparator/power.json
+odin3-micro	bm_DL_4_bit_comparator	pw_freq_mhz	816.6	power-runs-2026-11-08/bm_DL_4_bit_comparator/power.json
+odin3-micro	bm_DL_4_bit_comparator	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_4_bit_comparator/power.json
+odin3-micro	bm_DL_4_bit_comparator	pw_src	ace2	power-runs-2026-11-08/bm_DL_4_bit_comparator/power.json
+odin3-micro	bm_DL_4_bit_comparator	pw_vl_d	0.2160	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_comparator/odin3-activity.json
+odin3-micro	bm_DL_4_bit_comparator	pw_vl_nets	13	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_comparator/odin3-activity.json
+odin3-micro	bm_DL_4_bit_comparator	pw_vl_p1	0.4327	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_comparator/odin3-activity.json
+odin3-micro	bm_DL_4_bit_comparator	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_comparator/odin3-activity.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_fpga_pjc	0.6832	power-runs-2026-11-08/bm_DL_4_bit_shift_register/power.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_freq_mhz	1321.6	power-runs-2026-11-08/bm_DL_4_bit_shift_register/power.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_note	matched 0.714; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_4_bit_shift_register/power.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_src	ace2	power-runs-2026-11-08/bm_DL_4_bit_shift_register/power.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_vl_d	0.3647	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_shift_register/odin3-activity.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_vl_nets	15	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_shift_register/odin3-activity.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_shift_register/odin3-activity.json
+odin3-micro	bm_DL_4_bit_shift_register	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_4_bit_shift_register/odin3-activity.json
+odin3-micro	bm_DL_74381_ALU	pw_fpga_pjc	1.49	power-runs-2026-11-08/bm_DL_74381_ALU/power.json
+odin3-micro	bm_DL_74381_ALU	pw_freq_mhz	389.1	power-runs-2026-11-08/bm_DL_74381_ALU/power.json
+odin3-micro	bm_DL_74381_ALU	pw_note	matched 0.930; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_74381_ALU/power.json
+odin3-micro	bm_DL_74381_ALU	pw_src	ace2	power-runs-2026-11-08/bm_DL_74381_ALU/power.json
+odin3-micro	bm_DL_74381_ALU	pw_vl_d	0.2374	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_74381_ALU/odin3-activity.json
+odin3-micro	bm_DL_74381_ALU	pw_vl_nets	54	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_74381_ALU/odin3-activity.json
+odin3-micro	bm_DL_74381_ALU	pw_vl_p1	0.4916	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_74381_ALU/odin3-activity.json
+odin3-micro	bm_DL_74381_ALU	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_74381_ALU/odin3-activity.json
+odin3-micro	bm_DL_BCD_adder	pw_fpga_pjc	2.59	power-runs-2026-11-08/bm_DL_BCD_adder/power.json
+odin3-micro	bm_DL_BCD_adder	pw_freq_mhz	229.0	power-runs-2026-11-08/bm_DL_BCD_adder/power.json
+odin3-micro	bm_DL_BCD_adder	pw_note	matched 0.952; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_BCD_adder/power.json
+odin3-micro	bm_DL_BCD_adder	pw_src	ace2	power-runs-2026-11-08/bm_DL_BCD_adder/power.json
+odin3-micro	bm_DL_BCD_adder	pw_vl_d	0.2512	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_BCD_adder/odin3-activity.json
+odin3-micro	bm_DL_BCD_adder	pw_vl_nets	59	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_BCD_adder/odin3-activity.json
+odin3-micro	bm_DL_BCD_adder	pw_vl_p1	0.4081	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_BCD_adder/odin3-activity.json
+odin3-micro	bm_DL_BCD_adder	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_BCD_adder/odin3-activity.json
+odin3-micro	bm_DL_D_flipflop	pw_fpga_pjc	0.3643	power-runs-2026-11-08/bm_DL_D_flipflop/power.json
+odin3-micro	bm_DL_D_flipflop	pw_freq_mhz	1836.1	power-runs-2026-11-08/bm_DL_D_flipflop/power.json
+odin3-micro	bm_DL_D_flipflop	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_D_flipflop/power.json
+odin3-micro	bm_DL_D_flipflop	pw_src	ace2	power-runs-2026-11-08/bm_DL_D_flipflop/power.json
+odin3-micro	bm_DL_D_flipflop	pw_vl_d	0.8000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_D_flipflop/odin3-activity.json
+odin3-micro	bm_DL_D_flipflop	pw_vl_nets	3	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_D_flipflop/odin3-activity.json
+odin3-micro	bm_DL_D_flipflop	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_D_flipflop/odin3-activity.json
+odin3-micro	bm_DL_D_flipflop	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_D_flipflop/odin3-activity.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_fpga_pjc	0.3853	power-runs-2026-11-08/bm_DL_Dff_w_synch_reset/power.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_freq_mhz	1836.1	power-runs-2026-11-08/bm_DL_Dff_w_synch_reset/power.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_note	matched 0.750; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_Dff_w_synch_reset/power.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_src	ace2	power-runs-2026-11-08/bm_DL_Dff_w_synch_reset/power.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_vl_d	0.5520	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_Dff_w_synch_reset/odin3-activity.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_vl_nets	5	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_Dff_w_synch_reset/odin3-activity.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_vl_p1	0.4000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_Dff_w_synch_reset/odin3-activity.json
+odin3-micro	bm_DL_Dff_w_synch_reset	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_Dff_w_synch_reset/odin3-activity.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_fpga_pjc	0.9528	power-runs-2026-11-08/bm_DL_behavioural_full_adder/power.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_freq_mhz	453.3	power-runs-2026-11-08/bm_DL_behavioural_full_adder/power.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_note	matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_DL_behavioural_full_adder/power.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_src	ace2	power-runs-2026-11-08/bm_DL_behavioural_full_adder/power.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_vl_d	0.1479	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_behavioural_full_adder/odin3-activity.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_vl_nets	21	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_behavioural_full_adder/odin3-activity.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_vl_p1	0.3631	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_behavioural_full_adder/odin3-activity.json
+odin3-micro	bm_DL_behavioural_full_adder	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_DL_behavioural_full_adder/odin3-activity.json
+odin3-micro	bm_dag1_log	pw_fpga_pjc	0.7585	power-runs-2026-11-08/bm_dag1_log/power.json
+odin3-micro	bm_dag1_log	pw_freq_mhz	1007.0	power-runs-2026-11-08/bm_dag1_log/power.json
+odin3-micro	bm_dag1_log	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_dag1_log/power.json
+odin3-micro	bm_dag1_log	pw_src	ace2	power-runs-2026-11-08/bm_dag1_log/power.json
+odin3-micro	bm_dag1_log	pw_vl_d	0.1950	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag1_log/odin3-activity.json
+odin3-micro	bm_dag1_log	pw_vl_nets	8	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag1_log/odin3-activity.json
+odin3-micro	bm_dag1_log	pw_vl_p1	0.5625	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag1_log/odin3-activity.json
+odin3-micro	bm_dag1_log	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag1_log/odin3-activity.json
+odin3-micro	bm_dag2_log	pw_fpga_pjc	0.7557	power-runs-2026-11-08/bm_dag2_log/power.json
+odin3-micro	bm_dag2_log	pw_freq_mhz	1007.0	power-runs-2026-11-08/bm_dag2_log/power.json
+odin3-micro	bm_dag2_log	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_dag2_log/power.json
+odin3-micro	bm_dag2_log	pw_src	ace2	power-runs-2026-11-08/bm_dag2_log/power.json
+odin3-micro	bm_dag2_log	pw_vl_d	0.1950	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag2_log/odin3-activity.json
+odin3-micro	bm_dag2_log	pw_vl_nets	8	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag2_log/odin3-activity.json
+odin3-micro	bm_dag2_log	pw_vl_p1	0.4375	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag2_log/odin3-activity.json
+odin3-micro	bm_dag2_log	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_dag2_log/odin3-activity.json
+odin3-micro	bm_if_reset	pw_fpga_pjc	0.5673	power-runs-2026-11-08/bm_if_reset/power.json
+odin3-micro	bm_if_reset	pw_freq_mhz	1317.0	power-runs-2026-11-08/bm_if_reset/power.json
+odin3-micro	bm_if_reset	pw_note	matched 0.769; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_if_reset/power.json
+odin3-micro	bm_if_reset	pw_src	ace2	power-runs-2026-11-08/bm_if_reset/power.json
+odin3-micro	bm_if_reset	pw_vl_d	0.2951	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_if_reset/odin3-activity.json
+odin3-micro	bm_if_reset	pw_vl_nets	14	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_if_reset/odin3-activity.json
+odin3-micro	bm_if_reset	pw_vl_p1	0.3393	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_if_reset/odin3-activity.json
+odin3-micro	bm_if_reset	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_if_reset/odin3-activity.json
+odin3-micro	bm_lpm_all	pw_fpga_pjc	30.17	power-runs-2026-11-08/bm_lpm_all/power.json
+odin3-micro	bm_lpm_all	pw_freq_mhz	275.0	power-runs-2026-11-08/bm_lpm_all/power.json
+odin3-micro	bm_lpm_all	pw_note	matched 0.994; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_lpm_all/power.json
+odin3-micro	bm_lpm_all	pw_src	ace2	power-runs-2026-11-08/bm_lpm_all/power.json
+odin3-micro	bm_lpm_all	pw_vl_d	0.2902	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_lpm_all/odin3-activity.json
+odin3-micro	bm_lpm_all	pw_vl_nets	643	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_lpm_all/odin3-activity.json
+odin3-micro	bm_lpm_all	pw_vl_p1	0.4856	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_lpm_all/odin3-activity.json
+odin3-micro	bm_lpm_all	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_lpm_all/odin3-activity.json
+odin3-micro	bm_my_D_latch1	pw_fpga_pjc	0.3853	power-runs-2026-11-08/bm_my_D_latch1/power.json
+odin3-micro	bm_my_D_latch1	pw_freq_mhz	1160.3	power-runs-2026-11-08/bm_my_D_latch1/power.json
+odin3-micro	bm_my_D_latch1	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/bm_my_D_latch1/power.json
+odin3-micro	bm_my_D_latch1	pw_src	ace2	power-runs-2026-11-08/bm_my_D_latch1/power.json
+odin3-micro	bm_my_D_latch1	pw_vl_d	0.1950	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_my_D_latch1/odin3-activity.json
+odin3-micro	bm_my_D_latch1	pw_vl_nets	4	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_my_D_latch1/odin3-activity.json
+odin3-micro	bm_my_D_latch1	pw_vl_p1	0.4375	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_my_D_latch1/odin3-activity.json
+odin3-micro	bm_my_D_latch1	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/bm_my_D_latch1/odin3-activity.json
 opencores	a-z80	desc	A-Z80 CPU	https://opencores.org/projects/a-z80
 opencores	a-z80	licence	GPL-2.0 in license.txt; several files carry an Altera header; OpenCores page says LGPL: mismatch, flagged	license.txt:1-2; cpu/alu/alu.v:1-10 of opencores.org/ocsvn/a-z80/a-z80/trunk svn r22
 opencores	a-z80	note	needs a bus patch: db0/db1/db2 segments joined by data_switch (bidirectional switch, tristate pass leaves them); see a-z80-modified (mux-driven bus variant, same flow, runs)	r3 reruns, odin3 1.4.0 (19f5c918) rel-main3, 2026-11-05
@@ -865,6 +985,10 @@ opencores	a-z80-modified	oc_design_done	True	https://opencores.org/projects/a-z8
 opencores	a-z80-modified	oc_fpga_proven	True	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80-modified	oc_stage	stable	https://opencores.org/projects/a-z80 (page data, read 2026-11-04)
 opencores	a-z80-modified	prov	2026-11-08 (rel-v150)	status label, 2026-11-08; odin3 1.5.0 build/rel-v150
+opencores	a-z80-modified	pw_vl_d	0.0466	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/a-z80-modified/odin3-activity.json
+opencores	a-z80-modified	pw_vl_nets	2422	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/a-z80-modified/odin3-activity.json
+opencores	a-z80-modified	pw_vl_p1	0.4294	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/a-z80-modified/odin3-activity.json
+opencores	a-z80-modified	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/a-z80-modified/odin3-activity.json
 opencores	a-z80-modified	sim_iverilog	pass	data/benchmarks/opencores-tb/a-z80: upstream vs modified, 5 programs, 0 pin-trace mismatches, one-driver check 0 violations (2026-11-08)
 opencores	a-z80-modified	sim_odin	none	no testbench for Odin III sim_tb on this design
 opencores	a-z80-modified	src_rev	opencores.org/ocsvn/a-z80/a-z80/trunk svn r22	https://opencores.org/projects/a-z80; tree hash = sha256 of sorted 'relpath sha256' lines of the 39 RTL files read
@@ -909,6 +1033,10 @@ opencores	attiny_atmega_xmega_core	pw_fpga_pjc	147.7	power-runs-2026-11-08/attin
 opencores	attiny_atmega_xmega_core	pw_freq_mhz	62.0	power-runs-2026-11-08/attiny_atmega_xmega_core/power.json
 opencores	attiny_atmega_xmega_core	pw_note	matched 0.848; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/attiny_atmega_xmega_core/power.json
 opencores	attiny_atmega_xmega_core	pw_src	ace2	power-runs-2026-11-08/attiny_atmega_xmega_core/power.json
+opencores	attiny_atmega_xmega_core	pw_vl_d	0.0315	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/attiny_atmega_xmega_core/odin3-activity.json
+opencores	attiny_atmega_xmega_core	pw_vl_nets	2946	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/attiny_atmega_xmega_core/odin3-activity.json
+opencores	attiny_atmega_xmega_core	pw_vl_p1	0.3643	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/attiny_atmega_xmega_core/odin3-activity.json
+opencores	attiny_atmega_xmega_core	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/attiny_atmega_xmega_core/odin3-activity.json
 opencores	attiny_atmega_xmega_core	sim_iverilog	none	no testbench shipped by the project
 opencores	attiny_atmega_xmega_core	sim_odin	none	no testbench
 opencores	attiny_atmega_xmega_core	src_rev	opencores.org/ocsvn/attiny_atmega_xmega_core/attiny_atmega_xmega_core/trunk svn r15	https://opencores.org/projects/attiny_atmega_xmega_core; tree hash = sha256 of sorted 'relpath sha256' lines of the 1 RTL files read
@@ -936,6 +1064,10 @@ opencores	ca_prng	pw_fpga_pjc	9.149	power-runs-2026-11-08/ca_prng/power.json
 opencores	ca_prng	pw_freq_mhz	444.8	power-runs-2026-11-08/ca_prng/power.json
 opencores	ca_prng	pw_note	matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/ca_prng/power.json
 opencores	ca_prng	pw_src	ace2	power-runs-2026-11-08/ca_prng/power.json
+opencores	ca_prng	pw_vl_d	0.2985	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ca_prng/odin3-activity.json
+opencores	ca_prng	pw_vl_nets	243	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ca_prng/odin3-activity.json
+opencores	ca_prng	pw_vl_p1	0.3939	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ca_prng/odin3-activity.json
+opencores	ca_prng	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ca_prng/odin3-activity.json
 opencores	ca_prng	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/ca_prng); judged by: Simulation completed ok
 opencores	ca_prng	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/ca_prng)
 opencores	ca_prng	sim_odin_msg	tb_ca_prng.v:147: unsupported: task	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/ca_prng)
@@ -964,6 +1096,10 @@ opencores	dblclockfft	pw_fpga_pjc	3355	power-runs-2026-11-08/dblclockfft/power.j
 opencores	dblclockfft	pw_freq_mhz	194.4	power-runs-2026-11-08/dblclockfft/power.json
 opencores	dblclockfft	pw_note	matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/dblclockfft/power.json
 opencores	dblclockfft	pw_src	ace2	power-runs-2026-11-08/dblclockfft/power.json
+opencores	dblclockfft	pw_vl_d	0.2488	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/dblclockfft/odin3-activity.json
+opencores	dblclockfft	pw_vl_nets	107891	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/dblclockfft/odin3-activity.json
+opencores	dblclockfft	pw_vl_p1	0.3748	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/dblclockfft/odin3-activity.json
+opencores	dblclockfft	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/dblclockfft/odin3-activity.json
 opencores	dblclockfft	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	dblclockfft	sim_odin	fail	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/dblclockfft)
 opencores	dblclockfft	sim_odin_msg	parses and elaborates, did not finish within the sim time limit	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/dblclockfft)
@@ -993,6 +1129,10 @@ opencores	des	pw_fpga_pjc	211.9	power-runs-2026-11-08/des/power.json
 opencores	des	pw_freq_mhz	266.1	power-runs-2026-11-08/des/power.json
 opencores	des	pw_note	matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/des/power.json
 opencores	des	pw_src	ace2	power-runs-2026-11-08/des/power.json
+opencores	des	pw_vl_d	0.4074	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/des/odin3-activity.json
+opencores	des	pw_vl_nets	3983	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/des/odin3-activity.json
+opencores	des	pw_vl_p1	0.5022	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/des/odin3-activity.json
+opencores	des	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/des/odin3-activity.json
 opencores	des	si_area	516945.8	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	des	si_cells	26124	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	des	si_lvs	match	work/sifix3-out/ladder2/des.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
@@ -1020,6 +1160,10 @@ opencores	ethmac	oc_design_done	True	https://opencores.org/projects/ethmac (page
 opencores	ethmac	oc_fpga_proven	True	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
 opencores	ethmac	oc_stage	stable	https://opencores.org/projects/ethmac (page data, read 2026-11-04)
 opencores	ethmac	prov	sim re-run 2026-11-05; VTR provisional (rel-main2)	status label, 2026-11-05; rel-main2 = odin3 4c91edff, rel-main3 = odin3 19f5c918
+opencores	ethmac	pw_vl_d	0.0424	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ethmac/odin3-activity.json
+opencores	ethmac	pw_vl_nets	28038	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ethmac/odin3-activity.json
+opencores	ethmac	pw_vl_p1	0.4207	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ethmac/odin3-activity.json
+opencores	ethmac	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ethmac/odin3-activity.json
 opencores	ethmac	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/ethmac)
 opencores	ethmac	sim_iverilog_msg	vvp cap reached (1800 s) without an end summary; last line seen: TEST 5: RANDOM RECEIVE AND TRANSMIT FRAMES AT ONE TX AND ONE RX BD ( 100Mbps ); no unexpected error line before it	iverilog+vvp (project testbench, run in work/opencores-runs/ethmac)
 opencores	ethmac	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/ethmac)
@@ -1050,6 +1194,10 @@ opencores	i2c	pw_fpga_pjc	12.54	power-runs-2026-11-08/i2c/power.json
 opencores	i2c	pw_freq_mhz	354.5	power-runs-2026-11-08/i2c/power.json
 opencores	i2c	pw_note	matched 0.679; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/i2c/power.json
 opencores	i2c	pw_src	ace2	power-runs-2026-11-08/i2c/power.json
+opencores	i2c	pw_vl_d	0.0753	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2c/odin3-activity.json
+opencores	i2c	pw_vl_nets	630	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2c/odin3-activity.json
+opencores	i2c	pw_vl_p1	0.3587	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2c/odin3-activity.json
+opencores	i2c	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2c/odin3-activity.json
 opencores	i2c	si_area	30669.4	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	i2c	si_cells	1397	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	i2c	si_lvs	match	work/sifix3-out/ladder2/i2c.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
@@ -1082,6 +1230,10 @@ opencores	i2cslave	pw_fpga_pjc	4.717	power-runs-2026-11-08/i2cslave/power.json
 opencores	i2cslave	pw_freq_mhz	424.6	power-runs-2026-11-08/i2cslave/power.json
 opencores	i2cslave	pw_note	matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/i2cslave/power.json
 opencores	i2cslave	pw_src	ace2	power-runs-2026-11-08/i2cslave/power.json
+opencores	i2cslave	pw_vl_d	0.0238	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2cslave/odin3-activity.json
+opencores	i2cslave	pw_vl_nets	376	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2cslave/odin3-activity.json
+opencores	i2cslave	pw_vl_p1	0.4340	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2cslave/odin3-activity.json
+opencores	i2cslave	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/i2cslave/odin3-activity.json
 opencores	i2cslave	sim_iverilog	fail	iverilog+vvp (project testbench, run in work/opencores-runs/i2cslave)
 opencores	i2cslave	sim_iverilog_msg	timeout (vvp cap reached) without end summary	iverilog+vvp (project testbench, run in work/opencores-runs/i2cslave)
 opencores	i2cslave	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/i2cslave)
@@ -1111,6 +1263,10 @@ opencores	mips_16	pw_fpga_pjc	4.934	power-runs-2026-11-08/mips_16/power.json
 opencores	mips_16	pw_freq_mhz	248.7	power-runs-2026-11-08/mips_16/power.json
 opencores	mips_16	pw_note	matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/mips_16/power.json
 opencores	mips_16	pw_src	ace2	power-runs-2026-11-08/mips_16/power.json
+opencores	mips_16	pw_vl_d	0.0898	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16/odin3-activity.json
+opencores	mips_16	pw_vl_nets	181	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16/odin3-activity.json
+opencores	mips_16	pw_vl_p1	0.1383	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16/odin3-activity.json
+opencores	mips_16	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16/odin3-activity.json
 opencores	mips_16	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/mips_16)
 opencores	mips_16	sim_odin_msg	tb_mips_16.v:124: unsupported: hierarchical name (name.name[number], constant indices only)	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/mips_16)
@@ -1141,6 +1297,10 @@ opencores	mips_16_noxarm	pw_fpga_pjc	26.02	power-runs-2026-11-08/mips_16_noxarm/
 opencores	mips_16_noxarm	pw_freq_mhz	177.4	power-runs-2026-11-08/mips_16_noxarm/power.json
 opencores	mips_16_noxarm	pw_note	matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/mips_16_noxarm/power.json
 opencores	mips_16_noxarm	pw_src	ace2	power-runs-2026-11-08/mips_16_noxarm/power.json
+opencores	mips_16_noxarm	pw_vl_d	0.0384	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16_noxarm/odin3-activity.json
+opencores	mips_16_noxarm	pw_vl_nets	950	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16_noxarm/odin3-activity.json
+opencores	mips_16_noxarm	pw_vl_p1	0.2118	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16_noxarm/odin3-activity.json
+opencores	mips_16_noxarm	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mips_16_noxarm/odin3-activity.json
 opencores	mips_16_noxarm	src_rev	github.com/freecores/mips_16 git 5dc3eec81faa	https://opencores.org/projects/mips_16; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
 opencores	mips_16_noxarm	tb	data/benchmarks/opencores-tb/mips_16	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	mips_16_noxarm	tb_origin	mimir-written	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
@@ -1165,6 +1325,10 @@ opencores	mmuart	pw_fpga_pjc	4.713	power-runs-2026-11-08/mmuart/power.json
 opencores	mmuart	pw_freq_mhz	438.4	power-runs-2026-11-08/mmuart/power.json
 opencores	mmuart	pw_note	matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz	power-runs-2026-11-08/mmuart/power.json
 opencores	mmuart	pw_src	iverilog-gate	power-runs-2026-11-08/mmuart/power.json
+opencores	mmuart	pw_vl_d	0.0474	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mmuart/odin3-activity.json
+opencores	mmuart	pw_vl_nets	411	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mmuart/odin3-activity.json
+opencores	mmuart	pw_vl_p1	0.3157	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mmuart/odin3-activity.json
+opencores	mmuart	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/mmuart/odin3-activity.json
 opencores	mmuart	si_area	14589.0	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	mmuart	si_cells	681	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	mmuart	si_lvs	match	work/sifix3-out/ladder2/mmuart.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
@@ -1196,6 +1360,10 @@ opencores	pipelined_fft_256	pw_fpga_pjc	530.5	power-runs-2026-11-08/pipelined_ff
 opencores	pipelined_fft_256	pw_freq_mhz	145.8	power-runs-2026-11-08/pipelined_fft_256/power.json
 opencores	pipelined_fft_256	pw_note	matched 0.729; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/pipelined_fft_256/power.json
 opencores	pipelined_fft_256	pw_src	ace2	power-runs-2026-11-08/pipelined_fft_256/power.json
+opencores	pipelined_fft_256	pw_vl_d	0.2054	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/pipelined_fft_256/odin3-activity.json
+opencores	pipelined_fft_256	pw_vl_nets	21009	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/pipelined_fft_256/odin3-activity.json
+opencores	pipelined_fft_256	pw_vl_p1	0.4925	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/pipelined_fft_256/odin3-activity.json
+opencores	pipelined_fft_256	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/pipelined_fft_256/odin3-activity.json
 opencores	pipelined_fft_256	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/pipelined_fft_256); judged by: rms error is\s+[012] lsb
 opencores	pipelined_fft_256	sim_odin	fail	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/pipelined_fft_256)
 opencores	pipelined_fft_256	sim_odin_msg	odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/pipelined_fft_256)
@@ -1217,6 +1385,10 @@ opencores	reed_solomon_decoder	pw_fpga_pjc	383.6	power-runs-2026-11-08/reed_solo
 opencores	reed_solomon_decoder	pw_freq_mhz	181.8	power-runs-2026-11-08/reed_solomon_decoder/power.json
 opencores	reed_solomon_decoder	pw_note	matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/reed_solomon_decoder/power.json
 opencores	reed_solomon_decoder	pw_src	ace2	power-runs-2026-11-08/reed_solomon_decoder/power.json
+opencores	reed_solomon_decoder	pw_vl_d	0.0398	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/reed_solomon_decoder/odin3-activity.json
+opencores	reed_solomon_decoder	pw_vl_nets	10999	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/reed_solomon_decoder/odin3-activity.json
+opencores	reed_solomon_decoder	pw_vl_p1	0.2050	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/reed_solomon_decoder/odin3-activity.json
+opencores	reed_solomon_decoder	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/reed_solomon_decoder/odin3-activity.json
 opencores	reed_solomon_decoder	sim_iverilog	pass	run in the simulation directory (the bench reads input_RS_blocks / output_RS_blocks relative to it) with vvp -n ($stop ends the run); no file changed; Odin III sim_tb also passes from that directory (981 s)
 opencores	reed_solomon_decoder	sim_odin	fail	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/reed_solomon_decoder)
 opencores	reed_solomon_decoder	sim_odin_msg	parses and elaborates, did not finish within the sim time limit	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/reed_solomon_decoder)
@@ -1245,6 +1417,10 @@ opencores	sdr_ctrl	pw_fpga_pjc	74.81	power-runs-2026-11-08/sdr_ctrl/power.json
 opencores	sdr_ctrl	pw_freq_mhz	167.2	power-runs-2026-11-08/sdr_ctrl/power.json
 opencores	sdr_ctrl	pw_note	matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/sdr_ctrl/power.json
 opencores	sdr_ctrl	pw_src	ace2	power-runs-2026-11-08/sdr_ctrl/power.json
+opencores	sdr_ctrl	pw_vl_d	0.0827	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdr_ctrl/odin3-activity.json
+opencores	sdr_ctrl	pw_vl_nets	3671	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdr_ctrl/odin3-activity.json
+opencores	sdr_ctrl	pw_vl_p1	0.3670	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdr_ctrl/odin3-activity.json
+opencores	sdr_ctrl	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdr_ctrl/odin3-activity.json
 opencores	sdr_ctrl	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/sdr_ctrl); judged by: TEST PASSED
 opencores	sdr_ctrl	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sdr_ctrl)
 opencores	sdr_ctrl	sim_odin_msg	tb_top.sv:105: unsupported: real number	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sdr_ctrl)
@@ -1273,6 +1449,10 @@ opencores	sdram_16bit	pw_fpga_pjc	14.92	power-runs-2026-11-08/sdram_16bit/power.
 opencores	sdram_16bit	pw_freq_mhz	255.5	power-runs-2026-11-08/sdram_16bit/power.json
 opencores	sdram_16bit	pw_note	matched 0.710; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/sdram_16bit/power.json
 opencores	sdram_16bit	pw_src	ace2	power-runs-2026-11-08/sdram_16bit/power.json
+opencores	sdram_16bit	pw_vl_d	0.0736	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdram_16bit/odin3-activity.json
+opencores	sdram_16bit	pw_vl_nets	639	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdram_16bit/odin3-activity.json
+opencores	sdram_16bit	pw_vl_p1	0.2784	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdram_16bit/odin3-activity.json
+opencores	sdram_16bit	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sdram_16bit/odin3-activity.json
 opencores	sdram_16bit	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	sdram_16bit	sim_odin	fail	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sdram_16bit)
 opencores	sdram_16bit	sim_odin_msg	simulation.svh:19:37: error: syntax: '`__FILE__' is a SystemVerilog macro operator; not Verilog-2005 (Phase 5)	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sdram_16bit)
@@ -1297,6 +1477,10 @@ opencores	sha3_high	oc_design_done	True	https://opencores.org/projects/sha3 (pag
 opencores	sha3_high	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_high	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_high	prov	sim re-run 2026-11-05; VTR provisional (rel-main2)	status label, 2026-11-05; rel-main2 = odin3 4c91edff, rel-main3 = odin3 19f5c918
+opencores	sha3_high	pw_vl_d	0.0056	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_high/odin3-activity.json
+opencores	sha3_high	pw_vl_nets	10106	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_high/odin3-activity.json
+opencores	sha3_high	pw_vl_p1	0.2999	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_high/odin3-activity.json
+opencores	sha3_high	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_high/odin3-activity.json
 opencores	sha3_high	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/sha3_high); judged by: Good!
 opencores	sha3_high	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sha3_high)
 opencores	sha3_high	sim_odin_msg	test_keccak.v:32: unsupported: signal wider than 64 bits	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/sha3_high)
@@ -1321,6 +1505,10 @@ opencores	sha3_low	oc_design_done	True	https://opencores.org/projects/sha3 (page
 opencores	sha3_low	oc_fpga_proven	True	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_low	oc_stage	stable	https://opencores.org/projects/sha3 (page data, read 2026-11-04)
 opencores	sha3_low	prov	sim re-run 2026-11-05; VTR provisional (rel-main2)	status label, 2026-11-05; rel-main2 = odin3 4c91edff, rel-main3 = odin3 19f5c918
+opencores	sha3_low	pw_vl_d	0.0059	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_low/odin3-activity.json
+opencores	sha3_low	pw_vl_nets	7317	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_low/odin3-activity.json
+opencores	sha3_low	pw_vl_p1	0.2196	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_low/odin3-activity.json
+opencores	sha3_low	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha3_low/odin3-activity.json
 opencores	sha3_low	si_area	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
 opencores	sha3_low	si_cells	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
 opencores	sha3_low	si_lvs	running	work/sifix3-out/ladder2/sha3_low.chain.out (silicon chain still running 2026-11-05)
@@ -1353,6 +1541,10 @@ opencores	simple_spi	pw_fpga_pjc	5.936	power-runs-2026-11-08/simple_spi/power.js
 opencores	simple_spi	pw_freq_mhz	403.6	power-runs-2026-11-08/simple_spi/power.json
 opencores	simple_spi	pw_note	matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/simple_spi/power.json
 opencores	simple_spi	pw_src	ace2	power-runs-2026-11-08/simple_spi/power.json
+opencores	simple_spi	pw_vl_d	0.0481	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/simple_spi/odin3-activity.json
+opencores	simple_spi	pw_vl_nets	417	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/simple_spi/odin3-activity.json
+opencores	simple_spi	pw_vl_p1	0.3012	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/simple_spi/odin3-activity.json
+opencores	simple_spi	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/simple_spi/odin3-activity.json
 opencores	simple_spi	si_area	20364.5	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
 opencores	simple_spi	si_cells	974	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
 opencores	simple_spi	si_lvs	match	odin3 docs/results/silicon-ladder-opencores.tsv (first ladder; cells = inst_count_all minus fill 2134)
@@ -1385,6 +1577,10 @@ opencores	spi	pw_fpga_pjc	31.11	power-runs-2026-11-08/spi/power.json
 opencores	spi	pw_freq_mhz	151.8	power-runs-2026-11-08/spi/power.json
 opencores	spi	pw_note	matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/spi/power.json
 opencores	spi	pw_src	ace2	power-runs-2026-11-08/spi/power.json
+opencores	spi	pw_vl_d	0.0441	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/spi/odin3-activity.json
+opencores	spi	pw_vl_nets	1009	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/spi/odin3-activity.json
+opencores	spi	pw_vl_p1	0.2627	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/spi/odin3-activity.json
+opencores	spi	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/spi/odin3-activity.json
 opencores	spi	sim_iverilog	pass	iverilog+vvp (project testbench, run in work/opencores-runs/spi); judged by: Testbench done
 opencores	spi	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/spi)
 opencores	spi	sim_odin_msg	tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state)	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/spi)
@@ -1431,6 +1627,10 @@ opencores	uart2spi	pw_fpga_pjc	22.81	power-runs-2026-11-08/uart2spi/power.json
 opencores	uart2spi	pw_freq_mhz	313.4	power-runs-2026-11-08/uart2spi/power.json
 opencores	uart2spi	pw_note	matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/uart2spi/power.json
 opencores	uart2spi	pw_src	ace2	power-runs-2026-11-08/uart2spi/power.json
+opencores	uart2spi	pw_vl_d	0.0798	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/uart2spi/odin3-activity.json
+opencores	uart2spi	pw_vl_nets	1357	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/uart2spi/odin3-activity.json
+opencores	uart2spi	pw_vl_p1	0.2642	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/uart2spi/odin3-activity.json
+opencores	uart2spi	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/uart2spi/odin3-activity.json
 opencores	uart2spi	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/uart2spi)
 opencores	uart2spi	sim_odin_msg	tb_top.v:51: unsupported: real number	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/uart2spi)
 opencores	uart2spi	src_rev	opencores-candidates clone git 4d6750c	https://opencores.org/projects/uart2spi; tree hash = sha256 of sorted 'relpath sha256' lines of the 11 RTL files read
@@ -1457,6 +1657,10 @@ opencores	usbhostslave	pw_fpga_pjc	245.8	power-runs-2026-11-08/usbhostslave/powe
 opencores	usbhostslave	pw_freq_mhz	195.9	power-runs-2026-11-08/usbhostslave/power.json
 opencores	usbhostslave	pw_note	matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/usbhostslave/power.json
 opencores	usbhostslave	pw_src	ace2	power-runs-2026-11-08/usbhostslave/power.json
+opencores	usbhostslave	pw_vl_d	0.0022	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/usbhostslave/odin3-activity.json
+opencores	usbhostslave	pw_vl_nets	18504	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/usbhostslave/odin3-activity.json
+opencores	usbhostslave	pw_vl_p1	0.3768	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/usbhostslave/odin3-activity.json
+opencores	usbhostslave	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/usbhostslave/odin3-activity.json
 opencores	usbhostslave	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	usbhostslave	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/usbhostslave)
 opencores	usbhostslave	sim_odin_msg	sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state)	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/usbhostslave)
@@ -1485,6 +1689,10 @@ opencores	verilog_cordic_core	pw_fpga_pjc	126.9	power-runs-2026-11-08/verilog_co
 opencores	verilog_cordic_core	pw_freq_mhz	228.3	power-runs-2026-11-08/verilog_cordic_core/power.json
 opencores	verilog_cordic_core	pw_note	matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz	power-runs-2026-11-08/verilog_cordic_core/power.json
 opencores	verilog_cordic_core	pw_src	iverilog-gate	power-runs-2026-11-08/verilog_cordic_core/power.json
+opencores	verilog_cordic_core	pw_vl_d	0.3300	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/verilog_cordic_core/odin3-activity.json
+opencores	verilog_cordic_core	pw_vl_nets	3669	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/verilog_cordic_core/odin3-activity.json
+opencores	verilog_cordic_core	pw_vl_p1	0.3492	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/verilog_cordic_core/odin3-activity.json
+opencores	verilog_cordic_core	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/verilog_cordic_core/odin3-activity.json
 opencores	verilog_cordic_core	si_area	188396.9	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	verilog_cordic_core	si_cells	10158	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
 opencores	verilog_cordic_core	si_lvs	match	work/sifix3-out/ladder2/verilog_cordic_core.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: equivalent
@@ -1514,6 +1722,10 @@ opencores	vga_lcd	oc_design_done	True	https://opencores.org/projects/vga_lcd (pa
 opencores	vga_lcd	oc_fpga_proven	True	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
 opencores	vga_lcd	oc_stage	stable	https://opencores.org/projects/vga_lcd (page data, read 2026-11-04)
 opencores	vga_lcd	prov	sim re-run 2026-11-05; VTR provisional (rel-main2)	status label, 2026-11-05; rel-main2 = odin3 4c91edff, rel-main3 = odin3 19f5c918
+opencores	vga_lcd	pw_vl_d	0.0286	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/vga_lcd/odin3-activity.json
+opencores	vga_lcd	pw_vl_nets	42029	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/vga_lcd/odin3-activity.json
+opencores	vga_lcd	pw_vl_p1	0.4581	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/vga_lcd/odin3-activity.json
+opencores	vga_lcd	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/vga_lcd/odin3-activity.json
 opencores	vga_lcd	sim_iverilog	pass	docs/benchmarks/opencores-testbenches.md (mimir main d23e0a3, PR #35)
 opencores	vga_lcd	sim_odin	refused	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/vga_lcd)
 opencores	vga_lcd	sim_odin_msg	test_bench_top.v:558: unsupported: real number	odin3 sim_tb, odin3 1.4.0 (19f5c918) build/rel-main3, 2026-11-05 (r3/vga_lcd)
@@ -1542,6 +1754,10 @@ opencores	wb_lcd	pw_fpga_pjc	19.35	power-runs-2026-11-08/wb_lcd/power.json
 opencores	wb_lcd	pw_freq_mhz	269.3	power-runs-2026-11-08/wb_lcd/power.json
 opencores	wb_lcd	pw_note	matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz	power-runs-2026-11-08/wb_lcd/power.json
 opencores	wb_lcd	pw_src	iverilog-gate	power-runs-2026-11-08/wb_lcd/power.json
+opencores	wb_lcd	pw_vl_d	0.0276	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/wb_lcd/odin3-activity.json
+opencores	wb_lcd	pw_vl_nets	1906	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/wb_lcd/odin3-activity.json
+opencores	wb_lcd	pw_vl_p1	0.4208	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/wb_lcd/odin3-activity.json
+opencores	wb_lcd	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/wb_lcd/odin3-activity.json
 opencores	wb_lcd	si_area	98994.9	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
 opencores	wb_lcd	si_cells	4428	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
 opencores	wb_lcd	si_lvs	match	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
@@ -1724,6 +1940,10 @@ verilogeval	Prob009_popcount3	pw_fpga_pjc	0.9534	power-runs-2026-11-08/Prob009_p
 verilogeval	Prob009_popcount3	pw_freq_mhz	453.3	power-runs-2026-11-08/Prob009_popcount3/power.json
 verilogeval	Prob009_popcount3	pw_note	matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob009_popcount3/power.json
 verilogeval	Prob009_popcount3	pw_src	ace2	power-runs-2026-11-08/Prob009_popcount3/power.json
+verilogeval	Prob009_popcount3	pw_vl_d	0.1479	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob009_popcount3/odin3-activity.json
+verilogeval	Prob009_popcount3	pw_vl_nets	21	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob009_popcount3/odin3-activity.json
+verilogeval	Prob009_popcount3	pw_vl_p1	0.3631	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob009_popcount3/odin3-activity.json
+verilogeval	Prob009_popcount3	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob009_popcount3/odin3-activity.json
 verilogeval	Prob009_popcount3	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob009_popcount3_test.sv	file scan
 verilogeval	Prob009_popcount3	vec	1	testbench text scan
 verilogeval	Prob010_mt2015_q4a	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -1745,6 +1965,10 @@ verilogeval	Prob010_mt2015_q4a	pw_fpga_pjc	0.3853	power-runs-2026-11-08/Prob010_
 verilogeval	Prob010_mt2015_q4a	pw_freq_mhz	1160.3	power-runs-2026-11-08/Prob010_mt2015_q4a/power.json
 verilogeval	Prob010_mt2015_q4a	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob010_mt2015_q4a/power.json
 verilogeval	Prob010_mt2015_q4a	pw_src	ace2	power-runs-2026-11-08/Prob010_mt2015_q4a/power.json
+verilogeval	Prob010_mt2015_q4a	pw_vl_d	0.1933	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob010_mt2015_q4a/odin3-activity.json
+verilogeval	Prob010_mt2015_q4a	pw_vl_nets	3	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob010_mt2015_q4a/odin3-activity.json
+verilogeval	Prob010_mt2015_q4a	pw_vl_p1	0.4167	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob010_mt2015_q4a/odin3-activity.json
+verilogeval	Prob010_mt2015_q4a	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob010_mt2015_q4a/odin3-activity.json
 verilogeval	Prob010_mt2015_q4a	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob010_mt2015_q4a_test.sv	file scan
 verilogeval	Prob010_mt2015_q4a	vec	1	testbench text scan
 verilogeval	Prob011_norgate	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -1766,6 +1990,10 @@ verilogeval	Prob011_norgate	pw_fpga_pjc	0.3853	power-runs-2026-11-08/Prob011_nor
 verilogeval	Prob011_norgate	pw_freq_mhz	1160.3	power-runs-2026-11-08/Prob011_norgate/power.json
 verilogeval	Prob011_norgate	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob011_norgate/power.json
 verilogeval	Prob011_norgate	pw_src	ace2	power-runs-2026-11-08/Prob011_norgate/power.json
+verilogeval	Prob011_norgate	pw_vl_d	0.1933	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob011_norgate/odin3-activity.json
+verilogeval	Prob011_norgate	pw_vl_nets	3	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob011_norgate/odin3-activity.json
+verilogeval	Prob011_norgate	pw_vl_p1	0.4167	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob011_norgate/odin3-activity.json
+verilogeval	Prob011_norgate	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob011_norgate/odin3-activity.json
 verilogeval	Prob011_norgate	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob011_norgate_test.sv	file scan
 verilogeval	Prob011_norgate	vec	1	testbench text scan
 verilogeval	Prob012_xnorgate	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -1787,6 +2015,10 @@ verilogeval	Prob012_xnorgate	pw_fpga_pjc	0.3922	power-runs-2026-11-08/Prob012_xn
 verilogeval	Prob012_xnorgate	pw_freq_mhz	1160.3	power-runs-2026-11-08/Prob012_xnorgate/power.json
 verilogeval	Prob012_xnorgate	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob012_xnorgate/power.json
 verilogeval	Prob012_xnorgate	pw_src	ace2	power-runs-2026-11-08/Prob012_xnorgate/power.json
+verilogeval	Prob012_xnorgate	pw_vl_d	0.2400	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob012_xnorgate/odin3-activity.json
+verilogeval	Prob012_xnorgate	pw_vl_nets	3	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob012_xnorgate/odin3-activity.json
+verilogeval	Prob012_xnorgate	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob012_xnorgate/odin3-activity.json
+verilogeval	Prob012_xnorgate	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob012_xnorgate/odin3-activity.json
 verilogeval	Prob012_xnorgate	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob012_xnorgate_test.sv	file scan
 verilogeval	Prob012_xnorgate	vec	1	testbench text scan
 verilogeval	Prob013_m2014_q4e	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -1860,6 +2092,10 @@ verilogeval	Prob016_m2014_q4j	pw_fpga_pjc	0.6545	power-runs-2026-11-08/Prob016_m
 verilogeval	Prob016_m2014_q4j	pw_freq_mhz	653.3	power-runs-2026-11-08/Prob016_m2014_q4j/power.json
 verilogeval	Prob016_m2014_q4j	pw_note	matched 0.900; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob016_m2014_q4j/power.json
 verilogeval	Prob016_m2014_q4j	pw_src	ace2	power-runs-2026-11-08/Prob016_m2014_q4j/power.json
+verilogeval	Prob016_m2014_q4j	pw_vl_d	0.2275	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob016_m2014_q4j/odin3-activity.json
+verilogeval	Prob016_m2014_q4j	pw_vl_nets	27	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob016_m2014_q4j/odin3-activity.json
+verilogeval	Prob016_m2014_q4j	pw_vl_p1	0.4618	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob016_m2014_q4j/odin3-activity.json
+verilogeval	Prob016_m2014_q4j	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob016_m2014_q4j/odin3-activity.json
 verilogeval	Prob016_m2014_q4j	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob016_m2014_q4j_test.sv	file scan
 verilogeval	Prob016_m2014_q4j	vec	1	testbench text scan
 verilogeval	Prob017_mux2to1v	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -2008,6 +2244,10 @@ verilogeval	Prob024_hadd	pw_fpga_pjc	0.4248	power-runs-2026-11-08/Prob024_hadd/p
 verilogeval	Prob024_hadd	pw_freq_mhz	743.6	power-runs-2026-11-08/Prob024_hadd/power.json
 verilogeval	Prob024_hadd	pw_note	matched 0.923; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob024_hadd/power.json
 verilogeval	Prob024_hadd	pw_src	ace2	power-runs-2026-11-08/Prob024_hadd/power.json
+verilogeval	Prob024_hadd	pw_vl_d	0.1317	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob024_hadd/odin3-activity.json
+verilogeval	Prob024_hadd	pw_vl_nets	12	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob024_hadd/odin3-activity.json
+verilogeval	Prob024_hadd	pw_vl_p1	0.3958	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob024_hadd/odin3-activity.json
+verilogeval	Prob024_hadd	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob024_hadd/odin3-activity.json
 verilogeval	Prob024_hadd	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob024_hadd_test.sv	file scan
 verilogeval	Prob024_hadd	vec	1	testbench text scan
 verilogeval	Prob025_reduction	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -2028,6 +2268,10 @@ verilogeval	Prob025_reduction	pw_fpga_pjc	0.5859	power-runs-2026-11-08/Prob025_r
 verilogeval	Prob025_reduction	pw_freq_mhz	834.9	power-runs-2026-11-08/Prob025_reduction/power.json
 verilogeval	Prob025_reduction	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob025_reduction/power.json
 verilogeval	Prob025_reduction	pw_src	ace2	power-runs-2026-11-08/Prob025_reduction/power.json
+verilogeval	Prob025_reduction	pw_vl_d	0.2527	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob025_reduction/odin3-activity.json
+verilogeval	Prob025_reduction	pw_vl_nets	10	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob025_reduction/odin3-activity.json
+verilogeval	Prob025_reduction	pw_vl_p1	0.5000	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob025_reduction/odin3-activity.json
+verilogeval	Prob025_reduction	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob025_reduction/odin3-activity.json
 verilogeval	Prob025_reduction	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob025_reduction_test.sv	file scan
 verilogeval	Prob025_reduction	vec	1	testbench text scan
 verilogeval	Prob026_alwaysblock1	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -2339,6 +2583,10 @@ verilogeval	Prob043_vector5	pw_fpga_pjc	1.707	power-runs-2026-11-08/Prob043_vect
 verilogeval	Prob043_vector5	pw_freq_mhz	857.2	power-runs-2026-11-08/Prob043_vector5/power.json
 verilogeval	Prob043_vector5	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob043_vector5/power.json
 verilogeval	Prob043_vector5	pw_src	ace2	power-runs-2026-11-08/Prob043_vector5/power.json
+verilogeval	Prob043_vector5	pw_vl_d	0.2387	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob043_vector5/odin3-activity.json
+verilogeval	Prob043_vector5	pw_vl_nets	31	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob043_vector5/odin3-activity.json
+verilogeval	Prob043_vector5	pw_vl_p1	0.5968	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob043_vector5/odin3-activity.json
+verilogeval	Prob043_vector5	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob043_vector5/odin3-activity.json
 verilogeval	Prob043_vector5	si_area	420.4	ql13-out/Prob043_vector5/status.json
 verilogeval	Prob043_vector5	si_cells	25	ql13-out/Prob043_vector5/status.json
 verilogeval	Prob043_vector5	si_lvs	mismatch	ql13-out/Prob043_vector5/status.json
@@ -3080,6 +3328,10 @@ verilogeval	Prob085_shift4	pw_fpga_pjc	0.6309	power-runs-2026-11-08/Prob085_shif
 verilogeval	Prob085_shift4	pw_freq_mhz	1650.0	power-runs-2026-11-08/Prob085_shift4/power.json
 verilogeval	Prob085_shift4	pw_note	matched 0.733; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob085_shift4/power.json
 verilogeval	Prob085_shift4	pw_src	ace2	power-runs-2026-11-08/Prob085_shift4/power.json
+verilogeval	Prob085_shift4	pw_vl_d	0.3136	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob085_shift4/odin3-activity.json
+verilogeval	Prob085_shift4	pw_vl_nets	16	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob085_shift4/odin3-activity.json
+verilogeval	Prob085_shift4	pw_vl_p1	0.3299	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob085_shift4/odin3-activity.json
+verilogeval	Prob085_shift4	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob085_shift4/odin3-activity.json
 verilogeval	Prob085_shift4	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob085_shift4_test.sv	file scan
 verilogeval	Prob085_shift4	vec	1	testbench text scan
 verilogeval	Prob086_lfsr5	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -3755,6 +4007,10 @@ verilogeval	Prob123_bugs_addsubz	pw_fpga_pjc	1.528	power-runs-2026-11-08/Prob123
 verilogeval	Prob123_bugs_addsubz	pw_freq_mhz	387.7	power-runs-2026-11-08/Prob123_bugs_addsubz/power.json
 verilogeval	Prob123_bugs_addsubz	pw_note	matched 0.935; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob123_bugs_addsubz/power.json
 verilogeval	Prob123_bugs_addsubz	pw_src	ace2	power-runs-2026-11-08/Prob123_bugs_addsubz/power.json
+verilogeval	Prob123_bugs_addsubz	pw_vl_d	0.2779	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob123_bugs_addsubz/odin3-activity.json
+verilogeval	Prob123_bugs_addsubz	pw_vl_nets	59	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob123_bugs_addsubz/odin3-activity.json
+verilogeval	Prob123_bugs_addsubz	pw_vl_p1	0.4844	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob123_bugs_addsubz/odin3-activity.json
+verilogeval	Prob123_bugs_addsubz	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob123_bugs_addsubz/odin3-activity.json
 verilogeval	Prob123_bugs_addsubz	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob123_bugs_addsubz_test.sv	file scan
 verilogeval	Prob123_bugs_addsubz	vec	1	testbench text scan
 verilogeval	Prob124_rule110	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -4059,6 +4315,10 @@ verilogeval	Prob141_count_clock	pw_fpga_pjc	2.054	power-runs-2026-11-08/Prob141_
 verilogeval	Prob141_count_clock	pw_freq_mhz	471.7	power-runs-2026-11-08/Prob141_count_clock/power.json
 verilogeval	Prob141_count_clock	pw_note	matched 0.807; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob141_count_clock/power.json
 verilogeval	Prob141_count_clock	pw_src	ace2	power-runs-2026-11-08/Prob141_count_clock/power.json
+verilogeval	Prob141_count_clock	pw_vl_d	0.0321	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob141_count_clock/odin3-activity.json
+verilogeval	Prob141_count_clock	pw_vl_nets	143	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob141_count_clock/odin3-activity.json
+verilogeval	Prob141_count_clock	pw_vl_p1	0.1719	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob141_count_clock/odin3-activity.json
+verilogeval	Prob141_count_clock	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob141_count_clock/odin3-activity.json
 verilogeval	Prob141_count_clock	tb	Gate-Breaker-verilog-eval/dataset_spec-to-rtl/Prob141_count_clock_test.sv	file scan
 verilogeval	Prob141_count_clock	vec	1	testbench text scan
 verilogeval	Prob142_lemmings2	chk_add	0	odin3 odin3 1.2.0 (ABI 7) commit 4c91edff1303e7c435f1f5e0bae16f0dc037bc52 SystemVerilog via slang (adapters/slang, third_party/slang) linked ABC a3001b72edc5de22442e942165487fddf150e3d0 (adapters/abc/NOTICE) (rel-main2)
@@ -4216,6 +4476,10 @@ verilogeval	Prob150_review2015_fsmonehot	pw_fpga_pjc	0.7253	power-runs-2026-11-0
 verilogeval	Prob150_review2015_fsmonehot	pw_freq_mhz	958.9	power-runs-2026-11-08/Prob150_review2015_fsmonehot/power.json
 verilogeval	Prob150_review2015_fsmonehot	pw_note	matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/Prob150_review2015_fsmonehot/power.json
 verilogeval	Prob150_review2015_fsmonehot	pw_src	ace2	power-runs-2026-11-08/Prob150_review2015_fsmonehot/power.json
+verilogeval	Prob150_review2015_fsmonehot	pw_vl_d	0.1990	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob150_review2015_fsmonehot/odin3-activity.json
+verilogeval	Prob150_review2015_fsmonehot	pw_vl_nets	21	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob150_review2015_fsmonehot/odin3-activity.json
+verilogeval	Prob150_review2015_fsmonehot	pw_vl_p1	0.5156	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob150_review2015_fsmonehot/odin3-activity.json
+verilogeval	Prob150_review2015_fsmonehot	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/Prob150_review2015_fsmonehot/odin3-activity.json
 verilogeval	Prob150_review2015_fsmonehot	si_area	150.1	ql13-out/Prob150_review2015_fsmonehot/status.json
 verilogeval	Prob150_review2015_fsmonehot	si_cells	10	ql13-out/Prob150_review2015_fsmonehot/status.json
 verilogeval	Prob150_review2015_fsmonehot	si_lvs	mismatch	ql13-out/Prob150_review2015_fsmonehot/status.json
@@ -8172,6 +8436,10 @@ vtr-verilog	ch_intrinsics	pw_fpga_pjc	4.822	power-runs-2026-11-08/ch_intrinsics/
 vtr-verilog	ch_intrinsics	pw_freq_mhz	634.8	power-runs-2026-11-08/ch_intrinsics/power.json
 vtr-verilog	ch_intrinsics	pw_note	matched 0.745; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/ch_intrinsics/power.json
 vtr-verilog	ch_intrinsics	pw_src	ace2	power-runs-2026-11-08/ch_intrinsics/power.json
+vtr-verilog	ch_intrinsics	pw_vl_d	0.0861	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ch_intrinsics/odin3-activity.json
+vtr-verilog	ch_intrinsics	pw_vl_nets	384	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ch_intrinsics/odin3-activity.json
+vtr-verilog	ch_intrinsics	pw_vl_p1	0.3758	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ch_intrinsics/odin3-activity.json
+vtr-verilog	ch_intrinsics	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/ch_intrinsics/odin3-activity.json
 vtr-verilog	ch_intrinsics	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	ch_intrinsics	vec	0	no testbench
 vtr-verilog	ch_intrinsics	vtr_blocks	12	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.blocks
@@ -8527,6 +8795,10 @@ vtr-verilog	sha	pw_fpga_pjc	94.86	power-runs-2026-11-08/sha/power.json
 vtr-verilog	sha	pw_freq_mhz	97.9	power-runs-2026-11-08/sha/power.json
 vtr-verilog	sha	pw_note	matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2	power-runs-2026-11-08/sha/power.json
 vtr-verilog	sha	pw_src	ace2	power-runs-2026-11-08/sha/power.json
+vtr-verilog	sha	pw_vl_d	0.0720	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha/odin3-activity.json
+vtr-verilog	sha	pw_vl_nets	2864	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha/odin3-activity.json
+vtr-verilog	sha	pw_vl_p1	0.0981	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha/odin3-activity.json
+vtr-verilog	sha	pw_vl_src	odin3-vectorless; PI p=0.5 density=0.2	heimdall-runs-2026-11-09 odin3 1.6.0 (rel-v160)/sha/odin3-activity.json
 vtr-verilog	sha	tb	0	no tb/test file named for it in vtr_flow/benchmarks/verilog
 vtr-verilog	sha	vec	0	no testbench
 vtr-verilog	sha	vtr_blocks	142	store norns-placers-e10-base/vpr_sa/seed1/k6_frac_N10_frac_chain_mem32K_40nm vpr.blocks

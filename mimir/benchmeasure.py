@@ -273,6 +273,45 @@ def collect_power(idx: Path, root: Path, label: str, suite: str = "") -> list[Ro
     return rows
 
 
+def activity_rows(suite: str, design: str, js: Mapping[str, Any], source: str) -> list[Row]:
+    """Vectorless activity columns of one design from `odin3 activity --json` (schema
+    `odin3-activity` version 1): the mean P1 and the mean transition density over all nets of the
+    file (primary inputs included), the net count, and the activity source label."""
+    nets = js.get("nets", [])
+    if not nets:
+        return []
+    n = len(nets)
+    inp = js.get("inputs", {})
+    label = (f"{js.get('source', 'odin3-vectorless')}; PI p={inp.get('pi_prob')} "
+             f"density={inp.get('pi_density')}")
+    return [[suite, design, "pw_vl_p1", f"{sum(float(x['p1']) for x in nets) / n:.4f}", source],
+            [suite, design, "pw_vl_d", f"{sum(float(x['d']) for x in nets) / n:.4f}", source],
+            [suite, design, "pw_vl_nets", str(n), source],
+            [suite, design, "pw_vl_src", label, source]]
+
+
+def collect_activity(idx: Path, root: Path, label: str, suite: str = "") -> list[Row]:
+    """`<root>/<design>/odin3-activity.json` of every registered design that has one; `label`
+    names the run and the Odin III version, e.g. `heimdall-runs-2026-11-09 odin3 1.6.0`. Name
+    ties between suites are resolved as in `collect_power`."""
+    by_name: dict[str, list[str]] = {}
+    for d in bench.load_designs(idx):
+        by_name.setdefault(d.design, []).append(d.suite)
+    rows: list[Row] = []
+    for aj in sorted(root.glob("*/odin3-activity.json")):
+        name = aj.parent.name
+        suites = by_name.get(name, [])
+        if len(suites) > 1 and suite in suites:
+            suites = [suite]
+        if len(suites) != 1:
+            continue
+        js = json.loads(aj.read_text(encoding="utf-8"))
+        if js.get("schema") not in (None, "odin3-activity") or js.get("version", 1) != 1:
+            continue
+        rows += activity_rows(suites[0], name, js, f"{label}/{name}/odin3-activity.json")
+    return rows
+
+
 # ---- testbenches --------------------------------------------------------------------------
 
 TB_PATTERNS = ("{d}_tb", "tb_{d}", "{d}_test", "test_{d}", "{d}_testbench")

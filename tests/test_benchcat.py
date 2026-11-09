@@ -169,6 +169,27 @@ class CatalogueTest(unittest.TestCase):
         rows = benchmeasure.collect_power(idx, root, "r", "s2")
         self.assertEqual({r[0] for r in rows}, {"s2"})
 
+    def test_activity_columns(self) -> None:
+        idx = fixture()
+        root = Path(tempfile.mkdtemp())
+        (root / "a").mkdir()
+        (root / "zz").mkdir()  # not a registered design: ignored
+        js = {"schema": "odin3-activity", "version": 1, "source": "odin3-vectorless",
+              "inputs": {"pi_prob": 0.5, "pi_density": 0.2},
+              "nets": [{"name": "x", "p1": 0.5, "d": 0.2}, {"name": "y", "p1": 0.25, "d": 0.1}]}
+        for d in ("a", "zz"):
+            (root / d / "odin3-activity.json").write_text(json.dumps(js))
+        rows = benchmeasure.collect_activity(idx, root, "run odin3 1.6.0")
+        got = {r[2]: r[3] for r in rows}
+        self.assertEqual((got["pw_vl_p1"], got["pw_vl_d"], got["pw_vl_nets"]),
+                         ("0.3750", "0.1500", "2"))
+        self.assertIn("odin3-vectorless", got["pw_vl_src"])
+        self.assertEqual(rows[0][4], "run odin3 1.6.0/a/odin3-activity.json")
+        benchcat.upsert_measures(idx, rows)
+        rows2 = benchcat.build_rows(bench.load_designs(idx), benchcat.load_measures(idx))
+        self.assertIn("Power", benchcat.sub_tables(rows2))
+        self.assertEqual(benchmeasure.activity_rows("s", "d", {"nets": []}, "x"), [])
+
     def test_power_vectorless_and_no_asic(self) -> None:
         res = {"activity": {"source": "ace2", "matched_fraction": 0.857,
                             "ace_defaults": {"pi_static_prob": 0.5, "pi_switch_prob": 0.2}},

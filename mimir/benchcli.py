@@ -226,6 +226,9 @@ def _cmd_measure(args: argparse.Namespace) -> int:
     elif args.kind == "power":
         rows = benchmeasure.collect_power(idx, Path(args.root), args.label,
                                           args.suite or "")
+    elif args.kind == "activity":
+        rows = benchmeasure.collect_activity(idx, Path(args.root), args.label,
+                                             args.suite or "")
     elif args.kind == "silicon":
         rows = benchmeasure.collect_silicon(idx, Path(args.root), args.label)
     else:
@@ -299,19 +302,21 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
     p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc", "vpr",
-                                    "power"))
+                                    "power", "activity"))
     p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
-    p.add_argument("--suite", help="odin: suite id; power: suite that wins a name found in "
-                   "several suites")
+    p.add_argument("--suite", help="odin: suite id; power, activity: suite that wins a name "
+                   "found in several suites")
     p.add_argument("--limit", type=int, help="odin: at most N designs")
     p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
     p.add_argument("--root", help="silicon: run root; testbench: external dir; vpr: output dir; "
-                   "power: dir of <design>/power.json")
-    p.add_argument("--label", default="silicon-run", help="silicon, power: run name in the source")
+                   "power: dir of <design>/power.json; "
+                   "activity: dir of <design>/odin3-activity.json")
+    p.add_argument("--label", default="silicon-run",
+                   help="silicon, power, activity: run name in the source")
     p.set_defaults(fn=_cmd_measure)
     p = bs.add_parser("catalogue", help="write the catalogue table (markdown + tsv)")
     common(p)
