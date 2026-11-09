@@ -65,7 +65,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 |---|---|---|---|---|---|---|---|---|
 | dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-dblclockfft/) | per project | 3790 | ✓ | ✗ |
 | vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-vga_lcd/) | per project | 4900 | ✓ | ✗ |
-| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 12270 | ✓ | ✗ |
+| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-ethmac/) | per project | 12270 | ✓ | ✗ |
 | usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-usbhostslave/) | per project | 12433 | ✓ | ✗ |
 | sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
 | sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
@@ -86,7 +86,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mmuart/) | per project | 253 | ✓ | ✗ |
 | mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16/) | per project | 945 | ✓ | ✗ |
 | quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | - | MIT | 4349 | ✓ | ✓ |
-| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 2055 | ✓ | ✗ |
+| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-pipelined_fft_256/) | per project | 2055 | ✓ | ✗ |
 | tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 764 | ✓ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
@@ -214,6 +214,38 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | quartus_project_revert_timer | - | - | - | - |
 | pipelined_fft_256 | - | - | - | - |
 | tiny_aes | - | - | - | - |
+
+</details>
+
+<details><summary>Power</summary>
+
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
+|---|---|---|---|---|---|
+| dblclockfft | ace2 | 3355 | - | 194.4 | matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| vga_lcd | - | - | - | - | - |
+| ethmac | - | - | - | - | - |
+| usbhostslave | ace2 | 245.8 | - | 195.9 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| sha3_high | - | - | - | - | - |
+| sha3_low | - | - | - | - | - |
+| reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| a-z80-modified | - | - | - | - | - |
+| des | - | - | - | - | - |
+| sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
+| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz |
+| uart2spi | ace2 | 22.81 | - | 313.4 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| mips_16_noxarm | ace2 | 26.02 | - | 177.4 | matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| i2c | ace2 | 12.54 | - | 354.5 | matched 0.679; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| sdram_16bit | ace2 | 14.92 | - | 255.5 | matched 0.710; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| i2cslave | ace2 | 4.717 | - | 424.6 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| simple_spi | ace2 | 5.936 | - | 403.6 | matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| ca_prng | ace2 | 9.149 | - | 444.8 | matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| mmuart | iverilog-gate | 4.713 | 5.14 | 438.4 | matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
+| mips_16 | ace2 | 4.934 | - | 248.7 | matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| quartus_project_revert_timer | - | - | - | - | - |
+| pipelined_fft_256 | ace2 | 530.5 | - | 145.8 | matched 0.729; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| tiny_aes | - | - | - | - | - |
 
 </details>
 
@@ -1032,6 +1064,169 @@ Rule: HDL with a testbench and under 200 Verilog lines.
 
 </details>
 
+<details><summary>Power</summary>
+
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
+|---|---|---|---|---|---|
+| Prob144_conwaylife | - | - | - | - | - |
+| Prob030_popcount255 | - | - | - | - | - |
+| Prob153_gshare | - | - | - | - | - |
+| Prob108_rule90 | - | - | - | - | - |
+| Prob124_rule110 | - | - | - | - | - |
+| Prob021_mux256to1v | - | - | - | - | - |
+| Prob092_gatesv100 | - | - | - | - | - |
+| Prob105_rotate100 | - | - | - | - | - |
+| Prob115_shift18 | - | - | - | - | - |
+| Prob018_mux256to1 | - | - | - | - | - |
+| Prob017_mux2to1v | - | - | - | - | - |
+| Prob097_mux9to1v | - | - | - | - | - |
+| Prob052_gates100 | - | - | - | - | - |
+| Prob055_conditional | - | - | - | - | - |
+| Prob141_count_clock | ace2 | 2.054 | - | 471.7 | matched 0.807; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob066_edgecapture | - | - | - | - | - |
+| Prob082_lfsr32 | - | - | - | - | - |
+| Prob118_history_shift | - | - | - | - | - |
+| Prob154_fsm_ps2data | - | - | - | - | - |
+| Prob068_countbcd | - | - | - | - | - |
+| Prob123_bugs_addsubz | ace2 | 1.528 | - | 387.7 | matched 0.935; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob043_vector5 | ace2 | 1.707 | - | 857.2 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob146_fsm_serialdata | - | - | - | - | - |
+| Prob080_timer | - | - | - | - | - |
+| Prob155_lemmings4 | - | - | - | - | - |
+| Prob073_dff16e | - | - | - | - | - |
+| Prob126_circuit6 | - | - | - | - | - |
+| Prob037_review2015_count1k | - | - | - | - | - |
+| Prob033_ece241_2014_q1c | - | - | - | - | - |
+| Prob114_bugs_case | - | - | - | - | - |
+| Prob143_fsm_onehot | - | - | - | - | - |
+| Prob076_always_case | - | - | - | - | - |
+| Prob137_fsm_serial | - | - | - | - | - |
+| Prob084_ece241_2013_q12 | - | - | - | - | - |
+| Prob140_fsm_hdlc | - | - | - | - | - |
+| Prob149_ece241_2013_q4 | - | - | - | - | - |
+| Prob044_vectorgates | - | - | - | - | - |
+| Prob094_gatesv | - | - | - | - | - |
+| Prob106_always_nolatches | - | - | - | - | - |
+| Prob046_dff8p | - | - | - | - | - |
+| Prob130_circuit5 | - | - | - | - | - |
+| Prob133_2014_q3fsm | - | - | - | - | - |
+| Prob139_2013_q2bfsm | - | - | - | - | - |
+| Prob041_dff8r | - | - | - | - | - |
+| Prob045_edgedetect2 | - | - | - | - | - |
+| Prob047_dff8ar | - | - | - | - | - |
+| Prob054_edgedetect | - | - | - | - | - |
+| Prob062_bugs_mux2 | - | - | - | - | - |
+| Prob087_gates | - | - | - | - | - |
+| Prob136_m2014_q6 | - | - | - | - | - |
+| Prob138_2012_q2fsm | - | - | - | - | - |
+| Prob016_m2014_q4j | ace2 | 0.6545 | - | 653.3 | matched 0.900; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob121_2014_q3bfsm | - | - | - | - | - |
+| Prob152_lemmings3 | - | - | - | - | - |
+| Prob086_lfsr5 | - | - | - | - | - |
+| Prob096_review2015_fsmseq | - | - | - | - | - |
+| Prob148_2013_q2afsm | - | - | - | - | - |
+| Prob150_review2015_fsmonehot | ace2 | 0.7253 | - | 958.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob035_count1to10 | - | - | - | - | - |
+| Prob038_count15 | - | - | - | - | - |
+| Prob040_count10 | - | - | - | - | - |
+| Prob060_m2014_q4k | - | - | - | - | - |
+| Prob063_review2015_shiftcount | - | - | - | - | - |
+| Prob067_countslow | - | - | - | - | - |
+| Prob079_fsm3onehot | - | - | - | - | - |
+| Prob085_shift4 | ace2 | 0.6309 | - | 1650.0 | matched 0.733; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob095_review2015_fsmshift | - | - | - | - | - |
+| Prob120_fsm3s | - | - | - | - | - |
+| Prob128_fsm_ps2 | - | - | - | - | - |
+| Prob142_lemmings2 | - | - | - | - | - |
+| Prob051_gates4 | - | - | - | - | - |
+| Prob072_thermostat | - | - | - | - | - |
+| Prob074_ece241_2014_q4 | - | - | - | - | - |
+| Prob089_ece241_2014_q5a | - | - | - | - | - |
+| Prob093_ece241_2014_q3 | - | - | - | - | - |
+| Prob100_fsm3comb | - | - | - | - | - |
+| Prob117_circuit9 | - | - | - | - | - |
+| Prob119_fsm3 | - | - | - | - | - |
+| Prob129_ece241_2013_q8 | - | - | - | - | - |
+| Prob009_popcount3 | ace2 | 0.9534 | - | 453.3 | matched 0.875; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob024_hadd | ace2 | 0.4248 | - | 743.6 | matched 0.923; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob025_reduction | ace2 | 0.5859 | - | 834.9 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob027_fadd | - | - | - | - | - |
+| Prob036_ringer | - | - | - | - | - |
+| Prob058_alwaysblock2 | - | - | - | - | - |
+| Prob065_7420 | - | - | - | - | - |
+| Prob070_ece241_2013_q2 | - | - | - | - | - |
+| Prob075_counter_2bc | - | - | - | - | - |
+| Prob077_wire_decl | - | - | - | - | - |
+| Prob078_dualedge | - | - | - | - | - |
+| Prob081_7458 | - | - | - | - | - |
+| Prob088_ece241_2014_q5b | - | - | - | - | - |
+| Prob091_2012_q2b | - | - | - | - | - |
+| Prob099_m2014_q6c | - | - | - | - | - |
+| Prob112_always_case2 | - | - | - | - | - |
+| Prob127_lemmings1 | - | - | - | - | - |
+| Prob134_2014_q3c | - | - | - | - | - |
+| Prob147_circuit10 | - | - | - | - | - |
+| Prob005_notgate | - | - | - | - | - |
+| Prob010_mt2015_q4a | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob011_norgate | ace2 | 0.3853 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob012_xnorgate | ace2 | 0.3922 | - | 1160.3 | matched 1.000; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| Prob013_m2014_q4e | - | - | - | - | - |
+| Prob014_andgate | - | - | - | - | - |
+| Prob019_m2014_q4f | - | - | - | - | - |
+| Prob020_mt2015_eq2 | - | - | - | - | - |
+| Prob022_mux2to1 | - | - | - | - | - |
+| Prob026_alwaysblock1 | - | - | - | - | - |
+| Prob029_m2014_q4g | - | - | - | - | - |
+| Prob039_always_if | - | - | - | - | - |
+| Prob048_m2014_q4c | - | - | - | - | - |
+| Prob049_m2014_q4b | - | - | - | - | - |
+| Prob050_kmap1 | - | - | - | - | - |
+| Prob053_m2014_q4d | - | - | - | - | - |
+| Prob056_ece241_2013_q7 | - | - | - | - | - |
+| Prob057_kmap2 | - | - | - | - | - |
+| Prob061_2014_q4a | - | - | - | - | - |
+| Prob069_truthtable1 | - | - | - | - | - |
+| Prob083_mt2015_q4b | - | - | - | - | - |
+| Prob090_circuit1 | - | - | - | - | - |
+| Prob098_circuit7 | - | - | - | - | - |
+| Prob101_circuit4 | - | - | - | - | - |
+| Prob102_circuit3 | - | - | - | - | - |
+| Prob103_circuit2 | - | - | - | - | - |
+| Prob104_mt2015_muxdff | - | - | - | - | - |
+| Prob107_fsm1s | - | - | - | - | - |
+| Prob109_fsm1 | - | - | - | - | - |
+| Prob110_fsm2 | - | - | - | - | - |
+| Prob111_fsm2s | - | - | - | - | - |
+| Prob113_2012_q1g | - | - | - | - | - |
+| Prob116_m2014_q3 | - | - | - | - | - |
+| Prob122_kmap4 | - | - | - | - | - |
+| Prob125_kmap3 | - | - | - | - | - |
+| Prob131_mt2015_q4 | - | - | - | - | - |
+| Prob132_always_if2 | - | - | - | - | - |
+| Prob135_m2014_q6b | - | - | - | - | - |
+| Prob145_circuit8 | - | - | - | - | - |
+| Prob001_zero | - | - | - | - | - |
+| Prob002_m2014_q4i | - | - | - | - | - |
+| Prob003_step_one | - | - | - | - | - |
+| Prob004_vector2 | - | - | - | - | - |
+| Prob006_vectorr | - | - | - | - | - |
+| Prob007_wire | - | - | - | - | - |
+| Prob008_m2014_q4h | - | - | - | - | - |
+| Prob015_vector1 | - | - | - | - | - |
+| Prob023_vector100r | - | - | - | - | - |
+| Prob028_m2014_q4a | - | - | - | - | - |
+| Prob031_dff | - | - | - | - | - |
+| Prob032_vector0 | - | - | - | - | - |
+| Prob034_dff8 | - | - | - | - | - |
+| Prob042_vector4 | - | - | - | - | - |
+| Prob059_wire4 | - | - | - | - | - |
+| Prob064_vector3 | - | - | - | - | - |
+| Prob071_always_casez | - | - | - | - | - |
+| Prob156_review2015_fancytimer | - | - | - | - | - |
+| Prob151_review2015_fsm | - | - | - | - | - |
+
+</details>
+
 ## T3 HDL, no testbench
 
 Rule: HDL (Verilog) with no testbench file.
@@ -1339,6 +1534,68 @@ Rule: HDL (Verilog) with no testbench file.
 | single_wire | - | - | - | - |
 | a-z80 | - | - | - | - |
 | amber | - | - | - | - |
+
+</details>
+
+<details><summary>Power</summary>
+
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note |
+|---|---|---|---|---|---|
+| LU64PEEng | - | - | - | - | - |
+| mcml | - | - | - | - | - |
+| LU32PEEng | - | - | - | - | - |
+| stereovision2 | - | - | - | - | - |
+| bgm | - | - | - | - | - |
+| LU8PEEng | - | - | - | - | - |
+| stereovision1 | - | - | - | - | - |
+| stereovision0 | - | - | - | - | - |
+| raygentop_nolatches | - | - | - | - | - |
+| arm_core | - | - | - | - | - |
+| or1200 | - | - | - | - | - |
+| raygentop | - | - | - | - | - |
+| b22 | - | - | - | - | - |
+| blob_merge | - | - | - | - | - |
+| b17 | - | - | - | - | - |
+| b20 | - | - | - | - | - |
+| b21 | - | - | - | - | - |
+| diffeq1 | - | - | - | - | - |
+| b18 | - | - | - | - | - |
+| b19 | - | - | - | - | - |
+| boundtop | - | - | - | - | - |
+| boundtop_nolatches | - | - | - | - | - |
+| b15 | - | - | - | - | - |
+| spree | - | - | - | - | - |
+| attiny_atmega_xmega_core | ace2 | 147.7 | - | 62.0 | matched 0.848; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| mkDelayWorker32B | - | - | - | - | - |
+| sha | ace2 | 94.86 | - | 97.9 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| mkSMAdapter4B | - | - | - | - | - |
+| b14 | - | - | - | - | - |
+| b12 | - | - | - | - | - |
+| b11 | - | - | - | - | - |
+| mkPktMerge | - | - | - | - | - |
+| ch_intrinsics_nolatches | - | - | - | - | - |
+| b05 | - | - | - | - | - |
+| stereovision3 | - | - | - | - | - |
+| ch_intrinsics | ace2 | 4.822 | - | 634.8 | matched 0.745; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
+| diffeq2 | - | - | - | - | - |
+| b04 | - | - | - | - | - |
+| b07 | - | - | - | - | - |
+| b13 | - | - | - | - | - |
+| b09 | - | - | - | - | - |
+| b10 | - | - | - | - | - |
+| b03 | - | - | - | - | - |
+| b08 | - | - | - | - | - |
+| b06 | - | - | - | - | - |
+| multiclock_reader_writer | - | - | - | - | - |
+| b02 | - | - | - | - | - |
+| b01 | - | - | - | - | - |
+| multiclock_output_and_latch | - | - | - | - | - |
+| multiclock_separate_and_latch | - | - | - | - | - |
+| and_latch | - | - | - | - | - |
+| single_ff | - | - | - | - | - |
+| single_wire | - | - | - | - | - |
+| a-z80 | - | - | - | - | - |
+| amber | - | - | - | - | - |
 
 </details>
 

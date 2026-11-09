@@ -223,6 +223,54 @@ def collect_silicon(idx: Path, root: Path, run_label: str) -> list[Row]:
     return rows
 
 
+# ---- power (Bifrost III, `wyrd power run`) -------------------------------------------------
+
+def power_rows(suite: str, design: str, res: Mapping[str, Any], label: str) -> list[Row]:
+    """Mimir power columns of one design from a Bifrost `power.json` (schema version 1).
+    Energy per clock cycle is power x the clock period of its own target (FPGA: VPR's 1/critical
+    path; ASIC: the testbench clock the activity was measured with), in pJ."""
+    tg = res.get("targets", {})
+    fpga, asic = tg.get("fpga"), tg.get("asic", {})
+    act = res.get("activity", {})
+    src = str(act.get("source", "-"))
+    note = [f"matched {float(act.get('matched_fraction', 0.0)):.3f}"]
+    if src == "ace2":
+        d = act.get("ace_defaults", {})
+        note.append(f"ACE2 vectorless, primary inputs p={d.get('pi_static_prob')} "
+                    f"activity={d.get('pi_switch_prob')}")
+    else:
+        note.append(f"{res.get('cycles', 0)} testbench cycles")
+    if "energy_per_cycle_pj" in asic:
+        note.append(f"ASIC sky130 tt 1.8 V at {asic['freq_mhz']:g} MHz")
+    elif asic.get("error"):
+        note.append("ASIC: " + str(asic["error"]))
+    keys = [("pw_src", src, "")]
+    if fpga:
+        keys += [("pw_fpga_pjc", f"{fpga['energy_per_cycle_pj']:.4g}", ""),
+                 ("pw_freq_mhz", f"{fpga['freq_mhz']:.1f}", "")]
+    if "energy_per_cycle_pj" in asic:
+        keys.append(("pw_asic_pjc", f"{asic['energy_per_cycle_pj']:.4g}", ""))
+    keys.append(("pw_note", "; ".join(note), ""))
+    return [[suite, design, k, v, label] for k, v, _ in keys]
+
+
+def collect_power(idx: Path, root: Path, label: str) -> list[Row]:
+    """`<root>/<design>/power.json` of every registered design that has one. A design name in
+    several suites is skipped (the directory cannot say which)."""
+    by_name: dict[str, list[str]] = {}
+    for d in bench.load_designs(idx):
+        by_name.setdefault(d.design, []).append(d.suite)
+    rows: list[Row] = []
+    for pj in sorted(root.glob("*/power.json")):
+        name = pj.parent.name
+        suites = by_name.get(name, [])
+        if len(suites) != 1:
+            continue
+        res = json.loads(pj.read_text(encoding="utf-8"))
+        rows += power_rows(suites[0], name, res, f"{label}/{name}/power.json")
+    return rows
+
+
 # ---- testbenches --------------------------------------------------------------------------
 
 TB_PATTERNS = ("{d}_tb", "tb_{d}", "{d}_test", "test_{d}", "{d}_testbench")

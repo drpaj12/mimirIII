@@ -223,6 +223,8 @@ def _cmd_measure(args: argparse.Namespace) -> int:
         rows = benchmeasure.collect_store_extra(idx, Path(args.db))
     elif args.kind == "vtr":
         rows = benchmeasure.collect_vtr(idx, Path(args.db), _store(args))
+    elif args.kind == "power":
+        rows = benchmeasure.collect_power(idx, Path(args.root), args.label)
     elif args.kind == "silicon":
         rows = benchmeasure.collect_silicon(idx, Path(args.root), args.label)
     else:
@@ -295,7 +297,8 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.set_defaults(fn=_cmd_check)
     p = bs.add_parser("measure", help="collect existing data into measures.tsv")
     common(p)
-    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc", "vpr"))
+    p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc", "vpr",
+                                    "power"))
     p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
@@ -304,8 +307,9 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     p.add_argument("--retry-failed", action="store_true", help="odin: redo designs with a fail")
     p.add_argument("--force", action="store_true", help="odin: redo designs already measured")
     p.add_argument("--db", help="vtr: Mimir store with the e10-base records")
-    p.add_argument("--root", help="silicon: run root; testbench: external dir; vpr: output dir")
-    p.add_argument("--label", default="silicon-run", help="silicon: run name for the source field")
+    p.add_argument("--root", help="silicon: run root; testbench: external dir; vpr: output dir; "
+                   "power: dir of <design>/power.json")
+    p.add_argument("--label", default="silicon-run", help="silicon, power: run name in the source")
     p.set_defaults(fn=_cmd_measure)
     p = bs.add_parser("catalogue", help="write the catalogue table (markdown + tsv)")
     common(p)

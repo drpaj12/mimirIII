@@ -128,6 +128,40 @@ class CatalogueTest(unittest.TestCase):
         got = dict(benchmeasure.silicon_row("x", st, d))
         self.assertEqual((got["si_lvs"], got["si_cells"], got["si_area"]), ("match", "9", "2.0"))
 
+    def test_power_columns(self) -> None:
+        idx = fixture()
+        root = Path(tempfile.mkdtemp())
+        (root / "a").mkdir()
+        (root / "zz").mkdir()  # not a registered design: ignored
+        res = {"activity": {"source": "iverilog-gate", "matched_fraction": 0.98},
+               "cycles": 100,
+               "targets": {"fpga": {"energy_per_cycle_pj": 4.7131, "freq_mhz": 438.35},
+                           "asic": {"energy_per_cycle_pj": 5.14, "freq_mhz": 100.0}}}
+        (root / "a" / "power.json").write_text(json.dumps(res))
+        (root / "zz" / "power.json").write_text(json.dumps(res))
+        rows = benchmeasure.collect_power(idx, root, "run1")
+        got = {r[2]: r[3] for r in rows}
+        self.assertEqual({r[0:2] == ["s1", "a"] for r in rows}, {True})
+        self.assertEqual((got["pw_src"], got["pw_fpga_pjc"], got["pw_asic_pjc"],
+                          got["pw_freq_mhz"]), ("iverilog-gate", "4.713", "5.14", "438.4"))
+        self.assertIn("100 testbench cycles", got["pw_note"])
+        self.assertEqual(rows[0][4], "run1/a/power.json")
+        benchcat.upsert_measures(idx, rows)
+        out = idx / "c.md"
+        benchcat.generate(idx, out, "legend")
+        self.assertIn("pw_fpga_pjc", (idx / "catalogue.tsv").read_text().splitlines()[0])
+        self.assertIn("4.713", out.read_text())
+        rows2 = benchcat.build_rows(bench.load_designs(idx), benchcat.load_measures(idx))
+        self.assertIn("Power", benchcat.sub_tables(rows2))
+
+    def test_power_vectorless_and_no_asic(self) -> None:
+        res = {"activity": {"source": "ace2", "matched_fraction": 0.857,
+                            "ace_defaults": {"pi_static_prob": 0.5, "pi_switch_prob": 0.2}},
+               "targets": {"fpga": {"energy_per_cycle_pj": 1.49, "freq_mhz": 389.1}}}
+        got = {r[2]: r[3] for r in benchmeasure.power_rows("s1", "a", res, "x")}
+        self.assertNotIn("pw_asic_pjc", got)
+        self.assertIn("ACE2 vectorless, primary inputs p=0.5 activity=0.2", got["pw_note"])
+
 
 if __name__ == "__main__":
     unittest.main()
@@ -212,7 +246,7 @@ class SplitTest(unittest.TestCase):
         rows = benchcat.rank_rows([mk("z", "300", tb="t", l6_luts="10"), mk("a", "900", tb="t"),
                                    mk("m", "300", tb="t", l6_luts="50")])
         tables = benchcat.sub_tables(rows)
-        self.assertEqual(set(tables), set(benchcat.GROUPS))
+        self.assertEqual(set(tables), set(benchcat.GROUPS) - {"Power"})
         want = [r.design for r in rows]
         for name, lines in tables.items():
             self.assertTrue(lines[0].startswith("| design |"), name)
