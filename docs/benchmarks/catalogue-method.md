@@ -1,5 +1,8 @@
 # Catalogue method
 
+Build names used below are local names of Odin III builds: `rel-main2` = Odin III 1.2.0 (commit in `opencores.md`), `rel-main3` =
+1.4.0, `rel-v160` = 1.6.0 (main, not yet tagged on 2026-11-09). What changed in the catalogue, by date, is the dated sections of this page.
+
 Table: `docs/benchmarks/catalogue.md` (also `data/benchmarks/catalogue.tsv`). Generator: `mimir bench catalogue`.
 Inputs: the registry plus `data/benchmarks/measures.tsv` (`suite design key value source`, one row per
 value, the source says where it came from). Collectors: `mimir bench measure vtr|silicon|testbench`; Odin III
