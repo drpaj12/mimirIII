@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import tempfile
 import unittest
@@ -153,6 +154,20 @@ class CatalogueTest(unittest.TestCase):
         self.assertIn("4.713", out.read_text())
         rows2 = benchcat.build_rows(bench.load_designs(idx), benchcat.load_measures(idx))
         self.assertIn("Power", benchcat.sub_tables(rows2))
+
+    def test_power_suite_breaks_name_tie(self) -> None:
+        idx = fixture()
+        ds = bench.load_designs(idx)
+        twin = dataclasses.replace(next(d for d in ds if d.design == "a"), suite="s2")
+        bench.save_designs(idx, [*ds, twin])
+        root = Path(tempfile.mkdtemp())
+        (root / "a").mkdir()
+        res = {"activity": {"source": "ace2"}, "targets": {"fpga": {
+            "energy_per_cycle_pj": 1.0, "freq_mhz": 100.0}}}
+        (root / "a" / "power.json").write_text(json.dumps(res))
+        self.assertEqual(benchmeasure.collect_power(idx, root, "r"), [])
+        rows = benchmeasure.collect_power(idx, root, "r", "s2")
+        self.assertEqual({r[0] for r in rows}, {"s2"})
 
     def test_power_vectorless_and_no_asic(self) -> None:
         res = {"activity": {"source": "ace2", "matched_fraction": 0.857,

@@ -70,7 +70,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
 | sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
 | reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-reed_solomon_decoder/) | per project | 4366 | ✓ | ✗ |
-| a-z80-modified | A-Z80 CPU (modified: mux-driven internal data bus, no tri-state) | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 5649 | ✓ | ✗ |
+| a-z80-modified | A-Z80 CPU (modified: mux-driven internal data bus, no tri-state) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-a-z80-modified/) | per project | 5649 | ✓ | ✗ |
 | des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-des/) | per project | 2061 | ✓ | ✗ |
 | sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdr_ctrl/) | per project | 3929 | ✓ | ✗ |
 | verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-verilog_cordic_core/) | per project | 379 | ✓ | ✗ |
@@ -229,7 +229,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | sha3_low | - | - | - | - | - |
 | reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | a-z80-modified | - | - | - | - | - |
-| des | - | - | - | - | - |
+| des | ace2 | 211.9 | - | 266.1 | matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
 | wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz |
