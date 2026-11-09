@@ -28,7 +28,7 @@ Status: **works** = a `mimir` command with tests on `main`; **opt-in** = needs a
 | Measurers: Hutton-style structural characterisation, Rent's rule (METIS via pymetis), and the graphlet measurer (Odin III `graphlets` pass, per-orbit totals) | works; Rent needs the `partition` extra, graphlet is opt-in (`--graphlet`) | `mimir measure`, `measure-set`; `docs/specs/` |
 | Near-critical timing and per-path timing tables, imported from stored runs | works | `mimir import-timing`; `docs/specs/2026-10-28-near-critical.md`, `2026-10-28-timing-paths.md` |
 | Line-level HDL graph of runs (links netlist objects to source lines) | works | `mimir hdl-graph`; `docs/specs/2026-10-28-hdl-graph.md` |
-| Structures and their mapping (Loki detectors run on stored BLIFs, precision and recall report) | works | `mimir detect`, `detect-mcnc`, `report`; `docs/specs/2026-10-27-mimir-structures.md` |
+| Structures and their mapping (Loki detectors run on stored BLIFs, precision and recall report) | works | `python -m mimir.structcli detect`, `detect-mcnc`, `report`; `docs/specs/2026-10-27-mimir-structures.md` |
 | Benchmark registry: generic suites, designs and the netlists compiled from them, keyed `suite:design@flow`, with upstream URL, commit and licence per suite, sources referenced and never copied | works | `mimir bench list\|show\|fetch\|build\|register\|import\|check`; `data/benchmarks/`; `docs/specs/2026-10-31-benchmarks-design.md` |
 | Blob store: content-addressed xz blobs by sha256, with snapshot (xz SQL dump, restore compared byte for byte) | works | `mimir blob`, `mimir snapshot` |
 | `mimir fetch`: one archive member, blob or every artifact of a run, looked up in the local blob store, then the archive dir, then the cache, then the URL; archive and member sha256 verified, size bounded, private archives never downloaded | works; the URL step needs the hosted files | `mimir fetch`, `mimir remote check\|index\|publish-plan`; `docs/data-access.md` |
@@ -37,22 +37,24 @@ Status: **works** = a `mimir` command with tests on `main`; **opt-in** = needs a
 | Merging stores and run coverage reports | works | `mimir merge [--runs]`, `meta-coverage`, `run-coverage`, `timing-coverage` |
 | Metric registry and citations (every metric and source has an entry) | works | `mimir registry`, `mimir citations`; `docs/CITATIONS.md` |
 
+What is new: Mimir has no release notes yet; the dated sections of `docs/benchmarks/catalogue-method.md` (for example the odin3-micro suite and the vectorless activity columns, 2026-11-09) and `git log` are the changelog.
+
 Made-up benchmarks (Norns synthetic and known-optimum sets, Loki round 4 families, Leman Russ Seeker releases) are not Mimir's. Mimir has no manual index page yet; the specs in `docs/specs/` are the reference.
 
 One tidy table of records (the `records` table, from schema 1): design, version, level, arch, seed, placer arm and family, metric,
 value, unit and the measurer that computed it. Storage is SQLite with CSV and Parquet export.
 
-    python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+    python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"     # dev = the three extras; "." alone is stdlib only
     .venv/bin/mimir init mimir.db
-    .venv/bin/mimir import norns mimir.db --root "$MIMIR_NORNS"
-    .venv/bin/mimir measure mimir.db --blif path/to/design.blif --source mcnc --level lut
+    .venv/bin/mimir import mimir.db norns --norns "$MIMIR_NORNS"      # a Norns checkout; db comes before the source
+    .venv/bin/mimir measure-set mimir.db mcnc --root "$VTR_ROOT"       # structure and Rent of the 20 MCNC circuits (VTR checkout)
     .venv/bin/mimir export mimir.db --csv out.csv
 
 Schema version 2 (`docs/specs/2026-10-27-mimir-schema-v2.md`) adds the tables `design`, `design_meta`,
 `design_lineage`, `flow_config`, `flow_param`, `run`, `partition` and `analysis_result`; `records` is unchanged and a
 v1 store migrates when opened.
 
-    .venv/bin/mimir import-meta mimir.db         # MCNC meta from data/meta/mcnc.toml, then register designs
+    .venv/bin/mimir import-meta mimir.db         # MCNC meta from data/meta/mcnc.toml (run it from the repo root, or pass --toml), then register designs
     .venv/bin/mimir import-runs mimir.db         # flow_config and run rows from the stored records; defaults are read
                                                  # from $MIMIR_ODIN3, $VTR_ROOT, $MIMIR_NORNS_SRC (git checkouts)
     .venv/bin/mimir meta-coverage mimir.db       # design_meta rows per field and confidence
@@ -61,6 +63,12 @@ v1 store migrates when opened.
     .venv/bin/mimir snapshot mimir.db DIR --verify   # xz SQL dump + manifest, restore compared byte for byte,
                                                      # schema and blob references checked ($MIMIR_BLOBS or --blobs)
 
+Outside tools. The base install needs none. Where a command needs one, its version is on the hub page
+[docs/tools.md](https://github.com/drpaj12/YggdrasilIII/blob/main/docs/tools.md): VTR (`VTR_ROOT`: `measure-set mcnc`, `bench measure vtr|vpr`),
+Odin III (`bench build`, `bench measure odin`, the `graphlet` measurer; the `odin3` Python package, 1.5.0 or later for the
+current binding; `bench measure activity` reads files written by `odin3 activity`, which is in Odin III 1.6.0), and the Wyrd III
+`wyrd power run` files for `bench measure power`.
+
 Benchmarks: Mimir is the home of the generic (third-party) benchmark suites and the netlists compiled from them; the registry is
 committed under `data/benchmarks/` (suites with upstream URL, commit and licence; flows with tool commit and script; designs with source
 hash and licence rule; netlists keyed by sha256 in the blob store). Sources are referenced under `$MIMIR_EXTERNAL` (default
@@ -68,7 +76,7 @@ hash and licence rule; netlists keyed by sha256 in the blob store). Sources are 
 
     .venv/bin/mimir bench list [--suite S [--netlists]]    # suites, designs, or suite:design@flow lines
     .venv/bin/mimir bench show vtr-verilog:sha@odin3-1.2.0-k6-verilog
-    .venv/bin/mimir bench fetch mcnc20:alu4@odin3-1.2.0-k6-blif --out alu4.blif   # --kind map|flow|source
+    .venv/bin/mimir bench fetch mcnc20:alu4@odin3-1.2.0-k6-blif --out alu4.blif   # --kind map|flow|source; blob from $MIMIR_BLOBS, else from $MIMIR_DATA_URL (see docs/data-access.md)
     .venv/bin/mimir bench build vtr-verilog:sha --flow odin3-1.2.0-k6-verilog --odin3 BIN --arch-dir DIR
     .venv/bin/mimir bench register SUITE...                 # rebuild designs.tsv rows from the checkout
     .venv/bin/mimir bench import DIR --suite S --flow F     # import the netlists of a flow layout
@@ -82,8 +90,8 @@ Measurers: the structural characterisation of Hutton (thesis and TCAD 2002) and 
 pymetis). A third, opt-in measurer, `graphlet` (`mimir measure-set ... --graphlet`), runs the Odin III `graphlets` pass through the
 `odin3` package (undirected size 5 and directed size 4, global signals excluded) and stores per-orbit design totals (`graphlet_orbit_count`, bin
 `<mode>/<orbit>`) with node and edge counts; it is skipped with a recorded note when `odin3` or `odin3_graphlets_count` is missing. It reads the
-tech library from `$MIMIR_ODIN3_TECHLIB` or `$MIMIR_ODIN3_TREE/lib/vtr.o3lib`. Do not store real values until the Odin III fix for `$sop`/`$lut`
-cells being dropped from the graph (branch fix/graphlets-sop) is on main. See `docs/specs/` for the definitions and what each is validated against. Credits:
+tech library from `$MIMIR_ODIN3_TECHLIB` or `$MIMIR_ODIN3_TREE/lib/vtr.o3lib`. The `$sop`/`$lut` fix (live
+cells are graph nodes) is in Odin III 1.3.0 and later. See `docs/specs/` for the definitions and what each is validated against. Credits:
 `docs/CITATIONS.md`. Licence: MIT.
 
 <!-- catalogue:start (generated by `mimir bench catalogue`; do not edit) -->

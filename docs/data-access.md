@@ -66,9 +66,10 @@ test fails when a table with a `run_id` column is added to the schema and not ha
 ## Benchmarks
 
 `mimir bench fetch suite:design@flow` writes one registered netlist (or its name map, flow record or checked source).
+It has no `--online` flag: set `MIMIR_DATA_URL=https://drpeterjamieson.com/RESEARCH/MIMIR/mimir-data` (without a local blob, an archive dir or a URL it stops with "not found locally and no URL is known").
 The registry `data/benchmarks/` has its own `blobs.tsv.xz` in the format above (archive `-`; `private` for a
-`local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The bench index and its 253 public blobs
-(6,871,580 bytes) are online since 2026-11-02, under `blobs/<ab>/<sha>.xz` of the same base URL, with the
+`local-only` suite), so the same order applies: local blob store, `MIMIR_ARCHIVE`, cache, then `MIMIR_DATA_URL/blobs/<ab>/<sha>.xz`, sha256 verified. The bench index and its public blobs
+(252 blobs, 6,871,144 bytes in the index on 2026-11-09; the first upload was on 2026-11-02) are online, under `blobs/<ab>/<sha>.xz` of the same base URL, with the
 registry index in `index/bench/`. `mimir bench publish-plan --stage DIR --date YYYY-MM-DD` writes that tree (only blobs of
 a `hosting = "public"` suite; a `local-only` or `unchecked` suite is never staged; every blob is checked against its
 index row). The blob index has no published flag, so there is nothing to `--record`. Suites withheld: `vtr-blif-k2` and
