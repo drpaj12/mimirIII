@@ -1533,6 +1533,11 @@ opencores	wb_lcd	oc_design_done	True	https://opencores.org/projects/wb_lcd (page
 opencores	wb_lcd	oc_fpga_proven	True	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
 opencores	wb_lcd	oc_stage	stable	https://opencores.org/projects/wb_lcd (page data, read 2026-11-04)
 opencores	wb_lcd	prov	sim re-run 2026-11-05; VTR provisional (rel-main2)	status label, 2026-11-05; rel-main2 = odin3 4c91edff, rel-main3 = odin3 19f5c918
+opencores	wb_lcd	pw_asic_pjc	35.8	power-runs-2026-11-08/wb_lcd/power.json
+opencores	wb_lcd	pw_fpga_pjc	19.35	power-runs-2026-11-08/wb_lcd/power.json
+opencores	wb_lcd	pw_freq_mhz	269.3	power-runs-2026-11-08/wb_lcd/power.json
+opencores	wb_lcd	pw_note	matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz	power-runs-2026-11-08/wb_lcd/power.json
+opencores	wb_lcd	pw_src	iverilog-gate	power-runs-2026-11-08/wb_lcd/power.json
 opencores	wb_lcd	si_area	98994.9	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
 opencores	wb_lcd	si_cells	4428	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven
 opencores	wb_lcd	si_lvs	match	work/sifix3-out/ladder2/wb_lcd.chain.out (cells = inst_count_all minus inserted fill; core um2 = core_um2); equiv: not-proven

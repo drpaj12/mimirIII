@@ -232,7 +232,7 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | des | - | - | - | - | - |
 | sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz |
-| wb_lcd | - | - | - | - | - |
+| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz |
 | uart2spi | ace2 | 22.81 | - | 313.4 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | mips_16_noxarm | ace2 | 26.02 | - | 177.4 | matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
 | spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 |
