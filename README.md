@@ -101,8 +101,8 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 
 | tier | rule | designs |
 |---|---|---|
-| T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and the VTR flow routes it and analyses timing (`vtr_stage` = `route` or `timing`) | 3 |
-| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 22 |
+| T0 whole flow | HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and the VTR flow routes it and analyses timing (`vtr_stage` = `route` or `timing`) | 9 |
+| T1 HDL + testbench, larger | HDL with a testbench and 200+ Verilog lines (and not T0) | 16 |
 | T2 HDL + testbench, small | HDL with a testbench and under 200 Verilog lines | 156 |
 | T3 HDL, no testbench | HDL (Verilog) with no testbench file | 113 |
 | T4 netlist only | BLIF netlist, no HDL | 219 |
@@ -119,123 +119,35 @@ One row per registered design, in tiers: best first (HDL with testbench and the 
 | vtr-verilog | 31 |
 | total | 513 |
 
-<details><summary>T0 whole flow (3 designs)</summary>
+<details><summary>T0 whole flow (9 designs)</summary>
 
 Rule: HDL with its own testbench, 200+ Verilog lines, the testbench passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and the VTR flow routes it and analyses timing (`vtr_stage` = `route` or `timing`).
 
 | design | what it does | suite | link | view | licence | LOC | tb | vec |
 |---|---|---|---|---|---|---|---|---|
+| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-dblclockfft/) | per project | 3790 | ✓ | ✗ |
+| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-reed_solomon_decoder/) | per project | 4366 | ✓ | ✗ |
 | verilog_cordic_core | configurable CORDIC core in Verilog (first quadrant) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-verilog_cordic_core/) | per project | 379 | ✓ | ✗ |
 | wb_lcd | WB LCD Character Display Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-wb_lcd/) | per project | 695 | ✓ | ✗ |
-| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mmuart/) | per project | 253 | ✓ | ✗ |
-
-<details><summary>Flow and VTR QoR</summary>
-
-| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | status | note |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
-| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
-| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2) | - |
-
-</details>
-
-<details><summary>LUT forms</summary>
-
-| design | gates/d | 4-LUT/d | 6-LUT/d |
-|---|---|---|---|
-| verilog_cordic_core | - | - | - |
-| wb_lcd | - | - | - |
-| mmuart | - | - | - |
-
-</details>
-
-<details><summary>Properties</summary>
-
-| design | seq | mem | mul | add | fsm | latch | hier | bbox |
-|---|---|---|---|---|---|---|---|---|
-| verilog_cordic_core | - | - | - | - | - | - | - | - |
-| wb_lcd | - | - | - | - | - | - | - | - |
-| mmuart | - | - | - | - | - | - | - | - |
-
-</details>
-
-<details><summary>Silicon</summary>
-
-| design | cells | core um2 | LVS | Si stage |
-|---|---|---|---|---|
-| verilog_cordic_core | 10158 | 188396.9 | match | lvs |
-| wb_lcd | 4428 | 98994.9 | match | lvs |
-| mmuart | 681 | 14589.0 | match | lvs |
-
-</details>
-
-<details><summary>Power</summary>
-
-| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
-|---|---|---|---|---|---|---|---|---|---|
-| verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3492 | 0.3300 | 3669 | odin3-vectorless; PI p=0.5 density=0.2 |
-| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz | 0.4208 | 0.0276 | 1906 | odin3-vectorless; PI p=0.5 density=0.2 |
-| mmuart | iverilog-gate | 4.713 | 5.14 | 438.4 | matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3157 | 0.0474 | 411 | odin3-vectorless; PI p=0.5 density=0.2 |
-
-</details>
-
-</details>
-
-<details><summary>T1 HDL + testbench, larger (22 designs)</summary>
-
-Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
-
-| design | what it does | suite | link | view | licence | LOC | tb | vec |
-|---|---|---|---|---|---|---|---|---|
-| dblclockfft | Double Clocked FFT Core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-dblclockfft/) | per project | 3790 | ✓ | ✗ |
-| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-vga_lcd/) | per project | 4900 | ✓ | ✗ |
-| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-ethmac/) | per project | 12270 | ✓ | ✗ |
-| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-usbhostslave/) | per project | 12433 | ✓ | ✗ |
-| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
-| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
-| reed_solomon_decoder | Reed Solomon Decoder (204,188) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-reed_solomon_decoder/) | per project | 4366 | ✓ | ✗ |
-| a-z80-modified | A-Z80 CPU (modified: mux-driven internal data bus, no tri-state) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-a-z80-modified/) | per project | 5649 | ✓ | ✗ |
-| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-des/) | per project | 2061 | ✓ | ✗ |
-| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdr_ctrl/) | per project | 3929 | ✓ | ✗ |
-| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-uart2spi/) | per project | 2583 | ✓ | ✗ |
-| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16_noxarm/) | per project | 945 | ✓ | ✗ |
 | spi | SPI core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-spi/) | per project | 633 | ✓ | ✗ |
-| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2c/) | per project | 1556 | ✓ | ✗ |
-| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdram_16bit/) | per project | 741 | ✓ | ✗ |
-| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2cslave/) | per project | 769 | ✓ | ✗ |
 | simple_spi | SPI core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-simple_spi/) | per project | 456 | ✓ | ✗ |
 | ca_prng | Cellular Automata PRNG | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-ca_prng/) | per project | 1311 | ✓ | ✗ |
+| mmuart | Simple RS232 UART | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mmuart/) | per project | 253 | ✓ | ✗ |
 | mips_16 | Educational 16-bit MIPS Processor | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16/) | per project | 945 | ✓ | ✗ |
-| quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | - | MIT | 4349 | ✓ | ✓ |
-| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-pipelined_fft_256/) | per project | 2055 | ✓ | ✗ |
-| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 764 | ✓ | ✗ |
 
 <details><summary>Flow and VTR QoR</summary>
 
 | design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | status | note |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| dblclockfft | pass | fail | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
-| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_bench_top.v:558: unsupported: real number |
-| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_ethernet.v:1071: unsupported: x/z literal (the simulator is 2-state) |
-| usbhostslave | pass | refused | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state) |
-| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
-| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
-| reed_solomon_decoder | pass | fail | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: parses and elaborates, did not finish within the sim time limit |
-| a-z80-modified | pass | none | timing | 2016 | 193 | 365 | 48 | 0/0 | 11.3704 | 68 | 2026-11-08 (rel-v150) | modified: mux-driven internal data bus; bidirectional nets split into one-way signals, D split into D_in/D_out/D_oe, pins_oe exported; every changed line commented; matches upstream a-z80 under iverilog on 5 programs |
-| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
-| sdr_ctrl | pass | refused | timing | 1710 | 170 | 1130 | 8 | 0/0 | 5.57435 | 50 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
-| uart2spi | - | refused | timing | 685 | 67 | 422 | 22 | 0/0 | 3.30854 | 36 | re-run 2026-11-05 (VTR, sim) | upstream bench (upstream-fixed) with flash model; sim_odin: tb_top.v:51: unsupported: real number |
-| mips_16_noxarm | - | - | timing | 639 | 54 | 247 | 68 | 0/0 | 5.72277 | 42 | re-run 2026-11-05 (VTR) | mips_16 variant without the ALU_NC x arm; datapath no longer folds; no testbench run on the variant |
-| spi | pass | refused | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state) |
-| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tst_bench_top.v:194: unsupported: x/z literal (the simulator is 2-state) |
-| sdram_16bit | pass | fail | timing | 281 | 24 | 182 | 130 | 0/0 | 4.01425 | 44 | re-run 2026-11-05 (VTR, sim) | --vendor-prims: IOBUF/ODDR2 built as soft logic, data_io split to _i/_o/_oe; VPR done. sim_odin: simulation.svh:19:37: error: syntax: '`__FILE__' is a SystemVerilog macro operator; not Verilog-2005 (Phase 5) |
-| i2cslave | fail | refused | timing | 198 | 18 | 139 | 11 | 0/0 | 2.21504 | 32 | re-run 2026-11-05 (VTR, sim) | tri-state pass converts sda; iverilog testbench fails (timeout); sim_odin: testHarness.v:89: unsupported: x/z literal (the simulator is 2-state) |
-| simple_spi | pass | refused | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tst_bench_top.v:305: unsupported: x/z literal (the simulator is 2-state) |
-| ca_prng | pass | refused | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | sim re-run 2026-11-05; VTR provisional (rel-main2) | sim_odin: tb_ca_prng.v:147: unsupported: task |
-| mips_16 | pass | refused | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | sim re-run 2026-11-05; VTR provisional (rel-main2) | 71 LUTs: ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
-| quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - | - | - |
-| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
-| tiny_aes | pass | refused | elab | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2) | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
+| dblclockfft | pass | pass | timing | 43969 | 4009 | 30280 | 76 | 0/59 | 5.19941 | 72 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| reed_solomon_decoder | pass | pass | timing | 4690 | 526 | 2882 | 21 | 0/120 | 6.14868 | 64 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: parses and elaborates, did not finish within the sim time limit |
+| verilog_cordic_core | pass | pass | timing | 1153 | 133 | 765 | 104 | 0/0 | 4.1275 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | - |
+| wb_lcd | pass | pass | timing | 1049 | 77 | 636 | 66 | 0/0 | 4.29499 | 48 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | - |
+| spi | pass | pass | timing | 612 | 61 | 229 | 71 | 0/0 | 6.56467 | 46 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: tb_spi_top.v:417: unsupported: x/z literal (the simulator is 2-state) |
+| simple_spi | pass | pass | timing | 189 | 19 | 131 | 27 | 0/0 | 2.37109 | 30 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: tst_bench_top.v:305: unsupported: x/z literal (the simulator is 2-state) |
+| ca_prng | pass | pass | timing | 158 | 16 | 40 | 77 | 0/0 | 2.38342 | 34 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: tb_ca_prng.v:147: unsupported: task |
+| mmuart | pass | pass | timing | 126 | 14 | 96 | 83 | 0/0 | 2.31268 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | - |
+| mips_16 | pass | pass | timing | 71 | 7 | 36 | 68 | 0/0 | 4.03484 | 26 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | 71 LUTs: ALU_NC 3'bxxx first arm is a wildcard so the datapath folds (Odin III matches Yosys/Parmys); see mips_16_noxarm |
 
 </details>
 
@@ -244,24 +156,130 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 | design | gates/d | 4-LUT/d | 6-LUT/d |
 |---|---|---|---|
 | dblclockfft | - | - | - |
+| reed_solomon_decoder | - | - | - |
+| verilog_cordic_core | - | - | - |
+| wb_lcd | - | - | - |
+| spi | - | - | - |
+| simple_spi | - | - | - |
+| ca_prng | - | - | - |
+| mmuart | - | - | - |
+| mips_16 | - | - | - |
+
+</details>
+
+<details><summary>Properties</summary>
+
+| design | seq | mem | mul | add | fsm | latch | hier | bbox |
+|---|---|---|---|---|---|---|---|---|
+| dblclockfft | - | - | - | - | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - | - | - | - | - |
+| verilog_cordic_core | - | - | - | - | - | - | - | - |
+| wb_lcd | - | - | - | - | - | - | - | - |
+| spi | - | - | - | - | - | - | - | - |
+| simple_spi | - | - | - | - | - | - | - | - |
+| ca_prng | - | - | - | - | - | - | - | - |
+| mmuart | - | - | - | - | - | - | - | - |
+| mips_16 | - | - | - | - | - | - | - | - |
+
+</details>
+
+<details><summary>Silicon</summary>
+
+| design | cells | core um2 | LVS | Si stage |
+|---|---|---|---|---|
+| dblclockfft | - | - | - | - |
+| reed_solomon_decoder | - | - | - | - |
+| verilog_cordic_core | 10158 | 188396.9 | match | lvs |
+| wb_lcd | 4428 | 98994.9 | match | lvs |
+| spi | - | - | - | - |
+| simple_spi | 974 | 20364.5 | match | lvs |
+| ca_prng | - | - | - | - |
+| mmuart | 681 | 14589.0 | match | lvs |
+| mips_16 | - | - | - | - |
+
+</details>
+
+<details><summary>Power</summary>
+
+| design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
+|---|---|---|---|---|---|---|---|---|---|
+| dblclockfft | ace2 | 3355 | - | 194.4 | matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3748 | 0.2488 | 107891 | odin3-vectorless; PI p=0.5 density=0.2 |
+| reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2050 | 0.0398 | 10999 | odin3-vectorless; PI p=0.5 density=0.2 |
+| verilog_cordic_core | iverilog-gate | 126.9 | 72.5 | 228.3 | matched 1.000; 220 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3492 | 0.3300 | 3669 | odin3-vectorless; PI p=0.5 density=0.2 |
+| wb_lcd | iverilog-gate | 19.35 | 35.8 | 269.3 | matched 1.000; 1295076 testbench cycles; ASIC sky130 tt 1.8 V at 50 MHz | 0.4208 | 0.0276 | 1906 | odin3-vectorless; PI p=0.5 density=0.2 |
+| spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2627 | 0.0441 | 1009 | odin3-vectorless; PI p=0.5 density=0.2 |
+| simple_spi | ace2 | 5.936 | - | 403.6 | matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3012 | 0.0481 | 417 | odin3-vectorless; PI p=0.5 density=0.2 |
+| ca_prng | ace2 | 9.149 | - | 444.8 | matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3939 | 0.2985 | 243 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mmuart | iverilog-gate | 4.713 | 5.14 | 438.4 | matched 1.000; 94433 testbench cycles; ASIC sky130 tt 1.8 V at 100 MHz | 0.3157 | 0.0474 | 411 | odin3-vectorless; PI p=0.5 density=0.2 |
+| mips_16 | ace2 | 4.934 | - | 248.7 | matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.1383 | 0.0898 | 181 | odin3-vectorless; PI p=0.5 density=0.2 |
+
+</details>
+
+</details>
+
+<details><summary>T1 HDL + testbench, larger (16 designs)</summary>
+
+Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
+
+| design | what it does | suite | link | view | licence | LOC | tb | vec |
+|---|---|---|---|---|---|---|---|---|
+| vga_lcd | VGA/LCD Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-vga_lcd/) | per project | 4900 | ✓ | ✗ |
+| ethmac | Ethernet MAC 10/100 | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-ethmac/) | per project | 12270 | ✓ | ✗ |
+| usbhostslave | USB 1.1 Host and Function IP core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-usbhostslave/) | per project | 12433 | ✓ | ✗ |
+| sha3_high | SHA-3 (Keccak) high-throughput core, two rounds per cycle | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_high/) | per project | 618 | ✓ | ✗ |
+| sha3_low | SHA-3 (Keccak) low-throughput core | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sha3_low/) | per project | 499 | ✓ | ✗ |
+| a-z80-modified | A-Z80 CPU (modified: mux-driven internal data bus, no tri-state) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-a-z80-modified/) | per project | 5649 | ✓ | ✗ |
+| des | DES/Triple DES IP Cores | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-des/) | per project | 2061 | ✓ | ✗ |
+| sdr_ctrl | SDRAM controller (32-bit configuration read) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdr_ctrl/) | per project | 3929 | ✓ | ✗ |
+| uart2spi | UART to SPI bridge (flash commands over a UART) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-uart2spi/) | per project | 2583 | ✓ | ✗ |
+| mips_16_noxarm | Educational 16-bit MIPS Processor (variant without the ALU_NC x arm) | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-mips_16_noxarm/) | per project | 945 | ✓ | ✗ |
+| i2c | I2C core, Wishbone master | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2c/) | per project | 1556 | ✓ | ✗ |
+| sdram_16bit | 16-bit SDRAM Controller | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-sdram_16bit/) | per project | 741 | ✓ | ✗ |
+| i2cslave | I2C Slave | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-i2cslave/) | per project | 769 | ✓ | ✗ |
+| quartus_project_revert_timer | BRISC-V microcontroller (Arduino-on-RISC-V) | [brisc-v](#sources) | [repo](https://github.com/qiany21/Arduino-on-RISC-V.git) | - | MIT | 4349 | ✓ | ✓ |
+| pipelined_fft_256 | 256-point pipelined FFT/IFFT | [opencores](#sources) | [repo](https://opencores.org/projects) | [view](https://drpeterjamieson.com/RESEARCH/HEIMDALL/opencores-pipelined_fft_256/) | per project | 2055 | ✓ | ✗ |
+| tiny_aes | AES | [opencores](#sources) | [repo](https://opencores.org/projects) | - | per project | 764 | ✓ | ✗ |
+
+<details><summary>Flow and VTR QoR</summary>
+
+| design | iverilog | Odin sim | VTR stage | LUTs | blocks | FFs | pins | mult/mem | cpd ns | chan w | status | note |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| vga_lcd | pass | refused | timing | 24862 | 2023 | 16529 | 4 | 0/32 | 8.47413 | 58 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: test_bench_top.v:558: unsupported: real number |
+| ethmac | fail | refused | timing | 16463 | 1172 | 10543 | 66 | 0/0 | 7.71791 | 62 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: tb_ethernet.v:1071: unsupported: x/z literal (the simulator is 2-state) |
+| usbhostslave | pass | refused | timing | 10498 | 877 | 7079 | 51 | 0/0 | 5.49712 | 50 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: sepHostSlaveTestHarness.v:60: unsupported: x/z literal (the simulator is 2-state) |
+| sha3_high | pass | refused | timing | 7824 | 763 | 2211 | 585 | 0/0 | 9.22457 | 148 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| sha3_low | pass | refused | timing | 5035 | 463 | 2244 | 552 | 0/0 | 4.44096 | 114 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: test_keccak.v:32: unsupported: signal wider than 64 bits |
+| a-z80-modified | pass | none | timing | 2016 | 193 | 365 | 48 | 0/0 | 11.3704 | 68 | 2026-11-08 (rel-v150) | modified: mux-driven internal data bus; bidirectional nets split into one-way signals, D split into D_in/D_out/D_oe, pins_oe exported; every changed line commented; matches upstream a-z80 under iverilog on 5 programs |
+| des | pass | refused | timing | 1877 | 222 | 1984 | - | 0/0 | 3.70378 | 54 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: des_test_po.v:426: unsupported: x/z literal (the simulator is 2-state) |
+| sdr_ctrl | pass | refused | timing | 1710 | 170 | 1130 | 8 | 0/0 | 5.57435 | 50 | re-run 2026-11-05 (VTR, sim); sim_odin re-run 2026-11-09 (rel-v160) | tri-state pass converts sdr_dq (split _i/_o/_oe); sim_odin: tb_top.sv:105: unsupported: real number |
+| uart2spi | - | refused | timing | 685 | 67 | 422 | 22 | 0/0 | 3.30854 | 36 | re-run 2026-11-05 (VTR, sim); sim_odin re-run 2026-11-09 (rel-v160) | upstream bench (upstream-fixed) with flash model; sim_odin: tb_top.v:51: unsupported: real number |
+| mips_16_noxarm | - | - | timing | 639 | 54 | 247 | 68 | 0/0 | 5.72277 | 42 | re-run 2026-11-05 (VTR) | mips_16 variant without the ALU_NC x arm; datapath no longer folds; no testbench run on the variant |
+| i2c | pass | refused | timing | 316 | 31 | 200 | 22 | 0/0 | 2.80648 | 36 | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | sim_odin: tst_bench_top.v:194: unsupported: x/z literal (the simulator is 2-state) |
+| sdram_16bit | pass | fail | timing | 281 | 24 | 182 | 130 | 0/0 | 4.01425 | 44 | re-run 2026-11-05 (VTR, sim); sim_odin re-run 2026-11-09 (rel-v160) | --vendor-prims: IOBUF/ODDR2 built as soft logic, data_io split to _i/_o/_oe; VPR done. sim_odin: simulation.svh:19:37: error: syntax: '`__FILE__' is a SystemVerilog macro operator; not Verilog-2005 (Phase 5) |
+| i2cslave | fail | fail | timing | 198 | 18 | 139 | 11 | 0/0 | 2.21504 | 32 | re-run 2026-11-05 (VTR, sim); sim_odin re-run 2026-11-09 (rel-v160) | tri-state pass converts sda; iverilog testbench fails (timeout); sim_odin: testHarness.v:89: unsupported: x/z literal (the simulator is 2-state) |
+| quartus_project_revert_timer | - | - | - | - | - | - | - | - | - | - | - | - |
+| pipelined_fft_256 | pass | fail | none | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | VTR: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer; sim_odin: odin3_ast_comment_add: end is not 0 or a later loc of loc's buffer |
+| tiny_aes | pass | pass | elab | - | - | - | - | - | - | - | sim re-run 2026-11-05; VTR provisional (rel-main2); sim_odin re-run 2026-11-09 (rel-v160) | VTR: abc needs more than 6442450944 bytes (the design's budget is 6442450944 bytes: the smaller of 60% of physical ; sim_odin: test_aes_128.v:23: unsupported: signal wider than 64 bits; too big for now (6 GB abc budget) |
+
+</details>
+
+<details><summary>LUT forms</summary>
+
+| design | gates/d | 4-LUT/d | 6-LUT/d |
+|---|---|---|---|
 | vga_lcd | - | - | - |
 | ethmac | - | - | - |
 | usbhostslave | - | - | - |
 | sha3_high | - | - | - |
 | sha3_low | - | - | - |
-| reed_solomon_decoder | - | - | - |
 | a-z80-modified | - | - | - |
 | des | - | - | - |
 | sdr_ctrl | - | - | - |
 | uart2spi | - | - | - |
 | mips_16_noxarm | - | - | - |
-| spi | - | - | - |
 | i2c | - | - | - |
 | sdram_16bit | - | - | - |
 | i2cslave | - | - | - |
-| simple_spi | - | - | - |
-| ca_prng | - | - | - |
-| mips_16 | - | - | - |
 | quartus_project_revert_timer | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) | fail: too big for now (timeout 900 s, last finished pass levelize)/fail: too big for now (timeout 900 s, last finished pass levelize) |
 | pipelined_fft_256 | - | - | - |
 | tiny_aes | - | - | - |
@@ -272,25 +290,19 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | seq | mem | mul | add | fsm | latch | hier | bbox |
 |---|---|---|---|---|---|---|---|---|
-| dblclockfft | - | - | - | - | - | - | - | - |
 | vga_lcd | - | - | - | - | - | - | - | - |
 | ethmac | - | - | - | - | - | - | - | - |
 | usbhostslave | - | - | - | - | - | - | - | - |
 | sha3_high | - | - | - | - | - | - | - | - |
 | sha3_low | - | - | - | - | - | - | - | - |
-| reed_solomon_decoder | - | - | - | - | - | - | - | - |
 | a-z80-modified | - | - | - | - | - | - | - | - |
 | des | - | - | - | - | - | - | - | - |
 | sdr_ctrl | - | - | - | - | - | - | - | - |
 | uart2spi | - | - | - | - | - | - | - | - |
 | mips_16_noxarm | - | - | - | - | - | - | - | - |
-| spi | - | - | - | - | - | - | - | - |
 | i2c | - | - | - | - | - | - | - | - |
 | sdram_16bit | - | - | - | - | - | - | - | - |
 | i2cslave | - | - | - | - | - | - | - | - |
-| simple_spi | - | - | - | - | - | - | - | - |
-| ca_prng | - | - | - | - | - | - | - | - |
-| mips_16 | - | - | - | - | - | - | - | - |
 | quartus_project_revert_timer | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ |
 | pipelined_fft_256 | - | - | - | - | - | - | - | - |
 | tiny_aes | - | - | - | - | - | - | - | - |
@@ -301,25 +313,19 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | cells | core um2 | LVS | Si stage |
 |---|---|---|---|---|
-| dblclockfft | - | - | - | - |
 | vga_lcd | - | - | - | - |
 | ethmac | - | - | - | - |
 | usbhostslave | - | - | - | - |
 | sha3_high | - | - | - | - |
 | sha3_low | running | running | running | running |
-| reed_solomon_decoder | - | - | - | - |
 | a-z80-modified | - | - | - | - |
 | des | 26124 | 516945.8 | match | lvs |
 | sdr_ctrl | - | - | - | - |
 | uart2spi | - | - | - | - |
 | mips_16_noxarm | - | - | - | - |
-| spi | - | - | - | - |
 | i2c | 1397 | 30669.4 | match | lvs |
 | sdram_16bit | - | - | - | - |
 | i2cslave | - | - | - | - |
-| simple_spi | 974 | 20364.5 | match | lvs |
-| ca_prng | - | - | - | - |
-| mips_16 | - | - | - | - |
 | quartus_project_revert_timer | - | - | - | - |
 | pipelined_fft_256 | - | - | - | - |
 | tiny_aes | - | - | - | - |
@@ -330,25 +336,19 @@ Rule: HDL with a testbench and 200+ Verilog lines (and not T0).
 
 | design | activity | FPGA pJ/cycle | ASIC pJ/cycle | FPGA MHz | power note | vectorless mean P1 | vectorless mean density | vectorless nets | vectorless source |
 |---|---|---|---|---|---|---|---|---|---|
-| dblclockfft | ace2 | 3355 | - | 194.4 | matched 0.715; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3748 | 0.2488 | 107891 | odin3-vectorless; PI p=0.5 density=0.2 |
 | vga_lcd | - | - | - | - | - | 0.4581 | 0.0286 | 42029 | odin3-vectorless; PI p=0.5 density=0.2 |
 | ethmac | - | - | - | - | - | 0.4207 | 0.0424 | 28038 | odin3-vectorless; PI p=0.5 density=0.2 |
 | usbhostslave | ace2 | 245.8 | - | 195.9 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3768 | 0.0022 | 18504 | odin3-vectorless; PI p=0.5 density=0.2 |
 | sha3_high | - | - | - | - | - | 0.2999 | 0.0056 | 10106 | odin3-vectorless; PI p=0.5 density=0.2 |
 | sha3_low | - | - | - | - | - | 0.2196 | 0.0059 | 7317 | odin3-vectorless; PI p=0.5 density=0.2 |
-| reed_solomon_decoder | ace2 | 383.6 | - | 181.8 | matched 0.731; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2050 | 0.0398 | 10999 | odin3-vectorless; PI p=0.5 density=0.2 |
 | a-z80-modified | - | - | - | - | - | 0.4294 | 0.0466 | 2422 | odin3-vectorless; PI p=0.5 density=0.2 |
 | des | ace2 | 211.9 | - | 266.1 | matched 0.871; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.5022 | 0.4074 | 3983 | odin3-vectorless; PI p=0.5 density=0.2 |
 | sdr_ctrl | ace2 | 74.81 | - | 167.2 | matched 0.698; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3670 | 0.0827 | 3671 | odin3-vectorless; PI p=0.5 density=0.2 |
 | uart2spi | ace2 | 22.81 | - | 313.4 | matched 0.687; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2642 | 0.0798 | 1357 | odin3-vectorless; PI p=0.5 density=0.2 |
 | mips_16_noxarm | ace2 | 26.02 | - | 177.4 | matched 0.736; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2118 | 0.0384 | 950 | odin3-vectorless; PI p=0.5 density=0.2 |
-| spi | ace2 | 31.11 | - | 151.8 | matched 0.770; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2627 | 0.0441 | 1009 | odin3-vectorless; PI p=0.5 density=0.2 |
 | i2c | ace2 | 12.54 | - | 354.5 | matched 0.679; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3587 | 0.0753 | 630 | odin3-vectorless; PI p=0.5 density=0.2 |
 | sdram_16bit | ace2 | 14.92 | - | 255.5 | matched 0.710; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.2784 | 0.0736 | 639 | odin3-vectorless; PI p=0.5 density=0.2 |
 | i2cslave | ace2 | 4.717 | - | 424.6 | matched 0.627; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4340 | 0.0238 | 376 | odin3-vectorless; PI p=0.5 density=0.2 |
-| simple_spi | ace2 | 5.936 | - | 403.6 | matched 0.678; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3012 | 0.0481 | 417 | odin3-vectorless; PI p=0.5 density=0.2 |
-| ca_prng | ace2 | 9.149 | - | 444.8 | matched 0.835; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.3939 | 0.2985 | 243 | odin3-vectorless; PI p=0.5 density=0.2 |
-| mips_16 | ace2 | 4.934 | - | 248.7 | matched 0.787; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.1383 | 0.0898 | 181 | odin3-vectorless; PI p=0.5 density=0.2 |
 | quartus_project_revert_timer | - | - | - | - | - | - | - | - | - |
 | pipelined_fft_256 | ace2 | 530.5 | - | 145.8 | matched 0.729; ACE2 vectorless, primary inputs p=0.5 activity=0.2 | 0.4925 | 0.2054 | 21009 | odin3-vectorless; PI p=0.5 density=0.2 |
 | tiny_aes | - | - | - | - | - | - | - | - | - |

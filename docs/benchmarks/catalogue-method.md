@@ -186,3 +186,13 @@ analytic, no vectors; primary inputs P1 0.5, density 0.2). Columns (table group 
 The measures `source` field names the run, the Odin III version and the file. These are activity statistics, not
 a power claim; the power columns above stay Bifrost's (power tracks area; no new power claim is made here).
 Filled for the 53 designs that have an `odin3-vectorless` result among the Heimdall III pages.
+
+## Tier fix and Odin III 1.6.0 re-measure (2026-11-09)
+
+- The T0 rule compared `sim_iverilog` and `sim_odin` with `1` and `vtr_stage` with `route`; `measures.tsv` stores
+  `pass` / `fail` / `none` / `refused` and the odin3-flow collectors write `timing` for a routed run with timing, so
+  T0 was always empty. The rule now reads the stored values: `pass`, `pass`, and `route` or `timing`.
+- `sim_odin` of every Verilog design with a testbench and 200+ lines was re-run with Odin III 1.6.0 (commit
+  `d0649167`, `rel-v160`): `sim_tb` of the project testbench, 1800 s limit (1200 s for dblclockfft and wb_lcd, which passed in 1171 s and 61 s); the
+  `source` field of each row names the run. `sim_iverilog` does not depend on Odin III and is unchanged.
+  There is no `mimir bench measure` collector for `sim_odin`; the rows are written by the run scripts of the OpenCores lane.

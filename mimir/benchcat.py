@@ -46,7 +46,8 @@ STAGE_DONE = "route"  # what `mimir bench measure vpr` writes: routed, timing an
 ROUTED = (STAGE_DONE, "timing")  # `timing` = the odin3-flow collectors' word for the same state
 TIERS = {
     0: ("T0 whole flow", f"HDL with its own testbench, {LOC_BIG}+ Verilog lines, the testbench "
-        f"passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation (`sim_odin` = `pass`), and "
+        f"passes in iverilog (`sim_iverilog` = `pass`) and in Odin III simulation "
+        "(`sim_odin` = `pass`), and "
         "the VTR flow routes it and analyses timing (`vtr_stage` = `route` or `timing`)"),
     1: ("T1 HDL + testbench, larger", f"HDL with a testbench and {LOC_BIG}+ Verilog lines "
         "(and not T0)"),
