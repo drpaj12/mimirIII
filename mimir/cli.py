@@ -34,6 +34,8 @@ from mimir.registry import load_registry
 from mimir.sets import SETS
 from mimir.store import Store
 
+META_DIR = Path(__file__).resolve().parents[1] / "data" / "meta"  # the repo's, not the cwd's
+
 
 def _root(arg: str | None, var: str) -> Path:
     value = arg or os.environ.get(var)
@@ -520,8 +522,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(fn=_cmd_measure_set)
     s = sub.add_parser("import-meta", help="MCNC design meta from the toml, then register designs")
     s.add_argument("db")
-    s.add_argument("--toml", default="data/meta/mcnc.toml")
-    s.add_argument("--licences", default="data/meta/licences.toml")
+    s.add_argument("--toml", default=str(META_DIR / "mcnc.toml"))
+    s.add_argument("--licences", default=str(META_DIR / "licences.toml"))
     s.add_argument("--vtr", help="VTR checkout (default $VTR_ROOT)")
     s.add_argument("--norns", help="Norns checkout (default $MIMIR_NORNS)")
     s.add_argument("--loki", help="Loki sources dir (default $MIMIR_LOKI)")
