@@ -54,7 +54,7 @@ Schema version 2 (`docs/specs/2026-10-27-mimir-schema-v2.md`) adds the tables `d
 `design_lineage`, `flow_config`, `flow_param`, `run`, `partition` and `analysis_result`; `records` is unchanged and a
 v1 store migrates when opened.
 
-    .venv/bin/mimir import-meta mimir.db         # MCNC meta from data/meta/mcnc.toml (run it from the repo root, or pass --toml), then register designs
+    .venv/bin/mimir import-meta mimir.db         # MCNC meta from data/meta/mcnc.toml, then register designs
     .venv/bin/mimir import-runs mimir.db         # flow_config and run rows from the stored records; defaults are read
                                                  # from $MIMIR_ODIN3, $VTR_ROOT, $MIMIR_NORNS_SRC (git checkouts)
     .venv/bin/mimir meta-coverage mimir.db       # design_meta rows per field and confidence

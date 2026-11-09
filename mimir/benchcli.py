@@ -10,6 +10,8 @@ from pathlib import Path
 from mimir import bench, benchcat, benchmeasure, benchpub, benchreg, benchvpr, blobs
 from mimir.meta import load_licence_rules
 
+META_DIR = Path(__file__).resolve().parents[1] / "data" / "meta"  # the repo's, not the cwd's
+
 
 def _idx(args: argparse.Namespace) -> Path:
     return Path(args.index) if args.index else bench.index_dir()
@@ -303,7 +305,7 @@ def add_parsers(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> Non
     common(p)
     p.add_argument("kind", choices=("vtr", "silicon", "testbench", "odin", "store", "desc", "vpr",
                                     "power", "activity"))
-    p.add_argument("--meta", default="data/meta/mcnc.toml", help="desc: MCNC meta toml")
+    p.add_argument("--meta", default=str(META_DIR / "mcnc.toml"), help="desc: MCNC meta toml")
     p.add_argument("--odin3", help="odin: Odin III binary")
     p.add_argument("--vtr", help="odin: VTR checkout (architecture file)")
     p.add_argument("--suite", help="odin: suite id; power, activity: suite that wins a name "
