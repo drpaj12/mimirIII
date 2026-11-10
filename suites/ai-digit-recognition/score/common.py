@@ -72,7 +72,7 @@ def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
     return res, None if res else "no summary line: " + (r.stdout + r.stderr)[-300:]
 
 
-def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G"):
+def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G", fast=False):
     """Build the testbench + DUT with Verilator (--binary --timing, Verilog-2005) and run it.
     defines: ["NAME=value", ...] passed as -D. Used where iverilog is too slow."""
     n = stage_vectors(vec_dir, run_dir)
@@ -80,6 +80,8 @@ def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem
            "-Wno-lint", "-Wno-style", "-Wno-WIDTH", "-Wno-TIMESCALEMOD", "-O2",
            "--top-module", "mnist_tb",
            "--Mdir", "obj", f"-DMNIST_N={n}", "-o", "simv"]
+    if fast:   # long runs (I2): faster C++ and no X modelling; results are unchanged
+        cmd += ["--x-assign", "fast", "--x-initial", "fast", "-CFLAGS", "-O3 -march=native"]
     cmd += [f"-D{d}" for d in defines] + [str(TB)] + [str(f) for f in dut_files]
     r = capped(cmd, cwd=run_dir, mem=mem)
     if r.returncode or not (Path(run_dir) / "obj" / "simv").exists():
