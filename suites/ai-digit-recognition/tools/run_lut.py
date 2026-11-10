@@ -19,8 +19,8 @@ C = importlib.import_module("common")
 
 def sources(build):
     build = Path(build).resolve()
-    core = next(build.glob("*_all.v"))
-    return [build / "mnist_top.v", core]
+    core = list(build.glob("*_all.v"))  # I6/I8: core file + wrapper; I7 (gen_bnn.py): one file
+    return [build / "mnist_top.v", *core]
 
 
 def run(design, build, tier, work, sim="verilator"):
