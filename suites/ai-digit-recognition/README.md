@@ -20,7 +20,7 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 | `tb/mnist_tb.v` | the testbench (iverilog, Verilator, Odin III `sim_tb` subset) |
 | `rtl/i1_tpu/` | I1 wrapper `mnist_top_tpu.v` and the `altsyncram` / `scfifo` behavioural models |
 | `tools/retile_program.py`, `tools/build_i1.py`, `tools/run_i1.py` | I1 program retiler, build, simulate |
-| `score/` | `vtr_leg.py`, `lpm_leg.py`, `make_table.py`; `results/` holds the rows |
+| `score/`, `results/` | `vtr_leg.py`, `lpm_leg.py`, `make_table.py`; `results/*.jsonl` the rows |
 
 ## Reproduce I1 (needs the pinned checkout of Gabe's repository under `external/`)
 
@@ -37,3 +37,13 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 Tool locations come from `ODIN3_BIN`, `ODIN3_FLOW`, `VTR_ROOT`, `USS_TPU`, `AIDIGIT_DATA`, `ODIN3_WS`.
 Trivial DUTs for the testbench: `rtl/trivial_const.v` (fixed class, must FAIL) and the generated oracle
 (`tools/gen_oracle.py`, must PASS).
+
+## Results (I1, bit-exact on 10,000 images; full tables in `docs/RESULTS.md`)
+
+| N | MAC units | class / score match (10,000) | top-1 | cycles / image | LUT | CLB | mult_36 | RAM | Fmax MHz | power mW | energy mJ / image |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 8 | 64 | 10,000 / 10,000 | 98.74 % | 609,339 | 8,268 | 899 | 73 | 126 | 43.7 | 214 | 2.98 |
+| 4 | 16 | 10,000 / 10,000 | 98.74 % | 853,184 | 4,796 | 527 | 25 | 150 | 47.2 | 241 | 4.36 |
+| 2 | 4 | 10,000 / 10,000 | 98.74 % | 1,608,931 | 3,955 | 621 | 13 | 532 | 49.6 | 869 | 28.19 |
+
+VTR k6 target (quick-tier legs). Cyclone V fit, Fmax and power: needs laptop Quartus.
