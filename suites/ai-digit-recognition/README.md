@@ -21,6 +21,14 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 | `rtl/i1_tpu/` | I1 wrapper `mnist_top_tpu.v` and the `altsyncram` / `scfifo` behavioural models |
 | `tools/retile_program.py`, `tools/build_i1.py`, `tools/run_i1.py` | I1 program retiler, build, simulate |
 | `score/`, `results/` | `vtr_leg.py`, `lpm_leg.py`, `make_table.py`; `results/*.jsonl` the rows |
+| `docs/I6-NEURALUT.md`, `docs/I8-TREELUT.md`, `docs/RESULTS-LUT.md` | implementations I6 (NeuraLUT-Assemble) and I8 (TreeLUT): settings, install, results, Odin III gaps |
+| `tools/lutnn_common.py`, `neuralut_train.py`, `neuralut_gen.py`, `treelut_gen.py`, `run_lut.py`, `lut_legs.py`; `score/lut_table.py` | train, generate Verilog + wrapper + model vectors, simulate, score, tables (venv `work/nnlut-env`) |
+
+## Reproduce I6 / I8 (one venv, see `docs/I6-NEURALUT.md`)
+
+    nnlut-env/bin/python tools/neuralut_train.py B <train_dir> --dense-epochs 10 --epochs 60
+    nnlut-env/bin/python tools/neuralut_gen.py B <train_dir> <build_dir>     # or: treelut_gen.py T1 <build_dir>
+    python3 -I tools/lut_legs.py nl-B <build_dir> <res_dir> <work_dir>
 
 ## Reproduce I1 (needs the pinned checkout of Gabe's repository under `external/`)
 

@@ -31,7 +31,7 @@ def main(argv):
         r = sh(["python3", "-I", run, design, build, tier, work, "--sim", sim])
         (res / f"{design}-{tier}.json").write_text(r.stdout)
         outs[tier] = json.loads(r.stdout)
-    for name in ("vtr.jsonl", "lpm.jsonl"):   # replace this design's earlier rows
+    for name in ("vtr.jsonl", "lpm.jsonl"):  # replace this design's earlier rows
         f = res / name
         if f.exists():
             keep = [ln for ln in f.read_text().splitlines() if json.loads(ln)["design"] != design]

@@ -59,6 +59,7 @@ id = "brevitas"
 what = "Brevitas quantisation library, tag v0.7.1 (the commit named in the NeuraLUT README, 67be9b58, is a 2020 version without ParameterScaling and does not import in models.py)"
 repo = "https://github.com/Xilinx/brevitas"
 tag = "v0.7.1"
+commit = "32cc847fc7cd6ca4c0201fd6b7d185c1103ae088"
 use = "pip install from the tag in the nnlut venv; not stored"
 
 # Training images: only the I6 / I8 training reads them (the test set is `mnist-t10k-*` above).
