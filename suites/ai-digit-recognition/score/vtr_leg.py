@@ -83,6 +83,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--tier", default="quick")
     ap.add_argument("--clock", default="clk")
+    ap.add_argument("--top", default="mnist_top", help="top module, declared to odin3-flow")
     ap.add_argument("--netlist-sim", dest="nsim", action="store_true", default=True)
     ap.add_argument("--no-netlist-sim", dest="nsim", action="store_false")
     ap.add_argument("-I", dest="inc", action="append", default=[])
@@ -105,6 +106,8 @@ def main():
         got = json.loads(Path(a.rtl_result).read_text())
         rtl, err = got["result"], got["error"]
         row["accuracy"] = {"rtl_" + got["sim"]: rtl}
+        if got.get("pipe"):
+            row["accuracy"]["rtl_" + got["sim"] + "_pipelined"] = got["pipe"]
         if err:
             nr["accuracy.rtl_" + got["sim"]] = err
     else:
@@ -119,13 +122,14 @@ def main():
     if flow_out.exists():
         shutil.rmtree(flow_out)
     cmd = [C.ODIN3_FLOW] + [str(Path(s).resolve()) for s in a.src] + [
-        "--target", "vtr", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN, "--out", flow_out]
+        "--target", "vtr", "--arch", C.ARCH, "--top", a.top, "--odin3", C.ODIN3_BIN,
+        "--out", flow_out]
     for i in a.inc:
         cmd += ["-I", i]
     for d in a.defs:
         cmd += ["-D", d]
     t = time.time()
-    r = C.capped(cmd, timeout=6 * 3600, mem="4G")
+    r = C.capped(cmd, timeout=6 * 3600, mem=C.FLOW_MEM)
     (work / "flow.log").parent.mkdir(parents=True, exist_ok=True)
     (work / "flow.log").write_text(r.stdout + r.stderr)
     summ = flow_out / "summary.json"
@@ -174,6 +178,13 @@ def main():
         row["speed"].update(cycles_per_img=cyc, latency_us=lat, images_per_s=1e6 / lat)
         row["speed"]["note"] = ("images_per_s = 1/latency (no pipelining credit; "
                                 "initiation interval = cycles_per_img)")
+        ii = (got.get("pipe") or {}).get("ii_cycles") if a.rtl_result else None
+        if ii:
+            row["speed"].update(ii_cycles=ii, images_per_s=1e6 / (ii * cpd / 1000.0),
+                                images_per_s_latency=1e6 / lat)
+            row["speed"]["note"] = ("pipelined: images_per_s = 1/(ii_cycles x critical path); "
+                                    "latency_us and energy_uj_per_img are per image through the "
+                                    "whole pipeline (power x latency)")
     else:
         nr["speed.cycles_per_img"] = "no RTL simulation result" if not cyc else "no critical path"
 

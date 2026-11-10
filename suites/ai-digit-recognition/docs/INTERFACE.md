@@ -27,8 +27,7 @@ reference to the DUT; no DUT parameter override (Odin III `sim_tb` limits).
    (the testbench holds `in_valid` and `in_data` until it sees `in_ready`); wait for `done`.
 3. The testbench samples `pred` and `scores` on the first clock edge where `done` is seen high.
 4. Cycles per image = clock edges from the `start` edge to the edge where `done` is first seen (inclusive count
-   printed as `cycles_per_img`, an integer mean over the tier). Pipelined designs: see the open item
-   (initiation interval) in the P1 notes.
+   printed as `cycles_per_img`, an integer mean over the tier). Pipelined designs: see "Pipelined designs" below.
 5. A per-image cycle budget (`vec_meta.hex[1]`, 2,000,000) catches a hang: the image counts as a timeout and the
    DUT is reset.
 
@@ -94,3 +93,14 @@ From Altera "Cyclone V Device Overview" CV-51001 (2015.06.12), Table 10, member 
 the Intel web page could not be fetched from this machine, so the live URL is not verified): ALMs 32,075;
 registers 128,300; M10K 3,970 Kb (397 blocks of 10 Kb, derived); variable-precision DSP blocks 87; 18x18
 multipliers 174; MLAB 480 Kb.
+
+## Pipelined designs (I3, I4)
+
+A design may accept the next image before the previous result is out. `start` may be pulsed while the previous image
+is in flight; the DUT latches it and raises `in_ready` when it can take pixels. `done` stays a level that drops at
+`start`; a pipelined DUT also drops it at the start of each result so that every result has a rising edge, and
+`pred`/`scores` hold the last result. Latency = `cycles_per_img` of `tb/mnist_tb.v` (unchanged). The initiation
+interval is measured by `tb/mnist_tb_pipe.v`, which streams images back to back and collects a result at each rising
+edge of `done`; its summary line is the standard line plus ` ii_cycles=<mean cycles between results>
+latency_first=<cycles from the first start to the first result>`. In a result row: `speed.ii_cycles`, and
+`images_per_s = 1 / (ii_cycles x critical path)`. A non-pipelined design has II = cycles per image.

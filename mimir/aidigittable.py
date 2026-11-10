@@ -178,7 +178,7 @@ def render_md(rows: list[Row], plots: list[tuple[str, str]], nulls: dict[tuple[s
 
 # ---- Pareto plots ------------------------------------------------------------------------------
 
-PALETTE = {"I1": "#3f5f86", "I6": "#b5651d", "I8": "#4a8a5a"}
+PALETTE = {"I1": "#3f5f86", "I3": "#7a4fa0", "I4": "#a03f5a", "I6": "#b5651d", "I8": "#4a8a5a"}
 PW, PH, ML, MR, MT, MB = 640, 420, 64, 150, 36, 48
 
 

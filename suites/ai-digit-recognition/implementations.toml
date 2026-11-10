@@ -127,3 +127,73 @@ model_kind = "other model"
 acc_ref = "own model: XGBoost-to-Verilog model of the design (class and scores)"
 design_source = "treelut"
 rtl_sha256 = "mnist_top.v=c9627e61358bcd06 treelut_all.v=f787c7e3c20f0d0b (first 16 hex digits of sha256)"
+
+[[design]]
+id = "i3-df-p8"
+impl_id = "I3"
+arch_name = "Layer-pipelined dataflow, weights in on-chip RAM (generator)"
+setting = "P=8 lanes per layer (conv1 pads 6 to 8)"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=fbc2b78e695199bb w_*.hex(sorted)=678a525a16b48ffb (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i3-df-p4"
+impl_id = "I3"
+arch_name = "Layer-pipelined dataflow, weights in on-chip RAM (generator)"
+setting = "P=4"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=ad5913a3e0127fc7 w_*.hex(sorted)=cab77bbab839b381 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i3-df-p2"
+impl_id = "I3"
+arch_name = "Layer-pipelined dataflow, weights in on-chip RAM (generator)"
+setting = "P=2"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=835ad9fc8133ab9d w_*.hex(sorted)=55bc3e9f3d59cff9 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i3-df-p1"
+impl_id = "I3"
+arch_name = "Layer-pipelined dataflow, weights in on-chip RAM (generator)"
+setting = "P=1"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=b058226f91cef47e w_*.hex(sorted)=d98f5d8c3777eeb4 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i4-fc"
+impl_id = "I4"
+arch_name = "Fixed-weight datapath, weights as constants (generator)"
+setting = "fc1, fc2, fc3 unrolled across neurons (120, 84, 10 lanes); conv1, conv2 folded (1 lane)"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=51c7e73e47f03b73 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i4-conv2-fc"
+impl_id = "I4"
+arch_name = "Fixed-weight datapath, weights as constants (generator)"
+setting = "conv2 (16 lanes) and fc1, fc2, fc3 unrolled; conv1 folded"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=d0f79dda222c53f9 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i4-all"
+impl_id = "I4"
+arch_name = "Fixed-weight datapath, weights as constants (generator)"
+setting = "all five layers unrolled across output channels (6, 16, 120, 84, 10 lanes)"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
+design_source = "uss-tpu"
+rtl_sha256 = "mnist_top.v=2be612764add9ac6 (first 16 hex digits of sha256, tools/gen_lenet.py output)"

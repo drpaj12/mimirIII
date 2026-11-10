@@ -175,8 +175,9 @@ def _leg_cols(row: Json, layouts: Json) -> Row:
         "speed_fmax_mhz": speed.get("fmax_mhz"), "speed_crit_path_ns": speed.get("crit_path_ns"),
         "speed_cycles_per_img": speed.get("cycles_per_img"),
         "speed_latency_us": speed.get("latency_us"),
-        "speed_ii_cycles": speed.get("cycles_per_img")
-        if "initiation interval = cycles_per_img" in note else None,
+        "speed_ii_cycles": speed.get("ii_cycles") or (speed.get("cycles_per_img")
+                                                       if "initiation interval = cycles_per_img"
+                                                       in note else None),
         "speed_images_per_s": speed.get("images_per_s"),
         "power_total_mw": power.get("total_mw"), "power_dynamic_mw": power.get("dynamic_mw"),
         "power_static_mw": power.get("static_mw"), "power_method": method,
