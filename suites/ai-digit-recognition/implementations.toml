@@ -16,6 +16,18 @@ odin3_commit = "59349797"
 vtr_commit_reason = "VTR from the workspace checkout; its commit is not recorded in the result rows"
 run_date_reason = "the result rows carry no run date"
 
+# Grid layout of each architecture file named in a result row (`tools.arch`), copied from the
+# `<layout><auto_layout>` of the file under $VTR_ROOT/vtr_flow/arch/timing/: perimeter `io` (one
+# tile wide, EMPTY corners), `fill` clb, and one `<col>` line per hard block type (first x
+# `startx`, then every `repeatx`, from y = 1). `mimir.aidigit.clb_tiles` turns it into the clb
+# tile count of a grid; checked against VPR's own count in tests (spec 2026-11-10-ai-digit-grid.md).
+[arch_layout."k6_frac_N10_frac_chain_mem32K_40nm.xml"]
+io_ring = 1
+columns = [
+  { type = "mult_36", startx = 6, repeatx = 8, tile_height = 4 },
+  { type = "memory", startx = 2, repeatx = 8, tile_height = 6 },
+]
+
 [[design]]
 id = "i1-tpu-n8"
 impl_id = "I1"
