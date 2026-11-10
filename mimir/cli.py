@@ -322,7 +322,7 @@ def _cmd_migrate(args: argparse.Namespace) -> int:
     db.close()
     old = None if row is None else str(row[0])
     Store(args.db).close()
-    print(f"{args.db}: schema version {old} -> 7")
+    print(f"{args.db}: schema version {old} -> 8")
     return 0
 
 
@@ -647,6 +647,9 @@ def build_parser() -> argparse.ArgumentParser:
     from mimir.hostcli import add_parsers as add_host_parsers
 
     add_host_parsers(sub)
+    from mimir.aidigitcli import add_parsers as add_aidigit_parsers
+
+    add_aidigit_parsers(sub)
     return p
 
 
