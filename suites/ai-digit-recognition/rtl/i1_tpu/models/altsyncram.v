@@ -72,8 +72,6 @@ module altsyncram #(
     reg [widthad_b-1:0] ab;
     reg [width_b-1:0]   db;
     reg                 wb;
-    reg [width_a-1:0]   qa_r;
-    reg [width_b-1:0]   qb_r;
 
     always @(posedge clock0) begin
         aa <= address_a;
@@ -84,13 +82,42 @@ module altsyncram #(
         wb <= wren_b;
         if (wa) mem[aa] <= da;
         if (TWO_PORT && wb) mem[ab] <= db;
-        qa_r <= wa ? da : mem[aa];
-        qb_r <= (TWO_PORT && wb) ? db : mem[ab];
     end
 
-    wire [width_a-1:0] qa_c = wa ? da : mem[aa];
-    wire [width_b-1:0] qb_c = (TWO_PORT && wb) ? db : mem[ab];
-    assign q_a = REG_A ? qa_r : qa_c;
-    assign q_b = REG_B ? qb_r : qb_c;
+    // Read ports. Only the configured kind is described, so a registered-output memory has no
+    // asynchronous read for a synthesis tool to trip over. The registered-output read is the plain
+    // synchronous-read RAM pattern (read of the registered address into a register); the
+    // same-port write-through (NEW_DATA) is a bypass multiplexer after that register, which gives
+    // the same values as writing the bypass in front of the register.
+    generate
+        if (REG_A) begin : out_a_reg
+            reg [width_a-1:0] rd;
+            reg [width_a-1:0] bypd;
+            reg               byp;
+            always @(posedge clock0) rd <= mem[aa];
+            always @(posedge clock0) begin
+                bypd <= da;
+                byp <= wa;
+            end
+            assign q_a = byp ? bypd : rd;
+        end else begin : out_a_comb
+            assign q_a = wa ? da : mem[aa];
+        end
+        if (!TWO_PORT) begin : out_b_none
+            assign q_b = {width_b{1'b0}};
+        end else if (REG_B) begin : out_b_reg
+            reg [width_b-1:0] rd;
+            reg [width_b-1:0] bypd;
+            reg               byp;
+            always @(posedge clock0) rd <= mem[ab];
+            always @(posedge clock0) begin
+                bypd <= db;
+                byp <= wb;
+            end
+            assign q_b = byp ? bypd : rd;
+        end else begin : out_b_comb
+            assign q_b = wb ? db : mem[ab];
+        end
+    endgenerate
     assign eccstatus = 3'b000;
 endmodule

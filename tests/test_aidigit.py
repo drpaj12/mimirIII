@@ -13,6 +13,7 @@ import tomllib
 import unittest
 from pathlib import Path
 from types import ModuleType
+from unittest import mock
 
 from mimir import bench
 
@@ -61,17 +62,13 @@ class Fetch(unittest.TestCase):
             sha = hashlib.sha256(payload).hexdigest()
             entry = f'[[data]]\nid = "x"\nfile = "f-ubyte"\nbytes = {len(payload)}\n'
             pins.write_text(entry + f'sha256 = "{sha}"\ngz_sha256 = "0"\nurls = []\n')
-            old = fd.PINS
-            fd.PINS = pins
-            try:
+            with mock.patch.object(fd, "load_pins", lambda: tomllib.loads(pins.read_text())):
                 out = fd.fetch(tmp / "out", tmp / "local")
                 self.assertEqual(out[0].read_bytes(), payload)
                 pins.write_text(entry + f'sha256 = "{"0" * 64}"\ngz_sha256 = "0"\nurls = []\n')
                 with self.assertRaises(SystemExit):
                     fd.fetch(tmp / "out2", tmp / "local")
                 self.assertFalse((tmp / "out2" / "f-ubyte").exists())
-            finally:
-                fd.PINS = old
 
 
 class Retile(unittest.TestCase):

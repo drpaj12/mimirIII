@@ -29,7 +29,8 @@ module mnist_tb;
   integer cyc;
   integer i, j, k, t0, waited;
   integer n_img, tmo;
-  integer cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_i;
+  integer cls_ok, sc_ok, lab_ok, timeouts, cyc_i;
+  reg [63:0] cyc_total;      // 64 bit: 10,000 images x 1M cycles overflows 32 bits
   integer bad_this, nprint, init_cycles, init_bad;
   reg [7:0] tmp;
   reg fin;
@@ -52,7 +53,7 @@ module mnist_tb;
 `ifdef MNIST_TMO
     tmo = `MNIST_TMO;      // per-image cycle budget override (slow designs)
 `endif
-    cls_ok = 0; sc_ok = 0; lab_ok = 0; timeouts = 0; cyc_total = 0; nprint = 0;
+    cls_ok = 0; sc_ok = 0; lab_ok = 0; timeouts = 0; cyc_total = 64'd0; nprint = 0;
     rst = 1; start = 0; in_valid = 0; in_data = 0;
     repeat (4) @(negedge clk);
     rst = 0;

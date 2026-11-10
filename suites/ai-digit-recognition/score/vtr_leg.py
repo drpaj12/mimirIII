@@ -19,7 +19,8 @@ import common as C
 
 def parse_vpr_stdout(text):
     d = {}
-    m = re.search(r"Final critical path delay \(least slack\): ([\d.]+) ns, Fmax: ([\d.]+) MHz", text)
+    m = re.search(r"Final critical path delay \(least slack\): ([\d.]+) ns, "
+                  r"Fmax: ([\d.]+) MHz", text)
     if m:
         d["crit_path_ns"], d["fmax_mhz"] = float(m.group(1)), float(m.group(2))
     for key, pat in (("ff", r"\.latch\s*:\s*(\d+)"), ("adder", r"^\s*adder\s*:\s*(\d+)"),
@@ -37,9 +38,9 @@ def power_flow(blif, clock, out):
     """ACE2 vectorless activity, then VPR --power at fixed W=100 (as Wyrd Bifrost)."""
     out.mkdir(parents=True, exist_ok=True)
     shutil.copy(blif, out / "in.blif")
-    ace = VTR_ACE = C.VTR_ROOT / "build/ace2/ace"
-    r = C.capped([ace, "-b", "in.blif", "-c", clock, "-n", "raw.ace.blif", "-o", "ace.act", "-s", "1"],
-                 cwd=out)
+    ace = C.VTR_ROOT / "build/ace2/ace"
+    r = C.capped([ace, "-b", "in.blif", "-c", clock, "-n", "raw.ace.blif", "-o", "ace.act",
+                  "-s", "1"], cwd=out)
     if r.returncode:
         return None, "ace2 failed: " + (r.stdout + r.stderr)[-200:]
     r = C.capped([C.VTR_ROOT / "vtr_flow/scripts/restore_multiclock_latch.pl", "in.blif",
@@ -54,14 +55,16 @@ def power_flow(blif, clock, out):
         return None, "vpr --power failed (see power/vpr.log)"
     rows = {}
     for line in pw[0].read_text().splitlines():
-        m = re.match(r"^\s*(Total|Routing|PB Types|Clock)\s+([0-9.e+-]+)\s+([0-9.e+-]+)\s+([\w.+-]+)", line)
+        m = re.match(r"^\s*(Total|Routing|PB Types|Clock)\s+([0-9.e+-]+)\s+([0-9.e+-]+)"
+                     r"\s+([\w.+-]+)", line)
         if m and m.group(1) not in rows:
             frac = m.group(4)
             rows[m.group(1)] = (float(m.group(2)), 0.0 if "nan" in frac else float(frac))
     if "Total" not in rows:
         return None, "no power breakdown in VPR power report"
     tot, dfrac = rows["Total"]
-    return {"total_mw": tot * 1e3, "dynamic_mw": tot * dfrac * 1e3, "static_mw": tot * (1 - dfrac) * 1e3,
+    return {"total_mw": tot * 1e3, "dynamic_mw": tot * dfrac * 1e3,
+            "static_mw": tot * (1 - dfrac) * 1e3,
             "method": "ACE2 vectorless (-s 1) + VPR --power, PTM_45nm, W=100"}, None
 
 
@@ -69,7 +72,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--design", required=True)
     ap.add_argument("--src", nargs="+", default=[])
-    ap.add_argument("--build", help="build.json (tools/build_i1.py): sources and defines of the design")
+    ap.add_argument("--build",
+                    help="build.json (tools/build_i1.py): sources and defines of the design")
     ap.add_argument("--rtl-result", help="JSON of tools/run_i1.py: use it as the RTL simulation "
                     "result instead of simulating here")
     ap.add_argument("--vec", required=True)
@@ -85,7 +89,8 @@ def main():
     if a.build:
         b = C.load_build(a.build)
         a.src = b["sources"]
-        a.defs = a.defs + b["define_args"]
+        a.defs = a.defs + b["flow_define_args"]
+        a.inc = a.inc + b["incdirs"]
     if not a.src:
         ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "vtr"
@@ -101,7 +106,8 @@ def main():
         if err:
             nr["accuracy.rtl_" + got["sim"]] = err
     else:
-        rtl, err = C.sim_iverilog([Path(s).resolve() for s in a.src], a.vec, work / "sim-rtl-iverilog")
+        rtl, err = C.sim_iverilog([Path(s).resolve() for s in a.src], a.vec,
+                                  work / "sim-rtl-iverilog")
         row["accuracy"] = {"rtl_iverilog": rtl}
         if err:
             nr["accuracy.rtl_iverilog"] = err
@@ -148,12 +154,14 @@ def main():
     blif = next((flow_out / "odin3").glob("*.blif"), None)
     if a.nsim:
         reads = "; ".join(f"read_verilog {Path(x).resolve()}" for x in a.src)
-        nl, err = C.sim_odin(f"{reads}; proc; opt; lower; abc --lut 6", a.vec, work / "sim-netlist-odin")
+        nl, err = C.sim_odin(f"{reads}; proc; opt; lower; abc --lut 6", a.vec,
+                             work / "sim-netlist-odin")
         row["accuracy"]["netlist_odin_sim"] = nl
         if err:
             nr["accuracy.netlist_odin_sim"] = err
         else:
-            row["notes"].append("netlist sim = in-memory abc --lut 6 netlist, not the BLIF (adder subckt black box)")
+            row["notes"].append("netlist sim = in-memory abc --lut 6 netlist, not the BLIF "
+                                "(adder subckt black box)")
     else:
         nr["accuracy.netlist_odin_sim"] = "disabled"
 
@@ -162,7 +170,8 @@ def main():
     if cyc and cpd:
         lat = cyc * cpd / 1000.0  # us
         row["speed"].update(cycles_per_img=cyc, latency_us=lat, images_per_s=1e6 / lat)
-        row["speed"]["note"] = "images_per_s = 1/latency (no pipelining credit; initiation interval = cycles_per_img)"
+        row["speed"]["note"] = ("images_per_s = 1/latency (no pipelining credit; "
+                                "initiation interval = cycles_per_img)")
     else:
         nr["speed.cycles_per_img"] = "no RTL simulation result" if not cyc else "no critical path"
 

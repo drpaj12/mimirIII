@@ -99,7 +99,9 @@ def build(n, out):
     info = {"n": n, "instructions": len(new), "flash_bytes": len(data), "sources": srcs,
             "models": srcs[:2], "gabe_sources": srcs[2:-1], "wrapper": srcs[-1],
             "defines": {"FLASH_LEN": len(data), "FLASH_HEX": f'"{out}/tpu_flash.hex"',
-                        "TPU_N": n}}
+                        "TPU_N": n},
+            # odin3-flow takes no quote in a -D value: the flows find tpu_flash.hex through -I
+            "flow_defines": {"FLASH_LEN": len(data), "TPU_N": n}, "incdirs": [str(out)]}
     (out / "build.json").write_text(json.dumps(info, indent=1, sort_keys=True) + "\n")
     return info
 

@@ -32,6 +32,20 @@ reference to the DUT; no DUT parameter override (Odin III `sim_tb` limits).
 5. A per-image cycle budget (`vec_meta.hex[1]`, 2,000,000) catches a hang: the image counts as a timeout and the
    DUT is reset.
 
+## Initialisation and clocking (P1)
+
+- A DUT that has to initialise itself after reset (flash weights into a programmable accelerator, fill a
+  ROM) keeps `done` low until it is ready for the first `start`, then raises `done`. The testbench, built
+  with `-DMNIST_INIT=<budget cycles>`, waits for that `done` before the first image and reports the wait
+  as `init_cycles`; it is not part of `cycles_per_img`. Without `-DMNIST_INIT` the testbench does not wait
+  (the P0 DUTs).
+- The testbench drives its signals and reads the DUT only at the falling clock edge; the DUT samples at the
+  rising edge. A transfer is `in_valid & in_ready` as sampled at the rising edge, so `in_ready` must not
+  depend combinationally on `in_valid` (it may depend on the DUT's registers).
+- `-DMNIST_TMO=<cycles>` overrides the per-image cycle budget of `vec_meta.hex` for slow designs.
+- Cycles per image: rising clock edges from the edge that samples `start` to the edge after which `done` is
+  seen high (the testbench reads `done` at the next falling edge).
+
 ## Input
 
 The network input is the int8 image `clip(round(((p/255 - 0.1307)/0.3018) / S_in), -127, 127)` with

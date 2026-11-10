@@ -60,7 +60,8 @@ def stage_vectors(vec_dir, run_dir):
 def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
     n = stage_vectors(vec_dir, run_dir)
     r = subprocess.run(["iverilog", "-g2005", f"-DMNIST_N={n}"] + [f"-D{d}" for d in defines]
-                       + ["-o", "t.vvp", str(TB)] + [str(f) for f in dut_files], cwd=run_dir, capture_output=True, text=True)
+                       + ["-o", "t.vvp", str(TB)] + [str(f) for f in dut_files],
+                       cwd=run_dir, capture_output=True, text=True)
     if r.returncode:
         return None, "iverilog compile failed: " + r.stderr[-300:]
     t = time.time()
@@ -73,10 +74,11 @@ def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
 
 def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G"):
     """Build the testbench + DUT with Verilator (--binary --timing, Verilog-2005) and run it.
-    defines: ["NAME=value", ...] passed as -D. Used for the full tier, where iverilog is too slow."""
+    defines: ["NAME=value", ...] passed as -D. Used where iverilog is too slow."""
     n = stage_vectors(vec_dir, run_dir)
-    cmd = ["verilator", "--binary", "--timing", "--language", "1364-2005", "-Wno-fatal", "-Wno-lint",
-           "-Wno-style", "-Wno-WIDTH", "-Wno-TIMESCALEMOD", "-O2", "--top-module", "mnist_tb",
+    cmd = ["verilator", "--binary", "--timing", "--language", "1364-2005", "-Wno-fatal",
+           "-Wno-lint", "-Wno-style", "-Wno-WIDTH", "-Wno-TIMESCALEMOD", "-O2",
+           "--top-module", "mnist_tb",
            "--Mdir", "obj", f"-DMNIST_N={n}", "-o", "simv"]
     cmd += [f"-D{d}" for d in defines] + [str(TB)] + [str(f) for f in dut_files]
     r = capped(cmd, cwd=run_dir, mem=mem)
@@ -109,7 +111,7 @@ def new_row(design, target, tier):
     return {"schema": SCHEMA_VERSION, "design": design, "target": target, "tier": tier,
             "accuracy": None,        # {rtl: tb result, netlist: tb result}
             "area": None,            # target-specific dict
-            "speed": None,           # {fmax_mhz, crit_path_ns, cycles_per_img, latency_us, images_per_s}
+            "speed": None,           # {fmax_mhz, crit_path_ns, cycles_per_img, latency_us, ...}
             "power": None,           # {total_mw, dynamic_mw, static_mw, method, energy_uj_per_img}
             "tools": {}, "null_reason": {}, "notes": []}
 
@@ -124,4 +126,5 @@ def load_build(path):
     """A build.json written by tools/build_i1.py: sources, models, defines."""
     b = json.loads(Path(path).read_text())
     b["define_args"] = [f"{k}={v}" for k, v in b["defines"].items()]
+    b["flow_define_args"] = [f"{k}={v}" for k, v in b["flow_defines"].items()]
     return b
