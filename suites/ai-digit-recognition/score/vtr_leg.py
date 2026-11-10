@@ -34,8 +34,9 @@ def parse_vpr_stdout(text):
     return d
 
 
-def power_flow(blif, clock, out):
-    """ACE2 vectorless activity, then VPR --power at fixed W=100 (as Wyrd Bifrost)."""
+def power_flow(blif, clock, out, width=100):
+    """ACE2 vectorless activity, then VPR --power at fixed W (100 as Wyrd Bifrost; more when the
+    design needs a wider channel: 1.3 x the minimum, rounded up to 10)."""
     out.mkdir(parents=True, exist_ok=True)
     shutil.copy(blif, out / "in.blif")
     ace = C.VTR_ROOT / "build/ace2/ace"
@@ -47,8 +48,9 @@ def power_flow(blif, clock, out):
                   "raw.ace.blif", "circuit.blif"], cwd=out)
     if r.returncode:
         return None, "restore_multiclock_latch failed: " + r.stderr[-200:]
-    r = C.capped([C.VTR_ROOT / "build/vpr/vpr", C.ARCH, "circuit.blif", "--route_chan_width", "100",
-                  "--power", "--tech_properties", C.TECH, "--activity_file", "ace.act"], cwd=out)
+    r = C.capped([C.VTR_ROOT / "build/vpr/vpr", C.ARCH, "circuit.blif",
+                  "--route_chan_width", str(width), "--power", "--tech_properties", C.TECH,
+                  "--activity_file", "ace.act"], cwd=out)
     (out / "vpr.log").write_text(r.stdout + r.stderr)
     pw = sorted(out.glob("*.power"))
     if r.returncode or not pw:
@@ -65,7 +67,7 @@ def power_flow(blif, clock, out):
     tot, dfrac = rows["Total"]
     return {"total_mw": tot * 1e3, "dynamic_mw": tot * dfrac * 1e3,
             "static_mw": tot * (1 - dfrac) * 1e3,
-            "method": "ACE2 vectorless (-s 1) + VPR --power, PTM_45nm, W=100"}, None
+            "method": f"ACE2 vectorless (-s 1) + VPR --power, PTM_45nm, W={width}"}, None
 
 
 def main():
@@ -181,7 +183,9 @@ def main():
 
     # 4. power
     if blif:
-        p, err = power_flow(blif, a.clock, work / "power")
+        minw = s.get("min_chan_width") or 0
+        width = max(100, -(-int(1.3 * minw) // 10) * 10)
+        p, err = power_flow(blif, a.clock, work / "power", width)
         if p:
             if row["speed"].get("latency_us"):
                 p["energy_uj_per_img"] = p["total_mw"] * 1e-3 * row["speed"]["latency_us"]

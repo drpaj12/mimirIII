@@ -22,10 +22,17 @@ The original home, `http://yann.lecun.com/exdb/mnist/`, answered on 2026-11-10 w
 first read from the copy inside the NeuraLUT checkout (`datasets/mnist/mnist_data/MNIST/raw`) and have the same
 hashes.
 
-Licence: no licence text could be read from the original source. The licence is therefore unconfirmed here.
-Other sources describe MNIST as derived from NIST Special Databases 1 and 3 and as freely available; none of
-that was read as a licence grant for redistribution. Consequence: the data is fetched, never shipped, and the
-licence must be settled by Peter before any public release of results that embed images.
+Licence: Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0). Copyright holders: Yann LeCun (NYU),
+Corinna Cortes (Google Labs) and Christopher J.C. Burges. Settled by Peter Jamieson on 2026-11-10: the benchmark may be
+released. The original home page gave no licence text on 2026-11-10 (see above); the licence is recorded from
+Peter's reading. What follows from it here:
+
+- Credit: any release or paper using this suite cites MNIST and names the three holders above.
+- Share-alike: any dataset derived from MNIST that we distribute (for example the hex vector files made by
+  `tools/gen_vectors.py`) is released under CC BY-SA 3.0. The suite still ships no images: the data is fetched and
+  checked by sha256 (`pins.toml`), and the vectors are made locally.
+- Our code (wrapper, testbenches, generators, scoring) is our own and keeps the repository licence. LeNet-5 is a
+  published architecture (LeCun et al. 1998); the trained weights used as the golden are Gabe's (MIT, below).
 
 ## The golden network
 
