@@ -45,27 +45,33 @@ def vtr_table(vtr):
         n = r["design"].rsplit("n", 1)[1]
         lat = s.get("latency_us")
         en = p.get("energy_uj_per_img")
-        out.append(f"| {n} | {fmt(a.get('luts'))} | {fmt(a.get('ffs'))} | {fmt(a.get('adders'))} "
+        out.append(f"| {n} | {fmt(a.get('luts'))} | {fmt(a.get('ffs'))} "
+                   f"| {fmt(a.get('adders'))} "
                    f"| {fmt(a.get('clbs'))} | {fmt(a.get('dsp_mult36'))} "
                    f"| {fmt(a.get('ram_blocks'))} | {fmt(a.get('min_chan_width'))} "
                    f"| {fmt(a.get('wirelength'))} | {fmt(s.get('fmax_mhz'), '{:.1f}')} "
-                   f"| {fmt(s.get('crit_path_ns'), '{:.2f}')} | {fmt(p.get('total_mw'), '{:.0f}')} "
-                   f"| {fmt(lat and lat / 1000, '{:.1f}')} | {fmt(s.get('images_per_s'), '{:.1f}')} "
+                   f"| {fmt(s.get('crit_path_ns'), '{:.2f}')} "
+                   f"| {fmt(p.get('total_mw'), '{:.0f}')} "
+                   f"| {fmt(lat and lat / 1000, '{:.1f}')} "
+                   f"| {fmt(s.get('images_per_s'), '{:.1f}')} "
                    f"| {fmt(en and en / 1000, '{:.2f}')} |")
     return out
 
 
 def lpm_table(lpm):
     out = ["| N | lpm_mult | lpm_add_sub | lpm_compare | altsyncram | scfifo | netlist bytes "
-           "| purity | read-back | Quartus fit / timing / power |", "|---|---|---|---|---|---|---|---|---|---|"]
+           "| purity | read-back | Quartus fit / timing / power |",
+           "|---|---|---|---|---|---|---|---|---|---|"]
     for r in sorted(lpm, key=lambda x: -int(x["design"].rsplit("n", 1)[1])):
         c = r.get("lpm_cells") or {}
         k = r.get("checks") or {}
         n = r["design"].rsplit("n", 1)[1]
-        out.append(f"| {n} | {c.get('lpm_mult', 'n/a')} | {c.get('lpm_add_sub', 'n/a')} "
+        out.append(f"| {n} | {c.get('lpm_mult', 'n/a')} "
+                   f"| {c.get('lpm_add_sub', 'n/a')} "
                    f"| {c.get('lpm_compare', 'n/a')} | {c.get('altsyncram', 'n/a')} "
                    f"| {c.get('scfifo', 'n/a')} | {fmt(r.get('netlist_bytes'))} "
-                   f"| {k.get('pure', 'n/a')} | {k.get('readback', 'n/a')} | needs laptop Quartus |")
+                   f"| {k.get('pure', 'n/a')} | {k.get('readback', 'n/a')} "
+                   "| needs laptop Quartus |")
     return out
 
 
