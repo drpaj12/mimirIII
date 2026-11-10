@@ -4,10 +4,14 @@ table was built from. It proves the PASS path and the scoring flow, not an imple
 usage: gen_oracle.py <vec_dir> <out.v>
 """
 import sys
+
 d, out = sys.argv[1], sys.argv[2]
-n = int(open(f"{d}/vec_meta.hex").readline(), 16)
-gs = [l.strip() for l in open(f"{d}/vec_gscores.hex")]
-gc = [l.strip() for l in open(f"{d}/vec_gclass.hex")]
+with open(f"{d}/vec_meta.hex") as f:
+    n = int(f.readline(), 16)
+with open(f"{d}/vec_gscores.hex") as f:
+    gs = [ln.strip() for ln in f]
+with open(f"{d}/vec_gclass.hex") as f:
+    gc = [ln.strip() for ln in f]
 L = ["// generated: oracle DUT for the mnist_tb contract (see tools/gen_oracle.py)",
      "module mnist_top (input clk, input rst, input start, input in_valid, input [7:0] in_data,",
      "  output in_ready, output reg done, output reg [3:0] pred, output reg [79:0] scores);",
@@ -27,4 +31,5 @@ for i in range(n):
     sc = "".join(gs[i*10+k] for k in range(9, -1, -1))
     L.append(f"      14'd{i}: begin pred = 4'h{gc[i]}; scores = 80'h{sc}; end")
 L += ["      default: begin pred = 4'd0; scores = 80'd0; end", "    endcase", "  end", "endmodule"]
-open(out, "w").write("\n".join(L) + "\n")
+with open(out, "w") as f:
+    f.write("\n".join(L) + "\n")

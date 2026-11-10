@@ -87,8 +87,8 @@ class Registry(unittest.TestCase):
     def test_committed_index_is_consistent(self) -> None:
         self.assertEqual(bench.check(), [])
         suites = bench.load_suites()
-        want = ["brisc-v", "itc99", "mcnc20", "odin3-micro", "opencores", "verilogeval",
-                "vtr-blif-k2", "vtr-blif-k4", "vtr-verilog"]
+        want = ["ai-digit-recognition", "brisc-v", "itc99", "mcnc20", "odin3-micro", "opencores",
+                "verilogeval", "vtr-blif-k2", "vtr-blif-k4", "vtr-verilog"]
         self.assertEqual(sorted(suites), want)
         for s in suites.values():
             self.assertTrue(s.licence and s.licence_source and s.commit and s.upstream, s.id)

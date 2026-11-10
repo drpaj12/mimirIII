@@ -5,8 +5,14 @@ usage: vtr_leg.py --design NAME --src a.v [b.v ...] --vec DIR --work DIR --out r
                   [--tier quick|full] [--netlist-sim | --no-netlist-sim] [-I DIR] [-D X=Y]
 Exit 0 when a row was written (even with null fields); 1 on usage error.
 """
-import argparse, json, re, shutil, sys, time
+import argparse
+import json
+import re
+import shutil
+import sys
+import time
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common as C
 
@@ -62,7 +68,10 @@ def power_flow(blif, clock, out):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--design", required=True)
-    ap.add_argument("--src", nargs="+", required=True)
+    ap.add_argument("--src", nargs="+", default=[])
+    ap.add_argument("--build", help="build.json (tools/build_i1.py): sources and defines of the design")
+    ap.add_argument("--rtl-result", help="JSON of tools/run_i1.py: use it as the RTL simulation "
+                    "result instead of simulating here")
     ap.add_argument("--vec", required=True)
     ap.add_argument("--work", required=True)
     ap.add_argument("--out", required=True)
@@ -73,16 +82,29 @@ def main():
     ap.add_argument("-I", dest="inc", action="append", default=[])
     ap.add_argument("-D", dest="defs", action="append", default=[])
     a = ap.parse_args()
+    if a.build:
+        b = C.load_build(a.build)
+        a.src = b["sources"]
+        a.defs = a.defs + b["define_args"]
+    if not a.src:
+        ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "vtr"
     row = C.new_row(a.design, "vtr-k6", a.tier)
     nr = row["null_reason"]
     row["tools"] = {"odin3": str(C.ODIN3_BIN.name), "arch": C.ARCH.name, "vpr": "VTR_ROOT build"}
 
     # 1. RTL simulation (iverilog)
-    rtl, err = C.sim_iverilog([Path(s).resolve() for s in a.src], a.vec, work / "sim-rtl-iverilog")
-    row["accuracy"] = {"rtl_iverilog": rtl}
-    if err:
-        nr["accuracy.rtl_iverilog"] = err
+    if a.rtl_result:
+        got = json.loads(Path(a.rtl_result).read_text())
+        rtl, err = got["result"], got["error"]
+        row["accuracy"] = {"rtl_" + got["sim"]: rtl}
+        if err:
+            nr["accuracy.rtl_" + got["sim"]] = err
+    else:
+        rtl, err = C.sim_iverilog([Path(s).resolve() for s in a.src], a.vec, work / "sim-rtl-iverilog")
+        row["accuracy"] = {"rtl_iverilog": rtl}
+        if err:
+            nr["accuracy.rtl_iverilog"] = err
 
     # 2. synthesis + VPR
     flow_out = work / "flow"

@@ -13,7 +13,8 @@ def bits(x, hi, lo):
 
 def parse(path):
     """Return (mem: dict addr->int8 array of blocks, instrs: list of 128-bit ints)."""
-    d = open(path, "rb").read()
+    with open(path, "rb") as f:
+        d = f.read()
     i = 0
     assert d[i] == FLASH
     i += 1

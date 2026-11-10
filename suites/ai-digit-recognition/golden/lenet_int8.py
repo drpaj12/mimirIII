@@ -8,7 +8,8 @@ conv2.w, conv2.b, fc1.w, ... contiguous from address 2); (M0, n) per layer are
 read from the MUL instructions (opcode 0b1000) of the program.
 """
 import numpy as np
-from .tpu_bin import parse, bits
+
+from .tpu_bin import bits, parse
 
 SHAPES = [("conv1", (6, 1, 3, 3), 6), ("conv2", (16, 6, 3, 3), 16),
           ("fc1", (120, 400), 120), ("fc2", (84, 120), 84), ("fc3", (10, 84), 10)]
@@ -37,7 +38,7 @@ class Net:
                 if not runs or runs[-1] != p:
                     runs.append(p)
         assert len(runs) == 5, runs
-        self.q = dict(zip([s[0] for s in SHAPES], runs))
+        self.q = dict(zip([s[0] for s in SHAPES], runs, strict=True))
         self.s_in = s_in
 
     def quant_image(self, img_u8):
@@ -51,9 +52,9 @@ class Net:
     @staticmethod
     def _conv(x, w):
         C, H, W = x.shape
-        O, _, kh, kw = w.shape
+        oc, _, kh, kw = w.shape
         oh, ow = H - kh + 1, W - kw + 1
-        acc = np.zeros((O, oh, ow), dtype=np.int64)
+        acc = np.zeros((oc, oh, ow), dtype=np.int64)
         for ky in range(kh):
             for kx in range(kw):
                 acc += np.tensordot(w[:, :, ky, kx], x[:, ky:ky + oh, kx:kx + ow], axes=([1], [0]))

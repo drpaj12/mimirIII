@@ -1,12 +1,16 @@
 """Shared helpers: run a capped command, run the testbench, results row schema."""
-import json, os, re, shutil, subprocess, sys, time
+import json
+import os
+import re
+import subprocess
+import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 TB = REPO / "tb" / "mnist_tb.v"
 # Tool locations: environment overrides, else the workspace defaults.
 WS = Path(os.environ.get("ODIN3_WS", Path.home() / "odin3-ws"))
-ODIN3_BIN = Path(os.environ.get("ODIN3_BIN", WS / "odin3/build/rel-v160/odin3"))
+ODIN3_BIN = Path(os.environ.get("ODIN3_BIN", WS / "odin3/build/rel-v161pre/odin3"))
 ODIN3_FLOW = Path(os.environ.get("ODIN3_FLOW", WS / "odin3/tools/flow/odin3-flow"))
 VTR_ROOT = Path(os.environ.get("VTR_ROOT", WS / "external/vtr-verilog-to-routing"))
 ARCH = VTR_ROOT / "vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml"
@@ -114,3 +118,10 @@ def append_row(row, path):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "a") as f:
         f.write(json.dumps(row, sort_keys=True) + "\n")
+
+
+def load_build(path):
+    """A build.json written by tools/build_i1.py: sources, models, defines."""
+    b = json.loads(Path(path).read_text())
+    b["define_args"] = [f"{k}={v}" for k, v in b["defines"].items()]
+    return b
