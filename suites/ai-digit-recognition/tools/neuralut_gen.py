@@ -252,7 +252,7 @@ def main():
     files = sorted(
         f
         for f in os.listdir(a.build_dir)
-        if f.startswith("layer") or f in ("myreg.v", "neuralut.v")
+        if f.startswith("layer") or f == "neuralut.v" or (a.registers and f == "myreg.v")
     )
     bd = Path(a.build_dir)
     with open(bd / "neuralut_all.v", "w") as out:
