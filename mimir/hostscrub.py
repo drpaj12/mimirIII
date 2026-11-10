@@ -32,6 +32,9 @@ TEXT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("hdl_edge", "src_span"), ("hdl_edge", "src_module"), ("hdl_edge", "src_word"),
     ("hdl_edge", "dst_span"), ("hdl_edge", "dst_module"), ("hdl_edge", "dst_word"),
     ("hdl_port", "span"), ("hdl_port", "module"), ("hdl_port", "word"), ("hdl_port", "port"),
+    ("aidigit_result", "arch_name"), ("aidigit_result", "setting"), ("aidigit_result", "acc_ref"),
+    ("aidigit_result", "power_method"), ("aidigit_result", "odin3_build"),
+    ("aidigit_result", "rtl_sha256"), ("aidigit_result", "origin"), ("aidigit_null", "reason"),
 )
 EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("analysis_result", "analysis_id"), ("analysis_result", "algorithm"),
@@ -72,6 +75,15 @@ EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("timing_path_node", "category"), ("hdl_graph_run", "run_id"),
     ("hdl_graph_run", "blif_sha256"), ("hdl_graph_run", "map_sha256"), ("hdl_edge", "run_id"),
     ("hdl_port", "run_id"), ("hdl_port", "kind"),
+    ("aidigit_result", "suite"), ("aidigit_result", "design"), ("aidigit_result", "target"),
+    ("aidigit_result", "impl_id"), ("aidigit_result", "model_kind"),
+    ("aidigit_result", "acc_tier"), ("aidigit_result", "acc_sim"),
+    ("aidigit_result", "area_grid"), ("aidigit_result", "odin3_commit"),
+    ("aidigit_result", "vtr_commit"), ("aidigit_result", "arch_file"),
+    ("aidigit_result", "design_source"), ("aidigit_result", "design_source_commit"),
+    ("aidigit_result", "run_date"), ("aidigit_result", "result_tier"),
+    ("aidigit_null", "suite"), ("aidigit_null", "design"), ("aidigit_null", "target"),
+    ("aidigit_null", "field"),
 )  # run.host has its own rule (`alias_host_value`)
 # The blob columns and how a blob_scrub row names the artifact row that holds the column.
 BLOB_KEYS = {"run_artifact": "run_id || ':' || kind", "partition": "partition_id",
