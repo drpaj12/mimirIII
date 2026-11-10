@@ -1,16 +1,19 @@
 """I6: train a NeuraLUT-Assemble MNIST model on CPU with the NeuraLUT library (read by path).
 
-usage: neuralut_train.py <setting> <out_dir> [--dense-epochs N] [--epochs N] [--batch N] [--max-minutes M]
-Runs in the nnlut venv (torch CPU, brevitas, neuralut). Writes <out_dir>/{imask.pth,checkpoint.pth,
-train.log}. The model class is NeuraLUT's `datasets/mnist/models.py` (imported from the checkout, never
-copied). The training loop is ours (theirs needs CUDA and wandb): same optimiser, scheduler, loss and
-group regulariser; the dense phase picks the connections (top-|w|), the sparse phase trains from scratch
-with those connections (as their train.py does).
+usage: neuralut_train.py <setting> <out_dir> [--dense-epochs N] [--epochs N] [--batch N]
+                         [--max-minutes M]
+Runs in the nnlut venv (torch CPU, brevitas, neuralut). Writes <out_dir>/{imask.pth,
+checkpoint.pth,train.log}. The model class is NeuraLUT's `datasets/mnist/models.py` (imported
+from the checkout, never copied). The training loop is ours (theirs needs CUDA and wandb): same
+optimiser, scheduler, loss and group regulariser; the dense phase picks the connections
+(top-|w|), the sparse phase trains from scratch with those connections (as their train.py does).
 
 Input = the pixel values the testbench streams: x = q * S_IN with q the int8 of
 `golden/lenet_int8.py:quant_image` (so train and test see exactly what the hardware wrapper sees).
 """
+
 import argparse
+import importlib
 import importlib.util
 import os
 import sys
@@ -25,7 +28,7 @@ import torch.optim as optim
 sys.dont_write_bytecode = True
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(HERE, "tools"))
-import lutnn_common as LC  # noqa: E402
+LC = importlib.import_module("lutnn_common")
 
 torch.set_num_threads(int(os.environ.get("OMP_NUM_THREADS", "4")))
 
@@ -55,13 +58,17 @@ def regularizer(model, cfg, tcfg):
     for i in range(len(cfg["hidden_layers"]) + 1):
         mod = model.module_list[i]
         if getattr(mod, "dense_forward", False):
-            l1 = torch.cat((mod.res2_dense.weight.abs().sum(-1), mod.fc1_dense.weight.abs().sum(-1)), 0)
+            l1 = torch.cat(
+                (mod.res2_dense.weight.abs().sum(-1), mod.fc1_dense.weight.abs().sum(-1)), 0
+            )
             r = r + tcfg["wd"] * (torch.pow(2, tcfg["wd1"] * l1) - 1).sum()
     return r
 
 
 def get_input_mask(model, cfg):
-    max_fan = max(cfg["hidden_fanin"], cfg["input_fanin"], cfg["output_fanin"], cfg["support_fanin"])
+    max_fan = max(
+        cfg["hidden_fanin"], cfg["input_fanin"], cfg["output_fanin"], cfg["support_fanin"]
+    )
     rows = []
     for i in range(len(cfg["hidden_layers"]) + 1):
         mod = model.module_list[i]
@@ -69,7 +76,9 @@ def get_input_mask(model, cfg):
             w = mod.res2_dense.weight
             for r in range(w.size(0)):
                 idx = torch.topk(w[r].abs(), mod.fan_in).indices
-                rows.append(torch.cat((idx, torch.zeros(max_fan - len(idx), dtype=torch.long))).unsqueeze(0))
+                rows.append(
+                    torch.cat((idx, torch.zeros(max_fan - len(idx), dtype=torch.long))).unsqueeze(0)
+                )
     return torch.cat(rows, 0).long()
 
 
@@ -78,7 +87,7 @@ def evaluate(model, x, y, bs=500):
     ok = 0
     with torch.no_grad():
         for i in range(0, len(x), bs):
-            ok += (model(x[i:i + bs]).argmax(1) == y[i:i + bs]).sum().item()
+            ok += (model(x[i : i + bs]).argmax(1) == y[i : i + bs]).sum().item()
     return 100.0 * ok / len(x)
 
 
@@ -88,11 +97,18 @@ def run_phase(model, cfg, tcfg, x, y, xt, yt, epochs, dense, log, deadline, batc
         if p.requires_grad:
             key = "nodecay" if any(s in n for s in ("bn", "bias", "learned_value")) else "decay"
             opt_params[key].append(p)
-    opt = optim.AdamW([{"params": opt_params["decay"], "weight_decay": tcfg["weight_decay"]},
-                       {"params": opt_params["nodecay"], "weight_decay": 0.0}],
-                      lr=tcfg["learning_rate"], betas=(0.5, 0.999))
+    opt = optim.AdamW(
+        [
+            {"params": opt_params["decay"], "weight_decay": tcfg["weight_decay"]},
+            {"params": opt_params["nodecay"], "weight_decay": 0.0},
+        ],
+        lr=tcfg["learning_rate"],
+        betas=(0.5, 0.999),
+    )
     steps = (len(x) + batch - 1) // batch
-    sched = optim.lr_scheduler.CosineAnnealingWarmRestarts(opt, T_0=max(1, steps * max(1, epochs)), T_mult=1)
+    sched = optim.lr_scheduler.CosineAnnealingWarmRestarts(
+        opt, T_0=max(1, steps * max(1, epochs)), T_mult=1
+    )
     crit = nn.CrossEntropyLoss()
     best = 0.0
     for ep in range(epochs):
@@ -100,7 +116,7 @@ def run_phase(model, cfg, tcfg, x, y, xt, yt, epochs, dense, log, deadline, batc
         perm = torch.randperm(len(x))
         t0 = time.time()
         for b in range(steps):
-            idx = perm[b * batch:(b + 1) * batch]
+            idx = perm[b * batch : (b + 1) * batch]
             opt.zero_grad()
             out = model(x[idx])
             loss = crit(out, y[idx])
@@ -112,8 +128,10 @@ def run_phase(model, cfg, tcfg, x, y, xt, yt, epochs, dense, log, deadline, batc
             if time.time() > deadline:
                 break
         acc = evaluate(model, xt, yt)
-        log(f"{'dense' if dense else 'sparse'} epoch {ep + 1}/{epochs} test_acc {acc:.2f} "
-            f"epoch_s {time.time() - t0:.0f}")
+        log(
+            f"{'dense' if dense else 'sparse'} epoch {ep + 1}/{epochs} test_acc {acc:.2f} "
+            f"epoch_s {time.time() - t0:.0f}"
+        )
         if not dense:
             torch.save({"model_dict": model.state_dict(), "test_accuracy": acc, "epoch": ep}, ckpt)
             best = max(best, acc)
@@ -140,12 +158,12 @@ def main():
     if a.epochs is not None:
         tcfg["epochs"] = a.epochs
     os.makedirs(a.out, exist_ok=True)
-    logf = open(os.path.join(a.out, "train.log"), "a")
+    log_path = os.path.join(a.out, "train.log")
 
     def log(msg):
         print(msg, flush=True)
-        logf.write(msg + "\n")
-        logf.flush()
+        with open(log_path, "a") as logf:
+            logf.write(msg + "\n")
 
     random_seed = tcfg["seed"]
     torch.manual_seed(random_seed)
@@ -161,8 +179,21 @@ def main():
     cfg["imask"] = torch.tensor([])
     dense = MnistNeqModel(cfg)
     no_cuda(dense)
-    run_phase(dense, cfg, tcfg, x, y, xt, yt, tcfg["dense_epochs"], True, log,
-              t_start + 0.5 * a.max_minutes * 60 if a.max_minutes < 1e8 else deadline, a.batch, None)
+    run_phase(
+        dense,
+        cfg,
+        tcfg,
+        x,
+        y,
+        xt,
+        yt,
+        tcfg["dense_epochs"],
+        True,
+        log,
+        t_start + 0.5 * a.max_minutes * 60 if a.max_minutes < 1e8 else deadline,
+        a.batch,
+        None,
+    )
     imask = get_input_mask(dense, cfg)
     torch.save(imask, os.path.join(a.out, "imask.pth"))
     dense_s = time.time() - t_start
@@ -173,10 +204,25 @@ def main():
     cfg["imask"] = imask
     model = MnistNeqModel(cfg)
     no_cuda(model)
-    best = run_phase(model, cfg, tcfg, x, y, xt, yt, tcfg["epochs"], False, log, deadline, a.batch,
-                     os.path.join(a.out, "checkpoint.pth"))
-    log(f"done: best sparse test acc {best:.2f}, total {time.time() - t_start:.0f} s "
-        f"(dense {dense_s:.0f} s)")
+    best = run_phase(
+        model,
+        cfg,
+        tcfg,
+        x,
+        y,
+        xt,
+        yt,
+        tcfg["epochs"],
+        False,
+        log,
+        deadline,
+        a.batch,
+        os.path.join(a.out, "checkpoint.pth"),
+    )
+    log(
+        f"done: best sparse test acc {best:.2f}, total {time.time() - t_start:.0f} s "
+        f"(dense {dense_s:.0f} s)"
+    )
 
 
 if __name__ == "__main__":
