@@ -119,7 +119,8 @@ def main():
     if flow_out.exists():
         shutil.rmtree(flow_out)
     cmd = [C.ODIN3_FLOW] + [str(Path(s).resolve()) for s in a.src] + [
-        "--target", "vtr", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN, "--out", flow_out]
+        "--target", "vtr", "--top", "mnist_top", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN,
+        "--out", flow_out]
     for i in a.inc:
         cmd += ["-I", i]
     for d in a.defs:

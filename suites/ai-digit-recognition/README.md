@@ -24,6 +24,7 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 | `tools/retile_program.py`, `tools/build_i1.py`, `tools/run_i1.py` | I1 program retiler, build, simulate |
 | `score/`, `results/` | `vtr_leg.py`, `lpm_leg.py`, `make_table.py`; `results/*.jsonl` the rows |
 | `docs/I6-NEURALUT.md`, `docs/I8-TREELUT.md`, `docs/RESULTS-LUT.md` | implementations I6 (NeuraLUT-Assemble) and I8 (TreeLUT): settings, install, results, Odin III gaps |
+| `docs/I7-BNN.md` | implementation I7 (binarised MLP, own generator `tools/gen_bnn.py`): networks, folding, results |
 | `tools/lutnn_common.py`, `neuralut_train.py`, `neuralut_gen.py`, `treelut_gen.py`, `run_lut.py`, `lut_legs.py`; `score/lut_table.py` | train, generate Verilog + wrapper + model vectors, simulate, score, tables (venv `work/nnlut-env`) |
 
 ## Results table (all implementations)

@@ -7,7 +7,6 @@ D-{full,quick}.json, D-iverilog-quick.json, D-units.json), <run_dir>/work/ (flow
 designs first is the caller's order. A failed step is recorded in the JSON, not raised.
 """
 
-import json
 import subprocess
 import sys
 from pathlib import Path

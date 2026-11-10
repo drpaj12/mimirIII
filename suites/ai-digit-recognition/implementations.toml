@@ -7,7 +7,7 @@
 
 [results]
 suite = "ai-digit-recognition"
-files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl"]
+files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl", "bnn-vtr.jsonl", "bnn-lpm.jsonl"]
 
 # Tool provenance of every row of the files above (docs/RESULTS.md, header paragraph).
 [tools]
@@ -115,3 +115,53 @@ model_kind = "other model"
 acc_ref = "own model: XGBoost-to-Verilog model of the design (class and scores)"
 design_source = "treelut"
 rtl_sha256 = "mnist_top.v=c9627e61358bcd06 treelut_all.v=f787c7e3c20f0d0b (first 16 hex digits of sha256)"
+
+[[design]]
+id = "bnn-S-f2"
+impl_id = "I7"
+arch_name = "Binarised MLP (XNOR-popcount), own generator"
+setting = "784-64-64-64-10, input binarised at q >= 54; folding PE x SIMD: first 8x16, hidden 8x8, output 2x8"
+model_kind = "other model"
+acc_ref = "own model: integer numpy model of the design (class and scores)"
+design_source = "ours-gen_bnn"
+rtl_sha256 = "mnist_top.v=ddeb6b3b35a78b7d (first 16 hex digits of sha256)"
+
+[[design]]
+id = "bnn-S-f1"
+impl_id = "I7"
+arch_name = "Binarised MLP (XNOR-popcount), own generator"
+setting = "784-64-64-64-10, input binarised at q >= 54; folding PE x SIMD: first 16x49, hidden 16x16, output 10x16"
+model_kind = "other model"
+acc_ref = "own model: integer numpy model of the design (class and scores)"
+design_source = "ours-gen_bnn"
+rtl_sha256 = "mnist_top.v=7cdbd32117279b89 (first 16 hex digits of sha256)"
+
+[[design]]
+id = "bnn-S-par"
+impl_id = "I7"
+arch_name = "Binarised MLP (XNOR-popcount), own generator"
+setting = "784-64-64-64-10, input binarised at q >= 54; folding PE x SIMD: first 64x98, hidden 64x64 (one cycle), output 10x64"
+model_kind = "other model"
+acc_ref = "own model: integer numpy model of the design (class and scores)"
+design_source = "ours-gen_bnn"
+rtl_sha256 = "mnist_top.v=7a39f228d72c7589 (first 16 hex digits of sha256)"
+
+[[design]]
+id = "bnn-M-f2"
+impl_id = "I7"
+arch_name = "Binarised MLP (XNOR-popcount), own generator"
+setting = "784-256-256-256-10, int8 first layer streamed with the pixels; folding PE x SIMD: hidden 64x64, output 10x64"
+model_kind = "other model"
+acc_ref = "own model: integer numpy model of the design (class and scores)"
+design_source = "ours-gen_bnn"
+rtl_sha256 = "mnist_top.v=8b9d6bc0f1f7ce69 (first 16 hex digits of sha256)"
+
+[[design]]
+id = "bnn-M-f1"
+impl_id = "I7"
+arch_name = "Binarised MLP (XNOR-popcount), own generator"
+setting = "784-256-256-256-10, int8 first layer streamed with the pixels; folding PE x SIMD: hidden 16x32, output 10x32"
+model_kind = "other model"
+acc_ref = "own model: integer numpy model of the design (class and scores)"
+design_source = "ours-gen_bnn"
+rtl_sha256 = "mnist_top.v=5e55e2b1475ad67f (first 16 hex digits of sha256)"

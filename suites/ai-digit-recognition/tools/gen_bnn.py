@@ -189,10 +189,7 @@ def fold_module(name, w, t, pe, simd, final):
             bits.append(f"b{p}")
         newv = "{" + ", ".join(reversed(bits)) + "}"
         ynew = f"{{{newv}, y[{nout - 1}:{pe}]}}" if ng > 1 else newv
-    if simd == nin:
-        rot = "xr"
-    else:
-        rot = f"{{xr[{simd - 1}:0], xr[{nin - 1}:{simd}]}}"
+    rot = "xr" if simd == nin else f"{{xr[{simd - 1}:0], xr[{nin - 1}:{simd}]}}"
     a("  always @(posedge clk) begin")
     a("    fin <= 1'b0;")
     a("    if (rst) begin")
@@ -323,7 +320,7 @@ def top_module(net, folds, params):
     a("      pred <= 4'd0; scores <= 80'd0;")
     a("    end else begin")
     a("      fl1 <= 1'b0;")
-    a(f"      if (start) begin loading <= 1'b1; cnt <= 10'd0; done <= 1'b0; end")
+    a("      if (start) begin loading <= 1'b1; cnt <= 10'd0; done <= 1'b0; end")
     a("      else if (xfer) begin")
     a("        cnt <= cnt + 10'd1;")
     a("        if (cnt == 10'd783) begin loading <= 1'b0; fl1 <= 1'b1; end")

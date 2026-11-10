@@ -58,7 +58,8 @@ def build(torch, net):
         def __init__(self):
             super().__init__()
             sizes = net["layers"]
-            self.lin = nn.ModuleList(BinLinear(a, b) for a, b in zip(sizes[:-1], sizes[1:]))
+            pairs = zip(sizes[:-1], sizes[1:], strict=True)
+            self.lin = nn.ModuleList(BinLinear(a, b) for a, b in pairs)
             self.bn = nn.ModuleList(nn.BatchNorm1d(b) for b in sizes[1:-1])
             self.scale = 1.0 / math.sqrt(sizes[-2])
 
@@ -67,7 +68,7 @@ def build(torch, net):
                 x = q / QSCALE
             else:
                 x = torch.where(q >= GB.QBIN, torch.ones_like(q), -torch.ones_like(q))
-            for lin, bn in zip(self.lin[:-1], self.bn):
+            for lin, bn in zip(self.lin[:-1], self.bn, strict=True):
                 x = Sign.apply(bn(lin(x)))
             return self.lin[-1](x) * self.scale
 
@@ -165,7 +166,7 @@ def main():
         "train_s": round(train_s, 1),
         "float_top1": log[-1]["test_top1_float"],
         "int_model_top1": float((cls == yte).mean()),
-        "note": "the checkpoint is the last epoch; the test set is read each epoch for the log only",
+        "note": "last-epoch checkpoint; the test set is read each epoch for the log only",
     }
     with open(os.path.join(a.out_dir, f"{a.net}-train.json"), "w") as f:
         json.dump(info, f, indent=1, sort_keys=True)
