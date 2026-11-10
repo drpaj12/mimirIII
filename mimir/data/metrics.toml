@@ -1779,3 +1779,39 @@ definition_source = "mimir"
 citations = []
 named_after = []
 validation = "Imported as stored in the suite's result rows; zero-fill tested in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.grid"
+description = "VPR auto-sized device grid, width and height in tiles including the IO ring (columns grid_w, grid_h; grid_tiles = W x H)"
+unit = "tiles"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported from the `area.grid` of the suite's result rows; known-answer test in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.clb_tiles"
+description = "clb tiles of the grid: (W-2) x (H-2) minus the full interior columns of the mult_36 and memory blocks (layout from the arch file's auto_layout, kept in implementations.toml)"
+unit = "tiles"
+levels = ["lut"]
+kind = "measured"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Matches the clb count VPR prints (Resource usage, Architecture) for the 18 distinct grids of the stored run logs (18x18 to 164x164); known-answer test in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.clb_util"
+description = "CLB use = CLBs in the netlist / clb tiles of the grid x 100"
+unit = "%"
+levels = ["lut"]
+kind = "measured"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Computed from imported area_clb and clb_tiles; known-answer test in tests/test_aidigit_results.py."

@@ -26,7 +26,8 @@ Json = dict[str, Any]
 Row = dict[str, Any]
 
 # columns a target fills from its own leg; a NULL among them needs a reason
-VTR_FIELDS = ("area_lut", "area_ff", "area_adder", "area_clb", "area_mult36", "area_ram_blocks",
+VTR_FIELDS = ("grid_w", "grid_h", "grid_tiles", "clb_tiles", "clb_util_pct", "area_lut",
+              "area_ff", "area_adder", "area_clb", "area_mult36", "area_ram_blocks",
               "area_grid", "area_min_chan_width", "area_wirelength", "speed_fmax_mhz",
               "speed_crit_path_ns", "speed_latency_us", "speed_ii_cycles", "speed_images_per_s",
               "power_total_mw", "power_dynamic_mw", "power_static_mw", "power_method",
@@ -43,7 +44,8 @@ REASON_KEYS = (
     ("area_alm", ("area.alm", "area")), ("area_dsp_blocks", ("area.dsp_blocks", "area")),
     ("area_m10k_blocks", ("area.m10k_blocks", "area")), ("acc_netlist",
      ("accuracy.netlist_odin_sim", "accuracy.netlist", "area")),
-    ("area_", ("area",)), ("lpm_", ("area",)), ("netlist_bytes", ("area",)),
+    ("grid_", ("area",)), ("clb_", ("area",)), ("area_", ("area",)), ("lpm_", ("area",)),
+    ("netlist_bytes", ("area",)),
     ("arch_file", ("area",)), ("speed_", ("speed",)), ("power_", ("power",)),
     ("energy_", ("power",)),
 )
@@ -57,6 +59,42 @@ class Imported:
 
     def per_impl(self) -> Counter[str]:
         return Counter(r["impl_id"] for r in self.rows)
+
+
+def clb_tiles(layout: Json, width: int, height: int) -> int:
+    """clb tiles of VPR's auto-sized grid `width` x `height` (IO ring included). The IO ring takes
+    the outer tile on each side; every column of a hard block (`layout.columns`, from the arch's
+    auto_layout `<col>` lines: first x `startx`, every `repeatx`) that fits inside the ring takes
+    the whole interior height (a block that does not fit leaves EMPTY tiles, not clbs); the rest of
+    the interior is clb. Checked against the clb count VPR prints for 18 grids (see the spec
+    2026-11-10-ai-digit-grid.md)."""
+    ring = int(layout["io_ring"])
+    inner_w, inner_h = width - 2 * ring, height - 2 * ring
+    taken = sum(len(range(int(c["startx"]), width - ring, int(c["repeatx"])))
+                for c in layout["columns"])
+    return inner_h * (inner_w - taken)
+
+
+def load_layouts(suite: Path) -> Json:
+    """The `[arch_layout]` tables of a suite's implementations.toml, by arch file name."""
+    cfg = tomllib.loads((suite / "implementations.toml").read_text(encoding="utf-8"))
+    return dict(cfg.get("arch_layout", {}))
+
+
+def _grid_cols(area: Json, layouts: Json, arch: str | None) -> Row:
+    """Device-size columns of a VPR leg: grid W x H, tiles, clb tiles, clb use in percent."""
+    grid = area.get("grid")
+    if not grid:
+        return {}
+    w, h = int(grid[0]), int(grid[1])
+    out: Row = {"grid_w": w, "grid_h": h, "grid_tiles": w * h}
+    layout = layouts.get(arch or "")
+    if layout is not None:
+        tiles = clb_tiles(layout, w, h)
+        out["clb_tiles"] = tiles
+        if area.get("clbs") is not None:
+            out["clb_util_pct"] = area["clbs"] / tiles * 100
+    return out
 
 
 def has_tables(db: sqlite3.Connection) -> bool:
@@ -109,7 +147,7 @@ def _accuracy_cols(res: Json | None) -> Row:
             "speed_cycles_per_img": res.get("cycles_per_img")}
 
 
-def _leg_cols(row: Json) -> Row:
+def _leg_cols(row: Json, layouts: Json) -> Row:
     area, speed, power = row.get("area") or {}, row.get("speed") or {}, row.get("power") or {}
     lpm = row.get("lpm_cells")
 
@@ -146,6 +184,7 @@ def _leg_cols(row: Json) -> Row:
         "energy_uj_per_img": power.get("energy_uj_per_img"),
         "acc_netlist_n": _num(net, "n"), "acc_netlist_class_match": _num(net, "class_match"),
         "arch_file": (row.get("tools") or {}).get("arch"),
+        **_grid_cols(area, layouts, (row.get("tools") or {}).get("arch")),
     }
     return {k: v for k, v in out.items() if v is not None}
 
@@ -183,13 +222,13 @@ def _provenance_nulls(entry: Json, tools: Json, row: Row, target: str) -> dict[s
     return out
 
 
-Ctx = tuple[Json, dict[str, Json], Json, dict[str, Json]]
+Ctx = tuple[Json, dict[str, Json], Json, dict[str, Json], Json]
 Leg = tuple[str, int, Json]
 
 
 def _build_row(design: str, target: str, leg: Leg | None,
                ctx: Ctx) -> tuple[Row, dict[str, str]]:
-    entries, pins, tools, acc = ctx
+    entries, pins, tools, acc, layouts = ctx
     entry = entries[design]
     row: Row = {c: None for c in COLS}
     row.update(_design_cols(entry, pins, tools))
@@ -197,7 +236,7 @@ def _build_row(design: str, target: str, leg: Leg | None,
     source: Json = {}
     if leg is not None:
         fname, line, src = leg
-        row.update(_leg_cols(src))
+        row.update(_leg_cols(src, layouts))
         row["result_tier"], row["origin"] = src.get("tier", ""), f"results/{fname}:{line}"
         source = src.get("null_reason") or {}
     row["suite"], row["design"], row["target"] = "ai-digit-recognition", design, target
@@ -231,7 +270,7 @@ def load(suite: Path) -> Imported:
     if unknown:
         raise ValueError(f"designs without an entry in implementations.toml: {', '.join(unknown)}")
     acc = _accuracy_pool([(f, n, r) for f, n, r in legs])
-    ctx = (entries, pins, cfg.get("tools", {}), acc)
+    ctx = (entries, pins, cfg.get("tools", {}), acc, cfg.get("arch_layout", {}))
     by_key: dict[tuple[str, str], tuple[str, int, Json]] = {}
     for item in legs:
         if "target" not in item[2]:
