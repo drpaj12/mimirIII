@@ -190,7 +190,7 @@ class MigrationV8(unittest.TestCase):
         ro.close()
         s = Store(d / "x.db")
         new = aidigit.read_rows(s.db)
-        self.assertEqual(len(new), 20)
+        self.assertEqual(len(new), 34)
         self.assertIsNone(new[0]["grid_w"])
         self.assertEqual({k: v for k, v in new[0].items() if k in old[0]}, old[0])
         s.close()
