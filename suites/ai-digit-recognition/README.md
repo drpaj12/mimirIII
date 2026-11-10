@@ -15,6 +15,8 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 | `docs/DATA.md` | MNIST source, hashes, licence status; Gabe's repository pin |
 | `docs/I1-TPU.md` | implementation I1 (Gabe's TPU): what each size N measures, how it is built |
 | `docs/RESULTS.md` | the results tables and open items |
+| `docs/TABLE.md`, `TABLE.csv`, `TABLE.tex`, `docs/plots/` | the academic table (all implementations, VTR k6 and Cyclone V LPM) and Pareto plots, generated from the Mimir store |
+| `implementations.toml` | per design: implementation id, setting, model kind, source pin, RTL hash; read by `mimir import-aidigit` |
 | `pins.toml`, `tools/fetch_data.py` | pinned inputs and the verified fetch |
 | `golden/`, `tools/gen_vectors.py` | numpy golden, vector files for the quick (100) and full (10,000) tiers |
 | `tb/mnist_tb.v` | the testbench (iverilog, Verilator, Odin III `sim_tb` subset) |
@@ -23,6 +25,16 @@ No third-party file and no MNIST data is stored here (see `docs/DATA.md`, `pins.
 | `score/`, `results/` | `vtr_leg.py`, `lpm_leg.py`, `make_table.py`; `results/*.jsonl` the rows |
 | `docs/I6-NEURALUT.md`, `docs/I8-TREELUT.md`, `docs/RESULTS-LUT.md` | implementations I6 (NeuraLUT-Assemble) and I8 (TreeLUT): settings, install, results, Odin III gaps |
 | `tools/lutnn_common.py`, `neuralut_train.py`, `neuralut_gen.py`, `treelut_gen.py`, `run_lut.py`, `lut_legs.py`; `score/lut_table.py` | train, generate Verilog + wrapper + model vectors, simulate, score, tables (venv `work/nnlut-env`) |
+
+## Results table (all implementations)
+
+`docs/TABLE.md` (also `TABLE.csv`, `TABLE.tex` for LaTeX booktabs, `docs/plots/*.svg` Pareto plots) is generated from the
+Mimir store. Regenerate after a new results file or design (add it to `implementations.toml` first; schema and columns:
+`docs/specs/2026-11-10-ai-digit-results.md` in the Mimir repository root):
+
+    mimir migrate --db <store>                     # once, schema 7 -> 8
+    mimir import-aidigit --db <store>              # replaces this suite's rows, idempotent
+    mimir aidigit-table --db <store> --out-dir suites/ai-digit-recognition/docs
 
 ## Reproduce I6 / I8 (one venv, see `docs/I6-NEURALUT.md`)
 

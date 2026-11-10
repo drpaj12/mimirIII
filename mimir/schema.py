@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 7  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 8  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -217,4 +217,44 @@ V7_DDL: tuple[str, ...] = (
         port TEXT NOT NULL, PRIMARY KEY (run_id, kind, port, span, module, word, bit))""",
     "CREATE INDEX IF NOT EXISTS hdl_edge_src ON hdl_edge(run_id, src_span)",
     "CREATE INDEX IF NOT EXISTS hdl_edge_dst ON hdl_edge(run_id, dst_span)",
+)
+
+
+# Tables added in schema version 8 (docs/specs/2026-11-10-ai-digit-results.md): the measured
+# outcomes of the AI digit recognition suite, one row per (suite, design, target). A column is NULL
+# when the value was not measured; `aidigit_null` gives the reason for each such (design, target,
+# field). Units: area in cells, speed in MHz / ns / us / cycles, power in mW, energy in uJ/image.
+AIDIGIT_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("suite", "TEXT NOT NULL"), ("design", "TEXT NOT NULL"), ("target", "TEXT NOT NULL"),
+    ("impl_id", "TEXT NOT NULL"), ("arch_name", "TEXT NOT NULL"), ("setting", "TEXT NOT NULL"),
+    ("model_kind", "TEXT NOT NULL"),
+    ("acc_tier", "TEXT"), ("acc_sim", "TEXT"), ("acc_ref", "TEXT"), ("acc_n", "INTEGER"),
+    ("acc_label_correct", "INTEGER"), ("acc_top1", "REAL"), ("acc_class_match", "INTEGER"),
+    ("acc_score_match", "INTEGER"), ("acc_netlist_n", "INTEGER"),
+    ("acc_netlist_class_match", "INTEGER"),
+    ("area_lut", "INTEGER"), ("area_ff", "INTEGER"), ("area_adder", "INTEGER"),
+    ("area_clb", "INTEGER"), ("area_mult36", "INTEGER"), ("area_ram_blocks", "INTEGER"),
+    ("area_grid", "TEXT"), ("area_min_chan_width", "INTEGER"), ("area_wirelength", "INTEGER"),
+    ("lpm_mult", "INTEGER"), ("lpm_add_sub", "INTEGER"), ("lpm_compare", "INTEGER"),
+    ("lpm_altsyncram", "INTEGER"), ("lpm_scfifo", "INTEGER"), ("netlist_bytes", "INTEGER"),
+    ("area_alm", "INTEGER"), ("area_dsp_blocks", "INTEGER"), ("area_m10k_blocks", "INTEGER"),
+    ("speed_fmax_mhz", "REAL"), ("speed_crit_path_ns", "REAL"), ("speed_cycles_per_img", "INTEGER"),
+    ("speed_init_cycles", "INTEGER"), ("speed_latency_us", "REAL"), ("speed_ii_cycles", "INTEGER"),
+    ("speed_images_per_s", "REAL"),
+    ("power_total_mw", "REAL"), ("power_dynamic_mw", "REAL"), ("power_static_mw", "REAL"),
+    ("power_method", "TEXT"), ("power_channel_width", "INTEGER"),
+    ("energy_uj_per_img", "REAL"),
+    ("odin3_build", "TEXT"), ("odin3_commit", "TEXT"), ("vtr_commit", "TEXT"),
+    ("arch_file", "TEXT"), ("design_source", "TEXT"), ("design_source_commit", "TEXT"),
+    ("rtl_sha256", "TEXT"), ("run_date", "TEXT"), ("result_tier", "TEXT NOT NULL"),
+    ("origin", "TEXT NOT NULL"),
+)
+
+V8_DDL: tuple[str, ...] = (
+    "CREATE TABLE IF NOT EXISTS aidigit_result ("
+    + ", ".join(f"{n} {t}" for n, t in AIDIGIT_COLUMNS)
+    + ", PRIMARY KEY (suite, design, target))",
+    """CREATE TABLE IF NOT EXISTS aidigit_null (
+        suite TEXT NOT NULL, design TEXT NOT NULL, target TEXT NOT NULL, field TEXT NOT NULL,
+        reason TEXT NOT NULL, PRIMARY KEY (suite, design, target, field))""",
 )
