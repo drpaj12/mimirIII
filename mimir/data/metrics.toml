@@ -1695,3 +1695,87 @@ definition_source = "mimir"
 citations = []
 named_after = []
 validation = "Known-answer tests in tests/test_graphlet.py on a five-node path (needs the odin3 package; skipped without it). Counts are Odin III's, checked there against the ORCA oracle (undirected) and brute force. Not compared with a published value."
+
+[[metric]]
+key = "aidigit.top1"
+description = "Top-1 accuracy of a digit-recognition implementation on the MNIST test labels (tier in `acc_tier`)"
+unit = "fraction"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported from the suite's result rows (RTL simulation, Verilator); not re-derived. Row counts and values checked in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.area_lut"
+description = "LUT count of the routed design on the VTR k6 architecture, as VPR reports it"
+unit = "LUTs"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; known-answer test in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.fmax"
+description = "Fmax of the routed design (1 / critical path) on the VTR k6 architecture"
+unit = "MHz"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; known-answer test in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.latency"
+description = "Latency per image = cycles per image x critical path; no pipelining credit"
+unit = "us"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; not re-derived (test in tests/test_aidigit_results.py)."
+
+[[metric]]
+key = "aidigit.power_total"
+description = "Total power: ACE2 vectorless activity (-s 1) with the VPR power model (PTM 45 nm), at the channel width in `power_channel_width`; a ranking estimate, not a measurement"
+unit = "mW"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; channel-width parse tested in tests/test_aidigit_results.py."
+
+[[metric]]
+key = "aidigit.energy_per_image"
+description = "Energy per image = total power x latency"
+unit = "uJ"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; not re-derived (test in tests/test_aidigit_results.py)."
+
+[[metric]]
+key = "aidigit.lpm_cells"
+description = "Instances per Odin III LPM library cell type in the Cyclone V netlist, hierarchy expanded; a type absent from the count table is 0"
+unit = "cells"
+levels = ["lut"]
+kind = "imported"
+measurer = "import-aidigit"
+definition_source = "mimir"
+citations = []
+named_after = []
+validation = "Imported as stored in the suite's result rows; zero-fill tested in tests/test_aidigit_results.py."
