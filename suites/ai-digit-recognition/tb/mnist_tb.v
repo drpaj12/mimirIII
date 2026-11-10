@@ -49,6 +49,9 @@ module mnist_tb;
     $readmemh("vec_meta.hex", meta);
     n_img = meta[0];
     tmo = meta[1];
+`ifdef MNIST_TMO
+    tmo = `MNIST_TMO;      // per-image cycle budget override (slow designs)
+`endif
     cls_ok = 0; sc_ok = 0; lab_ok = 0; timeouts = 0; cyc_total = 0; nprint = 0;
     rst = 1; start = 0; in_valid = 0; in_data = 0;
     repeat (4) @(negedge clk);

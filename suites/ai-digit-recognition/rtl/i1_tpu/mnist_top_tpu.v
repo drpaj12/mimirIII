@@ -75,7 +75,7 @@ module mnist_top (
     // ---- flash ROM ----
     reg [7:0] rom [0:FLASH_LEN-1];
     initial $readmemh(`FLASH_HEX, rom);
-    reg [17:0] raddr;
+    reg [19:0] raddr;
     reg [7:0]  rdat;
     always @(posedge clk) rdat <= rom[raddr];
 
@@ -121,7 +121,7 @@ module mnist_top (
     always @(posedge clk) begin
         tx_valid <= 1'b0;
         if (rst) begin
-            st <= S_SS; nxt <= S_FLASH; ss <= 1'b0; raddr <= 18'd0; fetch <= 1'b0; done_r <= 1'b0; out_n <= 4'd0;
+            st <= S_SS; nxt <= S_FLASH; ss <= 1'b0; raddr <= 20'd0; fetch <= 1'b0; done_r <= 1'b0; out_n <= 4'd0;
             hdr_i <= 3'd0; pix_n <= 10'd0; gap <= 4'd0; pred_r <= 4'd0; sc_r <= 80'd0; best <= 8'd0;
             tx_byte <= 8'd0;
         end else begin
@@ -139,7 +139,7 @@ module mnist_top (
                     fetch <= 1'b0;
                     tx_byte <= rdat; tx_valid <= 1'b1;
                     if (raddr == FLASH_LEN - 1) st <= S_FLASH_END;
-                    else raddr <= raddr + 18'd1;
+                    else raddr <= raddr + 20'd1;
                 end
             end
             S_FLASH_END: begin

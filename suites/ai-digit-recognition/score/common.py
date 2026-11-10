@@ -29,17 +29,18 @@ def capped(argv, cwd=None, mem="2G", timeout=None, env=None):
 
 
 _SUM = re.compile(r"MNIST_TB (PASS|FAIL) n=(\d+) class_match=(\d+) score_match=(\d+) "
-                  r"label_correct=(\d+) timeouts=(\d+) cycles_total=(\d+) cycles_per_img=(\d+)")
+                  r"label_correct=(\d+) timeouts=(\d+) cycles_total=(\d+) cycles_per_img=(\d+)"
+                  r"(?: init_cycles=(\d+))?")
 
 
 def parse_tb(text):
     m = _SUM.search(text)
     if not m:
         return None
-    v = list(map(int, m.groups()[1:]))
+    v = [int(x) if x is not None else 0 for x in m.groups()[1:]]
     return {"verdict": m.group(1), "n": v[0], "class_match": v[1], "score_match": v[2],
             "label_correct": v[3], "timeouts": v[4], "cycles_total": v[5],
-            "cycles_per_img": v[6], "top1": v[3] / v[0]}
+            "cycles_per_img": v[6], "init_cycles": v[7], "top1": v[3] / v[0]}
 
 
 def stage_vectors(vec_dir, run_dir):
@@ -52,10 +53,10 @@ def stage_vectors(vec_dir, run_dir):
     return int(open(Path(vec_dir) / "vec_meta.hex").readline(), 16)
 
 
-def sim_iverilog(dut_files, vec_dir, run_dir, timeout=3600):
+def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
     n = stage_vectors(vec_dir, run_dir)
-    r = subprocess.run(["iverilog", "-g2005", f"-DMNIST_N={n}", "-o", "t.vvp", str(TB)]
-                       + [str(f) for f in dut_files], cwd=run_dir, capture_output=True, text=True)
+    r = subprocess.run(["iverilog", "-g2005", f"-DMNIST_N={n}"] + [f"-D{d}" for d in defines]
+                       + ["-o", "t.vvp", str(TB)] + [str(f) for f in dut_files], cwd=run_dir, capture_output=True, text=True)
     if r.returncode:
         return None, "iverilog compile failed: " + r.stderr[-300:]
     t = time.time()
