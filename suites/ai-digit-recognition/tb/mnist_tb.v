@@ -1,6 +1,9 @@
 // MNIST benchmark testbench (Verilog-2005, subset accepted by iverilog and Odin III sim_tb).
 // Contract: docs/INTERFACE.md. Reads vec_*.hex from the current directory.
-// Compile with -DMNIST_N=<images in the tier> (100 quick, 10000 full).
+// Compile with -DMNIST_N=<images in the tier> (100 quick, 10000 full); -DMNIST_INIT=<cycles> for a
+// DUT that initialises itself after reset and raises `done` when ready (INTERFACE.md).
+// Race-free by construction: the testbench changes its outputs and reads the DUT only at the
+// falling clock edge; the DUT samples at the rising edge.
 `timescale 1ns/1ps
 module mnist_tb;
   reg clk;
@@ -27,7 +30,7 @@ module mnist_tb;
   integer i, j, k, t0, waited;
   integer n_img, tmo;
   integer cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_i;
-  integer bad_this, nprint;
+  integer bad_this, nprint, init_cycles, init_bad;
   reg [7:0] tmp;
   reg fin;
 
@@ -35,6 +38,8 @@ module mnist_tb;
   always #5 clk = ~clk;
   initial cyc = 0;
   always @(posedge clk) cyc = cyc + 1;
+
+  reg rdy_now;
 
   initial begin
     $readmemh("vec_images.hex", img);
@@ -46,41 +51,65 @@ module mnist_tb;
     tmo = meta[1];
     cls_ok = 0; sc_ok = 0; lab_ok = 0; timeouts = 0; cyc_total = 0; nprint = 0;
     rst = 1; start = 0; in_valid = 0; in_data = 0;
-    repeat (4) @(posedge clk);
-    rst <= 0;
-    repeat (2) @(posedge clk);
-    for (i = 0; i < n_img; i = i + 1) begin
-      start <= 1;
+    repeat (4) @(negedge clk);
+    rst = 0;
+    repeat (2) @(negedge clk);
+    init_cycles = 0;
+    init_bad = 0;
+`ifdef MNIST_INIT
+    // Power-up initialisation (e.g. flashing weights): the DUT raises `done` when ready for the
+    // first `start`. Not part of cycles_per_img; reported as init_cycles.
+    while (!done && init_cycles < `MNIST_INIT) begin
+      @(negedge clk);
+      init_cycles = init_cycles + 1;
+    end
+    if (!done) begin
+      $display("MNIST_TB init timeout after %0d cycles", init_cycles);
+      init_bad = 1;
+    end
+`endif
+    for (i = 0; i < n_img && !init_bad; i = i + 1) begin
+      start = 1;
       t0 = cyc;
-      @(posedge clk);
-      start <= 0;
+      @(negedge clk);
+      start = 0;
       j = 0;
-      in_valid <= 1;
-      in_data <= img[i*784];
+      in_valid = 1;
+      in_data = img[i*784];
       waited = 0;
       while (j < 784 && waited < tmo) begin
-        @(posedge clk);
+        rdy_now = in_ready;        // a transfer happens at the next rising edge iff in_ready
+        @(negedge clk);
         waited = waited + 1;
-        if (in_ready) begin
+        if (rdy_now) begin
           j = j + 1;
-          if (j < 784) in_data <= img[i*784+j];
-          else in_valid <= 0;
+          if (j < 784) in_data = img[i*784+j];
+          else in_valid = 0;
         end
       end
-      in_valid <= 0;
+      in_valid = 0;
       fin = 0;
       while (!fin && waited < tmo) begin
-        @(posedge clk);
-        waited = waited + 1;
         if (done) fin = 1;
+        else begin
+          @(negedge clk);
+          waited = waited + 1;
+        end
       end
       if (!fin) begin
         timeouts = timeouts + 1;
         $display("MNIST_TB image %0d: timeout", i);
-        rst <= 1;
-        repeat (4) @(posedge clk);
-        rst <= 0;
-        repeat (2) @(posedge clk);
+        rst = 1;
+        repeat (4) @(negedge clk);
+        rst = 0;
+        repeat (2) @(negedge clk);
+`ifdef MNIST_INIT
+        init_cycles = 0;
+        while (!done && init_cycles < `MNIST_INIT) begin
+          @(negedge clk);
+          init_cycles = init_cycles + 1;
+        end
+`endif
       end else begin
         cyc_i = cyc - t0;
         cyc_total = cyc_total + cyc_i;
@@ -98,12 +127,12 @@ module mnist_tb;
         if (bad_this == 0) sc_ok = sc_ok + 1;
       end
     end
-    if (cls_ok == n_img && sc_ok == n_img && timeouts == 0)
-      $display("MNIST_TB PASS n=%0d class_match=%0d score_match=%0d label_correct=%0d timeouts=%0d cycles_total=%0d cycles_per_img=%0d",
-               n_img, cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_total / n_img);
+    if (cls_ok == n_img && sc_ok == n_img && timeouts == 0 && !init_bad)
+      $display("MNIST_TB PASS n=%0d class_match=%0d score_match=%0d label_correct=%0d timeouts=%0d cycles_total=%0d cycles_per_img=%0d init_cycles=%0d",
+               n_img, cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_total / n_img, init_cycles);
     else
-      $display("MNIST_TB FAIL n=%0d class_match=%0d score_match=%0d label_correct=%0d timeouts=%0d cycles_total=%0d cycles_per_img=%0d",
-               n_img, cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_total / n_img);
+      $display("MNIST_TB FAIL n=%0d class_match=%0d score_match=%0d label_correct=%0d timeouts=%0d cycles_total=%0d cycles_per_img=%0d init_cycles=%0d",
+               n_img, cls_ok, sc_ok, lab_ok, timeouts, cyc_total, cyc_total / n_img, init_cycles);
     $finish;
   end
 endmodule

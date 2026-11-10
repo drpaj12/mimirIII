@@ -66,6 +66,25 @@ def sim_iverilog(dut_files, vec_dir, run_dir, timeout=3600):
     return res, None if res else "no summary line: " + (r.stdout + r.stderr)[-300:]
 
 
+def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G"):
+    """Build the testbench + DUT with Verilator (--binary --timing, Verilog-2005) and run it.
+    defines: ["NAME=value", ...] passed as -D. Used for the full tier, where iverilog is too slow."""
+    n = stage_vectors(vec_dir, run_dir)
+    cmd = ["verilator", "--binary", "--timing", "--language", "1364-2005", "-Wno-fatal", "-Wno-lint",
+           "-Wno-style", "-Wno-WIDTH", "-Wno-TIMESCALEMOD", "-O2", "--top-module", "mnist_tb",
+           "--Mdir", "obj", f"-DMNIST_N={n}", "-o", "simv"]
+    cmd += [f"-D{d}" for d in defines] + [str(TB)] + [str(f) for f in dut_files]
+    r = capped(cmd, cwd=run_dir, mem=mem)
+    if r.returncode or not (Path(run_dir) / "obj" / "simv").exists():
+        return None, "verilator build failed: " + (r.stdout + r.stderr)[-300:]
+    t = time.time()
+    r = capped([Path(run_dir) / "obj" / "simv"], cwd=run_dir, timeout=timeout, mem=mem)
+    res = parse_tb(r.stdout)
+    if res:
+        res["wall_s"] = round(time.time() - t, 2)
+    return res, None if res else "no summary line: " + (r.stdout + r.stderr)[-300:]
+
+
 def sim_odin(read_cmd, vec_dir, run_dir, timeout=3600, extra=""):
     """read_cmd: Odin script that reads the DUT (RTL: 'read_verilog x.v; proc; opt; lower';
     netlist: 'read_blif x.blif')."""
