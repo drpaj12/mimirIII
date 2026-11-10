@@ -125,7 +125,7 @@ def main():
     for d in a.defs:
         cmd += ["-D", d]
     t = time.time()
-    r = C.capped(cmd, timeout=6 * 3600, mem="4G")
+    r = C.capped(cmd, timeout=6 * 3600, mem=C.FLOW_MEM)
     (work / "flow.log").parent.mkdir(parents=True, exist_ok=True)
     (work / "flow.log").write_text(r.stdout + r.stderr)
     summ = flow_out / "summary.json"

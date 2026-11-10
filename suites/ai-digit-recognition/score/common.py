@@ -16,6 +16,7 @@ VTR_ROOT = Path(os.environ.get("VTR_ROOT", WS / "external/vtr-verilog-to-routing
 ARCH = VTR_ROOT / "vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml"
 TECH = VTR_ROOT / "vtr_flow/tech/PTM_45nm/45nm.xml"
 SCHEMA_VERSION = 1
+FLOW_MEM = os.environ.get("AIDIGIT_FLOW_MEM", "3G")  # memory cap of the flow runs
 
 # Cyclone V SE 5CSEMA5 (A5 member): Table 10 of Cyclone V Device Overview CV-51001
 # (2015.06.12), local copy
