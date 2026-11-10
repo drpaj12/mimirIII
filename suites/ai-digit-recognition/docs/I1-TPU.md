@@ -47,3 +47,7 @@ installed). Weights and (M0, n) are untouched, so results stay bit-exact; checke
 - Compute dominates cycles per image at every N; the SPI input is a fixed cost of about 51,000 cycles (measured
   in simulation: 784 bytes at 65 cycles each).
 - The design is sequential and not pipelined across images: initiation interval = cycles per image.
+
+## Results
+
+See `docs/RESULTS.md` (accuracy and cycles on 10,000 images, VTR k6 area, speed and power, LPM cell counts).
