@@ -297,7 +297,7 @@ module l_sink (input clk, input rst, input we, input [7:0] data, input fd, input
       fd_d <= fd;
       if (we) tmp <= {data, tmp[79:8]};
       if (clr) done <= 1'b0;
-      if (fd_d) begin scores <= tmp; sh <= tmp; i <= 4'd0; run <= 1'b1; end
+      if (fd_d) begin scores <= tmp; sh <= tmp; i <= 4'd0; run <= 1'b1; done <= 1'b0; end
       if (run) begin
         if ((i == 4'd0) | (cur > bestv)) begin bestv <= cur; besti <= i; end
         sh <= {8'd0, sh[79:8]};
