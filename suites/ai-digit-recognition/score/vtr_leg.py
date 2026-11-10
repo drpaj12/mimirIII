@@ -81,6 +81,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--tier", default="quick")
     ap.add_argument("--clock", default="clk")
+    ap.add_argument("--top", default=None, help="top module (build.json 'top' sets it)")
     ap.add_argument("--netlist-sim", dest="nsim", action="store_true", default=True)
     ap.add_argument("--no-netlist-sim", dest="nsim", action="store_false")
     ap.add_argument("-I", dest="inc", action="append", default=[])
@@ -91,6 +92,7 @@ def main():
         a.src = b["sources"]
         a.defs = a.defs + b["flow_define_args"]
         a.inc = a.inc + b["incdirs"]
+        a.top = b.get("top")
     if not a.src:
         ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "vtr"
@@ -118,6 +120,8 @@ def main():
         shutil.rmtree(flow_out)
     cmd = [C.ODIN3_FLOW] + [str(Path(s).resolve()) for s in a.src] + [
         "--target", "vtr", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN, "--out", flow_out]
+    if a.top:
+        cmd += ["--top", a.top]
     for i in a.inc:
         cmd += ["-I", i]
     for d in a.defs:

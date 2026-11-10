@@ -59,8 +59,7 @@ module mnist_top (
     wire [3:0] wr = mem_wstrb;
 
     wire [31:0] rom_q, ram_q, io_r;
-    i2_rom #(.AW(`ROM_AW)) rom (.clk(clk), .a1(mem_addr[`ROM_AW+1:2]), .q1(rom_q),
-                                .a2({`ROM_AW{1'b0}}), .q2());
+    i2_rom1 #(.AW(`ROM_AW)) rom (.clk(clk), .a(mem_addr[`ROM_AW+1:2]), .q(rom_q));
     i2_ram #(.AW(`RAM_AW)) ram (.clk(clk), .a(mem_addr[`RAM_AW+1:2]),
                                 .we({4{accept & sel_ram}} & wr), .d(mem_wdata), .q(ram_q));
     i2_mmio io (.clk(clk), .rst(rst), .start(start), .in_valid(in_valid), .in_data(in_data),

@@ -90,7 +90,7 @@ def build(setting, out):
     info = {"setting": setting, "core": TARGET_DESC[core], "march": march, "softmul": soft,
             "code_rodata_bytes": rom_b, "bss_bytes": bss, "rom_bytes": 4 << rom_aw,
             "ram_bytes": 4 << ram_aw, "sources": [str(s) for s in srcs],
-            "models": [str(s) for s in common], "wrapper": str(srcs[-1]),
+            "models": [], "our_rtl": [str(s) for s in common], "top": "mnist_top", "wrapper": str(srcs[-1]),
             "core_sources": [str(s) for s in srcs if s not in common and s != srcs[-1]],
             "defines": d, "flow_defines": d, "incdirs": [str(out)]}
     (out / "build.json").write_text(json.dumps(info, indent=1, sort_keys=True) + "\n")

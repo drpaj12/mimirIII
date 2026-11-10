@@ -119,6 +119,7 @@ def main():
         models = b["models"]
         a.defs = a.defs + b["flow_define_args"]
         a.inc = a.inc + b["incdirs"]
+        a.top = b.get("top", a.top)
     if not a.src:
         ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "lpm"
@@ -159,7 +160,7 @@ def main():
     for d in a.defs:
         cmd += ["-D", d]
     env = dict(os.environ)
-    if a.build:  # Quartus-generated altsyncram wrappers need a few more library parameters/ports
+    if models:  # Quartus-generated altsyncram wrappers need a few more library parameters/ports
         tree = C.ODIN3_FLOW.parent.parent.parent
         env["ODIN3_SHARE"] = str(importlib.import_module("make_share").make(tree, work / "share"))
         row["notes"].append("flow ran with an ODIN3_SHARE whose lpm.o3lib declares the altsyncram "
