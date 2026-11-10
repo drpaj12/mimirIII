@@ -186,6 +186,7 @@ def main():
     summ = flow_out / "summary.json"
     if summ.exists():
         row["lpm_cells_definitions"] = json.loads(summ.read_text()).get("lpm_cells")
+    row["netlist_bytes"] = net.stat().st_size
     row["lpm_cells"] = instance_counts(net.read_text()).get(a.top)
     nr["accuracy.netlist"] = ("the LPM netlist needs Altera's lpm_* / altera_mf simulation models "
                               "(the stubs in <top>_lpm_sim.v are empty); not simulated here")
