@@ -103,6 +103,8 @@ def main():
         got = json.loads(Path(a.rtl_result).read_text())
         rtl, err = got["result"], got["error"]
         row["accuracy"] = {"rtl_" + got["sim"]: rtl}
+        if got.get("pipe"):
+            row["accuracy"]["rtl_" + got["sim"] + "_pipelined"] = got["pipe"]
         if err:
             nr["accuracy.rtl_" + got["sim"]] = err
     else:
@@ -172,6 +174,9 @@ def main():
         row["speed"].update(cycles_per_img=cyc, latency_us=lat, images_per_s=1e6 / lat)
         row["speed"]["note"] = ("images_per_s = 1/latency (no pipelining credit; "
                                 "initiation interval = cycles_per_img)")
+        ii = (got.get("pipe") or {}).get("ii_cycles") if a.rtl_result else None
+        if ii:
+            row["speed"].update(ii_cycles=ii, images_per_s_pipelined=1e6 / (ii * cpd / 1000.0))
     else:
         nr["speed.cycles_per_img"] = "no RTL simulation result" if not cyc else "no critical path"
 
