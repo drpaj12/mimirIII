@@ -93,6 +93,6 @@ not built.
 ## Licence notes
 
 - Gabe's TPU: MIT, not copied into this repository.
-- MNIST test set: not stored; fetched and checked by sha256 (`pins.toml`). Licence text could not be read from the
-  original source; recorded as unconfirmed in `docs/DATA.md`. Peter settles it before a public release that embeds
-  images.
+- MNIST test set: not stored; fetched and checked by sha256 (`pins.toml`). CC BY-SA 3.0 (LeCun, Cortes, Burges),
+  settled by Peter 2026-11-10: release is fine; credit the holders, derived data we distribute is CC BY-SA 3.0
+  (`docs/DATA.md`).
