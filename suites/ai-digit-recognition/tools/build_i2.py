@@ -1,10 +1,11 @@
 """Assemble implementation I2 (soft CPU running the C int8 LeNet-5) in a build directory.
 
 usage: build_i2.py <setting> <OUT_DIR>      settings: see SETTINGS
-Compiles sw/{crt0.S,main.c,lenet.c} + the generated weights.c with riscv64-unknown-elf-gcc, links at
-ROM 0x0 / RAM 0x10000000, writes the ROM image (i2_rom.hex: 32-bit words, padded to a power of two) and
-build.json (sources by path, defines, include dirs). Third-party cores are read by path (env PICORV32,
-BRISCV; defaults under <workspace>/external); nothing of them or of Gabe's weights is copied or committed.
+Compiles sw/{crt0.S,main.c,lenet.c} + the generated weights.c with riscv64-unknown-elf-gcc, links
+at ROM 0x0 / RAM 0x10000000, writes the ROM image (i2_rom.hex: 32-bit words, padded to a power of
+two) and build.json (sources by path, defines, include dirs). Third-party cores are read by path
+(env PICORV32, BRISCV; defaults under <workspace>/external); nothing of them or of Gabe's weights
+is copied or committed.
 """
 import json
 import os
@@ -18,7 +19,8 @@ SUITE = Path(__file__).resolve().parent.parent
 WS = Path(os.environ.get("ODIN3_WS", Path.home() / "odin3-ws"))
 USS = Path(os.environ.get("USS_TPU", WS / "external/USS_Tensor_Processing_Unit"))
 PICO = Path(os.environ.get("PICORV32", WS / "external/picorv32")) / "picorv32.v"
-BRISC = Path(os.environ.get("BRISCV", WS / "external/Arduino-on-RISC-V/quartus_project_revert_timer"))
+BRISC = Path(os.environ.get(
+    "BRISCV", WS / "external/Arduino-on-RISC-V/quartus_project_revert_timer"))
 GCC = os.environ.get("RISCV_GCC", "riscv64-unknown-elf-gcc")
 
 # setting -> (core, march, softmul table, defines for the wrapper)
@@ -90,7 +92,8 @@ def build(setting, out):
     info = {"setting": setting, "core": TARGET_DESC[core], "march": march, "softmul": soft,
             "code_rodata_bytes": rom_b, "bss_bytes": bss, "rom_bytes": 4 << rom_aw,
             "ram_bytes": 4 << ram_aw, "sources": [str(s) for s in srcs],
-            "models": [], "our_rtl": [str(s) for s in common], "top": "mnist_top", "wrapper": str(srcs[-1]),
+            "models": [], "our_rtl": [str(s) for s in common], "top": "mnist_top",
+            "wrapper": str(srcs[-1]),
             "core_sources": [str(s) for s in srcs if s not in common and s != srcs[-1]],
             "defines": d, "flow_defines": d, "incdirs": [str(out)]}
     (out / "build.json").write_text(json.dumps(info, indent=1, sort_keys=True) + "\n")
