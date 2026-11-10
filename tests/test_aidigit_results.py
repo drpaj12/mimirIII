@@ -1,11 +1,13 @@
-"""AI digit recognition results in the store (schema 8): importer, migration, table, plots."""
+"""AI digit recognition results in the store (schema 9): importer, migration, table, plots."""
 
 from __future__ import annotations
 
+import os
 import shutil
 import sqlite3
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from mimir import aidigit, aidigittable
@@ -26,7 +28,8 @@ class Load(unittest.TestCase):
         self.by = {(r["design"], r["target"]): r for r in self.data.rows}
 
     def test_row_counts_per_implementation(self) -> None:
-        self.assertEqual(dict(self.data.per_impl()), {"I1": 6, "I6": 8, "I7": 10, "I8": 6})
+        want = {"I1": 6, "I3": 8, "I4": 6, "I6": 8, "I7": 10, "I8": 6}
+        self.assertEqual(dict(self.data.per_impl()), want)
 
     def test_i1_n8_vtr_values_are_the_source_values(self) -> None:
         r = self.by[("i1-tpu-n8", "vtr-k6")]
@@ -39,6 +42,41 @@ class Load(unittest.TestCase):
         self.assertEqual(r["model_kind"], "reference network, bit-exact")
         self.assertEqual(r["odin3_commit"], "59349797")
         self.assertEqual(r["design_source_commit"], "8e85de4592fc7df6fa264c06ff9ff0891536e497")
+
+    def test_grid_columns_and_clb_use_of_i1_n8(self) -> None:
+        r = self.by[("i1-tpu-n8", "vtr-k6")]
+        self.assertEqual((r["grid_w"], r["grid_h"], r["grid_tiles"]), (80, 80, 6400))
+        self.assertEqual(r["clb_tiles"], 4524)  # VPR prints 4524 clb for 80 x 80
+        self.assertAlmostEqual(r["clb_util_pct"], 899 / 4524 * 100)
+        self.assertEqual(r["area_min_chan_width"], 88)
+
+    def test_clb_tiles_equal_the_counts_vpr_printed(self) -> None:
+        layout = aidigit.load_layouts(SUITE)["k6_frac_N10_frac_chain_mem32K_40nm.xml"]
+        # (W, H, clb tiles) from "Resource usage... Architecture ... blocks of type: clb" of the
+        # stored VPR logs of the suite's runs
+        for w, h, want in ((18, 18, 192), (21, 21, 266), (47, 47, 1530), (78, 78, 4332),
+                           (80, 80, 4524), (86, 86, 5292)):
+            self.assertEqual(aidigit.clb_tiles(layout, w, h), want, (w, h))
+
+    def test_clb_tiles_match_the_arch_file_when_present(self) -> None:
+        root = os.environ.get("VTR_ROOT", "")
+        arch = Path(root) / "vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml"
+        if not arch.is_file():
+            self.skipTest("VTR arch file not available")
+        lay = ET.parse(arch).getroot().find("layout/auto_layout")
+        assert lay is not None
+        cols = sorted((int(c.get("startx", "0")), int(c.get("repeatx", "0")))
+                      for c in lay.findall("col") if c.get("type") != "EMPTY")
+        want = aidigit.load_layouts(SUITE)["k6_frac_N10_frac_chain_mem32K_40nm.xml"]["columns"]
+        self.assertEqual(cols, sorted((c["startx"], c["repeatx"]) for c in want))
+
+    def test_grid_is_null_with_reason_where_absent(self) -> None:
+        r = self.by[("nl-A", "vtr-k6")]
+        self.assertIsNone(r["grid_w"])
+        self.assertIsNone(r["clb_util_pct"])
+        nulls = {(d, t, f): why for d, t, f, why in self.data.nulls}
+        self.assertIn(("nl-A", "vtr-k6", "grid_w"), nulls)
+        self.assertIn(("nl-A", "vtr-k6", "clb_util_pct"), nulls)
 
     def test_channel_width_is_read_from_the_power_method(self) -> None:
         self.assertEqual(self.by[("tl-T3", "vtr-k6")]["power_channel_width"], 250)
@@ -95,11 +133,11 @@ class Import(unittest.TestCase):
     def test_import_is_idempotent_and_replaces(self) -> None:
         store, d = _store()
         data = aidigit.load(SUITE)
-        self.assertEqual(aidigit.write(store, data), (30, len(data.nulls)))
+        self.assertEqual(aidigit.write(store, data), (44, len(data.nulls)))
         first = aidigit.read_rows(store.db)
         aidigit.write(store, data)
         self.assertEqual(aidigit.read_rows(store.db), first)
-        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 30)
+        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 44)
         aidigit.write(store, aidigit.Imported())  # an emptied input empties the suite's rows
         self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_null").fetchone()[0], 0)
         store.close()
@@ -108,7 +146,7 @@ class Import(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         self.assertEqual(main(["import-aidigit", "--db", str(d / "m.db")]), 0)
         db = sqlite3.connect(d / "m.db")
-        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 30)
+        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 44)
         db.close()
 
 
@@ -127,8 +165,35 @@ class Migration(unittest.TestCase):
         ro.close()
         s = Store(d / "x.db")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "8")
+        self.assertEqual(v, "9")
         self.assertTrue(aidigit.has_tables(s.db))
+        s.close()
+
+
+class MigrationV8(unittest.TestCase):
+    def test_v8_store_gains_the_grid_columns_and_keeps_rows(self) -> None:
+        d = Path(tempfile.mkdtemp())
+        s = Store(d / "x.db")
+        aidigit.write(s, aidigit.load(SUITE))
+        s.close()
+        db = sqlite3.connect(d / "x.db")
+        # rebuild the table as version 8 had it
+        db.execute("ALTER TABLE aidigit_result DROP COLUMN clb_util_pct")
+        for col in ("grid_w", "grid_h", "grid_tiles", "clb_tiles"):
+            db.execute(f"ALTER TABLE aidigit_result DROP COLUMN {col}")
+        db.execute("UPDATE meta SET value='8' WHERE key='schema_version'")
+        db.commit()
+        db.close()
+        ro = Store(d / "x.db", readonly=True)
+        old = aidigit.read_rows(ro.db)
+        self.assertEqual(len(old), 44)
+        self.assertNotIn("grid_w", old[0])
+        ro.close()
+        s = Store(d / "x.db")
+        new = aidigit.read_rows(s.db)
+        self.assertEqual(len(new), 34)
+        self.assertIsNone(new[0]["grid_w"])
+        self.assertEqual({k: v for k, v in new[0].items() if k in old[0]}, old[0])
         s.close()
 
 
@@ -153,6 +218,14 @@ class Table(unittest.TestCase):
         self.assertIn("n/a", nl_a)
         self.assertIn("No VTR point", md)
 
+    def test_table_shows_grid_and_clb_use(self) -> None:
+        md = aidigittable.render_md(self.rows, [], self.nulls)
+        self.assertIn("| Grid |", md)
+        self.assertIn("80x80", md)
+        self.assertIn("CLB use %", md)
+        self.assertIn("the largest resource column (RAM, DSP or CLB) sets the size", md)
+        self.assertIn("CLB use (\\%)", aidigittable.render_tex(self.rows))
+
     def test_tex_is_booktabs_and_balanced(self) -> None:
         tex = aidigittable.render_tex(self.rows)
         self.assertEqual(tex.count("\\toprule"), 2)
@@ -163,7 +236,7 @@ class Table(unittest.TestCase):
 
     def test_csv_has_one_line_per_row_and_all_columns(self) -> None:
         lines = aidigittable.render_csv(self.rows, self.nulls).splitlines()
-        self.assertEqual(len(lines), 31)
+        self.assertEqual(len(lines), 45)
         self.assertEqual(lines[0].split(",")[:3], ["suite", "design", "target"])
         self.assertTrue(lines[0].endswith(",null_reasons"))
         self.assertIn("area_alm: quartus not run here", "\n".join(lines))
@@ -174,7 +247,7 @@ class Table(unittest.TestCase):
         svg = plots["pareto-accuracy-lut.svg"]
         self.assertNotIn(">nl-A<", svg)
         self.assertIn(">tl-T3<", svg)
-        self.assertIn("polyline", svg)
+        self.assertIn("polyline", plots["pareto-accuracy-latency.svg"])
 
     def test_committed_table_is_current(self) -> None:
         out = Path(tempfile.mkdtemp())
