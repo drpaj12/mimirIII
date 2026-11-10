@@ -40,7 +40,7 @@ def vtr_table(vtr):
                  f(a.get("clbs")), f(a.get("dsp_mult36")), f(a.get("ram_blocks")),
                  f(a.get("min_chan_width")), f(a.get("wirelength")),
                  f(s.get("fmax_mhz"), "{:.1f}"), f(s.get("latency_us"), "{:.1f}"),
-                 f(s.get("ii_cycles")), f(s.get("images_per_s_pipelined")),
+                 f(s.get("ii_cycles")), f(s.get("images_per_s")),
                  f(p.get("total_mw"), "{:.1f}"), f(p.get("energy_uj_per_img"), "{:.2f}")]
         out.append("| " + " | ".join(cells) + " |")
     return out

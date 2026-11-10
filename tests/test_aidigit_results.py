@@ -26,7 +26,7 @@ class Load(unittest.TestCase):
         self.by = {(r["design"], r["target"]): r for r in self.data.rows}
 
     def test_row_counts_per_implementation(self) -> None:
-        self.assertEqual(dict(self.data.per_impl()), {"I1": 6, "I6": 8, "I8": 6})
+        self.assertEqual(dict(self.data.per_impl()), {"I1": 6, "I3": 8, "I4": 6, "I6": 8, "I8": 6})
 
     def test_i1_n8_vtr_values_are_the_source_values(self) -> None:
         r = self.by[("i1-tpu-n8", "vtr-k6")]
@@ -95,11 +95,11 @@ class Import(unittest.TestCase):
     def test_import_is_idempotent_and_replaces(self) -> None:
         store, d = _store()
         data = aidigit.load(SUITE)
-        self.assertEqual(aidigit.write(store, data), (20, len(data.nulls)))
+        self.assertEqual(aidigit.write(store, data), (34, len(data.nulls)))
         first = aidigit.read_rows(store.db)
         aidigit.write(store, data)
         self.assertEqual(aidigit.read_rows(store.db), first)
-        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 20)
+        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 34)
         aidigit.write(store, aidigit.Imported())  # an emptied input empties the suite's rows
         self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_null").fetchone()[0], 0)
         store.close()
@@ -108,7 +108,7 @@ class Import(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         self.assertEqual(main(["import-aidigit", "--db", str(d / "m.db")]), 0)
         db = sqlite3.connect(d / "m.db")
-        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 20)
+        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 34)
         db.close()
 
 
@@ -163,7 +163,7 @@ class Table(unittest.TestCase):
 
     def test_csv_has_one_line_per_row_and_all_columns(self) -> None:
         lines = aidigittable.render_csv(self.rows, self.nulls).splitlines()
-        self.assertEqual(len(lines), 21)
+        self.assertEqual(len(lines), 35)
         self.assertEqual(lines[0].split(",")[:3], ["suite", "design", "target"])
         self.assertTrue(lines[0].endswith(",null_reasons"))
         self.assertIn("area_alm: quartus not run here", "\n".join(lines))
@@ -174,7 +174,7 @@ class Table(unittest.TestCase):
         svg = plots["pareto-accuracy-lut.svg"]
         self.assertNotIn(">nl-A<", svg)
         self.assertIn(">tl-T3<", svg)
-        self.assertIn("polyline", svg)
+        self.assertIn("polyline", plots["pareto-accuracy-latency.svg"])
 
     def test_committed_table_is_current(self) -> None:
         out = Path(tempfile.mkdtemp())

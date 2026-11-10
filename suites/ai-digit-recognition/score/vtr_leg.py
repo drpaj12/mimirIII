@@ -83,6 +83,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--tier", default="quick")
     ap.add_argument("--clock", default="clk")
+    ap.add_argument("--top", default="mnist_top", help="top module, declared to odin3-flow")
     ap.add_argument("--netlist-sim", dest="nsim", action="store_true", default=True)
     ap.add_argument("--no-netlist-sim", dest="nsim", action="store_false")
     ap.add_argument("-I", dest="inc", action="append", default=[])
@@ -121,7 +122,8 @@ def main():
     if flow_out.exists():
         shutil.rmtree(flow_out)
     cmd = [C.ODIN3_FLOW] + [str(Path(s).resolve()) for s in a.src] + [
-        "--target", "vtr", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN, "--out", flow_out]
+        "--target", "vtr", "--arch", C.ARCH, "--top", a.top, "--odin3", C.ODIN3_BIN,
+        "--out", flow_out]
     for i in a.inc:
         cmd += ["-I", i]
     for d in a.defs:
@@ -178,7 +180,11 @@ def main():
                                 "initiation interval = cycles_per_img)")
         ii = (got.get("pipe") or {}).get("ii_cycles") if a.rtl_result else None
         if ii:
-            row["speed"].update(ii_cycles=ii, images_per_s_pipelined=1e6 / (ii * cpd / 1000.0))
+            row["speed"].update(ii_cycles=ii, images_per_s=1e6 / (ii * cpd / 1000.0),
+                                images_per_s_latency=1e6 / lat)
+            row["speed"]["note"] = ("pipelined: images_per_s = 1/(ii_cycles x critical path); "
+                                    "latency_us and energy_uj_per_img are per image through the "
+                                    "whole pipeline (power x latency)")
     else:
         nr["speed.cycles_per_img"] = "no RTL simulation result" if not cyc else "no critical path"
 
