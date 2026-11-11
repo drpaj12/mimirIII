@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import importlib
 import os
 import shutil
 import sqlite3
+import sys
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
@@ -265,6 +267,26 @@ class Table(unittest.TestCase):
         Store(d / "e.db").close()
         self.assertEqual(main(["aidigit-table", "--db", str(d / "e.db"), "--out-dir",
                                str(d / "o")]), 2)
+
+
+class Fixes(unittest.TestCase):
+    def test_migrate_accepts_db_flag_and_positional(self) -> None:
+        d = Path(tempfile.mkdtemp())
+        Store(d / "a.db").close()
+        Store(d / "b.db").close()
+        self.assertEqual(main(["migrate", str(d / "a.db")]), 0)
+        self.assertEqual(main(["migrate", "--db", str(d / "b.db")]), 0)
+        self.assertEqual(main(["migrate", str(d / "a.db"), "--db", str(d / "b.db")]), 2)
+        self.assertEqual(main(["migrate"]), 2)
+
+    def test_power_mem_cap_follows_the_route_step(self) -> None:
+        sys.path.insert(0, str(SUITE / "score"))
+        sys.dont_write_bytecode = True
+        common = importlib.import_module("common")
+        self.assertEqual(common.mem_cap_for(""), "2G")
+        self.assertEqual(common.mem_cap_for("(max_rss 300.0 MiB)"), "2G")
+        self.assertEqual(common.mem_cap_for("max_rss 100.0 MiB\nmax_rss 2538.0 MiB"), "5G")
+        self.assertEqual(common.mem_cap_for("max_rss 9000.0 MiB"), "8G")
 
 
 if __name__ == "__main__":

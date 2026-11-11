@@ -314,6 +314,13 @@ def _cmd_timing_coverage(args: argparse.Namespace) -> int:
 
 
 def _cmd_migrate(args: argparse.Namespace) -> int:
+    if args.db and args.db_opt and args.db != args.db_opt:
+        print("error: give the store once (positional or --db)", file=sys.stderr)
+        return 2
+    args.db = args.db or args.db_opt
+    if not args.db:
+        print("error: give the store (positional or --db)", file=sys.stderr)
+        return 2
     if not Path(args.db).is_file():
         print(f"error: no such store {args.db}", file=sys.stderr)
         return 2
@@ -582,7 +589,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(fn=_cmd_timing_coverage)
     s = sub.add_parser("migrate", help="migrate a store to the current schema version in place "
                        "(additive; BACK UP the file first: copy it and compare sha256)")
-    s.add_argument("db")
+    s.add_argument("db", nargs="?", help="store file (positional)")
+    s.add_argument("--db", dest="db_opt", help="store file (same as the positional)")
     s.set_defaults(fn=_cmd_migrate)
     s = sub.add_parser("run-coverage", help="runs with full against partial flow configs")
     s.add_argument("db")

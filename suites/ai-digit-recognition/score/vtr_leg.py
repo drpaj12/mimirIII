@@ -34,7 +34,7 @@ def parse_vpr_stdout(text):
     return d
 
 
-def power_flow(blif, clock, out, width=100):
+def power_flow(blif, clock, out, width=100, mem="2G"):
     """ACE2 vectorless activity, then VPR --power at fixed W (100 as Wyrd Bifrost; more when the
     design needs a wider channel: 1.3 x the minimum, rounded up to 10)."""
     out.mkdir(parents=True, exist_ok=True)
@@ -50,7 +50,7 @@ def power_flow(blif, clock, out, width=100):
         return None, "restore_multiclock_latch failed: " + r.stderr[-200:]
     r = C.capped([C.VTR_ROOT / "build/vpr/vpr", C.ARCH, "circuit.blif",
                   "--route_chan_width", str(width), "--power", "--tech_properties", C.TECH,
-                  "--activity_file", "ace.act"], cwd=out)
+                  "--activity_file", "ace.act"], cwd=out, mem=mem)
     (out / "vpr.log").write_text(r.stdout + r.stderr)
     pw = sorted(out.glob("*.power"))
     if r.returncode or not pw:
@@ -84,6 +84,8 @@ def main():
     ap.add_argument("--tier", default="quick")
     ap.add_argument("--clock", default="clk")
     ap.add_argument("--top", default="mnist_top", help="top module, declared to odin3-flow")
+    ap.add_argument("--power-mem", help="memory cap of the VPR power step (default: 2x the route "
+                    "step's max_rss, 2G to 8G)")
     ap.add_argument("--netlist-sim", dest="nsim", action="store_true", default=True)
     ap.add_argument("--no-netlist-sim", dest="nsim", action="store_false")
     ap.add_argument("-I", dest="inc", action="append", default=[])
@@ -192,7 +194,9 @@ def main():
     if blif:
         minw = s.get("min_chan_width") or 0
         width = max(100, -(-int(1.3 * minw) // 10) * 10)
-        p, err = power_flow(blif, a.clock, work / "power", width)
+        mem = a.power_mem or C.mem_cap_for(vtxt)
+        row["tools"]["power_mem_cap"] = mem
+        p, err = power_flow(blif, a.clock, work / "power", width, mem)
         if p:
             if row["speed"].get("latency_us"):
                 p["energy_uj_per_img"] = p["total_mw"] * 1e-3 * row["speed"]["latency_us"]
