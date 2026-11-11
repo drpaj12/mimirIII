@@ -96,7 +96,7 @@ def render(design: str, rows: list[Row], nulls: dict[tuple[str, str, str], str])
             "| Simulator | Result |", "|---|---|",
             _line("Verilator, RTL", f"{base.get('acc_tier') or NA} tier, {_f(acc)} images, "
                   f"class match {_f(base.get('acc_class_match'))}"),
-            _line("Odin III `sim_tb`, RTL, quick tier", _odin(base, nulls))]
+            _line("Odin III `sim_tb`, RTL", _odin(base, nulls))]
     vt = by.get("vtr-k6")
     if vt is not None and vt.get("acc_netlist_n") is not None:
         nm, nn = _f(vt.get("acc_netlist_class_match")), _f(vt.get("acc_netlist_n"))
@@ -120,8 +120,9 @@ def _odin(base: Row, nulls: dict[tuple[str, str, str], str]) -> str:
         why = nulls.get((base["design"], base["target"], "odin_sim_n"), "no reason recorded")
         return f"error: {why}"
     n = base["odin_sim_n"]
+    tier = "" if n >= 100 else f" on {n} images; 100-image quick tier: running"
     speed = base.get("odin_sim_cycles_per_s")
-    return (f"{st}: class match {base['odin_sim_class_match']} of {n}, score match "
+    return (f"{st}{tier}: class match {base['odin_sim_class_match']} of {n}, score match "
             f"{base['odin_sim_score_match']} of {n}; {_f(base.get('odin_sim_wall_s'))} s"
             + (f", {_f(speed)} cycles/s" if speed else ""))
 

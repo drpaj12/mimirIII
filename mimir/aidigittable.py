@@ -47,6 +47,11 @@ FIXED_COLS = (
     ("Static mW", "power_static_mw", "f1", "Static (mW)"),
     ("Energy uJ/img", "energy_uj_per_img", "f3", "Energy ($\\mu$J/img)"),
 )
+ODIN_COLS = (
+    ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
+    ("2-image tier", "odin", "s", "2 images"), ("Cycles/s", "odin_sim_cycles_per_s", "i", ""),
+    ("Wall s", "odin_sim_wall_s", "f1", ""), ("100-image quick tier", "odin_quick", "s", ""),
+)
 LPM_COLS = (
     ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
     ("Setting", "setting", "s", ""), ("Top-1 %", "acc_top1", "pct", "Top-1 (\\%)"),
@@ -100,7 +105,21 @@ def _num(v: Any, fmt: str) -> str:
     return str(v)
 
 
+def _odin_cell(row: Row) -> str:
+    st, n = row.get("odin_sim_status"), row.get("odin_sim_n")
+    if st is None:
+        return "not run"
+    if st == "error":
+        return "error (cause in TABLE.csv)"
+    return f"{st}: class {row['odin_sim_class_match']}/{n}, score {row['odin_sim_score_match']}/{n}"
+
+
 def _cell(row: Row, key: str, fmt: str) -> str:
+    if key == "odin":
+        return _odin_cell(row)
+    if key == "odin_quick":
+        n = row.get("odin_sim_n")
+        return "running" if n is not None and n < 100 else (_odin_cell(row) if n else NA)
     if key == "grid":
         w, h = row.get("grid_w"), row.get("grid_h")
         return NA if w is None or h is None else f"{w}x{h}"
@@ -200,6 +219,10 @@ def render_md(rows: list[Row], plots: list[tuple[str, str]], nulls: dict[tuple[s
     if fixed:
         out += [f"## VTR k6 fixed device ({_fixed_heading(fixed)})", "",
                 _md_table(fixed, FIXED_COLS), ""]
+    odin = _rows_for(rows, "vtr-k6") or _rows_for(rows, "rtl")
+    if any(r.get("odin_sim_status") for r in odin):
+        out += ["## Odin III v1.6.1 simulation (`sim_tb` on the RTL)", "",
+                _md_table(odin, ODIN_COLS), ""]
     out += ["## Notes", ""]
     out += [f"{i}. {t}" for i, t in enumerate(FOOTNOTES, 1)]
     out += ["", "## Pareto plots (VTR k6, front marked with filled dots)", ""]

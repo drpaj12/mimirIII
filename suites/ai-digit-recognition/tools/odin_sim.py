@@ -2,7 +2,9 @@
 
 usage: odin_sim.py --manifest m.json --odin3 BIN --root DIR --out results/odin-sim.jsonl
                    [--timeout S] [--only DESIGN ...]
-manifest.json: {"<design>": {"build": "<build.json>" | "sources": ["a.v", ..], "vec": "<dir>"}}.
+manifest.json: {"<design>": {"build": "<build.json>" | "sources": ["a.v", ..], "vec": "<dir>",
+"mini2": "<dir of 2 images, optional>"}}. --tier quick: the 100 images of `vec`; --tier mini2: the
+2 images of `mini2` (own-model golden for the LUT and BNN designs), else --fallback.
 Script: `read_verilog SRC...; proc; opt; lower --keep-mem-cells; sim_tb ...` (Odin III v1.6.1
 simulates `$mem` without bit-blasting). Designs run smallest first (order of the manifest file); a
 design already in --out is skipped. The row has `odin_sim` = the testbench summary (class and
@@ -24,12 +26,24 @@ ERR = re.compile(r"^odin3: (?:error|fatal)[^\n]*", re.M | re.I)
 
 
 def project(path, incdirs, defines):
-    lines = [f'incdir "{d}"' for d in incdirs] + [f'define "{k}={v}"' for k, v in defines.items()]
+    def q(text):  # the project reader takes "double quotes"; an inner quote is escaped
+        return str(text).replace("\\", "\\\\").replace('"', '\\"')
+
+    lines = [f'incdir "{q(d)}"' for d in incdirs] + [f'define "{q(f"{k}={v}")}"'
+                                                   for k, v in defines.items()]
     path.write_text("\n".join(lines) + "\n")
 
 
-def run_one(design, spec, odin3, root, timeout):
-    work = root / design
+def run_one(design, spec, odin3, root, timeout, fallback=None, tier="quick"):
+    """One tier: `quick` (the design's own 100-image vectors) or `mini2` (the 2-image vectors
+    in the directory `fallback`)."""
+    if tier == "mini2":
+        return run_tier(design, spec, odin3, root, timeout, spec.get("mini2") or fallback, "mini2")
+    return run_tier(design, spec, odin3, root, timeout, spec["vec"], "quick")
+
+
+def run_tier(design, spec, odin3, root, timeout, vec, tier):
+    work = root / (design if tier == "quick" else f"{design}-{tier}")
     work.mkdir(parents=True, exist_ok=True)
     build = {}
     if "build" in spec:
@@ -39,15 +53,16 @@ def run_one(design, spec, odin3, root, timeout):
     else:
         C.EXTRA_FILES[:] = []
         srcs = spec["sources"]
-    n = C.stage_vectors(spec["vec"], work)
+    n = C.stage_vectors(vec, work)
     defs = dict(build.get("defines", {}))
     project(work / "p.o3proj", build.get("incdirs", []), defs)
     reads = "read_verilog " + " ".join(str(Path(s).resolve()) for s in srcs)
     tbdefs = f"-D MNIST_N={n} -D MNIST_TMO=20000000" + (
         " -D MNIST_INIT=400000000" if "FLASH_LEN" in defs else "")
-    script = (f"{reads}; proc; opt; lower --keep-mem-cells; sim_tb -I {work} {tbdefs} {C.TB}")
+    script = (f"{reads}; proc; opt; lower --keep-mem-cells; "
+              f"sim_tb --max-time 1000000000000 -I {work} {tbdefs} {C.TB}")
     cmd = [odin3, "--project", work / "p.o3proj", "--top", "mnist_top", "-p", script]
-    row = {"schema": 1, "design": design, "tier": "quick", "odin3_binary": Path(odin3).parent.name,
+    row = {"schema": 1, "design": design, "tier": tier, "odin3_binary": Path(odin3).parent.name,
            "script": script.replace(str(work), "<run>").replace(str(C.TB), "tb/mnist_tb.v"),
            "odin_sim": None, "error": None}
     t = time.time()
@@ -77,19 +92,23 @@ def main():
     ap.add_argument("--root", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--timeout", type=int, default=3 * 3600)
+    ap.add_argument("--tier", choices=("quick", "mini2"), default="quick")
+    ap.add_argument("--fallback", help="mini2 vector directory (2 images), for --tier mini2")
     ap.add_argument("--only", nargs="*")
     a = ap.parse_args()
     manifest = json.loads(Path(a.manifest).read_text())
     ver = subprocess.run([a.odin3, "--version"], capture_output=True, text=True).stdout.strip()
     build = f"{ver.splitlines()[0] if ver else '?'} ({Path(a.odin3).parent.name})"
     done = set()
+    if a.tier == "mini2" and not a.fallback:
+        ap.error("--tier mini2 needs --fallback DIR")
     if Path(a.out).exists():
         done = {json.loads(x)["design"] for x in Path(a.out).read_text().splitlines() if x}
     for d, spec in manifest.items():
         if d in done or (a.only and d not in a.only):
             continue
         print(f"odin_sim: {d}", flush=True)
-        row = run_one(d, spec, a.odin3, Path(a.root).resolve(), a.timeout)
+        row = run_one(d, spec, a.odin3, Path(a.root).resolve(), a.timeout, a.fallback, a.tier)
         row["odin3_build"] = build
         with open(a.out, "a") as f:
             f.write(json.dumps(row, sort_keys=True) + "\n")
