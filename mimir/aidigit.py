@@ -38,12 +38,18 @@ LPM_FIELDS = ("lpm_mult", "lpm_add_sub", "lpm_compare", "lpm_altsyncram", "lpm_s
               "speed_fmax_mhz", "speed_latency_us", "power_total_mw", "energy_uj_per_img")
 COMMON_FIELDS = ("acc_n", "acc_top1", "acc_class_match", "acc_score_match", "speed_cycles_per_img",
                  "speed_init_cycles", "odin3_build", "odin3_commit", "rtl_sha256", "run_date")
-TARGET_FIELDS = {"vtr-k6": VTR_FIELDS, "cyclonev-lpm": LPM_FIELDS, RTL_TARGET: ()}
+# the fixed-device leg (tools/fixed_device.py) routes at a given W and runs no netlist simulation
+FIXED_TARGET = "vtr-k6-fixed"
+FIXED_FIELDS = tuple(f for f in VTR_FIELDS if f not in (
+    "area_min_chan_width", "acc_netlist_n", "acc_netlist_class_match"))
+TARGET_FIELDS = {"vtr-k6": VTR_FIELDS, FIXED_TARGET: FIXED_FIELDS, "cyclonev-lpm": LPM_FIELDS,
+                 RTL_TARGET: ()}
 # source null_reason keys that explain a column, by column prefix (first key present wins)
 REASON_KEYS = (
     ("area_alm", ("area.alm", "area")), ("area_dsp_blocks", ("area.dsp_blocks", "area")),
     ("area_m10k_blocks", ("area.m10k_blocks", "area")), ("acc_netlist",
      ("accuracy.netlist_odin_sim", "accuracy.netlist", "area")),
+    ("area_min_chan_width", ("area.min_chan_width", "area")),
     ("grid_", ("area",)), ("clb_", ("area",)), ("area_", ("area",)), ("lpm_", ("area",)),
     ("netlist_bytes", ("area",)),
     ("arch_file", ("area",)), ("speed_", ("speed",)), ("power_", ("power",)),
@@ -218,7 +224,7 @@ def _provenance_nulls(entry: Json, tools: Json, row: Row, target: str) -> dict[s
         out["rtl_sha256"] = str(entry.get("rtl_sha256_reason", "no hash recorded"))
     if row.get("run_date") is None:
         out["run_date"] = str(tools.get("run_date_reason", "not recorded"))
-    if target == "vtr-k6":
+    if target in ("vtr-k6", FIXED_TARGET):
         out["vtr_commit"] = str(tools.get("vtr_commit_reason", "not recorded"))
     return out
 

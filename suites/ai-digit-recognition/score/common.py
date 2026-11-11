@@ -37,8 +37,9 @@ def mem_cap_for(vpr_text, floor_gb=2, ceil_gb=8):
 
 def capped(argv, cwd=None, mem="2G", timeout=None, env=None):
     """Run under systemd-run --user --scope with a memory cap; return CompletedProcess."""
-    cmd = ["systemd-run", "--user", "--scope", "-q", "-p", f"MemoryMax={mem}",
-           "-p", "MemorySwapMax=0"] + [str(a) for a in argv]
+    sl = os.environ.get("ODIN3_HEAVY_SLICE")  # set by tools/heavy-run: stay inside its cap
+    cmd = ["systemd-run", "--user", "--scope", "-q"] + ([f"--slice={sl}"] if sl else []) + [
+        "-p", f"MemoryMax={mem}", "-p", "MemorySwapMax=0"] + [str(a) for a in argv]
     return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env)
 
 
