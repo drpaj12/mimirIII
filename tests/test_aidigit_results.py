@@ -31,7 +31,7 @@ class Load(unittest.TestCase):
         self.by = {(r["design"], r["target"]): r for r in self.data.rows}
 
     def test_row_counts_per_implementation(self) -> None:
-        want = {"I1": 6, "I3": 8, "I4": 6, "I6": 8, "I7": 10, "I8": 6}
+        want = {"I1": 9, "I3": 12, "I4": 9, "I6": 10, "I7": 15, "I8": 9}
         self.assertEqual(dict(self.data.per_impl()), want)
 
     def test_i1_n8_vtr_values_are_the_source_values(self) -> None:
@@ -136,11 +136,11 @@ class Import(unittest.TestCase):
     def test_import_is_idempotent_and_replaces(self) -> None:
         store, d = _store()
         data = aidigit.load(SUITE)
-        self.assertEqual(aidigit.write(store, data), (44, len(data.nulls)))
+        self.assertEqual(aidigit.write(store, data), (64, len(data.nulls)))
         first = aidigit.read_rows(store.db)
         aidigit.write(store, data)
         self.assertEqual(aidigit.read_rows(store.db), first)
-        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 44)
+        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 64)
         aidigit.write(store, aidigit.Imported())  # an emptied input empties the suite's rows
         self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_null").fetchone()[0], 0)
         store.close()
@@ -149,7 +149,7 @@ class Import(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         self.assertEqual(main(["import-aidigit", "--db", str(d / "m.db")]), 0)
         db = sqlite3.connect(d / "m.db")
-        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 44)
+        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 64)
         db.close()
 
 
@@ -189,12 +189,12 @@ class MigrationV8(unittest.TestCase):
         db.close()
         ro = Store(d / "x.db", readonly=True)
         old = aidigit.read_rows(ro.db)
-        self.assertEqual(len(old), 44)
+        self.assertEqual(len(old), 64)
         self.assertNotIn("grid_w", old[0])
         ro.close()
         s = Store(d / "x.db")
         new = aidigit.read_rows(s.db)
-        self.assertEqual(len(new), 44)
+        self.assertEqual(len(new), 64)
         self.assertIsNone(new[0]["grid_w"])
         self.assertEqual({k: v for k, v in new[0].items() if k in old[0]}, old[0])
         s.close()
@@ -231,7 +231,7 @@ class Table(unittest.TestCase):
 
     def test_tex_is_booktabs_and_balanced(self) -> None:
         tex = aidigittable.render_tex(self.rows)
-        self.assertEqual(tex.count("\\toprule"), 2)
+        self.assertEqual(tex.count("\\toprule"), 3)
         self.assertEqual(tex.count("\\begin{table}"), tex.count("\\end{table}"))
         self.assertIn("mult\\_36", tex)
         self.assertIn("250$^\\dagger$", tex)
@@ -239,14 +239,14 @@ class Table(unittest.TestCase):
 
     def test_csv_has_one_line_per_row_and_all_columns(self) -> None:
         lines = aidigittable.render_csv(self.rows, self.nulls).splitlines()
-        self.assertEqual(len(lines), 45)
+        self.assertEqual(len(lines), 65)
         self.assertEqual(lines[0].split(",")[:3], ["suite", "design", "target"])
         self.assertTrue(lines[0].endswith(",null_reasons"))
         self.assertIn("area_alm: quartus not run here", "\n".join(lines))
 
     def test_plots_exclude_missing_points_and_mark_front(self) -> None:
         plots = {f: svg for f, _, svg in aidigittable.render_plots(self.rows)}
-        self.assertEqual(len(plots), 3)
+        self.assertEqual(len(plots), 5)
         svg = plots["pareto-accuracy-lut.svg"]
         self.assertNotIn(">nl-A<", svg)
         self.assertIn(">tl-T3<", svg)
@@ -259,6 +259,9 @@ class Table(unittest.TestCase):
         for name in ("TABLE.md", "TABLE.csv", "TABLE.tex"):
             self.assertEqual((docs / name).read_text(encoding="utf-8"),
                              (out / name).read_text(encoding="utf-8"), name)
+        for sheet in (out / "datasheets").iterdir():
+            self.assertEqual((docs / "datasheets" / sheet.name).read_text(encoding="utf-8"),
+                             sheet.read_text(encoding="utf-8"), sheet.name)
         for svg in (out / "plots").iterdir():
             self.assertEqual((docs / "plots" / svg.name).read_text(encoding="utf-8"),
                              svg.read_text(encoding="utf-8"), svg.name)
