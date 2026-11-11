@@ -82,6 +82,7 @@ EXEMPT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("aidigit_result", "vtr_commit"), ("aidigit_result", "arch_file"),
     ("aidigit_result", "design_source"), ("aidigit_result", "design_source_commit"),
     ("aidigit_result", "run_date"), ("aidigit_result", "result_tier"),
+    ("aidigit_result", "odin_sim_status"), ("aidigit_result", "odin_sim_build"),
     ("aidigit_null", "suite"), ("aidigit_null", "design"), ("aidigit_null", "target"),
     ("aidigit_null", "field"),
 )  # run.host has its own rule (`alias_host_value`)

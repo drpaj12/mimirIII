@@ -7,13 +7,13 @@
 
 [results]
 suite = "ai-digit-recognition"
-files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl", "bnn-vtr.jsonl", "bnn-lpm.jsonl", "fixed-vtr.jsonl"]
+files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl", "bnn-vtr.jsonl", "bnn-lpm.jsonl", "fixed-vtr.jsonl", "odin-sim.jsonl"]
 
 # Tool provenance of every row of the files above (docs/RESULTS.md, header paragraph).
 [tools]
 odin3_build = "1.6.1 pre-release (build rel-v161pre)"
 odin3_commit = "59349797"
-vtr_commit_reason = "VTR from the workspace checkout; its commit is not recorded in the result rows"
+vtr_commit = "3c9a4d23b2"
 run_date_reason = "the result rows carry no run date"
 
 # Grid layout of each architecture file named in a result row (`tools.arch`), copied from the

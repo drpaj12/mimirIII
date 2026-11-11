@@ -31,6 +31,7 @@ from mimir.meta import (
     register_designs,
 )
 from mimir.registry import load_registry
+from mimir.schema import SCHEMA_VERSION
 from mimir.sets import SETS
 from mimir.store import Store
 
@@ -329,7 +330,7 @@ def _cmd_migrate(args: argparse.Namespace) -> int:
     db.close()
     old = None if row is None else str(row[0])
     Store(args.db).close()
-    print(f"{args.db}: schema version {old} -> 8")
+    print(f"{args.db}: schema version {old} -> {SCHEMA_VERSION}")
     return 0
 
 

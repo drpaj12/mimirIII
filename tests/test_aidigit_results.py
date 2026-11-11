@@ -167,7 +167,7 @@ class Migration(unittest.TestCase):
         ro.close()
         s = Store(d / "x.db")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "9")
+        self.assertEqual(v, "10")
         self.assertTrue(aidigit.has_tables(s.db))
         s.close()
 
