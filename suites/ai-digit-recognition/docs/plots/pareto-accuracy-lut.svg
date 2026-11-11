@@ -12,6 +12,11 @@
 <line x1="64" x2="490" y1="66.5" y2="66.5" stroke="#e3e5e8"/><text x="58" y="70.5" text-anchor="end" fill="#6b7280">99</text>
 <text x="277" y="412" text-anchor="middle" fill="#2b2f36">LUTs (log scale)</text>
 <text transform="translate(14 204) rotate(-90)" text-anchor="middle" fill="#2b2f36">top-1 accuracy (%)</text>
+<g><title>bnn-M-f1: 33,092, 97.77 %</title><circle cx="387.7" cy="104.1" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="394.7" y="98.1" fill="#2b2f36">bnn-M-f1</text></g>
+<g><title>bnn-M-f2: 34,620, 97.77 %</title><circle cx="391.9" cy="104.1" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="398.9" y="98.1" fill="#2b2f36">bnn-M-f2</text></g>
+<g><title>bnn-S-f1: 5,560, 94.44 %</title><circle cx="222.7" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="229.7" y="199.8" fill="#2b2f36">bnn-S-f1</text></g>
+<g><title>bnn-S-f2: 7,594, 94.44 %</title><circle cx="251.5" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="258.5" y="199.8" fill="#2b2f36">bnn-S-f2</text></g>
+<g><title>bnn-S-par: 8,572, 94.44 %</title><circle cx="262.7" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="269.7" y="199.8" fill="#2b2f36">bnn-S-par</text></g>
 <g><title>i1-tpu-n2: 3,955, 98.74 %</title><circle cx="191.2" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="198.2" y="68.5" fill="#2b2f36">i1-tpu-n2</text></g>
 <g><title>i1-tpu-n4: 4,796, 98.74 %</title><circle cx="209.0" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="216.0" y="68.5" fill="#2b2f36">i1-tpu-n4</text></g>
 <g><title>i1-tpu-n8: 8,268, 98.74 %</title><circle cx="259.4" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="266.4" y="68.5" fill="#2b2f36">i1-tpu-n8</text></g>
