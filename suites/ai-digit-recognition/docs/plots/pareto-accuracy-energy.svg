@@ -18,6 +18,7 @@
 <text transform="translate(14 204) rotate(-90)" text-anchor="middle" fill="#2b2f36">top-1 accuracy (%)</text>
 <polyline points="64.9,291.7 124.0,150.2 159.9,108.1 192.4,104.1 228.3,74.5" fill="none" stroke="#6b7280" stroke-dasharray="4 3"/>
 <g><title>bnn-M-f1: 6.44, 97.77 %</title><circle cx="192.4" cy="104.1" r="5" fill="#2b2f36" stroke="#2b2f36" stroke-width="1.5"/><text x="199.4" y="98.1" fill="#2b2f36">bnn-M-f1</text></g>
+<g><title>bnn-M-f2: 13.2, 97.77 %</title><circle cx="214.6" cy="104.1" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="221.6" y="98.1" fill="#2b2f36">bnn-M-f2</text></g>
 <g><title>bnn-S-f1: 0.967, 94.44 %</title><circle cx="134.0" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="141.0" y="199.8" fill="#2b2f36">bnn-S-f1</text></g>
 <g><title>bnn-S-f2: 1.18, 94.44 %</title><circle cx="140.2" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="147.2" y="199.8" fill="#2b2f36">bnn-S-f2</text></g>
 <g><title>bnn-S-par: 5.48, 94.44 %</title><circle cx="187.5" cy="205.8" r="5" fill="#ffffff" stroke="#2b2f36" stroke-width="1.5"/><text x="194.5" y="199.8" fill="#2b2f36">bnn-S-par</text></g>

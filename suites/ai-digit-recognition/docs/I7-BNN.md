@@ -96,9 +96,10 @@ Reading (no hypotheses; questions come later):
 - `odin3-flow` got `--top mnist_top` in `score/vtr_leg.py` from M-f1 on (Peter 2026-11-10: the top is declared);
   S-par, S-f1, S-f2 and M-f2 ran before that change without it (Odin chose the same top; the BLIF is the same
   design).
-- M-f2 power is null: `vpr --power` at W = 320 stopped without a message while building the routing resource
-  graph for the 125 x 125 grid (`work/M-f2/vtr/power/vpr_stdout.log` ends at "Build routing resource graph"; no
-  error text; the 4 GB cap is the probable cause, not verified). M-f1 (78 x 78) ran at the same W.
+- M-f2 power: the first `vpr --power` run (W = 320) died silently at "Build routing resource graph". Cause: the
+  power step of `score/vtr_leg.py` runs under `capped()` with its default 2 GB cap (not the 4 GB first guessed); the
+  rerun peaked at 2.9 GB RSS. Rerun alone (ACE2 + VPR --power, same blif, W = 320, 8 GB cap): total 759.2 mW,
+  dynamic 206.5 mW, static 552.7 mW, 13.213 uJ per image. M-f1 (78 x 78) fit under 2 GB at the same W.
 - VPR time is large for the M designs because of the wide channel (M-f2 routing about 2 h, M-f1 about 1.5 h).
 - The LPM netlists were generated (purity and read-back checks as in the other rows); Cyclone V fit, timing and
   power are parked (Peter 2026-11-10).
