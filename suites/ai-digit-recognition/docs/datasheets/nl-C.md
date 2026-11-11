@@ -65,7 +65,7 @@ Not run for this design.
 | Simulator | Result |
 |---|---|
 | Verilator, RTL | full tier, 10,000 images, class match 10,000 |
-| Odin III `sim_tb`, RTL, quick tier | not run |
+| Odin III `sim_tb`, RTL | not run |
 
 ## Provenance
 
