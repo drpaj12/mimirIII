@@ -30,7 +30,8 @@ def run(setting, tier, work, vec=None, sim="verilator", mem="4G"):
     if sim == "iverilog":
         res, err = C.sim_iverilog(info["sources"], vec, run_dir, defines=defs)
     else:
-        res, err = C.sim_verilator(info["sources"], vec, run_dir, defines=defs, mem=mem, fast=True)
+        res, err = C.sim_verilator(info["sources"], vec, run_dir, defines=defs, mem=mem, fast=True,
+                                   timeout=172800)
     return {"design": f"i2-{setting}", "tier": tier, "sim": sim, "result": res, "error": err}
 
 
