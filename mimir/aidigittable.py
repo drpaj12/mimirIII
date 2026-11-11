@@ -11,7 +11,7 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
-from mimir import benchplot
+from mimir import aidigitsheet, benchplot
 from mimir.schema import AIDIGIT_COLUMNS
 
 Row = dict[str, Any]
@@ -38,7 +38,7 @@ FIXED_TARGET = "vtr-k6-fixed"
 FIXED_COLS = (
     ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
     ("Top-1 %", "acc_top1", "pct", "Top-1 (\\%)"), ("Grid", "grid", "s", "Grid"),
-    ("W", "power_channel_width", "w", "$W$"), ("CLB", "area_clb", "i", "CLB"),
+    ("W", "power_channel_width", "i", "$W$"), ("CLB", "area_clb", "i", "CLB"),
     ("CLB use %", "clb_util_pct", "f1", "CLB use (\\%)"),
     ("Fmax MHz", "speed_fmax_mhz", "f1", "Fmax (MHz)"),
     ("Wirelength", "area_wirelength", "i", "Wirelength"),
@@ -311,11 +311,13 @@ def write_all(rows: list[Row], nulls: dict[tuple[str, str, str], str], out_dir: 
     """Write TABLE.md, TABLE.csv, TABLE.tex and plots/*.svg under out_dir; return the paths."""
     plots = render_plots(rows)
     (out_dir / "plots").mkdir(parents=True, exist_ok=True)
+    (out_dir / "datasheets").mkdir(parents=True, exist_ok=True)
     files = {
         out_dir / "TABLE.md": render_md(rows, [(t, f"plots/{f}") for f, t, _ in plots], nulls),
         out_dir / "TABLE.csv": render_csv(rows, nulls),
         out_dir / "TABLE.tex": render_tex(rows),
         **{out_dir / "plots" / f: svg for f, _, svg in plots},
+        **aidigitsheet.write_all(rows, nulls, out_dir),
     }
     for path, text in files.items():
         path.write_text(text, encoding="utf-8", newline="\n")

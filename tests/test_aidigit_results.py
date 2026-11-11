@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import json
 import os
 import shutil
 import sqlite3
@@ -12,7 +13,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from mimir import aidigit, aidigittable
+from mimir import aidigit, aidigitsheet, aidigittable
 from mimir.cli import main
 from mimir.store import Store
 
@@ -287,6 +288,73 @@ class Fixes(unittest.TestCase):
         self.assertEqual(common.mem_cap_for("(max_rss 300.0 MiB)"), "2G")
         self.assertEqual(common.mem_cap_for("max_rss 100.0 MiB\nmax_rss 2538.0 MiB"), "5G")
         self.assertEqual(common.mem_cap_for("max_rss 9000.0 MiB"), "8G")
+
+
+class FixedAndOdin(unittest.TestCase):
+    def _suite(self) -> Path:
+        d = Path(tempfile.mkdtemp()) / "suite"
+        (d / "results").mkdir(parents=True)
+        for name in ("implementations.toml", "pins.toml"):
+            shutil.copy(SUITE / name, d / name)
+        for f in (SUITE / "results").glob("*.jsonl"):
+            shutil.copy(f, d / "results" / f.name)
+        return d
+
+    def test_fixed_row_and_odin_row_are_imported(self) -> None:
+        d = self._suite()
+        fixed = {"schema": 1, "design": "i3-df-p1", "target": "vtr-k6-fixed", "tier": "quick",
+                 "area": {"luts": 1481, "ffs": 1452, "clbs": 180, "adders": 787, "grid": [170, 170],
+                          "min_chan_width": None, "wirelength": 22427, "dsp_mult36": 10,
+                          "ram_blocks": 28},
+                 "speed": {"crit_path_ns": 6.7, "fmax_mhz": 149.1, "cycles_per_img": 182666,
+                           "latency_us": 1224.9},
+                 "power": {"total_mw": 1313.0, "dynamic_mw": 407.7, "static_mw": 905.3,
+                           "energy_uj_per_img": 1608.2,
+                           "method": "ACE2 vectorless (-s 1) + VPR --power, W=320, fixed grid"},
+                 "tools": {"arch": "k6_frac_N10_frac_chain_mem32K_40nm.xml"},
+                 "null_reason": {"area.min_chan_width": "not searched: channel width fixed at 320"},
+                 "accuracy": None, "notes": []}
+        odin = {"schema": 1, "design": "i3-df-p1", "odin3_build": "odin3 1.6.1 (rel-v161)",
+                "odin_sim": {"n": 100, "class_match": 100, "score_match": 100,
+                             "cycles_total": 1000, "wall_s": 10.0}, "error": None}
+        bad = {"schema": 1, "design": "i3-df-p2", "odin3_build": "odin3 1.6.1 (rel-v161)",
+               "odin_sim": None, "error": "exit 1: odin3: error: unsupported cell"}
+        (d / "results" / "fixed-vtr.jsonl").write_text(json.dumps(fixed) + "\n")
+        (d / "results" / "odin-sim.jsonl").write_text(json.dumps(odin) + "\n"
+                                                      + json.dumps(bad) + "\n")
+        data = aidigit.load(d)
+        rows = {(r["design"], r["target"]): r for r in data.rows}
+        fx = rows[("i3-df-p1", "vtr-k6-fixed")]
+        self.assertEqual((fx["area_grid"], fx["power_channel_width"], fx["grid_w"]),
+                         ("170x170", 320, 170))
+        self.assertEqual(fx["vtr_commit"], "3c9a4d23b2")
+        self.assertAlmostEqual(fx["clb_util_pct"], 180 / aidigit.clb_tiles(
+            aidigit.load_layouts(d)["k6_frac_N10_frac_chain_mem32K_40nm.xml"], 170, 170) * 100)
+        nulls = {(a, b, c): w for a, b, c, w in data.nulls}
+        self.assertIn("not searched", nulls[("i3-df-p1", "vtr-k6-fixed", "area_min_chan_width")])
+        ok = rows[("i3-df-p1", "vtr-k6")]
+        self.assertEqual((ok["odin_sim_status"], ok["odin_sim_class_match"]), ("pass", 100))
+        self.assertAlmostEqual(ok["odin_sim_cycles_per_s"], 100.0)
+        err = rows[("i3-df-p2", "vtr-k6")]
+        self.assertEqual(err["odin_sim_status"], "error")
+        self.assertIn("unsupported cell", nulls[("i3-df-p2", "vtr-k6", "odin_sim_n")])
+        s = Store(d / "s.db")
+        aidigit.write(s, data)
+        self.assertEqual(len(aidigit.read_rows(s.db)), 45)
+        s.close()
+
+    def test_datasheet_per_design(self) -> None:
+        d = self._suite()
+        s = Store(d / "s.db")
+        aidigit.write(s, aidigit.load(d))
+        rows, nulls = aidigit.read_rows(s.db), aidigit.read_nulls(s.db)
+        s.close()
+        sheets = aidigitsheet.write_all(rows, nulls, d / "docs")
+        self.assertEqual(len(sheets), 22)
+        text = sheets[d / "docs" / "datasheets" / "i1-tpu-n8.md"]
+        self.assertIn("# Datasheet: i1-tpu-n8", text)
+        self.assertIn("3c9a4d23b2", text)
+        self.assertIn("Odin III `sim_tb`, RTL, quick tier | not run", text)
 
 
 if __name__ == "__main__":

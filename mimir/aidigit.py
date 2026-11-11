@@ -41,8 +41,8 @@ COMMON_FIELDS = ("acc_n", "acc_top1", "acc_class_match", "acc_score_match", "spe
 # the fixed-device leg (tools/fixed_device.py) routes at a given W and runs no netlist simulation
 VTR_TARGET = "vtr-k6"
 FIXED_TARGET = "vtr-k6-fixed"
-FIXED_FIELDS = tuple(f for f in VTR_FIELDS if f not in (
-    "area_min_chan_width", "acc_netlist_n", "acc_netlist_class_match"))
+FIXED_FIELDS = tuple(f for f in VTR_FIELDS
+                     if f not in ("acc_netlist_n", "acc_netlist_class_match"))
 ODIN_FIELDS = ("odin_sim_n", "odin_sim_class_match", "odin_sim_score_match",
                "odin_sim_cycles_per_s")
 TARGET_FIELDS = {"vtr-k6": VTR_FIELDS, FIXED_TARGET: FIXED_FIELDS, "cyclonev-lpm": LPM_FIELDS,
