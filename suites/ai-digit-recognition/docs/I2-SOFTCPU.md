@@ -47,7 +47,7 @@ Tiers: quick = 100 images, full = 10,000 images. Verilator everywhere. "Top-1" i
 | Setting | Cycles/img | Quick (100) class / score / top-1 | Full (10,000) class / score / top-1 |
 |---|---|---|---|
 | i2-pico-fm | 5,667,193 | 100 / 100 / 98 | 10000 / 10000 / 9874: PASS |
-| i2-pico-m | 11,904,561 | 100 / 100 / 98 | PICOM_FULL |
+| i2-pico-m | 11,904,561 | 100 / 100 / 98 | not finished (see below) |
 | i2-pico-i-tab | 21,619,520 | 100 / 100 / 98 | 10000 / 10000 / 9874: PASS |
 | i2-pico-i-gcc | 35,714,755 | 100 / 100 / 98 | not run (quick tier only) |
 | i2-brisc-i-tab | 8,165,741 | 100 / 100 / 98 | 10000 / 10000 / 9874: PASS |
@@ -77,6 +77,11 @@ LPM netlist is not simulated (the library stubs are empty), as for I1.
 
 - The full tier was not run for `i2-pico-i-gcc` and `i2-brisc-i-gcc`. They need about 36 and 15 million cycles per
   image and add nothing to the bit-exact claim; their rows say "quick" in the accuracy tier column.
+- `i2-pico-m` full tier: not finished. The first run stopped at the old 6 h limit. The rerun with the 48 h limit
+  was lost on 2026-11-11: the lane's own `pkill -f "run_i2.py pico-m full"` ended the Python wrapper that was
+  waiting for the simulator, so its result was never written (most likely cause; the simulator output goes to that
+  wrapper, and no out-of-memory or time-limit message is in the logs). A third run was queued through `heavy-run` on
+  2026-11-12. Until it ends, the accuracy tier of this setting is "quick" (100 images, bit-exact).
 - `i2-pico-m` has no area, speed or power row because Odin III cannot read the ENABLE_MUL multiplier (next section).
   Its quick-tier simulation is bit-exact.
 - iverilog on the quick tier: only `i2-pico-fm` finished (10,951 s). The other three runs stopped at the 21,600 s limit,
