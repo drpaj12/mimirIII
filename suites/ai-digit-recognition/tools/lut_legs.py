@@ -1,4 +1,4 @@
-"""Score one generated LUT-network design.
+"""Score one generated design (I6/I8 LUT network; I7 BNN: one mnist_top.v, no *_all.v).
 
 RTL simulation (both tiers on Verilator: iverilog needs 2.7 min for NeuraLUT B quick and over
 25 min for TreeLUT T2 quick), then the VTR leg and the LPM leg on the quick tier (Odin III
@@ -40,7 +40,8 @@ def main(argv):
     # One file: score/vtr_leg.py runs one `read_verilog` per source and Odin III does not resolve a
     # module across two such commands.
     flat = build / "flat.v"
-    flat.write_text(next(build.glob("*_all.v")).read_text() + (build / "mnist_top.v").read_text())
+    cores = sorted(build.glob("*_all.v"))
+    flat.write_text("".join(c.read_text() for c in cores) + (build / "mnist_top.v").read_text())
     src = [flat]
     quick = res / f"{design}-quick.json"
     common = [

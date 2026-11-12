@@ -137,6 +137,8 @@ def main():
         got = json.loads(Path(a.rtl_result).read_text())
         rtl, err = got["result"], got["error"]
         row["accuracy"] = {"rtl_" + got["sim"]: rtl}
+        if got.get("pipe"):
+            row["accuracy"]["rtl_" + got["sim"] + "_pipelined"] = got["pipe"]
         if err:
             nr["accuracy.rtl_" + got["sim"]] = err
     else:
@@ -147,6 +149,8 @@ def main():
             nr["accuracy.rtl_iverilog"] = err
     if rtl:
         row["speed"] = {"cycles_per_img": rtl["cycles_per_img"]}
+        if a.rtl_result and (got.get("pipe") or {}).get("ii_cycles"):
+            row["speed"]["ii_cycles"] = got["pipe"]["ii_cycles"]
 
     flow_out = work / "flow"
     if flow_out.exists():
@@ -165,7 +169,7 @@ def main():
         env["ODIN3_SHARE"] = str(importlib.import_module("make_share").make(tree, work / "share"))
         row["notes"].append("flow ran with an ODIN3_SHARE whose lpm.o3lib declares the altsyncram "
                             "parameters/ports Odin III 1.6.1 lacks (tools/make_share.py)")
-    r = C.capped(cmd, timeout=6 * 3600, mem="4G", env=env)
+    r = C.capped(cmd, timeout=6 * 3600, mem=C.FLOW_MEM, env=env)
     work.mkdir(parents=True, exist_ok=True)
     (work / "flow.log").write_text(r.stdout + r.stderr)
     net = flow_out / "odin3" / f"{a.top}.v"

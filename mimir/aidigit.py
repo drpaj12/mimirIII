@@ -26,7 +26,8 @@ Json = dict[str, Any]
 Row = dict[str, Any]
 
 # columns a target fills from its own leg; a NULL among them needs a reason
-VTR_FIELDS = ("area_lut", "area_ff", "area_adder", "area_clb", "area_mult36", "area_ram_blocks",
+VTR_FIELDS = ("grid_w", "grid_h", "grid_tiles", "clb_tiles", "clb_util_pct", "area_lut",
+              "area_ff", "area_adder", "area_clb", "area_mult36", "area_ram_blocks",
               "area_grid", "area_min_chan_width", "area_wirelength", "speed_fmax_mhz",
               "speed_crit_path_ns", "speed_latency_us", "speed_ii_cycles", "speed_images_per_s",
               "power_total_mw", "power_dynamic_mw", "power_static_mw", "power_method",
@@ -37,13 +38,23 @@ LPM_FIELDS = ("lpm_mult", "lpm_add_sub", "lpm_compare", "lpm_altsyncram", "lpm_s
               "speed_fmax_mhz", "speed_latency_us", "power_total_mw", "energy_uj_per_img")
 COMMON_FIELDS = ("acc_n", "acc_top1", "acc_class_match", "acc_score_match", "speed_cycles_per_img",
                  "speed_init_cycles", "odin3_build", "odin3_commit", "rtl_sha256", "run_date")
-TARGET_FIELDS = {"vtr-k6": VTR_FIELDS, "cyclonev-lpm": LPM_FIELDS, RTL_TARGET: ()}
+# the fixed-device leg (tools/fixed_device.py) routes at a given W and runs no netlist simulation
+VTR_TARGET = "vtr-k6"
+FIXED_TARGET = "vtr-k6-fixed"
+FIXED_FIELDS = tuple(f for f in VTR_FIELDS
+                     if f not in ("acc_netlist_n", "acc_netlist_class_match"))
+ODIN_FIELDS = ("odin_sim_n", "odin_sim_class_match", "odin_sim_score_match",
+               "odin_sim_cycles_per_s")
+TARGET_FIELDS = {"vtr-k6": VTR_FIELDS, FIXED_TARGET: FIXED_FIELDS, "cyclonev-lpm": LPM_FIELDS,
+                 RTL_TARGET: ()}
 # source null_reason keys that explain a column, by column prefix (first key present wins)
 REASON_KEYS = (
     ("area_alm", ("area.alm", "area")), ("area_dsp_blocks", ("area.dsp_blocks", "area")),
     ("area_m10k_blocks", ("area.m10k_blocks", "area")), ("acc_netlist",
      ("accuracy.netlist_odin_sim", "accuracy.netlist", "area")),
-    ("area_", ("area",)), ("lpm_", ("area",)), ("netlist_bytes", ("area",)),
+    ("area_min_chan_width", ("area.min_chan_width", "area")),
+    ("grid_", ("area",)), ("clb_", ("area",)), ("area_", ("area",)), ("lpm_", ("area",)),
+    ("netlist_bytes", ("area",)),
     ("arch_file", ("area",)), ("speed_", ("speed",)), ("power_", ("power",)),
     ("energy_", ("power",)),
 )
@@ -57,6 +68,42 @@ class Imported:
 
     def per_impl(self) -> Counter[str]:
         return Counter(r["impl_id"] for r in self.rows)
+
+
+def clb_tiles(layout: Json, width: int, height: int) -> int:
+    """clb tiles of VPR's auto-sized grid `width` x `height` (IO ring included). The IO ring takes
+    the outer tile on each side; every column of a hard block (`layout.columns`, from the arch's
+    auto_layout `<col>` lines: first x `startx`, every `repeatx`) that fits inside the ring takes
+    the whole interior height (a block that does not fit leaves EMPTY tiles, not clbs); the rest of
+    the interior is clb. Checked against the clb count VPR prints for 18 grids (see the spec
+    2026-11-10-ai-digit-grid.md)."""
+    ring = int(layout["io_ring"])
+    inner_w, inner_h = width - 2 * ring, height - 2 * ring
+    taken = sum(len(range(int(c["startx"]), width - ring, int(c["repeatx"])))
+                for c in layout["columns"])
+    return inner_h * (inner_w - taken)
+
+
+def load_layouts(suite: Path) -> Json:
+    """The `[arch_layout]` tables of a suite's implementations.toml, by arch file name."""
+    cfg = tomllib.loads((suite / "implementations.toml").read_text(encoding="utf-8"))
+    return dict(cfg.get("arch_layout", {}))
+
+
+def _grid_cols(area: Json, layouts: Json, arch: str | None) -> Row:
+    """Device-size columns of a VPR leg: grid W x H, tiles, clb tiles, clb use in percent."""
+    grid = area.get("grid")
+    if not grid:
+        return {}
+    w, h = int(grid[0]), int(grid[1])
+    out: Row = {"grid_w": w, "grid_h": h, "grid_tiles": w * h}
+    layout = layouts.get(arch or "")
+    if layout is not None:
+        tiles = clb_tiles(layout, w, h)
+        out["clb_tiles"] = tiles
+        if area.get("clbs") is not None:
+            out["clb_util_pct"] = area["clbs"] / tiles * 100
+    return out
 
 
 def has_tables(db: sqlite3.Connection) -> bool:
@@ -99,6 +146,29 @@ def _accuracy_pool(rows: list[tuple[str, int, Json]]) -> dict[str, Json]:
     return {d: {**res, "_tier": tier} for d, (_, res, tier) in best.items()}
 
 
+def _odin_pool(rows: list[tuple[str, int, Json]]) -> dict[str, Json]:
+    """Odin III `sim_tb` result per design, from the rows of `results/odin-sim.jsonl` (key
+    `odin_sim`); the last row of a design wins. A property of the RTL, like accuracy."""
+    return {r["design"]: r for _, _, r in rows if "odin_sim" in r}
+
+
+def _odin_cols(row: Json | None) -> Row:
+    if not row:
+        return {}
+    res = row["odin_sim"]
+    out: Row = {"odin_sim_build": row.get("odin3_build")}
+    if res is None:
+        out["odin_sim_status"] = "error"
+        return out
+    n = res["n"]
+    out.update(odin_sim_status="pass" if res["class_match"] == n and res["score_match"] == n
+               else "mismatch", odin_sim_n=n, odin_sim_class_match=res["class_match"],
+               odin_sim_score_match=res["score_match"], odin_sim_wall_s=res.get("wall_s"))
+    if res.get("wall_s") and res.get("cycles_total"):
+        out["odin_sim_cycles_per_s"] = res["cycles_total"] / res["wall_s"]
+    return out
+
+
 def _accuracy_cols(res: Json | None) -> Row:
     if not res:
         return {}
@@ -109,7 +179,7 @@ def _accuracy_cols(res: Json | None) -> Row:
             "speed_cycles_per_img": res.get("cycles_per_img")}
 
 
-def _leg_cols(row: Json) -> Row:
+def _leg_cols(row: Json, layouts: Json) -> Row:
     area, speed, power = row.get("area") or {}, row.get("speed") or {}, row.get("power") or {}
     lpm = row.get("lpm_cells")
 
@@ -137,8 +207,9 @@ def _leg_cols(row: Json) -> Row:
         "speed_fmax_mhz": speed.get("fmax_mhz"), "speed_crit_path_ns": speed.get("crit_path_ns"),
         "speed_cycles_per_img": speed.get("cycles_per_img"),
         "speed_latency_us": speed.get("latency_us"),
-        "speed_ii_cycles": speed.get("cycles_per_img")
-        if "initiation interval = cycles_per_img" in note else None,
+        "speed_ii_cycles": speed.get("ii_cycles") or (speed.get("cycles_per_img")
+                                                       if "initiation interval = cycles_per_img"
+                                                       in note else None),
         "speed_images_per_s": speed.get("images_per_s"),
         "power_total_mw": power.get("total_mw"), "power_dynamic_mw": power.get("dynamic_mw"),
         "power_static_mw": power.get("static_mw"), "power_method": method,
@@ -146,6 +217,7 @@ def _leg_cols(row: Json) -> Row:
         "energy_uj_per_img": power.get("energy_uj_per_img"),
         "acc_netlist_n": _num(net, "n"), "acc_netlist_class_match": _num(net, "class_match"),
         "arch_file": (row.get("tools") or {}).get("arch"),
+        **_grid_cols(area, layouts, (row.get("tools") or {}).get("arch")),
     }
     return {k: v for k, v in out.items() if v is not None}
 
@@ -167,7 +239,7 @@ def _design_cols(entry: Json, pins: dict[str, Json], tools: Json) -> Row:
         "model_kind": entry["model_kind"], "acc_ref": entry["acc_ref"],
         "design_source": entry["design_source"], "design_source_commit": src.get("commit"),
         "rtl_sha256": entry.get("rtl_sha256"), "odin3_build": tools.get("odin3_build"),
-        "odin3_commit": tools.get("odin3_commit"),
+        "odin3_commit": tools.get("odin3_commit")
     }
     return {k: v for k, v in out.items() if v is not None}
 
@@ -178,32 +250,40 @@ def _provenance_nulls(entry: Json, tools: Json, row: Row, target: str) -> dict[s
         out["rtl_sha256"] = str(entry.get("rtl_sha256_reason", "no hash recorded"))
     if row.get("run_date") is None:
         out["run_date"] = str(tools.get("run_date_reason", "not recorded"))
-    if target == "vtr-k6":
+    if target in (VTR_TARGET, FIXED_TARGET) and row.get("vtr_commit") is None:
         out["vtr_commit"] = str(tools.get("vtr_commit_reason", "not recorded"))
     return out
 
 
-Ctx = tuple[Json, dict[str, Json], Json, dict[str, Json]]
+Ctx = tuple[Json, dict[str, Json], Json, dict[str, Json], Json, dict[str, Json]]
 Leg = tuple[str, int, Json]
 
 
 def _build_row(design: str, target: str, leg: Leg | None,
                ctx: Ctx) -> tuple[Row, dict[str, str]]:
-    entries, pins, tools, acc = ctx
+    entries, pins, tools, acc, layouts, odin = ctx
     entry = entries[design]
     row: Row = {c: None for c in COLS}
     row.update(_design_cols(entry, pins, tools))
     row.update(_accuracy_cols(acc.get(design)))
+    row.update(_odin_cols(odin.get(design)))
+    if target in (VTR_TARGET, FIXED_TARGET) and tools.get("vtr_commit"):
+        row["vtr_commit"] = tools["vtr_commit"]
     source: Json = {}
     if leg is not None:
         fname, line, src = leg
-        row.update(_leg_cols(src))
+        row.update(_leg_cols(src, layouts))
         row["result_tier"], row["origin"] = src.get("tier", ""), f"results/{fname}:{line}"
         source = src.get("null_reason") or {}
     row["suite"], row["design"], row["target"] = "ai-digit-recognition", design, target
     if leg is None:
         row["result_tier"], row["origin"] = acc[design]["_tier"], "results/rtl.jsonl"
     nulls = _provenance_nulls(entry, tools, row, target)
+    why_odin = str((odin.get(design) or {}).get("error")
+                    or "Odin III sim_tb not run on this design")
+    for col in ODIN_FIELDS:
+        if row.get(col) is None:
+            nulls[col] = why_odin
     for col in COMMON_FIELDS + TARGET_FIELDS[target]:
         if row.get(col) is None and col not in nulls:
             nulls[col] = _reason(col, source, target)
@@ -231,7 +311,8 @@ def load(suite: Path) -> Imported:
     if unknown:
         raise ValueError(f"designs without an entry in implementations.toml: {', '.join(unknown)}")
     acc = _accuracy_pool([(f, n, r) for f, n, r in legs])
-    ctx = (entries, pins, cfg.get("tools", {}), acc)
+    ctx = (entries, pins, cfg.get("tools", {}), acc, cfg.get("arch_layout", {}),
+           _odin_pool(legs))
     by_key: dict[tuple[str, str], tuple[str, int, Json]] = {}
     for item in legs:
         if "target" not in item[2]:

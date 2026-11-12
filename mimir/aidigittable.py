@@ -11,7 +11,7 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
-from mimir import benchplot
+from mimir import aidigitsheet, benchplot
 from mimir.schema import AIDIGIT_COLUMNS
 
 Row = dict[str, Any]
@@ -23,15 +23,34 @@ DAGGER = "\u2020"
 VTR_COLS = (
     ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
     ("Setting", "setting", "s", ""), ("Top-1 %", "acc_top1", "pct", "Top-1 (\\%)"),
-    ("Images", "acc_n", "i", "Images"), ("LUT", "area_lut", "i", "LUT"),
-    ("FF", "area_ff", "i", "FF"), ("CLB", "area_clb", "i", "CLB"),
+    ("Images", "acc_n", "i", "Images"), ("Grid", "grid", "s", "Grid"),
+    ("LUT", "area_lut", "i", "LUT"), ("FF", "area_ff", "i", "FF"), ("CLB", "area_clb", "i", "CLB"),
     ("mult_36", "area_mult36", "i", "mult\\_36"), ("RAM blk", "area_ram_blocks", "i", "RAM"),
     ("min W", "area_min_chan_width", "i", "min $W$"),
+    ("CLB use %", "clb_util_pct", "f1", "CLB use (\\%)"),
     ("Fmax MHz", "speed_fmax_mhz", "f1", "Fmax (MHz)"),
     ("Cycles/img", "speed_cycles_per_img", "i", "Cycles/img"),
     ("Latency us", "speed_latency_us", "f1", "Latency ($\\mu$s)"),
     ("Power mW", "power_total_mw", "f1", "Power (mW)"), ("W", "power_channel_width", "w", "$W$"),
     ("Energy uJ/img", "energy_uj_per_img", "f3", "Energy ($\\mu$J/img)"),
+)
+FIXED_TARGET = "vtr-k6-fixed"
+FIXED_COLS = (
+    ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
+    ("Top-1 %", "acc_top1", "pct", "Top-1 (\\%)"), ("Grid", "grid", "s", "Grid"),
+    ("W", "power_channel_width", "i", "$W$"), ("CLB", "area_clb", "i", "CLB"),
+    ("CLB use %", "clb_util_pct", "f1", "CLB use (\\%)"),
+    ("Fmax MHz", "speed_fmax_mhz", "f1", "Fmax (MHz)"),
+    ("Wirelength", "area_wirelength", "i", "Wirelength"),
+    ("Latency us", "speed_latency_us", "f1", "Latency ($\\mu$s)"),
+    ("Power mW", "power_total_mw", "f1", "Power (mW)"),
+    ("Static mW", "power_static_mw", "f1", "Static (mW)"),
+    ("Energy uJ/img", "energy_uj_per_img", "f3", "Energy ($\\mu$J/img)"),
+)
+ODIN_COLS = (
+    ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
+    ("2-image tier", "odin", "s", "2 images"), ("Cycles/s", "odin_sim_cycles_per_s", "i", ""),
+    ("Wall s", "odin_sim_wall_s", "f1", ""), ("100-image quick tier", "odin_quick", "s", ""),
 )
 LPM_COLS = (
     ("Impl", "impl_id", "s", "Impl"), ("Design", "design", "s", "Design"),
@@ -58,6 +77,14 @@ FOOTNOTES = (
     "Cyclone V (5CSEMA5F31C6) fit, timing and power are parked (Quartus not run; Peter "
     "2026-11-10); that target shows Odin III LPM instance counts only. A type with no instance "
     "counts as 0.",
+    "Grid = VPR auto-sized square grid for k6_frac_N10 (10 BLEs per CLB); the largest resource "
+    "column (RAM, DSP or CLB) sets the size. min W = minimum routable channel width. CLB use = "
+    "CLBs used / CLB tiles of the grid (IO ring, RAM and mult_36 columns excluded).",
+    "Fixed device: every design placed and routed from its existing flow BLIF (no re-synthesis) "
+    "on one grid at one channel width (the numbers are in the heading of that table), power by "
+    "the same ACE2 + VPR model. The whole device leaks whatever the design uses, so static power "
+    "and energy per image are those of the full grid; a small design pays for the empty tiles. "
+    "CLB use % there is CLBs used / CLB tiles of the fixed grid.",
     "n/a = not measured. The reason for every n/a is in the store (table `aidigit_null`) and in "
     "the last column of TABLE.csv; e.g. nl-A and nl-C: the Odin III `abc` pass exceeds its 4 GiB "
     "budget.",
@@ -78,7 +105,24 @@ def _num(v: Any, fmt: str) -> str:
     return str(v)
 
 
+def _odin_cell(row: Row) -> str:
+    st, n = row.get("odin_sim_status"), row.get("odin_sim_n")
+    if st is None:
+        return "not run"
+    if st == "error":
+        return "error (cause in TABLE.csv)"
+    return f"{st}: class {row['odin_sim_class_match']}/{n}, score {row['odin_sim_score_match']}/{n}"
+
+
 def _cell(row: Row, key: str, fmt: str) -> str:
+    if key == "odin":
+        return _odin_cell(row)
+    if key == "odin_quick":
+        n = row.get("odin_sim_n")
+        return "running" if n is not None and n < 100 else (_odin_cell(row) if n else NA)
+    if key == "grid":
+        w, h = row.get("grid_w"), row.get("grid_h")
+        return NA if w is None or h is None else f"{w}x{h}"
     text = _num(row.get(key), fmt)
     if key == "power_channel_width" and row.get(key) not in (None, REF_W):
         return text + DAGGER
@@ -131,6 +175,12 @@ def render_tex(rows: list[Row]) -> str:
         _rows_for(rows, "cyclonev-lpm"), LPM_COLS,
         "AI digit recognition: Odin III LPM netlist instance counts for Cyclone V "
         "(Quartus fit, timing and power parked).", "tab:aidigit-lpm")
+    fixed_rows = _rows_for(rows, FIXED_TARGET)
+    if fixed_rows:
+        lpm += "\n\n" + _tex_table(
+            fixed_rows, FIXED_COLS,
+            "AI digit recognition on one fixed device: same grid and channel width for every "
+            "design, placed and routed from the flow BLIF of the table above.", "tab:aidigit-fixed")
     head = "% Generated by `mimir aidigit-table`; needs \\usepackage{booktabs}.\n"
     return head + vtr + "\n\n" + lpm + "\n"
 
@@ -144,9 +194,15 @@ def render_csv(rows: list[Row], nulls: dict[tuple[str, str, str], str]) -> str:
     for r in sorted(rows, key=lambda r: (r["impl_id"], r["design"], r["target"])):
         why = "; ".join(f"{f}: {w}" for (d, t, f), w in sorted(nulls.items())
                         if d == r["design"] and t == r["target"])
-        out.writerow(["" if r[n] is None else (repr(r[n]) if isinstance(r[n], float) else r[n])
+        out.writerow(["" if r.get(n) is None else (repr(r[n]) if isinstance(r[n], float) else r[n])
                       for n in names] + [why])
     return buf.getvalue()
+
+
+def _fixed_heading(fixed: list[Row]) -> str:
+    grids = sorted({_cell(r, "grid", "s") for r in fixed} - {NA})
+    widths = sorted({r["power_channel_width"] for r in fixed if r.get("power_channel_width")})
+    return f"grid {', '.join(grids)}, channel width W = {', '.join(str(w) for w in widths)}"
 
 
 def render_md(rows: list[Row], plots: list[tuple[str, str]], nulls: dict[tuple[str, str, str], str]
@@ -154,11 +210,20 @@ def render_md(rows: list[Row], plots: list[tuple[str, str]], nulls: dict[tuple[s
     counts = f"{len(rows)} rows from {len({r['design'] for r in rows})} designs"
     out = ["# Results table: AI digit recognition", "",
            "Generated by `mimir aidigit-table` from the Mimir store (table `aidigit_result`, "
-           f"schema 8); {counts}. Do not edit by hand; regenerate (see `README.md`, section "
+           f"schema 10); {counts}. Do not edit by hand; regenerate (see `README.md`, section "
            "Results table).", "", "## VTR k6 target", "",
            _md_table(_rows_for(rows, "vtr-k6"), VTR_COLS), "",
            "## Cyclone V target (Odin III LPM netlist)", "",
-           _md_table(_rows_for(rows, "cyclonev-lpm"), LPM_COLS), "", "## Notes", ""]
+           _md_table(_rows_for(rows, "cyclonev-lpm"), LPM_COLS), ""]
+    fixed = _rows_for(rows, FIXED_TARGET)
+    if fixed:
+        out += [f"## VTR k6 fixed device ({_fixed_heading(fixed)})", "",
+                _md_table(fixed, FIXED_COLS), ""]
+    odin = _rows_for(rows, "vtr-k6") or _rows_for(rows, "rtl")
+    if any(r.get("odin_sim_status") for r in odin):
+        out += ["## Odin III v1.6.1 simulation (`sim_tb` on the RTL)", "",
+                _md_table(odin, ODIN_COLS), ""]
+    out += ["## Notes", ""]
     out += [f"{i}. {t}" for i, t in enumerate(FOOTNOTES, 1)]
     out += ["", "## Pareto plots (VTR k6, front marked with filled dots)", ""]
     out += [f"![{title}]({path})\n" for title, path in plots]
@@ -171,7 +236,8 @@ def render_md(rows: list[Row], plots: list[tuple[str, str]], nulls: dict[tuple[s
 
 # ---- Pareto plots ------------------------------------------------------------------------------
 
-PALETTE = {"I1": "#3f5f86", "I6": "#b5651d", "I8": "#4a8a5a"}
+PALETTE = {"I1": "#3f5f86", "I2": "#2a8a8a", "I3": "#7a4fa0", "I4": "#a03f5a", "I6": "#b5651d",
+           "I7": "#8a7a1f", "I8": "#4a8a5a"}
 PW, PH, ML, MR, MT, MB = 640, 420, 64, 150, 36, 48
 
 
@@ -238,21 +304,26 @@ def _scatter(title: str, xlabel: str, pts: list[tuple[float, float, str, str]]) 
     return "\n".join(out) + "\n"
 
 
-PLOTS = (
+PLOTS = (  # (file, title, x label, column, target)
     ("pareto-accuracy-energy.svg", "Accuracy against energy per image (VTR k6)",
-     "energy per image (uJ)", "energy_uj_per_img"),
-    ("pareto-accuracy-lut.svg", "Accuracy against LUT count (VTR k6)", "LUTs", "area_lut"),
+     "energy per image (uJ)", "energy_uj_per_img", "vtr-k6"),
+    ("pareto-accuracy-lut.svg", "Accuracy against LUT count (VTR k6)", "LUTs", "area_lut",
+     "vtr-k6"),
     ("pareto-accuracy-latency.svg", "Accuracy against latency per image (VTR k6)",
-     "latency per image (us)", "speed_latency_us"),
+     "latency per image (us)", "speed_latency_us", "vtr-k6"),
+    ("pareto-fixed-accuracy-energy.svg", "Accuracy against energy per image (fixed device)",
+     "energy per image (uJ)", "energy_uj_per_img", FIXED_TARGET),
+    ("pareto-fixed-accuracy-latency.svg", "Accuracy against latency per image (fixed device)",
+     "latency per image (us)", "speed_latency_us", FIXED_TARGET),
 )
 
 
 def render_plots(rows: list[Row]) -> list[tuple[str, str, str]]:
     """(file name, title, svg) for each plot that has at least one point."""
     out = []
-    for fname, title, xlabel, key in PLOTS:
+    for fname, title, xlabel, key, target in PLOTS:
         pts = [(float(r[key]), float(r["acc_top1"]) * 100, r["design"], r["impl_id"])
-               for r in _rows_for(rows, "vtr-k6")
+               for r in _rows_for(rows, target)
                if r.get(key) is not None and r.get("acc_top1") is not None and r[key] > 0]
         if pts:
             out.append((fname, title, _scatter(title, xlabel, pts)))
@@ -263,11 +334,13 @@ def write_all(rows: list[Row], nulls: dict[tuple[str, str, str], str], out_dir: 
     """Write TABLE.md, TABLE.csv, TABLE.tex and plots/*.svg under out_dir; return the paths."""
     plots = render_plots(rows)
     (out_dir / "plots").mkdir(parents=True, exist_ok=True)
+    (out_dir / "datasheets").mkdir(parents=True, exist_ok=True)
     files = {
         out_dir / "TABLE.md": render_md(rows, [(t, f"plots/{f}") for f, t, _ in plots], nulls),
         out_dir / "TABLE.csv": render_csv(rows, nulls),
         out_dir / "TABLE.tex": render_tex(rows),
         **{out_dir / "plots" / f: svg for f, _, svg in plots},
+        **aidigitsheet.write_all(rows, nulls, out_dir),
     }
     for path, text in files.items():
         path.write_text(text, encoding="utf-8", newline="\n")

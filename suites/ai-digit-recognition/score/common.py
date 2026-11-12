@@ -16,6 +16,7 @@ VTR_ROOT = Path(os.environ.get("VTR_ROOT", WS / "external/vtr-verilog-to-routing
 ARCH = VTR_ROOT / "vtr_flow/arch/timing/k6_frac_N10_frac_chain_mem32K_40nm.xml"
 TECH = VTR_ROOT / "vtr_flow/tech/PTM_45nm/45nm.xml"
 SCHEMA_VERSION = 1
+FLOW_MEM = os.environ.get("AIDIGIT_FLOW_MEM", "3G")  # memory cap of the flow runs
 
 # Cyclone V SE 5CSEMA5 (A5 member): Table 10 of Cyclone V Device Overview CV-51001
 # (2015.06.12), local copy
@@ -25,16 +26,26 @@ CYCLONE_V_5CSEMA5 = {"alm": 32075, "register": 128300, "m10k_kbit": 3970,
                      "m10k_blocks": 397, "dsp_blocks": 87, "mult_18x18": 174}
 
 
+def mem_cap_for(vpr_text, floor_gb=2, ceil_gb=8):
+    """Memory cap (e.g. "5G") for the power step: 2x the largest `max_rss` VPR printed in the
+    route-step log `vpr_text`, rounded up to whole GiB, between floor_gb and ceil_gb. No
+    max_rss line: the floor."""
+    mib = [float(x) for x in re.findall(r"max_rss ([\d.]+) MiB", vpr_text or "")]
+    need = -(-int(2 * max(mib, default=0.0)) // 1024)
+    return f"{min(ceil_gb, max(floor_gb, need))}G"
+
+
 def capped(argv, cwd=None, mem="2G", timeout=None, env=None):
     """Run under systemd-run --user --scope with a memory cap; return CompletedProcess."""
-    cmd = ["systemd-run", "--user", "--scope", "-q", "-p", f"MemoryMax={mem}",
-           "-p", "MemorySwapMax=0"] + [str(a) for a in argv]
+    sl = os.environ.get("ODIN3_HEAVY_SLICE")  # set by tools/heavy-run: stay inside its cap
+    cmd = ["systemd-run", "--user", "--scope", "-q"] + ([f"--slice={sl}"] if sl else []) + [
+        "-p", f"MemoryMax={mem}", "-p", "MemorySwapMax=0"] + [str(a) for a in argv]
     return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env)
 
 
 _SUM = re.compile(r"MNIST_TB (PASS|FAIL) n=(\d+) class_match=(\d+) score_match=(\d+) "
                   r"label_correct=(\d+) timeouts=(\d+) cycles_total=(\d+) cycles_per_img=(\d+)"
-                  r"(?: init_cycles=(\d+))?")
+                  r"(?: init_cycles=(\d+))?(?: ii_cycles=(\d+) latency_first=(\d+))?")
 
 
 def parse_tb(text):
@@ -42,14 +53,19 @@ def parse_tb(text):
     if not m:
         return None
     v = [int(x) if x is not None else 0 for x in m.groups()[1:]]
-    return {"verdict": m.group(1), "n": v[0], "class_match": v[1], "score_match": v[2],
+    pipe = {} if m.group(10) is None else {"ii_cycles": int(m.group(10)),
+                                           "latency_first": int(m.group(11))}
+    return {**pipe, "verdict": m.group(1), "n": v[0], "class_match": v[1], "score_match": v[2],
             "label_correct": v[3], "timeouts": v[4], "cycles_total": v[5],
             "cycles_per_img": v[6], "init_cycles": v[7], "top1": v[3] / v[0]}
 
 
+EXTRA_FILES = []  # design data files ($readmemh weights) linked next to the vectors
+
+
 def stage_vectors(vec_dir, run_dir):
     run_dir.mkdir(parents=True, exist_ok=True)
-    for f in Path(vec_dir).glob("vec_*.hex"):
+    for f in [*Path(vec_dir).glob("vec_*.hex"), *map(Path, EXTRA_FILES)]:
         link = run_dir / f.name
         if link.is_symlink() or link.exists():
             link.unlink()
@@ -57,10 +73,10 @@ def stage_vectors(vec_dir, run_dir):
     return int(open(Path(vec_dir) / "vec_meta.hex").readline(), 16)
 
 
-def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
+def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=(), tb=TB):
     n = stage_vectors(vec_dir, run_dir)
     r = subprocess.run(["iverilog", "-g2005", f"-DMNIST_N={n}"] + [f"-D{d}" for d in defines]
-                       + ["-o", "t.vvp", str(TB)] + [str(f) for f in dut_files],
+                       + ["-o", "t.vvp", str(tb)] + [str(f) for f in dut_files],
                        cwd=run_dir, capture_output=True, text=True)
     if r.returncode:
         return None, "iverilog compile failed: " + r.stderr[-300:]
@@ -72,17 +88,18 @@ def sim_iverilog(dut_files, vec_dir, run_dir, timeout=6 * 3600, defines=()):
     return res, None if res else "no summary line: " + (r.stdout + r.stderr)[-300:]
 
 
-def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G", fast=False):
+def sim_verilator(dut_files, vec_dir, run_dir, defines=(), timeout=6 * 3600, mem="4G", tb=TB,
+                  top="mnist_tb", fast=False):
     """Build the testbench + DUT with Verilator (--binary --timing, Verilog-2005) and run it.
     defines: ["NAME=value", ...] passed as -D. Used where iverilog is too slow."""
     n = stage_vectors(vec_dir, run_dir)
     cmd = ["verilator", "--binary", "--timing", "--language", "1364-2005", "-Wno-fatal",
            "-Wno-lint", "-Wno-style", "-Wno-WIDTH", "-Wno-TIMESCALEMOD", "-O2",
-           "--top-module", "mnist_tb",
+           "--top-module", top,
            "--Mdir", "obj", f"-DMNIST_N={n}", "-o", "simv"]
     if fast:   # long runs (I2): faster C++ and no X modelling; results are unchanged
         cmd += ["--x-assign", "fast", "--x-initial", "fast", "-CFLAGS", "-O3 -march=native"]
-    cmd += [f"-D{d}" for d in defines] + [str(TB)] + [str(f) for f in dut_files]
+    cmd += [f"-D{d}" for d in defines] + [str(tb)] + [str(f) for f in dut_files]
     r = capped(cmd, cwd=run_dir, mem=mem)
     if r.returncode or not (Path(run_dir) / "obj" / "simv").exists():
         return None, "verilator build failed: " + (r.stdout + r.stderr)[-300:]
@@ -127,6 +144,7 @@ def append_row(row, path):
 def load_build(path):
     """A build.json written by tools/build_i1.py: sources, models, defines."""
     b = json.loads(Path(path).read_text())
+    EXTRA_FILES[:] = b.get("data_files", [])
     b["define_args"] = [f"{k}={v}" for k, v in b["defines"].items()]
     b["flow_define_args"] = [f"{k}={v}" for k, v in b["flow_defines"].items()]
     return b

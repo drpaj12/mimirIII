@@ -14,16 +14,31 @@
 <line x1="64" x2="490" y1="66.5" y2="66.5" stroke="#e3e5e8"/><text x="58" y="70.5" text-anchor="end" fill="#6b7280">99</text>
 <text x="277" y="412" text-anchor="middle" fill="#2b2f36">latency per image (us) (log scale)</text>
 <text transform="translate(14 204) rotate(-90)" text-anchor="middle" fill="#2b2f36">top-1 accuracy (%)</text>
-<polyline points="67.7,291.7 88.5,150.2 92.7,108.1 398.9,74.5" fill="none" stroke="#6b7280" stroke-dasharray="4 3"/>
+<polyline points="67.7,291.7 84.9,205.8 88.5,150.2 89.6,104.1 179.7,74.5" fill="none" stroke="#6b7280" stroke-dasharray="4 3"/>
+<g><title>bnn-M-f1: 20.3, 97.77 %</title><circle cx="96.7" cy="104.1" r="5" fill="#ffffff" stroke="#8a7a1f" stroke-width="1.5"/><text x="103.7" y="98.1" fill="#2b2f36">bnn-M-f1</text></g>
+<g><title>bnn-M-f2: 17.4, 97.77 %</title><circle cx="89.6" cy="104.1" r="5" fill="#8a7a1f" stroke="#8a7a1f" stroke-width="1.5"/><text x="96.6" y="98.1" fill="#2b2f36">bnn-M-f2</text></g>
+<g><title>bnn-S-f1: 16.5, 94.44 %</title><circle cx="87.2" cy="205.8" r="5" fill="#ffffff" stroke="#8a7a1f" stroke-width="1.5"/><text x="94.2" y="199.8" fill="#2b2f36">bnn-S-f1</text></g>
+<g><title>bnn-S-f2: 25.7, 94.44 %</title><circle cx="107.6" cy="205.8" r="5" fill="#ffffff" stroke="#8a7a1f" stroke-width="1.5"/><text x="114.6" y="199.8" fill="#2b2f36">bnn-S-f2</text></g>
+<g><title>bnn-S-par: 15.7, 94.44 %</title><circle cx="84.9" cy="205.8" r="5" fill="#8a7a1f" stroke="#8a7a1f" stroke-width="1.5"/><text x="91.9" y="199.8" fill="#2b2f36">bnn-S-par</text></g>
 <g><title>i1-tpu-n2: 32,433, 98.74 %</title><circle cx="437.9" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="444.9" y="68.5" fill="#2b2f36">i1-tpu-n2</text></g>
 <g><title>i1-tpu-n4: 18,064, 98.74 %</title><circle cx="410.9" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="417.9" y="68.5" fill="#2b2f36">i1-tpu-n4</text></g>
-<g><title>i1-tpu-n8: 13,940, 98.74 %</title><circle cx="398.9" cy="74.5" r="5" fill="#3f5f86" stroke="#3f5f86" stroke-width="1.5"/><text x="405.9" y="68.5" fill="#2b2f36">i1-tpu-n8</text></g>
+<g><title>i1-tpu-n8: 13,940, 98.74 %</title><circle cx="398.9" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="405.9" y="68.5" fill="#2b2f36">i1-tpu-n8</text></g>
+<g><title>i3-df-p1: 1,302, 98.74 %</title><circle cx="289.2" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="296.2" y="68.5" fill="#2b2f36">i3-df-p1</text></g>
+<g><title>i3-df-p2: 563, 98.74 %</title><circle cx="250.4" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="257.4" y="68.5" fill="#2b2f36">i3-df-p2</text></g>
+<g><title>i3-df-p4: 309, 98.74 %</title><circle cx="222.7" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="229.7" y="68.5" fill="#2b2f36">i3-df-p4</text></g>
+<g><title>i3-df-p8: 155, 98.74 %</title><circle cx="190.7" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="197.7" y="68.5" fill="#2b2f36">i3-df-p8</text></g>
+<g><title>i4-all: 122, 98.74 %</title><circle cx="179.7" cy="74.5" r="5" fill="#a03f5a" stroke="#a03f5a" stroke-width="1.5"/><text x="186.7" y="68.5" fill="#2b2f36">i4-all</text></g>
+<g><title>i4-conv2-fc: 396, 98.74 %</title><circle cx="234.1" cy="74.5" r="5" fill="#ffffff" stroke="#a03f5a" stroke-width="1.5"/><text x="241.1" y="68.5" fill="#2b2f36">i4-conv2-fc</text></g>
+<g><title>i4-fc: 1,152, 98.74 %</title><circle cx="283.5" cy="74.5" r="5" fill="#ffffff" stroke="#a03f5a" stroke-width="1.5"/><text x="290.5" y="68.5" fill="#2b2f36">i4-fc</text></g>
 <g><title>nl-B: 13.7, 91.63 %</title><circle cx="78.7" cy="291.7" r="5" fill="#ffffff" stroke="#b5651d" stroke-width="1.5"/><text x="85.7" y="285.7" fill="#2b2f36">nl-B</text></g>
 <g><title>nl-B-reg: 10.8, 91.63 %</title><circle cx="67.7" cy="291.7" r="5" fill="#b5651d" stroke="#b5651d" stroke-width="1.5"/><text x="74.7" y="285.7" fill="#2b2f36">nl-B-reg</text></g>
 <g><title>tl-T1: 17, 96.26 %</title><circle cx="88.5" cy="150.2" r="5" fill="#4a8a5a" stroke="#4a8a5a" stroke-width="1.5"/><text x="95.5" y="144.2" fill="#2b2f36">tl-T1</text></g>
 <g><title>tl-T2: 17.3, 90.64 %</title><circle cx="89.3" cy="321.9" r="5" fill="#ffffff" stroke="#4a8a5a" stroke-width="1.5"/><text x="96.3" y="315.9" fill="#2b2f36">tl-T2</text></g>
-<g><title>tl-T3: 18.6, 97.64 %</title><circle cx="92.7" cy="108.1" r="5" fill="#4a8a5a" stroke="#4a8a5a" stroke-width="1.5"/><text x="99.7" y="102.1" fill="#2b2f36">tl-T3</text></g>
+<g><title>tl-T3: 18.6, 97.64 %</title><circle cx="92.7" cy="108.1" r="5" fill="#ffffff" stroke="#4a8a5a" stroke-width="1.5"/><text x="99.7" y="102.1" fill="#2b2f36">tl-T3</text></g>
 <circle cx="504" cy="42" r="5" fill="#3f5f86"/><text x="514" y="46" fill="#2b2f36">I1</text>
-<circle cx="504" cy="58" r="5" fill="#b5651d"/><text x="514" y="62" fill="#2b2f36">I6</text>
-<circle cx="504" cy="74" r="5" fill="#4a8a5a"/><text x="514" y="78" fill="#2b2f36">I8</text>
+<circle cx="504" cy="74" r="5" fill="#7a4fa0"/><text x="514" y="78" fill="#2b2f36">I3</text>
+<circle cx="504" cy="90" r="5" fill="#a03f5a"/><text x="514" y="94" fill="#2b2f36">I4</text>
+<circle cx="504" cy="106" r="5" fill="#b5651d"/><text x="514" y="110" fill="#2b2f36">I6</text>
+<circle cx="504" cy="122" r="5" fill="#8a7a1f"/><text x="514" y="126" fill="#2b2f36">I7</text>
+<circle cx="504" cy="138" r="5" fill="#4a8a5a"/><text x="514" y="142" fill="#2b2f36">I8</text>
 </svg>

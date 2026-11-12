@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import astuple, dataclass, fields
 
-SCHEMA_VERSION = 8  # store schema; the `records` table is unchanged since version 1
+SCHEMA_VERSION = 10  # store schema; the `records` table is unchanged since version 1
 CONF = ("primary", "secondary", "inferred", "missing")
 PARAM_CONF = ("given", "default", "default-unrecorded", "unknown")
 UNKNOWN_CONF = ("unknown", "default-unrecorded")  # counted as unknown by the run status
@@ -224,7 +224,7 @@ V7_DDL: tuple[str, ...] = (
 # outcomes of the AI digit recognition suite, one row per (suite, design, target). A column is NULL
 # when the value was not measured; `aidigit_null` gives the reason for each such (design, target,
 # field). Units: area in cells, speed in MHz / ns / us / cycles, power in mW, energy in uJ/image.
-AIDIGIT_COLUMNS: tuple[tuple[str, str], ...] = (
+AIDIGIT_V8_COLUMNS: tuple[tuple[str, str], ...] = (
     ("suite", "TEXT NOT NULL"), ("design", "TEXT NOT NULL"), ("target", "TEXT NOT NULL"),
     ("impl_id", "TEXT NOT NULL"), ("arch_name", "TEXT NOT NULL"), ("setting", "TEXT NOT NULL"),
     ("model_kind", "TEXT NOT NULL"),
@@ -250,11 +250,36 @@ AIDIGIT_COLUMNS: tuple[tuple[str, str], ...] = (
     ("origin", "TEXT NOT NULL"),
 )
 
+# Columns added in schema version 9 (docs/specs/2026-11-10-ai-digit-grid.md): device size. The grid
+# is VPR's auto-sized grid including the IO ring; `clb_tiles` is the number of clb tiles on it,
+# `clb_util_pct` = `area_clb` / `clb_tiles` x 100.
+AIDIGIT_V9_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("grid_w", "INTEGER"), ("grid_h", "INTEGER"), ("grid_tiles", "INTEGER"),
+    ("clb_tiles", "INTEGER"), ("clb_util_pct", "REAL"),
+)
+
+# Columns added in schema version 10 (docs/specs/2026-11-11-ai-digit-p6.md): Odin III `sim_tb` of
+# the RTL on the quick tier (`read_verilog; proc; opt; lower --keep-mem-cells; sim_tb`). It is a
+# property of the design, so every target row of a design carries it. `odin_sim_status` is pass
+# (class and score match on all images), mismatch, or error (cause in `aidigit_null`).
+AIDIGIT_V10_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("odin_sim_status", "TEXT"), ("odin_sim_n", "INTEGER"), ("odin_sim_class_match", "INTEGER"),
+    ("odin_sim_score_match", "INTEGER"), ("odin_sim_cycles_per_s", "REAL"),
+    ("odin_sim_wall_s", "REAL"), ("odin_sim_build", "TEXT"),
+)
+AIDIGIT_COLUMNS = AIDIGIT_V8_COLUMNS + AIDIGIT_V9_COLUMNS + AIDIGIT_V10_COLUMNS
+
 V8_DDL: tuple[str, ...] = (
     "CREATE TABLE IF NOT EXISTS aidigit_result ("
-    + ", ".join(f"{n} {t}" for n, t in AIDIGIT_COLUMNS)
+    + ", ".join(f"{n} {t}" for n, t in AIDIGIT_V8_COLUMNS)
     + ", PRIMARY KEY (suite, design, target))",
     """CREATE TABLE IF NOT EXISTS aidigit_null (
         suite TEXT NOT NULL, design TEXT NOT NULL, target TEXT NOT NULL, field TEXT NOT NULL,
         reason TEXT NOT NULL, PRIMARY KEY (suite, design, target, field))""",
 )
+
+V9_ALTER: tuple[str, ...] = tuple(
+    f"ALTER TABLE aidigit_result ADD COLUMN {n} {t}" for n, t in AIDIGIT_V9_COLUMNS)
+
+V10_ALTER: tuple[str, ...] = tuple(
+    f"ALTER TABLE aidigit_result ADD COLUMN {n} {t}" for n, t in AIDIGIT_V10_COLUMNS)

@@ -34,7 +34,7 @@ def parse_vpr_stdout(text):
     return d
 
 
-def power_flow(blif, clock, out, width=100):
+def power_flow(blif, clock, out, width=100, mem="2G"):
     """ACE2 vectorless activity, then VPR --power at fixed W (100 as Wyrd Bifrost; more when the
     design needs a wider channel: 1.3 x the minimum, rounded up to 10)."""
     out.mkdir(parents=True, exist_ok=True)
@@ -50,7 +50,7 @@ def power_flow(blif, clock, out, width=100):
         return None, "restore_multiclock_latch failed: " + r.stderr[-200:]
     r = C.capped([C.VTR_ROOT / "build/vpr/vpr", C.ARCH, "circuit.blif",
                   "--route_chan_width", str(width), "--power", "--tech_properties", C.TECH,
-                  "--activity_file", "ace.act"], cwd=out)
+                  "--activity_file", "ace.act"], cwd=out, mem=mem)
     (out / "vpr.log").write_text(r.stdout + r.stderr)
     pw = sorted(out.glob("*.power"))
     if r.returncode or not pw:
@@ -83,7 +83,9 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--tier", default="quick")
     ap.add_argument("--clock", default="clk")
-    ap.add_argument("--top", default=None, help="top module (build.json 'top' sets it)")
+    ap.add_argument("--top", default="mnist_top", help="top module, declared to odin3-flow")
+    ap.add_argument("--power-mem", help="memory cap of the VPR power step (default: 2x the route "
+                    "step's max_rss, 2G to 8G)")
     ap.add_argument("--netlist-sim", dest="nsim", action="store_true", default=True)
     ap.add_argument("--no-netlist-sim", dest="nsim", action="store_false")
     ap.add_argument("-I", dest="inc", action="append", default=[])
@@ -94,7 +96,7 @@ def main():
         a.src = b["sources"]
         a.defs = a.defs + b["flow_define_args"]
         a.inc = a.inc + b["incdirs"]
-        a.top = b.get("top")
+        a.top = b.get("top", a.top)
     if not a.src:
         ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "vtr"
@@ -107,6 +109,8 @@ def main():
         got = json.loads(Path(a.rtl_result).read_text())
         rtl, err = got["result"], got["error"]
         row["accuracy"] = {"rtl_" + got["sim"]: rtl}
+        if got.get("pipe"):
+            row["accuracy"]["rtl_" + got["sim"] + "_pipelined"] = got["pipe"]
         if err:
             nr["accuracy.rtl_" + got["sim"]] = err
     else:
@@ -121,15 +125,14 @@ def main():
     if flow_out.exists():
         shutil.rmtree(flow_out)
     cmd = [C.ODIN3_FLOW] + [str(Path(s).resolve()) for s in a.src] + [
-        "--target", "vtr", "--arch", C.ARCH, "--odin3", C.ODIN3_BIN, "--out", flow_out]
-    if a.top:
-        cmd += ["--top", a.top]
+        "--target", "vtr", "--arch", C.ARCH, "--top", a.top, "--odin3", C.ODIN3_BIN,
+        "--out", flow_out]
     for i in a.inc:
         cmd += ["-I", i]
     for d in a.defs:
         cmd += ["-D", d]
     t = time.time()
-    r = C.capped(cmd, timeout=6 * 3600, mem="4G")
+    r = C.capped(cmd, timeout=6 * 3600, mem=C.FLOW_MEM)
     (work / "flow.log").parent.mkdir(parents=True, exist_ok=True)
     (work / "flow.log").write_text(r.stdout + r.stderr)
     summ = flow_out / "summary.json"
@@ -178,6 +181,13 @@ def main():
         row["speed"].update(cycles_per_img=cyc, latency_us=lat, images_per_s=1e6 / lat)
         row["speed"]["note"] = ("images_per_s = 1/latency (no pipelining credit; "
                                 "initiation interval = cycles_per_img)")
+        ii = (got.get("pipe") or {}).get("ii_cycles") if a.rtl_result else None
+        if ii:
+            row["speed"].update(ii_cycles=ii, images_per_s=1e6 / (ii * cpd / 1000.0),
+                                images_per_s_latency=1e6 / lat)
+            row["speed"]["note"] = ("pipelined: images_per_s = 1/(ii_cycles x critical path); "
+                                    "latency_us and energy_uj_per_img are per image through the "
+                                    "whole pipeline (power x latency)")
     else:
         nr["speed.cycles_per_img"] = "no RTL simulation result" if not cyc else "no critical path"
 
@@ -185,7 +195,9 @@ def main():
     if blif:
         minw = s.get("min_chan_width") or 0
         width = max(100, -(-int(1.3 * minw) // 10) * 10)
-        p, err = power_flow(blif, a.clock, work / "power", width)
+        mem = a.power_mem or C.mem_cap_for(vtxt)
+        row["tools"]["power_mem_cap"] = mem
+        p, err = power_flow(blif, a.clock, work / "power", width, mem)
         if p:
             if row["speed"].get("latency_us"):
                 p["energy_uj_per_img"] = p["total_mw"] * 1e-3 * row["speed"]["latency_us"]
