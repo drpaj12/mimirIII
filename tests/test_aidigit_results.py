@@ -132,6 +132,18 @@ class Load(unittest.TestCase):
             aidigit.load(d)
 
 
+class HostPaths(unittest.TestCase):
+    # bnn-lpm.jsonl (merged earlier, PR 57) still carries one host path in an error text
+    KNOWN = {"bnn-lpm.jsonl"}
+
+    def test_no_result_row_holds_a_host_path(self) -> None:
+        for f in sorted((SUITE / "results").glob("*.jsonl")):
+            if f.name in self.KNOWN:
+                continue
+            for n, line in enumerate(f.read_text().splitlines(), 1):
+                self.assertNotIn("/" + "home/", line, f"{f.name}:{n}")
+
+
 class Import(unittest.TestCase):
     def test_import_is_idempotent_and_replaces(self) -> None:
         store, d = _store()

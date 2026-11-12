@@ -34,6 +34,16 @@ def project(path, incdirs, defines):
     path.write_text("\n".join(lines) + "\n")
 
 
+def portable(script, work):
+    """The script text with host paths replaced: the run dir, the testbench, the repository
+    root, the workspace external/ root and (last) any other workspace path."""
+    repo = C.REPO.parent.parent  # <repo>/suites/<suite>
+    for old, new in ((str(work), "<run>"), (str(C.TB), "tb/mnist_tb.v"), (str(repo), "<repo>"),
+                     (str(C.WS / "external"), "<external>"), (str(C.WS), "<ws>")):
+        script = script.replace(old, new)
+    return script
+
+
 def run_one(design, spec, odin3, root, timeout, fallback=None, tier="quick"):
     """One tier: `quick` (the design's own 100-image vectors) or `mini2` (the 2-image vectors
     in the directory `fallback`)."""
@@ -63,7 +73,7 @@ def run_tier(design, spec, odin3, root, timeout, vec, tier):
               f"sim_tb --max-time 1000000000000 -I {work} {tbdefs} {C.TB}")
     cmd = [odin3, "--project", work / "p.o3proj", "--top", "mnist_top", "-p", script]
     row = {"schema": 1, "design": design, "tier": tier, "odin3_binary": Path(odin3).parent.name,
-           "script": script.replace(str(work), "<run>").replace(str(C.TB), "tb/mnist_tb.v"),
+           "script": portable(script, work),
            "odin_sim": None, "error": None}
     t = time.time()
     # `timeout` inside the capped scope: a killed client would leave the simulator running
