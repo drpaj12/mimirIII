@@ -62,22 +62,19 @@ no cause to report.
 | Item | Cause |
 |---|---|
 | N = 16 | not encodable: ISA dimension fields are 4 bits (max 15) and array row/column selects are 4 bits |
-| Odin III `sim_tb` on the RTL (quick tier) | see below |
+| Odin III `sim_tb` on the RTL, 100-image quick tier | running (phase 2); the 2-image tier is in the table |
 | Odin III `sim_tb` on the mapped netlist | same cause; the VTR leg records `accuracy.netlist_odin_sim: "disabled"` |
 | LPM netlist simulation | needs Altera `lpm_*` / `altera_mf` simulation models; the stubs in `<top>_lpm_sim.v` are empty |
 | Cyclone V fit / timing / power | Quartus not installed here |
 | VTR and LPM legs on the full tier | area, speed and power do not depend on the tier; RTL accuracy covers both tiers |
 
-### Odin III `sim_tb` on the quick tier: not feasible
+### Odin III `sim_tb`: I1 does not finish
 
-One attempt, N = 8, build `rel-v161pre`, 4 GB cap, 900 s limit: the project reads and `lower` completes (about
-12 s, 3.0 M bit cells for the 64K x 8 data memories), then `sim_tb` ran to the limit without reaching the end of
-initialisation (6,037,968 cycles for N = 8, 42.7 M for N = 2). Before `lower`, `sim_tb` refuses a `$mem` cell
-("cannot simulate `$mem`; run `lower` first"). The simulator is a cell-level interpreter, and this design needs
-over 6 M cycles before the first image on a netlist with millions of bit cells (the memories lower to flip-flops),
-so a 100-image run (about 61 M cycles at N = 8) is out of reach. Verilator (RTL) covers both tiers.
-A small-memory variant of the wrapper would fit `sim_tb` but would not be the same design;
-not built.
+Odin III v1.6.1 (`--keep-mem-cells`) read, lowered and started the 2-image simulation of i1-tpu-n2, n4 and n8, and
+none produced a result within 21,600 s. The design needs 6,037,968 (N = 8), 12,180,167 (N = 4) or 42,705,940
+(N = 2) initialisation cycles to load the flash before the first image, then 0.6 to 1.6 million cycles per image
+(Verilator counts). `sim_tb` prints no progress, and the cycles/s of these runs was not measured. Cause recorded in
+the store: simulator speed on a design with millions of cycles of initialisation. Verilator (RTL) covers both tiers.
 
 ## Open items for Gabe Litteken
 

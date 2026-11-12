@@ -357,7 +357,7 @@ class FixedAndOdin(unittest.TestCase):
         text = sheets[d / "docs" / "datasheets" / "i1-tpu-n8.md"]
         self.assertIn("# Datasheet: i1-tpu-n8", text)
         self.assertIn("3c9a4d23b2", text)
-        self.assertIn("Odin III `sim_tb`, RTL | not run", text)
+        self.assertIn("Odin III `sim_tb`, RTL | error", text)
 
 
 if __name__ == "__main__":

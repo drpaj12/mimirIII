@@ -23,7 +23,7 @@ Registered in `implementations.toml` as `i4-fc`, `i4-conv2-fc`, `i4-all`.
 | Common tb and pipelined tb, quick tier, Verilator, all three | PASS 100/100 class and score, top-1 98/100 |
 | Common tb and pipelined tb, full tier (10,000), Verilator, all three | PASS 10,000/10,000 class and score, top-1 9,874 (98.74 %) |
 | Common tb, quick tier, iverilog, `i4-all` | PASS 100/100; wall 3,497 s (the unrolled lanes make iverilog slow) |
-| Odin III `sim_tb` | not run on I4 (I3 evidence in I3-DATAFLOW.md; case-ROM lowering is larger) |
+| Odin III v1.6.1 `sim_tb` (`lower --keep-mem-cells`), 2-image tier | PASS for all three, class and score 2 of 2: i4-all 21.6 cycles/s (1,217 s), i4-conv2-fc 27.5 (3,169 s), i4-fc 24.6 (10,118 s); 100-image quick tier running |
 
 Verilator full-tier wall times: serial 252 / 736 / 1,657 s, pipelined 104 / 507 / 1,160 s (`i4-all` / `i4-conv2-fc` / `i4-fc`).
 

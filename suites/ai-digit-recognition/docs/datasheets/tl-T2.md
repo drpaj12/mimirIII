@@ -74,13 +74,13 @@ One top module `mnist_top`: `clk`, `rst`, `start`, `in_valid`, `in_data[7:0]` (o
 | Simulator | Result |
 |---|---|
 | Verilator, RTL | full tier, 10,000 images, class match 10,000 |
-| Odin III `sim_tb`, RTL | not run |
+| Odin III `sim_tb`, RTL | pass on 2 images; 100-image quick tier: running: class match 2 of 2, score match 2 of 2; 2.5 s, 628.8 cycles/s |
 | Odin III `sim_tb`, LUT netlist | class match 100 of 100 |
 
 ## Provenance
 
 - Odin III: 1.6.1 pre-release (build rel-v161pre), commit `59349797`.
-- Odin III simulation build: n/a.
+- Odin III simulation build: odin3 1.6.1 (ABI 7) (rel-v161).
 - VTR commit: `3c9a4d23b2`; architecture `k6_frac_N10_frac_chain_mem32K_40nm.xml`.
 - Generated RTL hash: mnist_top.v=208aa746679665b7 treelut_all.v=bc40212d341b8cfe (first 16 hex digits of sha256).
 - Result rows: `results/lut-lpm.jsonl:1`, `results/lut-vtr.jsonl:1`, `results/fixed-vtr.jsonl:5`.

@@ -74,12 +74,12 @@ One top module `mnist_top`: `clk`, `rst`, `start`, `in_valid`, `in_data[7:0]` (o
 | Simulator | Result |
 |---|---|
 | Verilator, RTL | full tier, 10,000 images, class match 10,000 |
-| Odin III `sim_tb`, RTL | not run |
+| Odin III `sim_tb`, RTL | error: sim_tb did not finish within the 21,600 s limit; the design needs 12,180,167 initialisation cycles (flash load) before the first image, then 853,184 cycles per image (Verilator counts), so 2 images need 13,886,535 cycles; Odin III sim_tb gives no progress output and the rate on this design is not measured |
 
 ## Provenance
 
 - Odin III: 1.6.1 pre-release (build rel-v161pre), commit `59349797`.
-- Odin III simulation build: n/a.
+- Odin III simulation build: odin3 1.6.1 (ABI 7) (rel-v161).
 - VTR commit: `3c9a4d23b2`; architecture `k6_frac_N10_frac_chain_mem32K_40nm.xml`.
 - Generated RTL hash: n/a.
 - Result rows: `results/lpm.jsonl:2`, `results/vtr.jsonl:2`, `results/fixed-vtr.jsonl:8`.

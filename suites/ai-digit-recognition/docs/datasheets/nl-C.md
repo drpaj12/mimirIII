@@ -65,12 +65,12 @@ Not run for this design.
 | Simulator | Result |
 |---|---|
 | Verilator, RTL | full tier, 10,000 images, class match 10,000 |
-| Odin III `sim_tb`, RTL | not run |
+| Odin III `sim_tb`, RTL | pass on 2 images; 100-image quick tier: running: class match 2 of 2, score match 2 of 2; 144.4 s, 10.9 cycles/s |
 
 ## Provenance
 
 - Odin III: 1.6.1 pre-release (build rel-v161pre), commit `59349797`.
-- Odin III simulation build: n/a.
+- Odin III simulation build: odin3 1.6.1 (ABI 7) (rel-v161).
 - VTR commit: `3c9a4d23b2`; architecture `k6_frac_N10_frac_chain_mem32K_40nm.xml`.
 - Generated RTL hash: mnist_top.v=aba5d4723b06dd40 neuralut_all.v=2fc64969bc53fafe (first 16 hex digits of sha256).
 - Result rows: `results/lut-lpm.jsonl:4`, `results/lut-vtr.jsonl:4`.
