@@ -10,6 +10,7 @@ from pathlib import Path
 
 from mimir.schema import (
     AIDIGIT_V9_COLUMNS,
+    AIDIGIT_V10_COLUMNS,
     COLUMNS,
     KEY_COLUMNS,
     SCHEMA_VERSION,
@@ -22,6 +23,7 @@ from mimir.schema import (
     V7_DDL,
     V8_DDL,
     V9_ALTER,
+    V10_ALTER,
     Record,
     check_record,
 )
@@ -46,10 +48,10 @@ class Store:
     def __init__(self, path: str | Path, readonly: bool = False) -> None:
         """Open a store. The version is read first and nothing is written before it is accepted:
         a store of another version raises ValueError and is left as it was. A new store is
-        created, and a version 1 to 8 store is migrated to version 9 (additive, no row touched),
+        created, and a version 1 to 9 store is migrated to version 10 (additive, no row touched),
         in one transaction, on a write open only (or with `mimir migrate`). With readonly=True a
         version 4 store opens as it is (bytes and mtime unchanged; the v5 timing tables are
-        absent, see `timing.has_tables`) and so do versions 5 to 8 (later tables absent, see
+        absent, see `timing.has_tables`) and so do versions 5 to 9 (later tables absent, see
         `timing.has_path_tables`, `hdlgraph.has_tables`, `aidigit.has_tables`); versions 1 to 3
         cannot be opened read only. A store of a later version is not written by an older reader."""
         self.path = str(path)
@@ -107,9 +109,10 @@ class Store:
             for stmt in (*V2_DDL, *V3_DDL, *V4_DDL, *V5_DDL, *V6_DDL, *V7_DDL, *V8_DDL):
                 self.db.execute(stmt)
             have = {r[1] for r in self.db.execute("PRAGMA table_info(aidigit_result)")}
-            for (name, _), stmt in zip(AIDIGIT_V9_COLUMNS, V9_ALTER, strict=True):
-                if name not in have:
-                    self.db.execute(stmt)
+            for cols, alters in ((AIDIGIT_V9_COLUMNS, V9_ALTER), (AIDIGIT_V10_COLUMNS, V10_ALTER)):
+                for (name, _), stmt in zip(cols, alters, strict=True):
+                    if name not in have:
+                        self.db.execute(stmt)
             self.db.execute("INSERT OR REPLACE INTO meta VALUES ('schema_version', ?)",
                             (str(SCHEMA_VERSION),))
             self.db.commit()

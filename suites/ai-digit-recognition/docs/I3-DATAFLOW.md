@@ -62,9 +62,18 @@ P=8 fits the VTR k6 caps (see below). Cycles halve with P; II is conv2's 86,400/
 | Common tb, quick tier, iverilog, P=8 | PASS 100/100, 100/100 |
 | Common tb, Odin III `sim_tb`, RTL, 1 image, P=8 | PASS (class and score match, 25,249 cycles); 765 s |
 
-Odin III `sim_tb` on the 100-image quick tier was NOT run: `lower` turns every memory into flip-flop bit cells (P=4:
-430,479 bit cells in `l_fc1` alone), which gives about 33 cycles/s on the whole design, so 100 images (2.5 million
-cycles) would take about 21 hours. The netlist (`abc --lut 6`) simulation was not run for the same reason.
+Odin III v1.6.1 (`read_verilog; proc; opt; lower --keep-mem-cells; sim_tb`, which keeps `$mem` cells instead of
+bit-blasting them), 2-image tier (`results/odin-sim.jsonl`, P6): all four settings PASS, class and score match 2 of 2.
+
+| Setting | Cycles/s | Wall s |
+|---|---|---|
+| P=1 | 979 | 373 |
+| P=2 | 823 | 223 |
+| P=4 | 609 | 162 |
+| P=8 | 324 | 156 |
+
+The 100-image quick tier is running (phase 2, no wall cap); its row will be added by a follow-up. The netlist
+(`abc --lut 6`) simulation was not run.
 Wall times of the Verilator full-tier runs: serial 148 / 275 / 479 / 877 s, pipelined 71 / 129 / 222 / 396 s
 (P=8/4/2/1).
 
@@ -88,8 +97,9 @@ pass); ALM, DSP, M10K, Fmax and power are null (`quartus not run here`). Full ro
    synchronous read, never written) are turned into logic (P=4 netlist 2.86 MB, `l_fc1` about 49,600 lines). The VTR
    flow maps the same memories to RAM blocks (28). Expected: a ROM `altsyncram` with an initial-contents file.
    Location in Odin not investigated.
-2. `sim_tb` speed: memories are lowered to flip-flops (`lower: '$mem' ... lowered to 2048 flip-flops`, info lines
-   `reads of addresses past SIZE ... give x`), so large RAMs make simulation too slow for the quick tier (above).
+2. `sim_tb` speed: with `lower --keep-mem-cells` the I3 designs run at 324 to 979 cycles/s (2-image tier above); a
+   100-image run is 2.5 to 18 million cycles, hours at that rate. The plain `lower` bit-blasts memories (about 33
+   cycles/s on P=4, earlier measurement).
 3. Lint note on the generated Verilog (not an Odin gap): iverilog warns `Numeric constant truncated to 10 bits` for
    P=8 on a constant in a branch that is never taken (conv1 has one group at P=8).
 No Odin error was hit: signed multiply, `>>>`, `$readmemh`, inferred dual-port RAM, `proc; opt; lower; sim_tb` and

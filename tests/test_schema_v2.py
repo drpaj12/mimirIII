@@ -76,7 +76,7 @@ class MigrationTests(unittest.TestCase):
         s = Store(d / "v1.db")
         s.export_csv(d / "after.csv")
         v = s.db.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()[0]
-        self.assertEqual(v, "9")
+        self.assertEqual(v, "10")
         self.assertEqual(s.db.execute("SELECT * FROM records ORDER BY rowid").fetchall(),
                          rows_before)
         s.close()
@@ -99,7 +99,7 @@ class MigrationTests(unittest.TestCase):
             Store(d / "x.db", readonly=True)
         s = Store(d / "x.db")
         self.assertEqual(s.db.execute("SELECT value FROM meta WHERE key='schema_version'")
-                         .fetchone()[0], "9")
+                         .fetchone()[0], "10")
         self.assertEqual(s.db.execute("SELECT COUNT(*) FROM blob_scrub").fetchone()[0], 0)
         s.close()
         Store(d / "x.db", readonly=True).close()  # a v4 store opens read only, untouched
@@ -163,7 +163,7 @@ class MigrationTests(unittest.TestCase):
         d = Path(tmpdir())
         Store(d / "x.db").close()
         db = sqlite3.connect(d / "x.db")
-        db.execute("UPDATE meta SET value='10' WHERE key='schema_version'")
+        db.execute("UPDATE meta SET value='11' WHERE key='schema_version'")
         db.commit()
         db.close()
         before = sha(d / "x.db")
@@ -176,7 +176,7 @@ class MigrationTests(unittest.TestCase):
         Store(d / "x.db").close()
         Store(d / "x.db").close()
         db = sqlite3.connect(d / "x.db")
-        db.execute("UPDATE meta SET value='10' WHERE key='schema_version'")
+        db.execute("UPDATE meta SET value='11' WHERE key='schema_version'")
         db.commit()
         db.close()
         with self.assertRaises(ValueError):
