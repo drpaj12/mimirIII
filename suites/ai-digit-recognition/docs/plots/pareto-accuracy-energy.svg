@@ -25,6 +25,11 @@
 <g><title>i1-tpu-n2: 28,188, 98.74 %</title><circle cx="451.0" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="458.0" y="68.5" fill="#2b2f36">i1-tpu-n2</text></g>
 <g><title>i1-tpu-n4: 4,355, 98.74 %</title><circle cx="393.4" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="400.4" y="68.5" fill="#2b2f36">i1-tpu-n4</text></g>
 <g><title>i1-tpu-n8: 2,983, 98.74 %</title><circle cx="381.7" cy="74.5" r="5" fill="#ffffff" stroke="#3f5f86" stroke-width="1.5"/><text x="388.7" y="68.5" fill="#2b2f36">i1-tpu-n8</text></g>
+<g><title>i2-brisc-i-gcc: 11,672, 98.00 %</title><circle cx="423.8" cy="97.1" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="430.8" y="91.1" fill="#2b2f36">i2-brisc-i-gcc</text></g>
+<g><title>i2-brisc-i-tab: 6,501, 98.74 %</title><circle cx="405.7" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="412.7" y="68.5" fill="#2b2f36">i2-brisc-i-tab</text></g>
+<g><title>i2-pico-fm: 3,502, 98.74 %</title><circle cx="386.6" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="393.6" y="68.5" fill="#2b2f36">i2-pico-fm</text></g>
+<g><title>i2-pico-i-gcc: 15,320, 98.00 %</title><circle cx="432.2" cy="97.1" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="439.2" y="91.1" fill="#2b2f36">i2-pico-i-gcc</text></g>
+<g><title>i2-pico-i-tab: 9,274, 98.74 %</title><circle cx="416.7" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="423.7" y="68.5" fill="#2b2f36">i2-pico-i-tab</text></g>
 <g><title>i3-df-p1: 110, 98.74 %</title><circle cx="279.9" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="286.9" y="68.5" fill="#2b2f36">i3-df-p1</text></g>
 <g><title>i3-df-p2: 54.2, 98.74 %</title><circle cx="258.1" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="265.1" y="68.5" fill="#2b2f36">i3-df-p2</text></g>
 <g><title>i3-df-p4: 30.7, 98.74 %</title><circle cx="240.5" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="247.5" y="68.5" fill="#2b2f36">i3-df-p4</text></g>
@@ -38,6 +43,7 @@
 <g><title>tl-T2: 0.19, 90.64 %</title><circle cx="83.8" cy="321.9" r="5" fill="#ffffff" stroke="#4a8a5a" stroke-width="1.5"/><text x="90.8" y="315.9" fill="#2b2f36">tl-T2</text></g>
 <g><title>tl-T3: 2.24, 97.64 %</title><circle cx="159.9" cy="108.1" r="5" fill="#4a8a5a" stroke="#4a8a5a" stroke-width="1.5"/><text x="166.9" y="102.1" fill="#2b2f36">tl-T3</text></g>
 <circle cx="504" cy="42" r="5" fill="#3f5f86"/><text x="514" y="46" fill="#2b2f36">I1</text>
+<circle cx="504" cy="58" r="5" fill="#2a8a8a"/><text x="514" y="62" fill="#2b2f36">I2</text>
 <circle cx="504" cy="74" r="5" fill="#7a4fa0"/><text x="514" y="78" fill="#2b2f36">I3</text>
 <circle cx="504" cy="90" r="5" fill="#a03f5a"/><text x="514" y="94" fill="#2b2f36">I4</text>
 <circle cx="504" cy="106" r="5" fill="#b5651d"/><text x="514" y="110" fill="#2b2f36">I6</text>

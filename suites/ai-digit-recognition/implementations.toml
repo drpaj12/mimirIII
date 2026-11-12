@@ -7,7 +7,7 @@
 
 [results]
 suite = "ai-digit-recognition"
-files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl", "bnn-vtr.jsonl", "bnn-lpm.jsonl", "fixed-vtr.jsonl", "odin-sim.jsonl"]
+files = ["rtl.jsonl", "vtr.jsonl", "lpm.jsonl", "lut-vtr.jsonl", "lut-lpm.jsonl", "bnn-vtr.jsonl", "bnn-lpm.jsonl", "fixed-vtr.jsonl", "odin-sim.jsonl", "i2-rtl.jsonl", "i2-vtr.jsonl", "i2-lpm.jsonl"]
 
 # Tool provenance of every row of the files above (docs/RESULTS.md, header paragraph).
 [tools]
@@ -247,3 +247,63 @@ model_kind = "reference network, bit-exact"
 acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md); weights from the pinned uss-tpu transmission file, read at build time"
 design_source = "uss-tpu"
 rtl_sha256 = "mnist_top.v=2be612764add9ac6 (first 16 hex digits of sha256, tools/gen_lenet.py output)"
+
+[[design]]
+id = "i2-pico-fm"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: PicoRV32"
+setting = "picorv32, ENABLE_FAST_MUL (single-cycle multiplier), rv32im, C int8 LeNet-5"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "picorv32"
+rtl_sha256 = "mnist_top_pico.v=d49d19afbe0e9eba i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=9bf57e4c643c57c9 (first 16 hex digits of sha256; the core is read by path from the pin)"
+
+[[design]]
+id = "i2-pico-m"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: PicoRV32"
+setting = "picorv32, ENABLE_MUL (multi-cycle multiplier), rv32im, C int8 LeNet-5"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "picorv32"
+rtl_sha256 = "mnist_top_pico.v=d49d19afbe0e9eba i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=9bf57e4c643c57c9 (first 16 hex digits of sha256; the core is read by path from the pin)"
+
+[[design]]
+id = "i2-pico-i-tab"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: PicoRV32"
+setting = "picorv32, no multiplier, rv32i, quarter-square table for 8x8 products"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "picorv32"
+rtl_sha256 = "mnist_top_pico.v=d49d19afbe0e9eba i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=7a584e4ee82c5a8a (first 16 hex digits of sha256; the core is read by path from the pin)"
+
+[[design]]
+id = "i2-pico-i-gcc"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: PicoRV32"
+setting = "picorv32, no multiplier, rv32i, libgcc __mulsi3"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "picorv32"
+rtl_sha256 = "mnist_top_pico.v=d49d19afbe0e9eba i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=73108b5c68dafc4c (first 16 hex digits of sha256; the core is read by path from the pin)"
+
+[[design]]
+id = "i2-brisc-i-tab"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: BRISC-V mcu (Arduino-on-RISC-V, MIT)"
+setting = "BRISC-V mcu core (RV32I, no M), quarter-square table for 8x8 products"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "brisc-v-mcu"
+rtl_sha256 = "mnist_top_brisc.v=ad4885b7b6744fad i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=7a584e4ee82c5a8a (first 16 hex digits of sha256; the core is read by path from the pin)"
+
+[[design]]
+id = "i2-brisc-i-gcc"
+impl_id = "I2"
+arch_name = "Soft CPU running the C int8 LeNet-5: BRISC-V mcu (Arduino-on-RISC-V, MIT)"
+setting = "BRISC-V mcu core (RV32I, no M), libgcc __mulsi3"
+model_kind = "reference network, bit-exact"
+acc_ref = "golden: numpy int8 LeNet-5 (docs/GOLDEN.md)"
+design_source = "brisc-v-mcu"
+rtl_sha256 = "mnist_top_brisc.v=ad4885b7b6744fad i2_mem.v=3421044f3518fc03 i2_mmio.v=13abd553175988b8 i2_rom.hex=73108b5c68dafc4c (first 16 hex digits of sha256; the core is read by path from the pin)"

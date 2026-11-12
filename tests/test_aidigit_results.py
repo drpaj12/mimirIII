@@ -31,7 +31,7 @@ class Load(unittest.TestCase):
         self.by = {(r["design"], r["target"]): r for r in self.data.rows}
 
     def test_row_counts_per_implementation(self) -> None:
-        want = {"I1": 9, "I3": 12, "I4": 9, "I6": 10, "I7": 15, "I8": 9}
+        want = {"I1": 9, "I2": 12, "I3": 12, "I4": 9, "I6": 10, "I7": 15, "I8": 9}
         self.assertEqual(dict(self.data.per_impl()), want)
 
     def test_i1_n8_vtr_values_are_the_source_values(self) -> None:
@@ -45,6 +45,21 @@ class Load(unittest.TestCase):
         self.assertEqual(r["model_kind"], "reference network, bit-exact")
         self.assertEqual(r["odin3_commit"], "59349797")
         self.assertEqual(r["design_source_commit"], "8e85de4592fc7df6fa264c06ff9ff0891536e497")
+
+    def test_i2_pico_fm_values_and_tiers(self) -> None:
+        r = self.by[("i2-pico-fm", "vtr-k6")]
+        self.assertEqual((r["area_lut"], r["area_clb"], r["area_mult36"]), (5567, 448, 0))
+        self.assertEqual((r["acc_n"], r["acc_label_correct"], r["acc_tier"]), (10000, 9874, "full"))
+        self.assertEqual(r["model_kind"], "reference network, bit-exact")
+        self.assertEqual(r["speed_ii_cycles"], 5667193)
+        # the two settings with no multiplier and no full-tier run report the quick tier
+        self.assertEqual(self.by[("i2-pico-i-gcc", "vtr-k6")]["acc_tier"], "quick")
+
+    def test_i2_pico_m_has_no_area_and_says_why(self) -> None:
+        r = self.by[("i2-pico-m", "vtr-k6")]
+        self.assertIsNone(r["area_lut"])
+        nulls = {(d, t, f): why for d, t, f, why in self.data.nulls}
+        self.assertIn("odin3-flow failed", nulls[("i2-pico-m", "vtr-k6", "area_lut")])
 
     def test_grid_columns_and_clb_use_of_i1_n8(self) -> None:
         r = self.by[("i1-tpu-n8", "vtr-k6")]
@@ -148,11 +163,11 @@ class Import(unittest.TestCase):
     def test_import_is_idempotent_and_replaces(self) -> None:
         store, d = _store()
         data = aidigit.load(SUITE)
-        self.assertEqual(aidigit.write(store, data), (64, len(data.nulls)))
+        self.assertEqual(aidigit.write(store, data), (76, len(data.nulls)))
         first = aidigit.read_rows(store.db)
         aidigit.write(store, data)
         self.assertEqual(aidigit.read_rows(store.db), first)
-        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 64)
+        self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 76)
         aidigit.write(store, aidigit.Imported())  # an emptied input empties the suite's rows
         self.assertEqual(store.db.execute("SELECT COUNT(*) FROM aidigit_null").fetchone()[0], 0)
         store.close()
@@ -161,7 +176,7 @@ class Import(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         self.assertEqual(main(["import-aidigit", "--db", str(d / "m.db")]), 0)
         db = sqlite3.connect(d / "m.db")
-        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 64)
+        self.assertEqual(db.execute("SELECT COUNT(*) FROM aidigit_result").fetchone()[0], 76)
         db.close()
 
 
@@ -201,14 +216,35 @@ class MigrationV8(unittest.TestCase):
         db.close()
         ro = Store(d / "x.db", readonly=True)
         old = aidigit.read_rows(ro.db)
-        self.assertEqual(len(old), 64)
+        self.assertEqual(len(old), 76)
         self.assertNotIn("grid_w", old[0])
         ro.close()
         s = Store(d / "x.db")
         new = aidigit.read_rows(s.db)
-        self.assertEqual(len(new), 64)
+        self.assertEqual(len(new), 76)
         self.assertIsNone(new[0]["grid_w"])
         self.assertEqual({k: v for k, v in new[0].items() if k in old[0]}, old[0])
+        s.close()
+
+
+class MigrationV9(unittest.TestCase):
+    def test_v9_store_opens_and_gains_the_odin_columns(self) -> None:
+        from mimir.schema import AIDIGIT_V10_COLUMNS
+
+        d = Path(tempfile.mkdtemp())
+        s = Store(d / "x.db")
+        aidigit.write(s, aidigit.load(SUITE))
+        s.close()
+        db = sqlite3.connect(d / "x.db")
+        for name, _ in AIDIGIT_V10_COLUMNS:
+            db.execute(f"ALTER TABLE aidigit_result DROP COLUMN {name}")
+        db.execute("UPDATE meta SET value='9' WHERE key='schema_version'")
+        db.commit()
+        db.close()
+        s = Store(d / "x.db")
+        rows = aidigit.read_rows(s.db)
+        self.assertEqual(len(rows), 76)
+        self.assertIn("odin_sim_status", rows[0])
         s.close()
 
 
@@ -251,7 +287,7 @@ class Table(unittest.TestCase):
 
     def test_csv_has_one_line_per_row_and_all_columns(self) -> None:
         lines = aidigittable.render_csv(self.rows, self.nulls).splitlines()
-        self.assertEqual(len(lines), 65)
+        self.assertEqual(len(lines), 77)
         self.assertEqual(lines[0].split(",")[:3], ["suite", "design", "target"])
         self.assertTrue(lines[0].endswith(",null_reasons"))
         self.assertIn("area_alm: quartus not run here", "\n".join(lines))
@@ -355,7 +391,7 @@ class FixedAndOdin(unittest.TestCase):
         self.assertIn("unsupported cell", nulls[("i3-df-p2", "vtr-k6", "odin_sim_n")])
         s = Store(d / "s.db")
         aidigit.write(s, data)
-        self.assertEqual(len(aidigit.read_rows(s.db)), 45)
+        self.assertEqual(len(aidigit.read_rows(s.db)), 57)
         s.close()
 
     def test_datasheet_per_design(self) -> None:
@@ -365,7 +401,7 @@ class FixedAndOdin(unittest.TestCase):
         rows, nulls = aidigit.read_rows(s.db), aidigit.read_nulls(s.db)
         s.close()
         sheets = aidigitsheet.write_all(rows, nulls, d / "docs")
-        self.assertEqual(len(sheets), 22)
+        self.assertEqual(len(sheets), 28)
         text = sheets[d / "docs" / "datasheets" / "i1-tpu-n8.md"]
         self.assertIn("# Datasheet: i1-tpu-n8", text)
         self.assertIn("3c9a4d23b2", text)

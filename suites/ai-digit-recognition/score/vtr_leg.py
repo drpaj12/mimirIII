@@ -96,6 +96,7 @@ def main():
         a.src = b["sources"]
         a.defs = a.defs + b["flow_define_args"]
         a.inc = a.inc + b["incdirs"]
+        a.top = b.get("top", a.top)
     if not a.src:
         ap.error("give --src or --build")
     work = Path(a.work).resolve() / a.design / "vtr"
