@@ -74,17 +74,17 @@ class Store:
         return None if row is None else str(row[0])
 
     def _open_version(self, readonly: bool) -> None:
-        """Create a new store, migrate a v1 to v8 store, accept v9, refuse any other version."""
+        """Create a new store, migrate a v1 to v9 store, accept v10, refuse any other version."""
         version = self._stored_version()
         if version == str(SCHEMA_VERSION):
             if not readonly:
                 self._ensure_v5_columns()
             return
-        if version not in (None, "1", "2", "3", "4", "5", "6", "7", "8"):
+        if version not in (None, "1", "2", "3", "4", "5", "6", "7", "8", "9"):
             raise ValueError(f"{self.path}: schema version {version} is not {SCHEMA_VERSION}")
         if readonly:
-            if version in ("4", "5", "6", "7", "8"):
-                return  # a version 4 to 8 store reads as it is: no write, no migration
+            if version in ("4", "5", "6", "7", "8", "9"):
+                return  # a version 4 to 9 store reads as it is: no write, no migration
             raise ValueError(f"{self.path}: schema version {version} cannot be opened read only")
         self._upgrade(new=version is None)
 

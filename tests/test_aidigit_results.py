@@ -227,6 +227,27 @@ class MigrationV8(unittest.TestCase):
         s.close()
 
 
+class MigrationV9(unittest.TestCase):
+    def test_v9_store_opens_and_gains_the_odin_columns(self) -> None:
+        from mimir.store import AIDIGIT_V10_COLUMNS
+
+        d = Path(tempfile.mkdtemp())
+        s = Store(d / "x.db")
+        aidigit.write(s, aidigit.load(SUITE))
+        s.close()
+        db = sqlite3.connect(d / "x.db")
+        for name, _ in AIDIGIT_V10_COLUMNS:
+            db.execute(f"ALTER TABLE aidigit_result DROP COLUMN {name}")
+        db.execute("UPDATE meta SET value='9' WHERE key='schema_version'")
+        db.commit()
+        db.close()
+        s = Store(d / "x.db")
+        rows = aidigit.read_rows(s.db)
+        self.assertEqual(len(rows), 76)
+        self.assertIn("odin_sim_status", rows[0])
+        s.close()
+
+
 class Table(unittest.TestCase):
     def setUp(self) -> None:
         self.store, _ = _store()
