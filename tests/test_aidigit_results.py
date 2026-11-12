@@ -229,7 +229,7 @@ class MigrationV8(unittest.TestCase):
 
 class MigrationV9(unittest.TestCase):
     def test_v9_store_opens_and_gains_the_odin_columns(self) -> None:
-        from mimir.store import AIDIGIT_V10_COLUMNS
+        from mimir.schema import AIDIGIT_V10_COLUMNS
 
         d = Path(tempfile.mkdtemp())
         s = Store(d / "x.db")
