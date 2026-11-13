@@ -55,11 +55,11 @@ class Load(unittest.TestCase):
         # the two settings with no multiplier and no full-tier run report the quick tier
         self.assertEqual(self.by[("i2-pico-i-gcc", "vtr-k6")]["acc_tier"], "quick")
 
-    def test_i2_pico_m_has_no_area_and_says_why(self) -> None:
+    def test_i2_pico_m_row_comes_from_the_fixed_front_end(self) -> None:
         r = self.by[("i2-pico-m", "vtr-k6")]
-        self.assertIsNone(r["area_lut"])
-        nulls = {(d, t, f): why for d, t, f, why in self.data.nulls}
-        self.assertIn("odin3-flow failed", nulls[("i2-pico-m", "vtr-k6", "area_lut")])
+        self.assertEqual((r["area_lut"], r["area_clb"], r["area_mult36"]), (3355, 322, 0))
+        self.assertEqual((r["acc_n"], r["acc_label_correct"], r["acc_tier"]), (10000, 9874, "full"))
+        self.assertEqual(r["speed_ii_cycles"], 11904561)
 
     def test_grid_columns_and_clb_use_of_i1_n8(self) -> None:
         r = self.by[("i1-tpu-n8", "vtr-k6")]

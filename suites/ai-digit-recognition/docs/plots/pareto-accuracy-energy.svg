@@ -30,6 +30,7 @@
 <g><title>i2-pico-fm: 3,502, 98.74 %</title><circle cx="386.6" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="393.6" y="68.5" fill="#2b2f36">i2-pico-fm</text></g>
 <g><title>i2-pico-i-gcc: 15,320, 98.00 %</title><circle cx="432.2" cy="97.1" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="439.2" y="91.1" fill="#2b2f36">i2-pico-i-gcc</text></g>
 <g><title>i2-pico-i-tab: 9,274, 98.74 %</title><circle cx="416.7" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="423.7" y="68.5" fill="#2b2f36">i2-pico-i-tab</text></g>
+<g><title>i2-pico-m: 4,663, 98.74 %</title><circle cx="395.5" cy="74.5" r="5" fill="#ffffff" stroke="#2a8a8a" stroke-width="1.5"/><text x="402.5" y="68.5" fill="#2b2f36">i2-pico-m</text></g>
 <g><title>i3-df-p1: 110, 98.74 %</title><circle cx="279.9" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="286.9" y="68.5" fill="#2b2f36">i3-df-p1</text></g>
 <g><title>i3-df-p2: 54.2, 98.74 %</title><circle cx="258.1" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="265.1" y="68.5" fill="#2b2f36">i3-df-p2</text></g>
 <g><title>i3-df-p4: 30.7, 98.74 %</title><circle cx="240.5" cy="74.5" r="5" fill="#ffffff" stroke="#7a4fa0" stroke-width="1.5"/><text x="247.5" y="68.5" fill="#2b2f36">i3-df-p4</text></g>

@@ -18,11 +18,11 @@ One top module `mnist_top`: `clk`, `rst`, `start`, `in_valid`, `in_data[7:0]` (o
 
 | Quantity | Value |
 |---|---|
-| Tier / simulator | quick / verilator |
-| Images | 100 |
-| Top-1 vs MNIST labels | 98.00 % (98) |
-| Class match vs reference | 100 of 100 |
-| Score match vs reference | 100 of 100 |
+| Tier / simulator | full / verilator |
+| Images | 10,000 |
+| Top-1 vs MNIST labels | 98.74 % (9,874) |
+| Class match vs reference | 10,000 of 10,000 |
+| Score match vs reference | 10,000 of 10,000 |
 | Cycles per image | 11,904,561 |
 | Initialisation cycles (not in cycles per image) | 0 |
 
@@ -30,19 +30,17 @@ One top module `mnist_top`: `clk`, `rst`, `start`, `in_valid`, `in_data[7:0]` (o
 
 | Quantity | Value |
 |---|---|
-| Grid (with IO ring) | n/a |
-| Channel width W (routing and power) | n/a |
-| Minimum channel width | n/a |
-| LUT / FF / adder | n/a / n/a / n/a |
-| CLB (use of the grid) | n/a (n/a %) |
-| mult_36 / RAM blocks | n/a / n/a |
-| Wirelength | n/a |
-| Fmax (MHz) / critical path (ns) | n/a / n/a |
-| Latency per image (us) | n/a |
-| Power total / dynamic / static (mW) | n/a / n/a / n/a |
-| Energy per image (uJ) | n/a |
-
-Not measured: odin3-flow failed (exit 1); see flow.log.
+| Grid (with IO ring) | 32x32 |
+| Channel width W (routing and power) | 100 |
+| Minimum channel width | 74 |
+| LUT / FF / adder | 3,355 / 1,872 / 393 |
+| CLB (use of the grid) | 322 (48.8 %) |
+| mult_36 / RAM blocks | 0 / 20 |
+| Wirelength | 35,696 |
+| Fmax (MHz) / critical path (ns) | 159.0 / 6.291 |
+| Latency per image (us) | 74,894.2 |
+| Power total / dynamic / static (mW) | 62.3 / 44.6 / 17.6 |
+| Energy per image (uJ) | 4,662.914 |
 
 ## QoR: VTR k6, one fixed device (same grid and W for all)
 
@@ -53,18 +51,18 @@ Not run for this design.
 
 | Cell | Count |
 |---|---|
-| lpm_mult | n/a |
-| lpm_add_sub | n/a |
-| lpm_compare | n/a |
-| altsyncram | n/a |
-| scfifo | n/a |
-| netlist bytes | n/a |
+| lpm_mult | 0 |
+| lpm_add_sub | 40 |
+| lpm_compare | 92 |
+| altsyncram | 5 |
+| scfifo | 0 |
+| netlist bytes | 631,536 |
 
 ## Simulation status
 
 | Simulator | Result |
 |---|---|
-| Verilator, RTL | quick tier, 100 images, class match 100 |
+| Verilator, RTL | full tier, 10,000 images, class match 10,000 |
 | Odin III `sim_tb`, RTL | not run |
 
 ## Provenance
